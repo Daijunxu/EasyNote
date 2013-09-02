@@ -1,0 +1,43 @@
+#DOCUMENTS
+#BOOK
+1
+Head First Design Patterns
+Eric Freeman,Elisabeth Freeman
+A must read book if you want to learn design patterns! Very easy to read!
+1
+2005
+978-7-5641-0165-7
+1#Welcome to Design Patterns: an introduction	2#Keeping your Objects in the know: the Observer Pattern
+1341429512312
+1341429512312
+#ARTICLE
+2
+Flexible Mixture Model for Collaborative Filtering
+Luo Si,Rong Jin
+Required reading for IR course.
+Published in ICML 2003.
+1341429512312
+1341429512312
+#END_DOCUMENTS
+#TAGS
+1,Algorithm
+2,Design Pattern
+#END_TAGS
+#NOTES
+#BOOK
+1
+1
+1
+2
+Separating what changes from what stays the same.
+#END_TEXT
+1341429578719
+#ARTICLE
+2
+2
+1
+FMM extends existing partitioning/clustering algorithms for collaborative filtering by clustering both users and items together simultaneously without assuming that each user and item should only belong to a single cluster.
+This is the second line of note text.
+#END_TEXT
+1341429591369
+#END_NOTES

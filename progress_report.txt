@@ -1,0 +1,77 @@
+[Jul. 02] 1307: Checkpoint 1.
+[Jul. 03] 1565: Add article entity, add AbstractDocument and AbstractNote.
+[Jul. 03] 1877: Add cache component, specify document cache initialization.
+[Jul. 04] 2078: Implement note cache and tag cache.
+[Jul. 04] 2381: Modify cache component, add unit tests for cache component.
+[Jul. 05] 2463: Add createdTime and lastUpdatedTime to Document, change updateTime to createdTime in Note.
+[Jul. 05] 2547: Add AbstractNoteDAO.
+[Jul. 05] 2547: Change ID of Document, Chapter, Note and Tag from Integer to Long.
+[Jul. 05] 2619: Add maximum id for document, note and tag in the cache.
+[Jul. 05] 3020: Add UnitTestData; overwrite compareTo, equals, hashCode and toString for entity classes; add codes to generate max id and notes list.
+[Jul. 05] 3040: Move notes list building to Cache.
+[Jul. 06] 3161: Implement unit tests for document, note and tag caches.
+[Jul. 06] 3790: Add unit tests for entity classes.
+[Jul. 06] 3855: Add clear and reload method in cache components, rename getInstance() to get().
+[Jul. 07] 3967: Add tests for clear and reload in cache, add reloadCache method in all test classes.
+[Jul. 09] 4903: Implement AbstractNoteDAO and BookNoteDAO, add unit tests, add sets for tags' text and documents' title in caches.
+[Jul. 10] 5319: Add ArticleNoteDAO and its unit tests.
+[Jul. 10] 5477: Add methods to save cache data to disk.
+[Jul. 11] 5668: Add main panel and book panel, add Singleton pattern to NoteHome.
+[Jul. 12] 5807: Add ArticlePanel.
+[Jul. 13] 5950: Modify FindAllNotesByDocumentId method in DAO, add FindAllNotesByChapters method in DAO.
+[Jul. 13] 5986: Edit book panel: modify chapters list, add notes list.
+[Jul. 13] 6062: Add note information message box for notes.
+[Jul. 14] 6084: Add button panel in Book Panel.
+[Jul. 14] 6141: Refactor the GUI panels.
+[Jul. 14] 6254: Add JPanel to chapters list and notes list, add cell renderer for note list.
+[Jul. 14] 6255: Fix the margin problem between items in notes list.
+[Jul. 15] 6262: Modify tag display in note panel.
+[Jul. 15] 6779: Add popup menu for note panel, add EditNoteDialog and add classes for ViewNoteDialog.
+[Jul. 16] 7036: Change tagTextSet to tagTextMap, add findTagByText in DAO. Implement edit book note dialog.
+[Jul. 16] 7063: Add "#END_TEXT" marker in data file to allow multiple-line note texts.
+[Jul. 16] 7132: Add codes to update the note panel after editing a book note.
+[Jul. 17] 7130: Fix bugs when updating notes.
+[Jul. 17] 7083: Move temporary data from MainPanel to NoteHome.
+[Jul. 17] 7315: Implement new book note event and dialog.
+[Jul. 18] 7431: Implement delete book note event and dialog.
+[Jul. 18] 7450: Modify note popup menu strategy. Change title when open a document.
+[Jul. 18] 7354: Modify view note detail event and dialog, remove deprecated classes.
+[Jul. 19] 7657: Add methods for chapter operations in BookNoteDAO.
+[Jul. 19] 7740: Implement edit chapter event and dialog. Refactor methods in MainPanel and NoteHome.
+[Jul. 20] 7933: Implement new chapter event and dialog.
+[Jul. 20] 7986: Implement delete chapter event and dialog.
+[Jul. 20] 8022: Add popup menu for chapter panel.
+[Jul. 20] 8083: Remove button panel, modify menu bar, add specific menu bar for book.
+[Jul. 20] 8218: Add input validation for new/edit chapter and new/edit book note.
+[Jul. 20] 8426: Change documentTitleSet to documentTitleIdMap, modify openDocument dialog and event, change tagText and documentTitle in cache to be origin text, add to-do list.
+[Jul. 21] 8628: Change NoteHome to BookHome, add ArticleHome.
+[Jul. 21] 8771: Add methods to display article panel.
+[Jul. 22] 8779: Add clear temporary method when opening a new document.
+[Jul. 22] 9548: Add view, new, edit and delete article note events and dialogs. Add popup menu for article note panel.
+[Jul. 24] 10076: Implement edit book event and dialog.
+[Jul. 25] 10334: Implement view book event and dialog.
+[Jul. 25] 10760: Implement view article and edit article events and dialogs.
+[Jul. 25] 11014: Implement new article event and dialog.
+[Jul. 25] 11296: Implement new book event and dialog.
+[Jul. 25] 11525: Fix bugs when creating documents containing empty attributes. Implement delete book and delete article events and dialogs.
+[Jul. 26] 11854: Implement system preferences dialog and events to allow changing data file locations. Add codes to save system properties to Config.xml.
+[Jul. 26] 11886: Create new data file under the folder if user selects a folder.
+[Jul. 30] 12054: Allow choosing data file when data file has problem during program initialization.
+[Jul. 30] 12409: Implement search note event and dialog. Modify findAllNotesContainingText method in DAO component.
+[Jul. 31] 12768: Implement SearchResultNoteListCellRenderer. Redesign the note search dialog. Add method in DAO component to support search in different scopes.
+[Jul. 31] 12795: Fix bugs for single document searching. Remove punctuation during searching.
+[Aug. 01] 12893: Add clear button in search note dialog. Add mouse listener for two labels in search note dialog. Modify all dialogs' sizes to be unchangeable.
+[Aug. 01] 13182: Add mouse listener and view search note dialog for search note panel.
+[Aug. 01] 13276: Add popup menu for results in search note dialog.
+[Aug. 01] 13465: Add About dialog. Add icon for all dialogs.
+[Aug. 01] 13520: Change main panel's size. Modify input verification for tags.
+[Aug. 01] 13541: Modify dialog sizes to fix bugs of long words in note texts.
+[Aug. 02] 13859: Add export book event and dialog. Add getNotesCount in Document.
+[Aug. 02] 14094: Add export article event and dialog.
+[Aug. 02] 14127: Update last updated time for document when creating, modifying or deleting note/chapter in the document.
+[Aug. 03] 14900: Add sound effect to the system.
+[Aug. 03] 15070: Add notification for menu items when conditions are not satisfied.
+[Aug. 03] 15115: Add sound theme option in preference dialog. Add outlook sound theme.
+[Aug. 03] 15158: Add setting in configuration for sound theme. Remove soundTheme in MainPanel.
+[Aug. 06] 15413: Add some documentations in the code.
+[Aug. 20] 15473: Add saveAll in the menu, modify all note list cell renderer.
