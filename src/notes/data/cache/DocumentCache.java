@@ -1,7 +1,7 @@
 /**
  *
  */
-package notes.data.cache.document;
+package notes.data.cache;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

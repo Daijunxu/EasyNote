@@ -1,7 +1,7 @@
 /**
  *
  */
-package notes.data.cache.tag;
+package notes.data.cache;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -55,7 +55,7 @@ public class TagCacheUnitTests {
     }
 
     /**
-     * Test method for {@link notes.data.cache.tag.TagCache#clear()}.
+     * Test method for {@link notes.data.cache.TagCache#clear()}.
      */
     @Test
     public void testClear() {
@@ -68,7 +68,7 @@ public class TagCacheUnitTests {
     }
 
     /**
-     * Test method for {@link notes.data.cache.tag.TagCache#getMaxTagId()}.
+     * Test method for {@link notes.data.cache.TagCache#getMaxTagId()}.
      */
     @Test
     public void testGetMaxTagId() {
@@ -78,7 +78,7 @@ public class TagCacheUnitTests {
     }
 
     /**
-     * Test method for {@link notes.data.cache.tag.TagCache#getTagIdMap()}.
+     * Test method for {@link notes.data.cache.TagCache#getTagIdMap()}.
      */
     @Test
     public void testGetTagMap() {
@@ -93,7 +93,7 @@ public class TagCacheUnitTests {
     }
 
     /**
-     * Test method for {@link notes.data.cache.tag.TagCache#getTagTextMap()}.
+     * Test method for {@link notes.data.cache.TagCache#getTagTextMap()}.
      */
     @Test
     public void testGetTagTextSet() {

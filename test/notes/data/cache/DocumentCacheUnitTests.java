@@ -1,7 +1,7 @@
 /**
  *
  */
-package notes.data.cache.document;
+package notes.data.cache;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -55,7 +55,7 @@ public class DocumentCacheUnitTests {
     }
 
     /**
-     * Test method for {@link notes.data.cache.document.DocumentCache#clear()}.
+     * Test method for {@link notes.data.cache.DocumentCache#clear()}.
      */
     @Test
     public void testClear() {
@@ -68,7 +68,7 @@ public class DocumentCacheUnitTests {
     }
 
     /**
-     * Test method for {@link notes.data.cache.document.DocumentCache#getDocumentMap()}.
+     * Test method for {@link notes.data.cache.DocumentCache#getDocumentMap()}.
      */
     @Test
     public void testGetDocumentMap() {
@@ -83,7 +83,7 @@ public class DocumentCacheUnitTests {
     }
 
     /**
-     * Test method for {@link notes.data.cache.document.DocumentCache#getDocumentTitleIdMap()}.
+     * Test method for {@link notes.data.cache.DocumentCache#getDocumentTitleIdMap()}.
      */
     @Test
     public void testGetDocumentTitleSet() {
@@ -96,7 +96,7 @@ public class DocumentCacheUnitTests {
     }
 
     /**
-     * Test method for {@link notes.data.cache.document.DocumentCache#getMaxDocumentId()}.
+     * Test method for {@link notes.data.cache.DocumentCache#getMaxDocumentId()}.
      */
     @Test
     public void testGetMaxDocumentId() {

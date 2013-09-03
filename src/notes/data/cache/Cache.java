@@ -14,9 +14,6 @@ import notes.article.ArticleNote;
 import notes.book.Book;
 import notes.book.BookNote;
 import notes.book.Chapter;
-import notes.data.cache.document.DocumentCache;
-import notes.data.cache.note.NoteCache;
-import notes.data.cache.tag.TagCache;
 import notes.entity.Note;
 
 /**

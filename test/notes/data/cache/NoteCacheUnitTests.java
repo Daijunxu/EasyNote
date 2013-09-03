@@ -1,7 +1,7 @@
 /**
  *
  */
-package notes.data.cache.note;
+package notes.data.cache;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -55,7 +55,7 @@ public class NoteCacheUnitTests {
     }
 
     /**
-     * Test method for {@link notes.data.cache.note.NoteCache#clear()}.
+     * Test method for {@link notes.data.cache.NoteCache#clear()}.
      */
     @Test
     public void testClear() {
@@ -67,7 +67,7 @@ public class NoteCacheUnitTests {
     }
 
     /**
-     * Test method for {@link notes.data.cache.note.NoteCache#getMaxNoteId()}.
+     * Test method for {@link notes.data.cache.NoteCache#getMaxNoteId()}.
      */
     @Test
     public void testGetMaxNoteId() {
@@ -77,7 +77,7 @@ public class NoteCacheUnitTests {
     }
 
     /**
-     * Test method for {@link notes.data.cache.note.NoteCache#getNoteMap()}.
+     * Test method for {@link notes.data.cache.NoteCache#getNoteMap()}.
      */
     @Test
     public void testGetNoteMap() {
