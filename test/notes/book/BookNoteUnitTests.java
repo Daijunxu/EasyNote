@@ -1,7 +1,7 @@
 /**
  *
  */
-package notes.book.entity;
+package notes.book;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -37,7 +37,7 @@ public class BookNoteUnitTests {
      */
     @BeforeClass
     public static void initializeCache() throws Exception {
-        Property.get().setDataLocation("./resources/testData/reading_notes.data");
+        Property.get().setDataLocation("./test/reading_notes.data");
         Cache.get();
     }
 
@@ -52,7 +52,7 @@ public class BookNoteUnitTests {
     }
 
     /**
-     * Test method for {@link notes.book.entity.BookNote#equals(java.lang.Object)}.
+     * Test method for {@link notes.book.BookNote#equals(java.lang.Object)}.
      */
     @Test
     public void testEquals() {
@@ -65,7 +65,7 @@ public class BookNoteUnitTests {
     }
 
     /**
-     * Test method for {@link notes.book.entity.BookNote#hashCode()}.
+     * Test method for {@link notes.book.BookNote#hashCode()}.
      */
     @Test
     public void testHashCode() {
@@ -75,7 +75,7 @@ public class BookNoteUnitTests {
     }
 
     /**
-     * Test method for {@link notes.book.entity.BookNote#toString()}.
+     * Test method for {@link notes.book.BookNote#toString()}.
      */
     @Test
     public void testToString() {

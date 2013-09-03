@@ -1,7 +1,7 @@
 /**
  *
  */
-package notes.article.entity;
+package notes.book;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -17,12 +17,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * Unit tests for the {@code Article}.
+ * Unit tests for the {@code Book}.
  *
  * @author Rui Du
  * @version 1.0
  */
-public class ArticleUnitTests {
+public class BookUnitTests {
 
     /**
      * Data required for unit tests. NOTE: A new instance should be created for each unit test.
@@ -37,7 +37,7 @@ public class ArticleUnitTests {
      */
     @BeforeClass
     public static void initializeCache() throws Exception {
-        Property.get().setDataLocation("./resources/testData/reading_notes.data");
+        Property.get().setDataLocation("./test/reading_notes.data");
         Cache.get();
     }
 
@@ -52,46 +52,47 @@ public class ArticleUnitTests {
     }
 
     /**
-     * Test method for {@link notes.article.entity.Article#equals(java.lang.Object)}.
+     * Test method for {@link notes.book.Book#equals(java.lang.Object)}.
      */
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
-        Article article = (Article) (testData.documentMap.get(2L));
-        assertTrue(article.equals(Cache.get().getDocumentCache().getDocumentMap().get(2L)));
-        assertFalse(article.equals(new Article()));
-        assertFalse(article.equals(null));
-        assertFalse(article.equals(new Object()));
+        Book book = (Book) (testData.documentMap.get(1L));
+        assertTrue(book.equals(Cache.get().getDocumentCache().getDocumentMap().get(1L)));
+        assertFalse(book.equals(new Book()));
+        assertFalse(book.equals(null));
+        assertFalse(book.equals(new Object()));
     }
 
     /**
-     * Test method for {@link notes.article.entity.Article#getNotesCount()}.
+     * Test method for {@link notes.book.Book#getNotesCount()}.
      */
     @Test
     public void testGetNotesCount() {
-        assertEquals(1, Cache.get().getDocumentCache().getDocumentMap().get(2L).getNotesCount());
+        assertEquals(1, Cache.get().getDocumentCache().getDocumentMap().get(1L).getNotesCount());
     }
 
     /**
-     * Test method for {@link notes.article.entity.Article#hashCode()}.
+     * Test method for {@link notes.book.Book#hashCode()}.
      */
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        assertEquals(testData.documentMap.get(2L).hashCode(), Cache.get().getDocumentCache()
-                .getDocumentMap().get(2L).hashCode());
+        assertEquals(testData.documentMap.get(1L).hashCode(), Cache.get().getDocumentCache()
+                .getDocumentMap().get(1L).hashCode());
     }
 
     /**
-     * Test method for {@link notes.article.entity.Article#toString()}.
+     * Test method for {@link notes.book.Book#toString()}.
      */
     @Test
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
-        Article testArticle = (Article) (testData.documentMap.get(2L));
-        Article cachedArticle = (Article) (Cache.get().getDocumentCache().getDocumentMap().get(2L));
-        assertEquals(StringUtils.substringAfter(testArticle.toString(), "["),
-                StringUtils.substringAfter(cachedArticle.toString(), "["));
+        Book testBook = (Book) (testData.documentMap.get(1L));
+        Book cachedBook = (Book) (Cache.get().getDocumentCache().getDocumentMap().get(1L));
+        assertEquals(StringUtils.substringBetween(testBook.toString(), "[", "chapterMap"),
+                StringUtils.substringBetween(cachedBook.toString(), "[", "chapterMap"));
+        assertEquals(StringUtils.substringAfter(testBook.toString(), "createdTime"),
+                StringUtils.substringAfter(cachedBook.toString(), "createdTime"));
     }
-
 }

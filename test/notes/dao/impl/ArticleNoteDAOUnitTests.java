@@ -1,7 +1,7 @@
 /**
  *
  */
-package notes.article.dao;
+package notes.dao.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -13,8 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import notes.article.entity.Article;
-import notes.article.entity.ArticleNote;
+import notes.article.Article;
+import notes.article.ArticleNote;
+import notes.dao.impl.ArticleNoteDAO;
 import notes.data.cache.Cache;
 import notes.data.cache.CacheUnitTests;
 import notes.data.cache.Property;
@@ -45,7 +46,7 @@ public class ArticleNoteDAOUnitTests {
      */
     @BeforeClass
     public static void initializeCache() throws Exception {
-        Property.get().setDataLocation("./resources/testData/reading_notes.data");
+        Property.get().setDataLocation("./test/reading_notes.data");
         Cache.get();
     }
 
@@ -66,7 +67,7 @@ public class ArticleNoteDAOUnitTests {
 
     /**
      * Test method for
-     * {@link notes.article.dao.ArticleNoteDAO#deleteDocument(notes.entity.Document)}.
+     * {@link notes.dao.impl.ArticleNoteDAO#deleteDocument(notes.entity.Document)}.
      */
     @Test
     public void testDeleteDocument() {
@@ -86,7 +87,7 @@ public class ArticleNoteDAOUnitTests {
     }
 
     /**
-     * Test method for {@link notes.article.dao.ArticleNoteDAO#deleteNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.ArticleNoteDAO#deleteNote(notes.entity.Note)}.
      */
     @Test
     public void testDeleteNote() {
@@ -104,7 +105,7 @@ public class ArticleNoteDAOUnitTests {
 
     /**
      * Test method for
-     * {@link notes.article.dao.ArticleNoteDAO#findAllNotesByDocumentId(java.lang.Long)}.
+     * {@link notes.dao.impl.ArticleNoteDAO#findAllNotesByDocumentId(java.lang.Long)}.
      */
     @Test
     public void testFindAllNotesByDocumentId() {
@@ -117,7 +118,7 @@ public class ArticleNoteDAOUnitTests {
     }
 
     /**
-     * Test method for {@link notes.article.dao.ArticleNoteDAO#mergeDocument(notes.entity.Document)}
+     * Test method for {@link notes.dao.impl.ArticleNoteDAO#mergeDocument(notes.entity.Document)}
      * .
      */
     @Test
@@ -147,7 +148,7 @@ public class ArticleNoteDAOUnitTests {
     }
 
     /**
-     * Test method for {@link notes.article.dao.ArticleNoteDAO#mergeNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.ArticleNoteDAO#mergeNote(notes.entity.Note)}.
      */
     @Test
     public void testMergeNote() {
@@ -174,7 +175,7 @@ public class ArticleNoteDAOUnitTests {
     }
 
     /**
-     * Test method for {@link notes.article.dao.ArticleNoteDAO#saveDocument(notes.entity.Document)}.
+     * Test method for {@link notes.dao.impl.ArticleNoteDAO#saveDocument(notes.entity.Document)}.
      */
     @Test
     public void testSaveDocument() {
@@ -197,7 +198,7 @@ public class ArticleNoteDAOUnitTests {
     }
 
     /**
-     * Test method for {@link notes.article.dao.ArticleNoteDAO#saveNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.ArticleNoteDAO#saveNote(notes.entity.Note)}.
      */
     @Test
     public void testSaveNote() {

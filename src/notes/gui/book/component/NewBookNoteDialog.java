@@ -26,9 +26,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import notes.bean.BookHome;
-import notes.book.dao.BookNoteDAO;
-import notes.book.entity.BookNote;
-import notes.book.entity.Chapter;
+import notes.dao.impl.BookNoteDAO;
+import notes.book.BookNote;
+import notes.book.Chapter;
 import notes.data.cache.Property;
 import notes.entity.Tag;
 import notes.gui.main.component.MainPanel;

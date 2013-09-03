@@ -26,8 +26,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import notes.bean.BookHome;
-import notes.book.dao.BookNoteDAO;
-import notes.book.entity.Book;
+import notes.dao.impl.BookNoteDAO;
+import notes.book.Book;
 import notes.data.cache.Property;
 import notes.gui.book.verifier.EditionInputVerifier;
 import notes.gui.book.verifier.ISBNInputVerifier;

@@ -3,22 +3,22 @@
  */
 package notes.dao.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import notes.article.entity.Article;
-import notes.book.entity.Book;
-import notes.book.entity.Chapter;
+import notes.article.Article;
+import notes.book.Book;
+import notes.book.Chapter;
 import notes.dao.NoteDAO;
 import notes.dao.TagException;
 import notes.data.cache.Cache;
 import notes.entity.Document;
 import notes.entity.Note;
 import notes.entity.Tag;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * An abstract class implementing basic members and methods of a NoteDAO.

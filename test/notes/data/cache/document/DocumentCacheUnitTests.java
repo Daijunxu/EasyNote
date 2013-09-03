@@ -40,7 +40,7 @@ public class DocumentCacheUnitTests {
      */
     @BeforeClass
     public static void initializeCache() throws Exception {
-        Property.get().setDataLocation("./resources/testData/reading_notes.data");
+        Property.get().setDataLocation("./test/reading_notes.data");
         Cache.get();
     }
 
@@ -83,7 +83,7 @@ public class DocumentCacheUnitTests {
     }
 
     /**
-     * Test method for {@link notes.data.cache.document.DocumentCache#getDocumentTitleSet()}.
+     * Test method for {@link notes.data.cache.document.DocumentCache#getDocumentTitleIdMap()}.
      */
     @Test
     public void testGetDocumentTitleSet() {

@@ -13,11 +13,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-import notes.article.entity.Article;
-import notes.article.entity.ArticleNote;
-import notes.book.entity.Book;
-import notes.book.entity.BookNote;
-import notes.book.entity.Chapter;
+import notes.article.Article;
+import notes.article.ArticleNote;
+import notes.book.Book;
+import notes.book.BookNote;
+import notes.book.Chapter;
 import notes.entity.Document;
 import notes.entity.Note;
 import notes.entity.Tag;
@@ -139,7 +139,7 @@ public class CacheUnitTests {
      */
     @BeforeClass
     public static void initializeCache() throws Exception {
-        Property.get().setDataLocation("./resources/testData/reading_notes.data");
+        Property.get().setDataLocation("./test/reading_notes.data");
         Cache.get();
     }
 

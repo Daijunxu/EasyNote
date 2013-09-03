@@ -16,7 +16,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 
 import notes.bean.BookHome;
-import notes.book.entity.BookNote;
+import notes.book.BookNote;
 import notes.entity.Note;
 
 /**

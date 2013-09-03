@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import notes.bean.BookHome;
-import notes.book.entity.Chapter;
+import notes.book.Chapter;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;

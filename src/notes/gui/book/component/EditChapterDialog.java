@@ -23,8 +23,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import notes.bean.BookHome;
-import notes.book.dao.BookNoteDAO;
-import notes.book.entity.Chapter;
+import notes.dao.impl.BookNoteDAO;
+import notes.book.Chapter;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.verifier.IdInputVerifier;

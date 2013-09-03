@@ -21,8 +21,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import notes.article.entity.Article;
-import notes.article.entity.ArticleNote;
+import notes.article.Article;
+import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;

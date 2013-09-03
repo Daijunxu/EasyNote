@@ -7,10 +7,10 @@ import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import notes.article.entity.ArticleNote;
+import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
-import notes.book.entity.BookNote;
+import notes.book.BookNote;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;

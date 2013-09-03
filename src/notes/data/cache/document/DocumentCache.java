@@ -13,9 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-import notes.article.entity.Article;
-import notes.book.entity.Book;
-import notes.book.entity.Chapter;
+import notes.article.Article;
+import notes.book.Book;
+import notes.book.Chapter;
 import notes.data.cache.Cache;
 import notes.data.cache.InvalidDataFormatException;
 import notes.entity.Document;

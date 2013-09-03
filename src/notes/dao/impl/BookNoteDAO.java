@@ -1,7 +1,7 @@
 /**
  *
  */
-package notes.book.dao;
+package notes.dao.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,12 +11,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import notes.book.entity.Book;
-import notes.book.entity.BookNote;
-import notes.book.entity.Chapter;
+import notes.book.Book;
+import notes.book.BookNote;
+import notes.book.Chapter;
 import notes.dao.DocumentException;
 import notes.dao.NoteException;
-import notes.dao.impl.AbstractNoteDAO;
 import notes.data.cache.Cache;
 import notes.entity.Document;
 import notes.entity.Note;

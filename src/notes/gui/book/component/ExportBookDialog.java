@@ -23,9 +23,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import notes.bean.BookHome;
-import notes.book.entity.Book;
-import notes.book.entity.BookNote;
-import notes.book.entity.Chapter;
+import notes.book.Book;
+import notes.book.BookNote;
+import notes.book.Chapter;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.PreferencesDialog;

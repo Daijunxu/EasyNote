@@ -1,4 +1,4 @@
-package notes.book.entity;
+package notes.book;
 
 import java.util.Date;
 import java.util.List;

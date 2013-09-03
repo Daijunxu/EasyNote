@@ -1,12 +1,13 @@
 /**
  *
  */
-package notes.article.entity;
+package notes.article;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import notes.article.ArticleNote;
 import notes.data.cache.Cache;
 import notes.data.cache.CacheUnitTests;
 import notes.data.cache.Property;
@@ -37,7 +38,7 @@ public class ArticleNoteUnitTests {
      */
     @BeforeClass
     public static void initializeCache() throws Exception {
-        Property.get().setDataLocation("./resources/testData/reading_notes.data");
+        Property.get().setDataLocation("./test/reading_notes.data");
         Cache.get();
     }
 
@@ -52,7 +53,7 @@ public class ArticleNoteUnitTests {
     }
 
     /**
-     * Test method for {@link notes.article.entity.ArticleNote#equals(java.lang.Object)}.
+     * Test method for {@link notes.article.ArticleNote#equals(java.lang.Object)}.
      */
     @Test
     public void testEquals() {
@@ -65,7 +66,7 @@ public class ArticleNoteUnitTests {
     }
 
     /**
-     * Test method for {@link notes.article.entity.ArticleNote#hashCode()}.
+     * Test method for {@link notes.article.ArticleNote#hashCode()}.
      */
     @Test
     public void testHashCode() {
@@ -75,7 +76,7 @@ public class ArticleNoteUnitTests {
     }
 
     /**
-     * Test method for {@link notes.article.entity.ArticleNote#toString()}.
+     * Test method for {@link notes.article.ArticleNote#toString()}.
      */
     @Test
     public void testToString() {

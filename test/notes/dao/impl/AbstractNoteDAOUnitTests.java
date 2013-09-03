@@ -11,7 +11,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import notes.book.dao.BookNoteDAO;
 import notes.dao.NoteDAO;
 import notes.data.cache.Cache;
 import notes.data.cache.CacheUnitTests;
@@ -45,7 +44,7 @@ public class AbstractNoteDAOUnitTests {
      */
     @BeforeClass
     public static void initializeCache() throws Exception {
-        Property.get().setDataLocation("./resources/testData/reading_notes.data");
+        Property.get().setDataLocation("./test/reading_notes.data");
         Cache.get();
     }
 

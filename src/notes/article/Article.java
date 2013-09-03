@@ -1,7 +1,7 @@
 /**
  *
  */
-package notes.article.entity;
+package notes.article;
 
 import java.util.Date;
 import java.util.List;

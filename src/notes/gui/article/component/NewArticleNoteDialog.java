@@ -25,8 +25,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import notes.article.dao.ArticleNoteDAO;
-import notes.article.entity.ArticleNote;
+import notes.dao.impl.ArticleNoteDAO;
+import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
 import notes.data.cache.Property;
 import notes.entity.Tag;

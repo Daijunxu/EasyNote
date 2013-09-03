@@ -3,14 +3,14 @@
  */
 package notes.bean;
 
+import notes.article.Article;
+import notes.article.ArticleNote;
+import notes.dao.impl.ArticleNoteDAO;
+import notes.entity.Document;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import notes.article.dao.ArticleNoteDAO;
-import notes.article.entity.Article;
-import notes.article.entity.ArticleNote;
-import notes.entity.Document;
 
 /**
  * The object that stores temporary data for the front end and provides access to DAO component.

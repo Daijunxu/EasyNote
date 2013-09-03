@@ -25,13 +25,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
-import notes.article.entity.Article;
-import notes.article.entity.ArticleNote;
+import notes.article.Article;
+import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
-import notes.book.entity.Book;
-import notes.book.entity.BookNote;
-import notes.book.entity.Chapter;
+import notes.book.Book;
+import notes.book.BookNote;
+import notes.book.Chapter;
 import notes.data.cache.Cache;
 import notes.data.cache.Property;
 import notes.gui.article.event.ArticleNoteListMouseListener;

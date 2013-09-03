@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import notes.article.entity.Article;
+import notes.article.Article;
 import notes.bean.ArticleHome;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;

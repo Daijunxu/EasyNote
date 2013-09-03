@@ -27,9 +27,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
-import notes.article.entity.Article;
+import notes.article.Article;
 import notes.bean.BookHome;
-import notes.book.entity.Book;
+import notes.book.Book;
 import notes.data.cache.Property;
 import notes.entity.Document;
 import notes.utils.SoundFactory;

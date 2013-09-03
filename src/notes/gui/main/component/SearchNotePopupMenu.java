@@ -9,12 +9,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import notes.article.entity.Article;
-import notes.article.entity.ArticleNote;
+import notes.article.Article;
+import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
-import notes.book.entity.Book;
-import notes.book.entity.BookNote;
+import notes.book.Book;
+import notes.book.BookNote;
 import notes.data.cache.Property;
 import notes.entity.Note;
 import notes.gui.main.event.ViewNoteActionListener;

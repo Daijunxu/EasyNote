@@ -1,7 +1,7 @@
 /**
  *
  */
-package notes.book.dao;
+package notes.dao.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -15,9 +15,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import notes.book.entity.Book;
-import notes.book.entity.BookNote;
-import notes.book.entity.Chapter;
+import notes.book.Book;
+import notes.book.BookNote;
+import notes.book.Chapter;
+import notes.dao.impl.BookNoteDAO;
 import notes.data.cache.Cache;
 import notes.data.cache.CacheUnitTests;
 import notes.data.cache.Property;
@@ -48,7 +49,7 @@ public class BookNoteDAOUnitTests {
      */
     @BeforeClass
     public static void initializeCache() throws Exception {
-        Property.get().setDataLocation("./resources/testData/reading_notes.data");
+        Property.get().setDataLocation("./test/reading_notes.data");
         Cache.get();
     }
 
@@ -69,7 +70,7 @@ public class BookNoteDAOUnitTests {
 
     /**
      * Test method for
-     * {@link notes.book.dao.BookNoteDAO#deleteChapter(notes.book.entity.Chapter, java.lang.Long)}.
+     * {@link notes.dao.impl.BookNoteDAO#deleteChapter(notes.book.Chapter, java.lang.Long)}.
      */
     @Test
     public void testDeleteChapter() {
@@ -86,7 +87,7 @@ public class BookNoteDAOUnitTests {
     }
 
     /**
-     * Test method for {@link notes.book.dao.BookNoteDAO#deleteDocument(notes.entity.Document)}.
+     * Test method for {@link notes.dao.impl.BookNoteDAO#deleteDocument(notes.entity.Document)}.
      */
     @Test
     public void testDeleteDocument() {
@@ -106,7 +107,7 @@ public class BookNoteDAOUnitTests {
     }
 
     /**
-     * Test method for {@link notes.book.dao.BookNoteDAO#deleteNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.BookNoteDAO#deleteNote(notes.entity.Note)}.
      */
     @Test
     public void testDeleteNote() {
@@ -124,7 +125,7 @@ public class BookNoteDAOUnitTests {
     }
 
     /**
-     * Test method for {@link notes.book.dao.BookNoteDAO#findAllNotesByChapters(java.lang.Long)}.
+     * Test method for {@link notes.dao.impl.BookNoteDAO#findAllNotesByChapters(java.lang.Long)}.
      */
     @Test
     public void testFindAllNotesByChapters() {
@@ -141,7 +142,7 @@ public class BookNoteDAOUnitTests {
     }
 
     /**
-     * Test method for {@link notes.book.dao.BookNoteDAO#findAllNotesByDocumentId(java.lang.Long)}.
+     * Test method for {@link notes.dao.impl.BookNoteDAO#findAllNotesByDocumentId(java.lang.Long)}.
      */
     @Test
     public void testFindAllNotesByDocumentId() {
@@ -155,7 +156,7 @@ public class BookNoteDAOUnitTests {
 
     /**
      * Test method for
-     * {@link notes.book.dao.BookNoteDAO#mergeChapter(notes.book.entity.Chapter, java.lang.Long)}.
+     * {@link notes.dao.impl.BookNoteDAO#mergeChapter(notes.book.Chapter, java.lang.Long)}.
      */
     @Test
     public void testMergeChapter() {
@@ -177,7 +178,7 @@ public class BookNoteDAOUnitTests {
     }
 
     /**
-     * Test method for {@link notes.book.dao.BookNoteDAO#mergeDocument(notes.entity.Document)}.
+     * Test method for {@link notes.dao.impl.BookNoteDAO#mergeDocument(notes.entity.Document)}.
      */
     @Test
     public void testMergeDocument() {
@@ -208,7 +209,7 @@ public class BookNoteDAOUnitTests {
     }
 
     /**
-     * Test method for {@link notes.book.dao.BookNoteDAO#mergeNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.BookNoteDAO#mergeNote(notes.entity.Note)}.
      */
     @Test
     public void testMergeNote() {
@@ -235,7 +236,7 @@ public class BookNoteDAOUnitTests {
 
     /**
      * Test method for
-     * {@link notes.book.dao.BookNoteDAO#saveChapter(notes.book.entity.Chapter, java.lang.Long)}.
+     * {@link notes.dao.impl.BookNoteDAO#saveChapter(notes.book.Chapter, java.lang.Long)}.
      */
     @Test
     public void testSaveChapter() {
@@ -252,7 +253,7 @@ public class BookNoteDAOUnitTests {
     }
 
     /**
-     * Test method for {@link notes.book.dao.BookNoteDAO#saveDocument(notes.entity.Document)}.
+     * Test method for {@link notes.dao.impl.BookNoteDAO#saveDocument(notes.entity.Document)}.
      */
     @Test
     public void testSaveDocument() {
@@ -282,7 +283,7 @@ public class BookNoteDAOUnitTests {
     }
 
     /**
-     * Test method for {@link notes.book.dao.BookNoteDAO#saveNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.BookNoteDAO#saveNote(notes.entity.Note)}.
      */
     @Test
     public void testSaveNote() {

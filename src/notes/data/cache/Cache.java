@@ -9,11 +9,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import notes.article.entity.Article;
-import notes.article.entity.ArticleNote;
-import notes.book.entity.Book;
-import notes.book.entity.BookNote;
-import notes.book.entity.Chapter;
+import notes.article.Article;
+import notes.article.ArticleNote;
+import notes.book.Book;
+import notes.book.BookNote;
+import notes.book.Chapter;
 import notes.data.cache.document.DocumentCache;
 import notes.data.cache.note.NoteCache;
 import notes.data.cache.tag.TagCache;

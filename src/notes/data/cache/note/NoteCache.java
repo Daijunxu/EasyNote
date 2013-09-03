@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import notes.article.entity.ArticleNote;
-import notes.book.entity.BookNote;
+import notes.article.ArticleNote;
+import notes.book.BookNote;
 import notes.dao.NoteException;
 import notes.data.cache.Cache;
 import notes.data.cache.InvalidDataFormatException;

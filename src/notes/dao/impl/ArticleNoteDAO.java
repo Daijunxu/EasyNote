@@ -1,7 +1,7 @@
 /**
  *
  */
-package notes.article.dao;
+package notes.dao.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,10 +9,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import notes.article.entity.Article;
-import notes.article.entity.ArticleNote;
+import notes.article.Article;
+import notes.article.ArticleNote;
 import notes.dao.NoteException;
-import notes.dao.impl.AbstractNoteDAO;
 import notes.data.cache.Cache;
 import notes.entity.Document;
 import notes.entity.Note;

@@ -3,17 +3,17 @@
  */
 package notes.bean;
 
+import notes.book.Book;
+import notes.book.BookNote;
+import notes.book.Chapter;
+import notes.dao.impl.BookNoteDAO;
+import notes.entity.Document;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import notes.book.dao.BookNoteDAO;
-import notes.book.entity.Book;
-import notes.book.entity.BookNote;
-import notes.book.entity.Chapter;
-import notes.entity.Document;
 
 /**
  * The object that stores temporary data for the front end and provides access to DAO component.
