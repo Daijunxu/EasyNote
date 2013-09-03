@@ -93,7 +93,6 @@ public class Article extends AbstractDocument {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public int getNotesCount() {
 		return notesList.size();
 	}

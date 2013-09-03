@@ -48,7 +48,6 @@ public class Tag implements Comparable<Tag> {
 	 * 
 	 * @see Comparable#compareTo(Object)
 	 */
-	@Override
 	public int compareTo(Tag other) {
 		return new CompareToBuilder().append(getTagId(), other.getTagId()).toComparison();
 	}
