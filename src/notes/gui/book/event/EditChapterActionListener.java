@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package notes.gui.book.event;
 
@@ -16,40 +16,39 @@ import notes.utils.SoundTheme;
 
 /**
  * Defines event listener of editing a chapter in a book.
- * 
+ *
  * @author Rui Du
  * @version 1.0
- * 
  */
 public class EditChapterActionListener implements ActionListener {
 
-	/**
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		try {
-			if (BookHome.get().getCurrentBook() == null) {
-				if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-					SoundFactory.playError();
-				}
-				JOptionPane.showMessageDialog(null, "No book is selected!", "Input error",
-						JOptionPane.ERROR_MESSAGE);
-			} else if (BookHome.get().getCurrentChapter() == null) {
-				if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-					SoundFactory.playError();
-				}
-				JOptionPane.showMessageDialog(null, "No chapter is selected!", "Input error",
-						JOptionPane.ERROR_MESSAGE);
-			} else {
-				if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-					SoundFactory.playPopup();
-				}
-				new EditChapterDialog();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    /**
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        try {
+            if (BookHome.get().getCurrentBook() == null) {
+                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+                    SoundFactory.playError();
+                }
+                JOptionPane.showMessageDialog(null, "No book is selected!", "Input error",
+                        JOptionPane.ERROR_MESSAGE);
+            } else if (BookHome.get().getCurrentChapter() == null) {
+                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+                    SoundFactory.playError();
+                }
+                JOptionPane.showMessageDialog(null, "No chapter is selected!", "Input error",
+                        JOptionPane.ERROR_MESSAGE);
+            } else {
+                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+                    SoundFactory.playPopup();
+                }
+                new EditChapterDialog();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

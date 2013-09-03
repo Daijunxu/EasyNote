@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package notes.gui.main.event;
 
@@ -14,25 +14,24 @@ import notes.utils.SoundTheme;
 
 /**
  * Defines event listener of viewing a note. Notes can belong to different types.
- * 
+ *
  * @author Rui Du
  * @version 1.0
- * 
  */
 public class ViewNoteActionListener implements ActionListener {
 
-	/**
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		try {
-			if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-				SoundFactory.playPopup();
-			}
-			new ViewNoteDialog(SearchNoteDialog.get().getSelectedResultNote());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    /**
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        try {
+            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+                SoundFactory.playPopup();
+            }
+            new ViewNoteDialog(SearchNoteDialog.get().getSelectedResultNote());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package notes.gui.main.event;
 
@@ -13,22 +13,21 @@ import notes.utils.SoundTheme;
 
 /**
  * The event listener for saving all changes.
- * 
+ *
  * @author Rui Du
  * @version 1.0
- * 
  */
 public class SaveAllActoinListener implements ActionListener {
 
-	/**
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-			SoundFactory.playUpdate();
-		}
-		Cache.get().saveAllCaches();
-		Property.get().saveProperty();
-	}
+    /**
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+            SoundFactory.playUpdate();
+        }
+        Cache.get().saveAllCaches();
+        Property.get().saveProperty();
+    }
 }

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package notes.gui.book.event;
 
@@ -13,26 +13,25 @@ import notes.utils.SoundTheme;
 
 /**
  * Defines event listener of creating a new book.
- * 
+ *
  * @author Rui Du
  * @version 1.0
- * 
  */
 public class NewBookActionListener implements ActionListener {
 
-	/**
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		try {
-			if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-				SoundFactory.playPopup();
-			}
-			new NewBookDialog();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    /**
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        try {
+            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+                SoundFactory.playPopup();
+            }
+            new NewBookDialog();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

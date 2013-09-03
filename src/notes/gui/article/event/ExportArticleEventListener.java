@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package notes.gui.article.event;
 
@@ -14,23 +14,22 @@ import notes.utils.SoundTheme;
 
 /**
  * The event listener for exporting current article.
- * 
+ *
  * @author Rui Du
  * @version 1.0
- * 
  */
 public class ExportArticleEventListener implements ActionListener {
 
-	/**
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		if (ArticleHome.get().getCurrentArticle() != null) {
-			if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-				SoundFactory.playPopup();
-			}
-			new ExportArticleDialog();
-		}
-	}
+    /**
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        if (ArticleHome.get().getCurrentArticle() != null) {
+            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+                SoundFactory.playPopup();
+            }
+            new ExportArticleDialog();
+        }
+    }
 }
