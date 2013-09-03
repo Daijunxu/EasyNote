@@ -55,6 +55,7 @@ public abstract class AbstractNote implements Note {
 	 * 
 	 * @see Comparable#compareTo(Object)
 	 */
+	@Override
 	public int compareTo(Note other) {
 		return new CompareToBuilder().append(getNoteId(), other.getNoteId()).toComparison();
 	}
@@ -62,6 +63,7 @@ public abstract class AbstractNote implements Note {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Date getCreatedTime() {
 		return createdTime;
 	}
@@ -76,6 +78,7 @@ public abstract class AbstractNote implements Note {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Long getNoteId() {
 		return noteId;
 	}
@@ -83,6 +86,7 @@ public abstract class AbstractNote implements Note {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getNoteText() {
 		return noteText;
 	}
@@ -90,6 +94,7 @@ public abstract class AbstractNote implements Note {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public List<Long> getTagIds() {
 		return tagIds;
 	}
@@ -97,6 +102,7 @@ public abstract class AbstractNote implements Note {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
 	}
@@ -111,6 +117,7 @@ public abstract class AbstractNote implements Note {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setNoteId(Long noteId) {
 		this.noteId = noteId;
 	}
@@ -118,6 +125,7 @@ public abstract class AbstractNote implements Note {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setNoteText(String noteText) {
 		this.noteText = noteText;
 	}
@@ -125,6 +133,7 @@ public abstract class AbstractNote implements Note {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setTagIds(List<Long> tagIds) {
 		this.tagIds = tagIds;
 	}

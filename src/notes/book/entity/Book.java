@@ -136,6 +136,7 @@ public class Book extends AbstractDocument {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public int getNotesCount() {
 		if (chaptersMap == null || chaptersMap.isEmpty()) {
 			return 0;

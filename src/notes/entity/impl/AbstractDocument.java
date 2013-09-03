@@ -60,6 +60,7 @@ public abstract class AbstractDocument implements Document {
 	 * 
 	 * @see Comparable#compareTo(Object)
 	 */
+	@Override
 	public int compareTo(Document other) {
 		return new CompareToBuilder().append(getDocumentId(), other.getDocumentId()).toComparison();
 	}
@@ -67,6 +68,7 @@ public abstract class AbstractDocument implements Document {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public List<String> getAuthorsList() {
 		return authorsList;
 	}
@@ -74,6 +76,7 @@ public abstract class AbstractDocument implements Document {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getComment() {
 		return comment;
 	}
@@ -81,6 +84,7 @@ public abstract class AbstractDocument implements Document {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Date getCreatedTime() {
 		return createdTime;
 	}
@@ -88,6 +92,7 @@ public abstract class AbstractDocument implements Document {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Long getDocumentId() {
 		return documentId;
 	}
@@ -95,6 +100,7 @@ public abstract class AbstractDocument implements Document {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getDocumentTitle() {
 		return documentTitle;
 	}
@@ -102,6 +108,7 @@ public abstract class AbstractDocument implements Document {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Date getLastUpdatedTime() {
 		return lastUpdatedTime;
 	}
@@ -109,6 +116,7 @@ public abstract class AbstractDocument implements Document {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setAuthorsList(final List<String> authorsList) {
 		this.authorsList = authorsList;
 	}
@@ -116,6 +124,7 @@ public abstract class AbstractDocument implements Document {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setComment(final String comment) {
 		this.comment = comment;
 	}
@@ -123,6 +132,7 @@ public abstract class AbstractDocument implements Document {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
 	}
@@ -130,6 +140,7 @@ public abstract class AbstractDocument implements Document {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setDocumentId(final Long documentId) {
 		this.documentId = documentId;
 	}
@@ -137,6 +148,7 @@ public abstract class AbstractDocument implements Document {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setDocumentTitle(final String documentTitle) {
 		this.documentTitle = documentTitle;
 	}
@@ -144,6 +156,7 @@ public abstract class AbstractDocument implements Document {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setLastUpdatedTime(Date lastUpdatedTime) {
 		this.lastUpdatedTime = lastUpdatedTime;
 	}
