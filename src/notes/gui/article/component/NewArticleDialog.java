@@ -29,7 +29,7 @@ import notes.article.Article;
 import notes.bean.ArticleHome;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
-import notes.utils.AuthorsStrListBuilder;
+import notes.utils.EntityStrListBuilder;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 
@@ -102,7 +102,7 @@ public class NewArticleDialog extends JDialog {
             // Create instance of the new article.
             Article newArticle = new Article();
             newArticle.setDocumentTitle(WordUtils.capitalize(documentTitleField.getText().trim()));
-            newArticle.setAuthorsList(AuthorsStrListBuilder.buildAuthorsStrList(authorField
+            newArticle.setAuthorsList(EntityStrListBuilder.buildAuthorsStrList(authorField
                     .getText()));
             if (commentField.getText() != null && commentField.getText().trim().equals("") == false) {
                 newArticle.setComment(commentField.getText().trim());

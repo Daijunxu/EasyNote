@@ -3,37 +3,21 @@
  */
 package notes.gui.article.component;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
-import notes.dao.impl.ArticleNoteDAO;
 import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
+import notes.dao.impl.ArticleNoteDAO;
 import notes.data.cache.Property;
 import notes.entity.Tag;
 import notes.gui.main.component.MainPanel;
+import notes.utils.EntityStrListBuilder;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
-import notes.utils.TagsStrListBuilder;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Defines the dialog and event listener for creating a article note.
@@ -50,7 +34,7 @@ public class NewArticleNoteDialog extends JDialog {
         public void actionPerformed(ActionEvent e) {
 
             // Input validation.
-            List<String> tagsStrList = TagsStrListBuilder.buildTagsStrList(tagsField.getText());
+            List<String> tagsStrList = EntityStrListBuilder.buildTagsStrList(tagsField.getText());
             if (tagsStrList.size() > 5) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();

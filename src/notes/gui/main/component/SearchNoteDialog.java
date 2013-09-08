@@ -3,11 +3,20 @@
  */
 package notes.gui.main.component;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import notes.article.Article;
+import notes.bean.BookHome;
+import notes.book.Book;
+import notes.dao.impl.BookNoteDAO;
+import notes.data.cache.Property;
+import notes.entity.Document;
+import notes.entity.Note;
+import notes.gui.main.event.SearchNoteListMouseListener;
+import notes.utils.EntityStrListBuilder;
+import notes.utils.SoundFactory;
+import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -16,32 +25,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-
-import notes.article.Article;
-import notes.bean.BookHome;
-import notes.dao.impl.BookNoteDAO;
-import notes.book.Book;
-import notes.data.cache.Property;
-import notes.entity.Document;
-import notes.entity.Note;
-import notes.gui.main.event.SearchNoteListMouseListener;
-import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
-import notes.utils.TagsStrListBuilder;
 
 /**
  * Defines the dialog and event listener for searching notes.
@@ -323,7 +306,7 @@ public class SearchNoteDialog extends JDialog {
 
     private void filterNotesByTagsAND() {
         BookNoteDAO dao = BookHome.get().getBookNoteDAO();
-        List<String> tagsList = TagsStrListBuilder.buildTagsStrList(tagsField.getText());
+        List<String> tagsList = EntityStrListBuilder.buildTagsStrList(tagsField.getText());
         if (tagsList.isEmpty()) {
             return;
         }
