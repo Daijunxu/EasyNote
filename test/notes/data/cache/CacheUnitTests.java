@@ -3,16 +3,7 @@
  */
 package notes.data.cache;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
-
+import core.EasyNoteUnitTestCase;
 import notes.article.Article;
 import notes.article.ArticleNote;
 import notes.book.Book;
@@ -21,10 +12,17 @@ import notes.book.Chapter;
 import notes.entity.Document;
 import notes.entity.Note;
 import notes.entity.Tag;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Unit tests for the {@code Cache}.
@@ -32,7 +30,7 @@ import org.junit.Test;
  * @author Rui Du
  * @version 1.0
  */
-public class CacheUnitTests {
+public class CacheUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Data required for unit tests. NOTE: A new instance should be created for each unit test.
@@ -130,27 +128,6 @@ public class CacheUnitTests {
             maxNoteId = 2L;
         }
 
-    }
-
-    /**
-     * Load the cache if it has not been initialized.
-     *
-     * @throws java.lang.Exception
-     */
-    @BeforeClass
-    public static void initializeCache() throws Exception {
-        Property.get().setDataLocation("./test/reading_notes.data");
-        Cache.get();
-    }
-
-    /**
-     * Reload the cache.
-     *
-     * @throws java.lang.Exception
-     */
-    @AfterClass
-    public static void reloadCache() throws Exception {
-        Cache.get().reload();
     }
 
     /**

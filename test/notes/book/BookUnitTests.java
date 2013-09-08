@@ -3,18 +3,15 @@
  */
 package notes.book;
 
+import core.EasyNoteUnitTestCase;
+import notes.data.cache.Cache;
+import notes.data.cache.CacheUnitTests;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import notes.data.cache.Cache;
-import notes.data.cache.CacheUnitTests;
-import notes.data.cache.Property;
-
-import org.apache.commons.lang3.StringUtils;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 /**
  * Unit tests for the {@code Book}.
@@ -22,33 +19,12 @@ import org.junit.Test;
  * @author Rui Du
  * @version 1.0
  */
-public class BookUnitTests {
+public class BookUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Data required for unit tests. NOTE: A new instance should be created for each unit test.
      */
     public static class UnitTestData extends CacheUnitTests.UnitTestData {
-    }
-
-    /**
-     * Load the cache if it has not been initialized.
-     *
-     * @throws java.lang.Exception
-     */
-    @BeforeClass
-    public static void initializeCache() throws Exception {
-        Property.get().setDataLocation("./test/reading_notes.data");
-        Cache.get();
-    }
-
-    /**
-     * Reload the cache.
-     *
-     * @throws java.lang.Exception
-     */
-    @AfterClass
-    public static void reloadCache() throws Exception {
-        Cache.get().reload();
     }
 
     /**
