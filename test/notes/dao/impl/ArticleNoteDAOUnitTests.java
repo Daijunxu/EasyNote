@@ -7,7 +7,6 @@ import core.EasyNoteUnitTestCase;
 import notes.article.Article;
 import notes.article.ArticleNote;
 import notes.data.cache.Cache;
-import notes.data.cache.CacheUnitTests;
 import notes.entity.Note;
 import org.junit.Test;
 
@@ -28,12 +27,6 @@ import static org.junit.Assert.assertTrue;
  * @version 1.0
  */
 public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
-
-    /**
-     * Data required for unit tests. NOTE: A new instance should be created for each unit test.
-     */
-    public static class UnitTestData extends CacheUnitTests.UnitTestData {
-    }
 
     /**
      * The data access object for the {@code ArticleNoteDAO}.

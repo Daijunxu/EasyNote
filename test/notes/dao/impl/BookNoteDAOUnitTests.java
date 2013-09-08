@@ -8,7 +8,6 @@ import notes.book.Book;
 import notes.book.BookNote;
 import notes.book.Chapter;
 import notes.data.cache.Cache;
-import notes.data.cache.CacheUnitTests;
 import notes.entity.Note;
 import org.junit.Test;
 
@@ -31,12 +30,6 @@ import static org.junit.Assert.assertTrue;
  * @version 1.0
  */
 public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
-
-    /**
-     * Data required for unit tests. NOTE: A new instance should be created for each unit test.
-     */
-    public static class UnitTestData extends CacheUnitTests.UnitTestData {
-    }
 
     /**
      * The data access object for the {@code BookNoteDAO}.

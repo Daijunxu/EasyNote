@@ -6,7 +6,6 @@ package notes.dao.impl;
 import core.EasyNoteUnitTestCase;
 import notes.dao.NoteDAO;
 import notes.data.cache.Cache;
-import notes.data.cache.CacheUnitTests;
 import notes.entity.Document;
 import notes.entity.Note;
 import notes.entity.Tag;
@@ -27,12 +26,6 @@ import static org.junit.Assert.assertTrue;
  * @version 1.0
  */
 public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
-
-    /**
-     * Data required for unit tests. NOTE: A new instance should be created for each unit test.
-     */
-    public static class UnitTestData extends CacheUnitTests.UnitTestData {
-    }
 
     /**
      * The data access object for the {@code NoteDAO}.

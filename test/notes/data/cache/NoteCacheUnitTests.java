@@ -23,12 +23,6 @@ import static org.junit.Assert.assertTrue;
 public class NoteCacheUnitTests extends EasyNoteUnitTestCase {
 
     /**
-     * Data required for unit tests. NOTE: A new instance should be created for each unit test.
-     */
-    public static class UnitTestData extends CacheUnitTests.UnitTestData {
-    }
-
-    /**
      * Test method for {@link notes.data.cache.NoteCache#clear()}.
      */
     @Test
