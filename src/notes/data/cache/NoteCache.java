@@ -14,9 +14,7 @@ import java.util.Map;
 
 import notes.article.ArticleNote;
 import notes.book.BookNote;
-import notes.dao.NoteException;
-import notes.data.cache.Cache;
-import notes.data.cache.InvalidDataFormatException;
+import notes.dao.DuplicateRecordException;
 import notes.entity.Note;
 
 /**
@@ -235,7 +233,7 @@ public class NoteCache {
                     sb.append(note.getCreatedTime().getTime());
                     sb.append("\n");
                 } else {
-                    throw new NoteException("Unknown note type!");
+                    throw new DuplicateRecordException("Unknown note type!");
                 }
                 output.append(sb.toString());
             }

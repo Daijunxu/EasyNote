@@ -14,8 +14,7 @@ import java.util.TreeMap;
 import notes.book.Book;
 import notes.book.BookNote;
 import notes.book.Chapter;
-import notes.dao.DocumentException;
-import notes.dao.NoteException;
+import notes.dao.DuplicateRecordException;
 import notes.data.cache.Cache;
 import notes.entity.Document;
 import notes.entity.Note;
@@ -233,7 +232,7 @@ public class BookNoteDAO extends AbstractNoteDAO {
                     .get(documentId);
             TreeMap<Long, Chapter> chapterMap = cachedBook.getChaptersMap();
             if (chapterMap.containsKey(chapter.getChapterId())) {
-                throw new DocumentException("Duplicate chapter ID when saving a new chapter!");
+                throw new DuplicateRecordException("Duplicate chapter ID when saving a new chapter!");
             }
             if (chapter.getNotesList() == null) {
                 chapter.setNotesList(new ArrayList<Long>());
@@ -284,11 +283,11 @@ public class BookNoteDAO extends AbstractNoteDAO {
             try {
                 if (Cache.get().getDocumentCache().getDocumentMap()
                         .containsKey(newBook.getDocumentId())) {
-                    throw new NoteException("Duplicate document exception: same document ID!");
+                    throw new DuplicateRecordException("Duplicate document exception: same document ID!");
                 }
                 if (Cache.get().getDocumentCache().getDocumentTitleIdMap()
                         .containsKey(newBook.getDocumentTitle())) {
-                    throw new NoteException("Duplicate document exception: same document title!");
+                    throw new DuplicateRecordException("Duplicate document exception: same document title!");
                 }
 
                 Cache.get().getDocumentCache().getDocumentMap()
@@ -302,7 +301,7 @@ public class BookNoteDAO extends AbstractNoteDAO {
                 }
 
                 return newBook;
-            } catch (NoteException e) {
+            } catch (DuplicateRecordException e) {
                 e.printStackTrace();
             }
         }
@@ -334,9 +333,9 @@ public class BookNoteDAO extends AbstractNoteDAO {
             // Add the note to note cache.
             try {
                 if (Cache.get().getNoteCache().getNoteMap().containsKey(newNote.getNoteId())) {
-                    throw new NoteException("Duplicate note exception: same note ID!");
+                    throw new DuplicateRecordException("Duplicate note exception: same note ID!");
                 }
-            } catch (NoteException e) {
+            } catch (DuplicateRecordException e) {
                 e.printStackTrace();
             }
             Cache.get().getNoteCache().getNoteMap().put(newNote.getNoteId(), newNote);

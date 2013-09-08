@@ -7,7 +7,7 @@ import notes.article.Article;
 import notes.book.Book;
 import notes.book.Chapter;
 import notes.dao.NoteDAO;
-import notes.dao.TagException;
+import notes.dao.DuplicateRecordException;
 import notes.data.cache.Cache;
 import notes.entity.Document;
 import notes.entity.Note;
@@ -365,12 +365,12 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
         // Add the tag to tag cache.
         try {
             if (Cache.get().getTagCache().getTagIdMap().containsKey(newTag.getTagId())) {
-                throw new TagException("Duplicate tag exception: same tag ID!");
+                throw new DuplicateRecordException("Duplicate tag exception: same tag ID!");
             }
             if (Cache.get().getTagCache().getTagTextMap().containsKey(newTag.getTagText())) {
-                throw new TagException("Duplicate tag exception: same tag text!");
+                throw new DuplicateRecordException("Duplicate tag exception: same tag text!");
             }
-        } catch (TagException e) {
+        } catch (DuplicateRecordException e) {
             e.printStackTrace();
         }
         Cache.get().getTagCache().getTagIdMap().put(newTag.getTagId(), newTag);
