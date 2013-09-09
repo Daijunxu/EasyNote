@@ -3,11 +3,11 @@
  */
 package notes.dao;
 
-import java.util.List;
-
 import notes.entity.Document;
 import notes.entity.Note;
 import notes.entity.Tag;
+
+import java.util.List;
 
 /**
  * An interface to describe the data access object for notes.
@@ -73,7 +73,7 @@ public interface NoteDAO<N extends Note, D extends Document> {
      *
      * @param documentId    The document ID.
      * @param text          The search text.
-     * @param caseSentitive True if the search requires case sensitive; false otherwise.
+     * @param caseSensitive True if the search requires case sensitive; false otherwise.
      * @param exactSearch   True if the search requires exact search; false otherwise.
      * @return {@code List<N>} All notes containing the text in a particular document. Empty if no
      *         notes are found.
@@ -85,7 +85,7 @@ public interface NoteDAO<N extends Note, D extends Document> {
      * Finds all notes containing a particular text.
      *
      * @param text          The search text.
-     * @param caseSentitive True if the search requires case sensitive; false otherwise.
+     * @param caseSensitive True if the search requires case sensitive; false otherwise.
      * @param exactSearch   True if the search requires exact search; false otherwise.
      * @return {@code List<N>} All notes containing the text. Empty if no notes are found.
      */

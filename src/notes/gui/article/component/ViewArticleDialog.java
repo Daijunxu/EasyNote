@@ -3,30 +3,16 @@
  */
 package notes.gui.article.component;
 
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.util.List;
-
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
 import notes.bean.ArticleHome;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.List;
 
 /**
  * Defines the dialog and event listener for viewing an article.
@@ -112,7 +98,7 @@ public class ViewArticleDialog extends JDialog {
         authorField.setLineWrap(true);
         StringBuilder sb = new StringBuilder();
         List<String> authorsList = home.getCurrentArticle().getAuthorsList();
-        if (authorsList.isEmpty() == false) {
+        if (!authorsList.isEmpty()) {
             for (String author : authorsList) {
                 sb.append(author);
                 sb.append(", ");

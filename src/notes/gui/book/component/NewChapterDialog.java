@@ -50,7 +50,7 @@ public class NewChapterDialog extends JDialog {
         public void actionPerformed(ActionEvent e) {
 
             // Input validation.
-            if (chapterIdField.getInputVerifier().verify(chapterIdField) == false) {
+            if (!chapterIdField.getInputVerifier().verify(chapterIdField)) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();
                 }

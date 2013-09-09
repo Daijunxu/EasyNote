@@ -22,13 +22,11 @@ public class EditionInputVerifier extends InputVerifier {
     public boolean verify(JComponent input) {
         try {
             String text = ((JTextField) input).getText();
-            if (text == null || text.equals(""))
+            if (text == null || text.equals("")) {
                 return true;
-            Integer edition = Integer.parseInt(text);
-            if (edition < 0) {
-                return false;
             }
-            return true;
+            Integer edition = Integer.parseInt(text);
+            return (edition >= 0);
         } catch (Exception e) {
             return false;
         }

@@ -114,8 +114,8 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
             }
         }
 
-        if (caseSensitive == false) {
-            if (exactSearch == false) {
+        if (!caseSensitive) {
+            if (!exactSearch) {
                 // Not case sensitive, not exact search.
                 String[] tokens = text.trim().toLowerCase().split("\\s+");
                 for (int i = 0; i < tokens.length; i++) {
@@ -132,7 +132,7 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
                         tokensSet.add(noteToken.replaceAll("[^0-9A-Za-z\\-']", ""));
                     }
                     for (String token : tokens) {
-                        if (tokensSet.contains(token) == false) {
+                        if (!tokensSet.contains(token)) {
                             isResult = false;
                             break;
                         }
@@ -152,7 +152,7 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
             }
 
         } else {
-            if (exactSearch == false) {
+            if (!exactSearch) {
                 // Case sensitive, not exact search.
                 String[] tokens = text.trim().split("\\s+");
                 for (int i = 0; i < tokens.length; i++) {
@@ -169,7 +169,7 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
                         tokensSet.add(noteToken.replaceAll("[^0-9A-Za-z\\-']", ""));
                     }
                     for (String token : tokens) {
-                        if (tokensSet.contains(token) == false) {
+                        if (!tokensSet.contains(token)) {
                             isResult = false;
                             break;
                         }
@@ -204,8 +204,8 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
         Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
         List<Note> noteList = new ArrayList<Note>();
 
-        if (caseSensitive == false) {
-            if (exactSearch == false) {
+        if (!caseSensitive) {
+            if (!exactSearch) {
                 // Not case sensitive, not exact search.
                 String[] tokens = text.trim().toLowerCase().split("\\s+");
                 for (int i = 0; i < tokens.length; i++) {
@@ -221,7 +221,7 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
                         tokensSet.add(noteToken.replaceAll("[^0-9A-Za-z\\-']", ""));
                     }
                     for (String token : tokens) {
-                        if (tokensSet.contains(token) == false) {
+                        if (!tokensSet.contains(token)) {
                             isResult = false;
                             break;
                         }
@@ -240,7 +240,7 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
             }
 
         } else {
-            if (exactSearch == false) {
+            if (!exactSearch) {
                 // Case sensitive, not exact search.
                 String[] tokens = text.trim().split("\\s+");
                 for (int i = 0; i < tokens.length; i++) {
@@ -256,7 +256,7 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
                         tokensSet.add(noteToken.replaceAll("[^0-9A-Za-z\\-']", ""));
                     }
                     for (String token : tokens) {
-                        if (tokensSet.contains(token) == false) {
+                        if (!tokensSet.contains(token)) {
                             isResult = false;
                             break;
                         }

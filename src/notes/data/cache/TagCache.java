@@ -3,15 +3,13 @@
  */
 package notes.data.cache;
 
+import notes.entity.Tag;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import notes.data.cache.Cache;
-import notes.data.cache.InvalidDataFormatException;
-import notes.entity.Tag;
 
 /**
  * Stores all the tags.
@@ -68,7 +66,7 @@ public class TagCache {
     /**
      * Gets the tag ID map.
      *
-     * @return {@code Map<Long, Tag>} The tag ID map.
+     * @return {@code Map} The tag ID map.
      */
     public Map<Long, Tag> getTagIdMap() {
         return tagIdMap;
@@ -77,7 +75,7 @@ public class TagCache {
     /**
      * Gets the tag text map.
      *
-     * @return {@code Map<String, Tag>} The tag text map.
+     * @return {@code Map} The tag text map.
      */
     public Map<String, Tag> getTagTextMap() {
         return tagTextMap;
@@ -87,14 +85,13 @@ public class TagCache {
      * Reads all tags' data from data file.
      *
      * @param input The {@code BufferedReader} in use.
-     * @return True if tag cache has been successfully loaded, otherwise false.
      */
     private void loadTagCache(BufferedReader input) {
-        String line = "";
+        String line;
 
         try {
             line = input.readLine();
-            if (line.equals("#TAGS") == false) {
+            if (!line.equals("#TAGS")) {
                 throw new InvalidDataFormatException("No tag head: expecting \"#TAGS\".");
             }
 
@@ -155,7 +152,7 @@ public class TagCache {
         try {
             output.append("#TAGS\n");
             for (Tag tag : tagIdMap.values()) {
-                output.append(tag.getTagId() + "," + tag.getTagText());
+                output.append(tag.getTagId().toString()).append(",").append(tag.getTagText());
                 output.newLine();
             }
             output.append("#END_TAGS\n");

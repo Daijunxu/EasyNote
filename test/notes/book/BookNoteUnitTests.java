@@ -29,7 +29,6 @@ public class BookNoteUnitTests extends EasyNoteUnitTestCase {
         BookNote book = (BookNote) (testData.noteMap.get(1L));
         assertTrue(book.equals(Cache.get().getNoteCache().getNoteMap().get(1L)));
         assertFalse(book.equals(new BookNote()));
-        assertFalse(book.equals(null));
         assertFalse(book.equals(new Object()));
     }
 

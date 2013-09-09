@@ -25,10 +25,7 @@ public class IdInputVerifier extends InputVerifier {
             if (text == null || text.equals(""))
                 return false;
             Long id = Long.parseLong(text);
-            if (id < 0L) {
-                return false;
-            }
-            return true;
+            return (id >= 0L);
         } catch (Exception e) {
             return false;
         }

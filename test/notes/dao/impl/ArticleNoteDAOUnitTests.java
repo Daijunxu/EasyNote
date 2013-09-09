@@ -102,10 +102,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
         Article updatedArticle = (Article) dao.mergeDocument(newArticle);
 
         assertNotNull(updatedArticle);
-        assertEquals(
-                updatedArticle,
-                (Article) Cache.get().getDocumentCache().getDocumentMap()
-                        .get(newArticle.getDocumentId()));
+        assertEquals(updatedArticle, Cache.get().getDocumentCache().getDocumentMap().get(newArticle.getDocumentId()));
         assertFalse(updatedArticle.equals(testArticle));
         assertEquals(updatedArticle.getComment(), newArticle.getComment());
         assertEquals(updatedArticle.getSource(), newArticle.getSource());
@@ -130,13 +127,10 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
         ArticleNote updatedArticleNote = (ArticleNote) dao.mergeNote(newArticleNote);
 
         assertNotNull(updatedArticleNote);
-        assertEquals(
-                updatedArticleNote,
-                (ArticleNote) Cache.get().getNoteCache().getNoteMap()
-                        .get(newArticleNote.getNoteId()));
+        assertEquals(updatedArticleNote, Cache.get().getNoteCache().getNoteMap().get(newArticleNote.getNoteId()));
         assertFalse(updatedArticleNote.equals(testArticleNote));
         assertEquals(updatedArticleNote.getNoteText(), newArticleNote.getNoteText());
-        assertFalse(updatedArticleNote.getNoteText() == testArticleNote.getNoteText());
+        assertFalse(updatedArticleNote.getNoteText().equals(testArticleNote.getNoteText()));
         assertEquals(testArticleNote.getNoteId(), updatedArticleNote.getNoteId());
         assertEquals(testArticleNote.getCreatedTime(), updatedArticleNote.getCreatedTime());
         Cache.get().reload();

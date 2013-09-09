@@ -3,28 +3,6 @@
  */
 package notes.gui.main.component;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-
 import notes.article.Article;
 import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
@@ -70,6 +48,12 @@ import notes.gui.main.event.SearchNoteActionListener;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.List;
+import java.util.Map;
+
 /**
  * The main panel.
  *
@@ -103,7 +87,7 @@ public class MainPanel extends JFrame {
      * @param args The array of arguments when starting the program.
      */
     public static void main(String[] args) {
-        if (Cache.get() == null || Cache.hasProblem == true) {
+        if (Cache.get() == null || Cache.hasProblem) {
             System.out.println("Cache is having problem!");
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNotify();
@@ -167,7 +151,7 @@ public class MainPanel extends JFrame {
         int x = (screen.width - width) / 2;
         int y = (screen.height - height) / 2;
         setBounds(x, y, width, height);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         setResizable(false);
     }

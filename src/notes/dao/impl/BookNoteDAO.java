@@ -3,14 +3,6 @@
  */
 package notes.dao.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
 import notes.book.Book;
 import notes.book.BookNote;
 import notes.book.Chapter;
@@ -18,6 +10,14 @@ import notes.dao.DuplicateRecordException;
 import notes.data.cache.Cache;
 import notes.entity.Document;
 import notes.entity.Note;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Data access object for book notes.
@@ -97,7 +97,7 @@ public class BookNoteDAO extends AbstractNoteDAO {
      * Finds all notes in the document, grouped by chapter IDs.
      *
      * @param documentId The document ID.
-     * @return {@code Map<Long, List<BookNote>>} All notes in the document grouped by chapter IDs.
+     * @return {@code Map} All notes in the document grouped by chapter IDs.
      */
     public Map<Long, List<BookNote>> findAllNotesByChapters(Long documentId) {
         Book book = (Book) (Cache.get().getDocumentCache().getDocumentMap().get(documentId));
@@ -204,7 +204,7 @@ public class BookNoteDAO extends AbstractNoteDAO {
             cachedNote.setNoteText(note.getNoteText());
 
             // Update chapters' notes list.
-            if (oldChapterId != ((BookNote) note).getChapterId()) {
+            if (!oldChapterId.equals(((BookNote) note).getChapterId())) {
                 Chapter oldChapter = book.getChaptersMap().get(oldChapterId);
                 oldChapter.getNotesList().remove(note.getNoteId());
                 Chapter newChapter = book.getChaptersMap().get(cachedNote.getChapterId());

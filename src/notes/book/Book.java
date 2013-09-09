@@ -98,7 +98,7 @@ public class Book extends AbstractDocument {
     /**
      * Gets the ordered map for chapters.
      *
-     * @return {@code TreeMap<Integer, Chapter>} The ordered map for chapters.
+     * @return {@code TreeMap} The ordered map for chapters.
      */
     public TreeMap<Long, Chapter> getChaptersMap() {
         return chaptersMap;

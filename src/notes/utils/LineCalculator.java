@@ -16,7 +16,8 @@ import java.io.IOException;
  */
 public class LineCalculator {
 
-    private static int number;
+    private static int lineCount = 0;
+    private static int fileCount = 0;
 
     /**
      * Main method to run the program.
@@ -28,7 +29,9 @@ public class LineCalculator {
         visitFolder(file);
         file = new File("./test/");
         visitFolder(file);
-        System.out.println("Number of lines: " + number);
+        System.out.println();
+        System.out.println("Number of files: " + fileCount);
+        System.out.println("Number of lines: " + lineCount);
     }
 
     private static void visitFolder(File file) {
@@ -37,10 +40,12 @@ public class LineCalculator {
         }
         if (file.isFile()) {
             System.out.println(file.getAbsolutePath());
+            fileCount++;
             try {
                 BufferedReader input = new BufferedReader(new FileReader(file));
-                while (input.readLine() != null)
-                    number++;
+                while (input.readLine() != null) {
+                    lineCount++;
+                }
                 input.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -48,6 +53,10 @@ public class LineCalculator {
             return;
         }
         File[] files = file.listFiles();
+        if (files == null) {
+            System.out.println("Cannot find any file under " + file.getAbsolutePath());
+            return;
+        }
         for (File subFile : files) {
             visitFolder(subFile);
         }

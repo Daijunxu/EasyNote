@@ -3,23 +3,6 @@
  */
 package notes.gui.main.component;
 
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
 import notes.article.Article;
 import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
@@ -31,6 +14,10 @@ import notes.data.cache.Property;
 import notes.entity.Note;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Defines the dialog and event listener for viewing a note in search note panel. The notes can
@@ -127,11 +114,9 @@ public class ViewNoteDialog extends JDialog {
         c.gridy = 2;
         c.insets = new Insets(5, 5, 5, 5);
         StringBuilder tagStrBuilder = new StringBuilder();
-        if (note.getTagIds().isEmpty() == false) {
+        if (!note.getTagIds().isEmpty()) {
             for (Long tagId : note.getTagIds()) {
-                tagStrBuilder.append(ArticleHome.get().getArticleNoteDAO().findTagById(tagId)
-                        .getTagText()
-                        + ",");
+                tagStrBuilder.append(ArticleHome.get().getArticleNoteDAO().findTagById(tagId).getTagText()).append(",");
             }
             tagStrBuilder.deleteCharAt(tagStrBuilder.length() - 1);
         }
@@ -241,11 +226,9 @@ public class ViewNoteDialog extends JDialog {
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
         StringBuilder tagStrBuilder = new StringBuilder();
-        if (note.getTagIds().isEmpty() == false) {
+        if (!note.getTagIds().isEmpty()) {
             for (Long tagId : note.getTagIds()) {
-                tagStrBuilder.append(BookHome.get().getBookNoteDAO().findTagById(tagId)
-                        .getTagText()
-                        + ",");
+                tagStrBuilder.append(BookHome.get().getBookNoteDAO().findTagById(tagId).getTagText()).append(",");
             }
             tagStrBuilder.deleteCharAt(tagStrBuilder.length() - 1);
         }

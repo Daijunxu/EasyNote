@@ -3,6 +3,11 @@
  */
 package notes.data.cache;
 
+import notes.article.Article;
+import notes.book.Book;
+import notes.book.Chapter;
+import notes.entity.Document;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -12,13 +17,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-
-import notes.article.Article;
-import notes.book.Book;
-import notes.book.Chapter;
-import notes.data.cache.Cache;
-import notes.data.cache.InvalidDataFormatException;
-import notes.entity.Document;
 
 /**
  * Stores all the documents.
@@ -66,7 +64,7 @@ public class DocumentCache {
     /**
      * Gets the document map.
      *
-     * @return {@code Map<Long, Document>} The document map.
+     * @return {@code Map} The document map.
      */
     public Map<Long, Document> getDocumentMap() {
         return documentMap;
@@ -75,7 +73,7 @@ public class DocumentCache {
     /**
      * Gets the map of all documents' titles to their IDs.
      *
-     * @return {@code Map<String, Long>} The map of all documents' titles to their IDs.
+     * @return {@code Map} The map of all documents' titles to their IDs.
      */
     public Map<String, Long> getDocumentTitleIdMap() {
         return documentTitleIdMap;
@@ -96,11 +94,11 @@ public class DocumentCache {
      * @param input The {@code BufferedReader} in use.
      */
     private void loadDocumentCache(BufferedReader input) {
-        String line = "";
+        String line;
 
         try {
             line = input.readLine();
-            if (line.equals("#DOCUMENTS") == false) {
+            if (!line.equals("#DOCUMENTS")) {
                 throw new InvalidDataFormatException("No document head: expecting \"#DOCUMENTS\".");
             }
 
@@ -139,20 +137,20 @@ public class DocumentCache {
                 newBook.setDocumentId(Long.parseLong(input.readLine()));
                 newBook.setDocumentTitle(input.readLine());
                 newBook.setAuthorsList(Arrays.asList(input.readLine().split(",")));
-                if ((line = input.readLine()).equals("") == false) {
+                if (!(line = input.readLine()).equals("")) {
                     newBook.setComment(line);
                 }
-                if ((line = input.readLine()).equals("-1") == false) {
+                if (!(line = input.readLine()).equals("-1")) {
                     newBook.setEdition(Integer.parseInt(line));
                 }
-                if ((line = input.readLine()).equals("-1") == false) {
+                if (!(line = input.readLine()).equals("-1")) {
                     newBook.setPublishedYear(Integer.parseInt(line));
                 }
-                if ((line = input.readLine()).equals("") == false) {
+                if (!(line = input.readLine()).equals("")) {
                     newBook.setIsbn(line);
                 }
                 TreeMap<Long, Chapter> chapterMap = new TreeMap<Long, Chapter>();
-                if ((line = input.readLine()).equals("") == false) {
+                if (!(line = input.readLine()).equals("")) {
                     String chapters[] = line.split("\t");
                     for (String chapter : chapters) {
                         Chapter newChapter = new Chapter();
@@ -175,10 +173,10 @@ public class DocumentCache {
                 newArticle.setDocumentId(Long.parseLong(input.readLine()));
                 newArticle.setDocumentTitle(input.readLine());
                 newArticle.setAuthorsList(Arrays.asList(input.readLine().split(",")));
-                if ((line = input.readLine()).equals("") == false) {
+                if (!(line = input.readLine()).equals("")) {
                     newArticle.setComment(line);
                 }
-                if ((line = input.readLine()).equals("") == false) {
+                if (!(line = input.readLine()).equals("")) {
                     newArticle.setSource(line);
                 }
                 newArticle.setCreatedTime(new Date(Long.parseLong(input.readLine())));
@@ -219,9 +217,9 @@ public class DocumentCache {
                     sb.append("\n");
                     sb.append(document.getDocumentTitle());
                     sb.append("\n");
-                    if (document.getAuthorsList().isEmpty() == false) {
+                    if (!document.getAuthorsList().isEmpty()) {
                         for (String author : document.getAuthorsList()) {
-                            sb.append(author + ",");
+                            sb.append(author).append(",");
                         }
                         sb.deleteCharAt(sb.length() - 1);
                     }
@@ -246,7 +244,7 @@ public class DocumentCache {
                         sb.append(((Book) document).getIsbn());
                     }
                     sb.append("\n");
-                    if (((Book) document).getChaptersMap().isEmpty() == false) {
+                    if (!((Book) document).getChaptersMap().isEmpty()) {
                         for (Long chapterId : ((Book) document).getChaptersMap().keySet()) {
                             Chapter chapter = ((Book) document).getChaptersMap().get(chapterId);
                             sb.append(chapterId);
@@ -268,9 +266,9 @@ public class DocumentCache {
                     sb.append("\n");
                     sb.append(document.getDocumentTitle());
                     sb.append("\n");
-                    if (document.getAuthorsList().isEmpty() == false) {
+                    if (!document.getAuthorsList().isEmpty()) {
                         for (String author : document.getAuthorsList()) {
-                            sb.append(author + ",");
+                            sb.append(author).append(",");
                         }
                         sb.deleteCharAt(sb.length() - 1);
                     }

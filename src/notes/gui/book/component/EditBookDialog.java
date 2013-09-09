@@ -3,31 +3,9 @@
  */
 package notes.gui.book.component;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.util.Date;
-import java.util.List;
-
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
 import notes.bean.BookHome;
-import notes.dao.impl.BookNoteDAO;
 import notes.book.Book;
+import notes.dao.impl.BookNoteDAO;
 import notes.data.cache.Property;
 import notes.gui.book.verifier.EditionInputVerifier;
 import notes.gui.book.verifier.ISBNInputVerifier;
@@ -36,8 +14,13 @@ import notes.gui.main.component.MainPanel;
 import notes.utils.EntityStrListBuilder;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
-
 import org.apache.commons.lang3.text.WordUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Defines the dialog and event listener for editing a book.
@@ -73,7 +56,7 @@ public class EditBookDialog extends JDialog {
                 documentTitleField.requestFocus();
                 return;
             } else if (authorField.getText() != null
-                    && authorField.getText().trim().equals("") == false
+                    && !authorField.getText().trim().equals("")
                     && authorField.getText().trim().split("\n").length > 1) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();
@@ -82,7 +65,7 @@ public class EditBookDialog extends JDialog {
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 authorField.requestFocus();
                 return;
-            } else if (editionField.getInputVerifier().verify(editionField) == false) {
+            } else if (!editionField.getInputVerifier().verify(editionField)) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();
                 }
@@ -91,7 +74,7 @@ public class EditBookDialog extends JDialog {
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 editionField.requestFocus();
                 return;
-            } else if (publishedYearField.getInputVerifier().verify(publishedYearField) == false) {
+            } else if (!publishedYearField.getInputVerifier().verify(publishedYearField)) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();
                 }
@@ -100,7 +83,7 @@ public class EditBookDialog extends JDialog {
                         JOptionPane.ERROR_MESSAGE);
                 publishedYearField.requestFocus();
                 return;
-            } else if (ISBNField.getInputVerifier().verify(ISBNField) == false) {
+            } else if (!ISBNField.getInputVerifier().verify(ISBNField)) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();
                 }
@@ -128,17 +111,17 @@ public class EditBookDialog extends JDialog {
             updatedBook.setDocumentTitle(WordUtils.capitalize(documentTitleField.getText().trim()));
             updatedBook.setAuthorsList(EntityStrListBuilder.buildAuthorsStrList(authorField
                     .getText()));
-            if (commentField.getText() != null && commentField.getText().trim().equals("") == false) {
+            if (commentField.getText() != null && !commentField.getText().trim().equals("")) {
                 updatedBook.setComment(commentField.getText().trim());
             }
-            if (editionField.getText() != null && editionField.getText().equals("") == false) {
+            if (editionField.getText() != null && !editionField.getText().equals("")) {
                 updatedBook.setEdition(Integer.parseInt(editionField.getText()));
             }
             if (publishedYearField.getText() != null
-                    && publishedYearField.getText().equals("") == false) {
+                    && !publishedYearField.getText().equals("")) {
                 updatedBook.setPublishedYear(Integer.parseInt(publishedYearField.getText()));
             }
-            if (ISBNField.getText() != null && ISBNField.getText().equals("") == false) {
+            if (ISBNField.getText() != null && !ISBNField.getText().equals("")) {
                 updatedBook.setIsbn(ISBNField.getText());
             }
             updatedBook.setChaptersMap(home.getCurrentBook().getChaptersMap());
@@ -222,7 +205,7 @@ public class EditBookDialog extends JDialog {
         authorField.setLineWrap(true);
         StringBuilder sb = new StringBuilder();
         List<String> authorsList = home.getCurrentBook().getAuthorsList();
-        if (authorsList.isEmpty() == false) {
+        if (!authorsList.isEmpty()) {
             for (String author : authorsList) {
                 sb.append(author);
                 sb.append(", ");

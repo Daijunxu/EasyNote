@@ -3,28 +3,15 @@
  */
 package notes.gui.article.component;
 
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
 import notes.bean.ArticleHome;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Defines the dialog and event listener for viewing an article note.
@@ -106,11 +93,9 @@ public class ViewArticleNoteDialog extends JDialog {
         c.gridy = 2;
         c.insets = new Insets(5, 5, 5, 5);
         StringBuilder tagStrBuilder = new StringBuilder();
-        if (home.getCurrentArticleNote().getTagIds().isEmpty() == false) {
+        if (!home.getCurrentArticleNote().getTagIds().isEmpty()) {
             for (Long tagId : home.getCurrentArticleNote().getTagIds()) {
-                tagStrBuilder.append(ArticleHome.get().getArticleNoteDAO().findTagById(tagId)
-                        .getTagText()
-                        + ",");
+                tagStrBuilder.append(ArticleHome.get().getArticleNoteDAO().findTagById(tagId).getTagText()).append(",");
             }
             tagStrBuilder.deleteCharAt(tagStrBuilder.length() - 1);
         }

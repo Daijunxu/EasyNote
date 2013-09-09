@@ -102,7 +102,7 @@ public class Property {
         PROPERTIES.setProperty("dataLocation", getDataLocation());
 
         StringBuilder sb = new StringBuilder();
-        if (getDocumentTypes().isEmpty() == false) {
+        if (!getDocumentTypes().isEmpty()) {
             for (String type : getDocumentTypes()) {
                 sb.append(type);
                 sb.append(",");

@@ -319,7 +319,7 @@ public class SearchNoteDialog extends JDialog {
             }
             isResult = true;
             for (String tag : tagsList) {
-                if (noteTagsSet.contains(tag) == false) {
+                if (!noteTagsSet.contains(tag)) {
                     isResult = false;
                     break;
                 }
@@ -346,11 +346,11 @@ public class SearchNoteDialog extends JDialog {
 
     private void searchNotesInAllDocuments() {
         BookNoteDAO dao = BookHome.get().getBookNoteDAO();
-        boolean caseSensitive = (caseSensitiveField.isSelected()) ? true : false;
-        boolean exactSearch = (exactSearchField.isSelected()) ? true : false;
+        boolean caseSensitive = (caseSensitiveField.isSelected());
+        boolean exactSearch = (exactSearchField.isSelected());
 
-        if (caseSensitive == false) {
-            if (exactSearch == false) {
+        if (!caseSensitive) {
+            if (!exactSearch) {
                 // Not case sensitive, not exact search.
                 noteList = dao.findAllNotesContainingText(noteTextField.getText().trim(), false,
                         false);
@@ -360,7 +360,7 @@ public class SearchNoteDialog extends JDialog {
                         true);
             }
         } else {
-            if (exactSearch == false) {
+            if (!exactSearch) {
                 // Case sensitive, not exact search.
                 noteList = dao.findAllNotesContainingText(noteTextField.getText().trim(), true,
                         false);
@@ -372,13 +372,15 @@ public class SearchNoteDialog extends JDialog {
         }
     }
 
+
+    // TODO: fix this!
     private void searchNotesInOneDocument(Long documentId) {
         BookNoteDAO dao = BookHome.get().getBookNoteDAO();
-        boolean caseSensitive = (caseSensitiveField.isSelected()) ? true : false;
-        boolean exactSearch = (exactSearchField.isSelected()) ? true : false;
+        boolean caseSensitive = (caseSensitiveField.isSelected());
+        boolean exactSearch = (exactSearchField.isSelected());
 
-        if (caseSensitive == false) {
-            if (exactSearch == false) {
+        if (!caseSensitive) {
+            if (!exactSearch) {
                 // Not case sensitive, not exact search.
                 noteList = dao.findAllNotesContainingText(noteTextField.getText().trim(), false,
                         false);
@@ -388,7 +390,7 @@ public class SearchNoteDialog extends JDialog {
                         true);
             }
         } else {
-            if (exactSearch == false) {
+            if (!exactSearch) {
                 // Case sensitive, not exact search.
                 noteList = dao.findAllNotesContainingText(noteTextField.getText().trim(), true,
                         false);

@@ -3,24 +3,6 @@
  */
 package notes.gui.article.component;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
 import notes.article.Article;
 import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
@@ -29,6 +11,14 @@ import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.PreferencesDialog;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Defines the dialog and event listener for exporting current article.
@@ -39,8 +29,6 @@ import notes.utils.SoundTheme;
 public class ExportArticleDialog extends JDialog {
 
     private static final long serialVersionUID = 3138411222044812952L;
-
-    private JFileChooser fileChooserField = new JFileChooser();
 
     /**
      * Creates an instance of {@code ExportArticleDialog}.
@@ -64,6 +52,8 @@ public class ExportArticleDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
+
+        JFileChooser fileChooserField = new JFileChooser();
         fileChooserField.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         fileChooserField.setCurrentDirectory(new File(Property.get().getDataLocation()));
         fileChooserField.setSelectedFile(new File(Property.get().getDataLocation() + "/[Notes] "
@@ -162,17 +152,17 @@ public class ExportArticleDialog extends JDialog {
             output.append("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF8'><title>");
             output.append(article.getDocumentTitle());
             output.append("</title></head>");
-            output.append("<body><a name='title'/><h2>" + article.getDocumentTitle() + "</h2>");
+            output.append("<body><a name='title'/><h2>").append(article.getDocumentTitle()).append("</h2>");
 
             // Output document ID.
-            output.append("<b>Document ID: </b>" + article.getDocumentId() + "<br>");
+            output.append("<b>Document ID: </b>").append(article.getDocumentId().toString()).append("<br>");
 
             // Output authors.
-            if (article.getAuthorsList().isEmpty() == false) {
+            if (!article.getAuthorsList().isEmpty()) {
                 output.append("<b>Author(s): </b>");
                 StringBuilder authorsBuilder = new StringBuilder();
                 for (String author : article.getAuthorsList()) {
-                    authorsBuilder.append(author + ", ");
+                    authorsBuilder.append(author).append(", ");
                 }
                 authorsBuilder.delete(authorsBuilder.length() - 2, authorsBuilder.length());
                 output.append(authorsBuilder);
@@ -180,20 +170,20 @@ public class ExportArticleDialog extends JDialog {
             }
 
             // Output source.
-            if (article.getSource() != null && article.getSource().equals("") == false) {
+            if (article.getSource() != null && !article.getSource().equals("")) {
                 output.append("<b>Source: </b>");
                 output.append(article.getSource());
                 output.append("<br>");
             }
 
             // Output created time.
-            output.append("<b>Created Time: </b>" + article.getCreatedTime() + "<br>");
+            output.append("<b>Created Time: </b>").append(article.getCreatedTime().toString()).append("<br>");
 
             // Output last updated time.
-            output.append("<b>Last Updated Time: </b>" + article.getLastUpdatedTime() + "<br>");
+            output.append("<b>Last Updated Time: </b>").append(article.getLastUpdatedTime().toString()).append("<br>");
 
             // Output number of notes.
-            output.append("<b>Number of Notes: </b>" + article.getNotesCount() + "<br>");
+            output.append("<b>Number of Notes: </b>").append(String.valueOf(article.getNotesCount())).append("<br>");
 
             // Output comment.
             output.append("<b>Comment: </b><br>");
@@ -217,15 +207,14 @@ public class ExportArticleDialog extends JDialog {
                 output.append("<br><i>");
 
                 // Output tags.
-                if (note.getTagIds().isEmpty() == false) {
+                if (!note.getTagIds().isEmpty()) {
                     for (Long tagId : note.getTagIds()) {
-                        output.append("["
-                                + home.getArticleNoteDAO().findTagById(tagId).getTagText() + "] ");
+                        output.append("[").append(home.getArticleNoteDAO().findTagById(tagId).getTagText()).append("] ");
                     }
                 }
 
                 // Output note ID.
-                output.append("ID: " + note.getNoteId());
+                output.append("ID: ").append(note.getNoteId().toString());
 
                 output.append("</i><br></p>");
             }

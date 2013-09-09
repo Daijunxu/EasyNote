@@ -21,15 +21,15 @@ import notes.gui.article.event.ViewArticleNoteActionListener;
 public class ArticleNotePopupMenu extends JPopupMenu {
     private static final long serialVersionUID = 1060788077636224251L;
 
-    private JMenuItem newItem;
-    private JMenuItem viewItem;
-    private JMenuItem editItem;
-    private JMenuItem deleteItem;
-
     /**
      * Creates an instance of {@code ArticleNotePopupMenu}.
      */
     public ArticleNotePopupMenu() {
+        JMenuItem newItem;
+        JMenuItem viewItem;
+        JMenuItem editItem;
+        JMenuItem deleteItem;
+
         newItem = new JMenuItem("New");
         newItem.addActionListener(new NewArticleNoteActionListener());
         viewItem = new JMenuItem("Details");

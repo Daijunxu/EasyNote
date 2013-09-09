@@ -33,7 +33,7 @@ public class EditBookNoteDialog extends JDialog {
         public void actionPerformed(ActionEvent e) {
 
             // Input validation.
-            if (tagsField.getText() != null && tagsField.getText().trim().equals("") == false
+            if (tagsField.getText() != null && !tagsField.getText().trim().equals("")
                     && tagsField.getText().trim().split("\n").length > 1) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();
@@ -180,7 +180,7 @@ public class EditBookNoteDialog extends JDialog {
         int counter = -1;
         for (Long chapterId : home.getCurrentBook().getChaptersMap().keySet()) {
             counter++;
-            if (chapterId == home.getCurrentChapter().getChapterId()) {
+            if (home.getCurrentChapter().getChapterId().equals(chapterId)) {
                 selected = counter;
             }
             Chapter chapter = home.getCurrentBook().getChaptersMap().get(chapterId);
@@ -198,11 +198,9 @@ public class EditBookNoteDialog extends JDialog {
         c.gridy = 2;
         c.insets = new Insets(5, 5, 0, 5);
         StringBuilder tagStrBuilder = new StringBuilder();
-        if (home.getCurrentBookNote().getTagIds().isEmpty() == false) {
+        if (!home.getCurrentBookNote().getTagIds().isEmpty()) {
             for (Long tagId : home.getCurrentBookNote().getTagIds()) {
-                tagStrBuilder.append(BookHome.get().getBookNoteDAO().findTagById(tagId)
-                        .getTagText()
-                        + ",");
+                tagStrBuilder.append(BookHome.get().getBookNoteDAO().findTagById(tagId).getTagText()).append(",");
             }
             tagStrBuilder.deleteCharAt(tagStrBuilder.length() - 1);
         }

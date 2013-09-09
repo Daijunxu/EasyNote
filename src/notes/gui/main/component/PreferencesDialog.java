@@ -3,28 +3,15 @@
  */
 package notes.gui.main.component;
 
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import notes.data.cache.Cache;
 import notes.data.cache.Property;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Defines the dialog and event listener for editing system preferences.
@@ -56,7 +43,7 @@ public class PreferencesDialog extends JDialog {
         public void actionPerformed(ActionEvent e) {
             MainPanel frame = MainPanel.get();
 
-            if (dataLocationField.getText().equals(Property.get().getDataLocation()) == false) {
+            if (!dataLocationField.getText().equals(Property.get().getDataLocation())) {
                 // Save current cache data.
                 Cache.get().saveAllCaches();
                 // Change default data location.

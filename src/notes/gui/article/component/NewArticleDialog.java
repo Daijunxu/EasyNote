@@ -3,37 +3,21 @@
  */
 package notes.gui.article.component;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Date;
-
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
-import notes.dao.impl.ArticleNoteDAO;
 import notes.article.Article;
 import notes.bean.ArticleHome;
+import notes.dao.impl.ArticleNoteDAO;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
 import notes.utils.EntityStrListBuilder;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
-
 import org.apache.commons.lang3.text.WordUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Defines the dialog and event listener of creating a new article.
@@ -68,7 +52,7 @@ public class NewArticleDialog extends JDialog {
                 documentTitleField.requestFocus();
                 return;
             } else if (authorField.getText() != null
-                    && authorField.getText().trim().equals("") == false
+                    && !authorField.getText().trim().equals("")
                     && authorField.getText().trim().split("\n").length > 1) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();
@@ -104,10 +88,10 @@ public class NewArticleDialog extends JDialog {
             newArticle.setDocumentTitle(WordUtils.capitalize(documentTitleField.getText().trim()));
             newArticle.setAuthorsList(EntityStrListBuilder.buildAuthorsStrList(authorField
                     .getText()));
-            if (commentField.getText() != null && commentField.getText().trim().equals("") == false) {
+            if (commentField.getText() != null && !commentField.getText().trim().equals("")) {
                 newArticle.setComment(commentField.getText().trim());
             }
-            if (sourceField.getText() != null && sourceField.getText().trim().equals("") == false) {
+            if (sourceField.getText() != null && !sourceField.getText().trim().equals("")) {
                 newArticle.setSource(sourceField.getText().trim());
             }
             newArticle.setCreatedTime(new Date(System.currentTimeMillis()));

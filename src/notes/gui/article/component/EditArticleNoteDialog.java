@@ -161,11 +161,9 @@ public class EditArticleNoteDialog extends JDialog {
         c.gridy = 1;
         c.insets = new Insets(5, 5, 0, 5);
         StringBuilder tagStrBuilder = new StringBuilder();
-        if (home.getCurrentArticleNote().getTagIds().isEmpty() == false) {
+        if (!home.getCurrentArticleNote().getTagIds().isEmpty()) {
             for (Long tagId : home.getCurrentArticleNote().getTagIds()) {
-                tagStrBuilder.append(ArticleHome.get().getArticleNoteDAO().findTagById(tagId)
-                        .getTagText()
-                        + ",");
+                tagStrBuilder.append(ArticleHome.get().getArticleNoteDAO().findTagById(tagId).getTagText()).append(",");
             }
             tagStrBuilder.deleteCharAt(tagStrBuilder.length() - 1);
         }
@@ -176,7 +174,7 @@ public class EditArticleNoteDialog extends JDialog {
         c.gridy = 2;
         c.insets = new Insets(0, 5, 5, 5);
         JLabel suggestionLabel = new JLabel(
-                "Use captialized words and separate tags by \",\". E.g. \"Design Pattern,Algrithm\"");
+                "Use capitalized words and separate tags by \",\". E.g. \"Design Pattern,Algorithm\"");
         suggestionLabel.setForeground(Color.GRAY);
         notePanel.add(suggestionLabel, c);
 

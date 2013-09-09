@@ -32,7 +32,6 @@ public class ChapterUnitTests extends EasyNoteUnitTestCase {
         Chapter cachedChapter = cachedBook.getChaptersMap().get(1L);
         assertTrue(testChapter.equals(cachedChapter));
         assertFalse(testChapter.equals(new Chapter()));
-        assertFalse(testChapter.equals(null));
         assertFalse(testChapter.equals(new Object()));
     }
 

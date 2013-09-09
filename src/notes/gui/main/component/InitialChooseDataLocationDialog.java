@@ -3,28 +3,18 @@
  */
 package notes.gui.main.component;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import notes.data.cache.Cache;
+import notes.data.cache.Property;
+import notes.utils.SoundFactory;
+import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
-import notes.data.cache.Cache;
-import notes.data.cache.Property;
-import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 /**
  * Defines the dialog and event listener for choosing data file location.
@@ -74,7 +64,7 @@ public class InitialChooseDataLocationDialog extends JDialog {
                         Property.get().setDataLocation(selectedFile.getAbsolutePath());
                         Cache.hasProblem = false;
                         Cache.get().reload();
-                        if (Cache.hasProblem == true) {
+                        if (Cache.hasProblem) {
                             if (!Property.get().getSoundTheme()
                                     .equals(SoundTheme.NONE.getDescription())) {
                                 SoundFactory.playNotify();

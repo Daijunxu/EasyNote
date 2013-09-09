@@ -36,7 +36,7 @@ public class NewBookNoteDialog extends JDialog {
         public void actionPerformed(ActionEvent e) {
 
             // Input validation.
-            if (tagsField.getText() != null && tagsField.getText().trim().equals("") == false
+            if (tagsField.getText() != null && !tagsField.getText().trim().equals("")
                     && tagsField.getText().trim().split("\n").length > 1) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();
@@ -182,7 +182,7 @@ public class NewBookNoteDialog extends JDialog {
         int counter = -1;
         for (Long chapterId : home.getCurrentBook().getChaptersMap().keySet()) {
             counter++;
-            if (chapterId == home.getCurrentChapter().getChapterId()) {
+            if (home.getCurrentChapter().getChapterId().equals(chapterId)) {
                 selected = counter;
             }
             Chapter chapter = home.getCurrentBook().getChaptersMap().get(chapterId);

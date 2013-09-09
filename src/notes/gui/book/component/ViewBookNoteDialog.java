@@ -3,28 +3,15 @@
  */
 package notes.gui.book.component;
 
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
 import notes.bean.BookHome;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Defines the dialog and event listener for viewing a book note.
@@ -120,7 +107,7 @@ public class ViewBookNoteDialog extends JDialog {
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
         StringBuilder tagStrBuilder = new StringBuilder();
-        if (home.getCurrentBookNote().getTagIds().isEmpty() == false) {
+        if (!home.getCurrentBookNote().getTagIds().isEmpty()) {
             for (Long tagId : home.getCurrentBookNote().getTagIds()) {
                 tagStrBuilder.append(BookHome.get().getBookNoteDAO().findTagById(tagId)
                         .getTagText()

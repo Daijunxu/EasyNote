@@ -26,10 +26,9 @@ public class TagUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
-        Tag tag = (Tag) (testData.tagIdMap.get(1L));
+        Tag tag = testData.tagIdMap.get(1L);
         assertTrue(tag.equals(Cache.get().getTagCache().getTagIdMap().get(1L)));
         assertFalse(tag.equals(new Tag()));
-        assertFalse(tag.equals(null));
         assertFalse(tag.equals(new Object()));
     }
 

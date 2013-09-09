@@ -3,25 +3,6 @@
  */
 package notes.gui.book.component;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
-
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
 import notes.bean.BookHome;
 import notes.book.Book;
 import notes.book.BookNote;
@@ -32,6 +13,15 @@ import notes.gui.main.component.PreferencesDialog;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+
 /**
  * Defines the dialog and event listener for exporting current book.
  *
@@ -41,8 +31,6 @@ import notes.utils.SoundTheme;
 public class ExportBookDialog extends JDialog {
 
     private static final long serialVersionUID = -232028710742317165L;
-
-    private JFileChooser fileChooserField = new JFileChooser();
 
     /**
      * Creates an instance of {@code ExportBookDialog}.
@@ -66,6 +54,8 @@ public class ExportBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
+
+        JFileChooser fileChooserField = new JFileChooser();
         fileChooserField.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         fileChooserField.setCurrentDirectory(new File(Property.get().getDataLocation()));
         fileChooserField.setSelectedFile(new File(Property.get().getDataLocation() + "/[Notes] "
@@ -157,17 +147,17 @@ public class ExportBookDialog extends JDialog {
             output.append("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF8'><title>");
             output.append(book.getDocumentTitle());
             output.append("</title></head>");
-            output.append("<body><a name='title'/><h2>" + book.getDocumentTitle() + "</h2>");
+            output.append("<body><a name='title'/><h2>").append(book.getDocumentTitle()).append("</h2>");
 
             // Output document ID.
-            output.append("<b>Document ID: </b>" + book.getDocumentId() + "<br>");
+            output.append("<b>Document ID: </b>").append(book.getDocumentId().toString()).append("<br>");
 
             // Output authors.
-            if (book.getAuthorsList().isEmpty() == false) {
+            if (!book.getAuthorsList().isEmpty()) {
                 output.append("<b>Author(s): </b>");
                 StringBuilder authorsBuilder = new StringBuilder();
                 for (String author : book.getAuthorsList()) {
-                    authorsBuilder.append(author + ", ");
+                    authorsBuilder.append(author).append(", ");
                 }
                 authorsBuilder.delete(authorsBuilder.length() - 2, authorsBuilder.length());
                 output.append(authorsBuilder);
@@ -176,27 +166,27 @@ public class ExportBookDialog extends JDialog {
 
             // Output edition.
             if (book.getEdition() != null) {
-                output.append("<b>Edition: </b>" + book.getEdition() + "<br>");
+                output.append("<b>Edition: </b>").append(book.getEdition().toString()).append("<br>");
             }
 
             // Output published year.
             if (book.getPublishedYear() != null) {
-                output.append("<b>Published Year: </b>" + book.getPublishedYear() + "<br>");
+                output.append("<b>Published Year: </b>").append(book.getPublishedYear().toString()).append("<br>");
             }
 
             // Output ISBN.
-            if (book.getIsbn() != null && book.getIsbn().equals("") == false) {
-                output.append("<b>ISBN: </b>" + book.getIsbn() + "<br>");
+            if (book.getIsbn() != null && !book.getIsbn().equals("")) {
+                output.append("<b>ISBN: </b>").append(book.getIsbn()).append("<br>");
             }
 
             // Output created time.
-            output.append("<b>Created Time: </b>" + book.getCreatedTime() + "<br>");
+            output.append("<b>Created Time: </b>").append(book.getCreatedTime().toString()).append("<br>");
 
             // Output last updated time.
-            output.append("<b>Last Updated Time: </b>" + book.getLastUpdatedTime() + "<br>");
+            output.append("<b>Last Updated Time: </b>").append(book.getLastUpdatedTime().toString()).append("<br>");
 
             // Output number of notes.
-            output.append("<b>Number of Notes: </b>" + book.getNotesCount() + "<br>");
+            output.append("<b>Number of Notes: </b>").append(String.valueOf(book.getNotesCount())).append("<br>");
 
             // Output comment.
             output.append("<b>Comment: </b><br>");
@@ -207,7 +197,8 @@ public class ExportBookDialog extends JDialog {
 
             // Output anchors for chapters.
             for (Long chapterId : book.getChaptersMap().keySet()) {
-                output.append("<a href='#chapter" + chapterId + "'><b>Chapter " + chapterId + ": ");
+                output.append("<a href='#chapter").append(String.valueOf(chapterId)).append("'><b>Chapter ")
+                        .append(String.valueOf(chapterId)).append(": ");
                 output.append(book.getChaptersMap().get(chapterId).getChapterTitle());
                 output.append("</b></a><br>");
             }
@@ -218,7 +209,8 @@ public class ExportBookDialog extends JDialog {
             for (Long chapterId : book.getChaptersMap().keySet()) {
                 // Output chapter title.
                 Chapter chapter = book.getChaptersMap().get(chapterId);
-                output.append("<a name='chapter" + chapterId + "'/><h3>Chapter " + chapterId + ": ");
+                output.append("<a name='chapter").append(String.valueOf(chapterId)).append("'/><h3>Chapter ")
+                        .append(String.valueOf(chapterId)).append(": ");
                 output.append(chapter.getChapterTitle());
                 output.append("</h3>");
 
@@ -241,15 +233,15 @@ public class ExportBookDialog extends JDialog {
                     output.append("<br><i>");
 
                     // Output tags.
-                    if (note.getTagIds().isEmpty() == false) {
+                    if (!note.getTagIds().isEmpty()) {
                         for (Long tagId : note.getTagIds()) {
-                            output.append("["
-                                    + home.getBookNoteDAO().findTagById(tagId).getTagText() + "] ");
+                            output.append("[").append(home.getBookNoteDAO().findTagById(tagId).getTagText())
+                                    .append("] ");
                         }
                     }
 
                     // Output note ID.
-                    output.append("ID: " + note.getNoteId());
+                    output.append("ID: ").append(note.getNoteId().toString());
 
                     output.append("</i><br></p>");
                 }

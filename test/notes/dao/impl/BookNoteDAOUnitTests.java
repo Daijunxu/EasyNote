@@ -165,8 +165,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         Book updatedBook = (Book) dao.mergeDocument(newBook);
 
         assertNotNull(updatedBook);
-        assertEquals(updatedBook,
-                (Book) Cache.get().getDocumentCache().getDocumentMap().get(newBook.getDocumentId()));
+        assertEquals(updatedBook, Cache.get().getDocumentCache().getDocumentMap().get(newBook.getDocumentId()));
         assertFalse(updatedBook.equals(testBook));
         assertEquals(updatedBook.getComment(), newBook.getComment());
         assertEquals(updatedBook.getChaptersMap(), newBook.getChaptersMap());
@@ -192,11 +191,10 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         BookNote updatedBookNote = (BookNote) dao.mergeNote(newBookNote);
 
         assertNotNull(updatedBookNote);
-        assertEquals(updatedBookNote,
-                (BookNote) Cache.get().getNoteCache().getNoteMap().get(newBookNote.getNoteId()));
+        assertEquals(updatedBookNote, Cache.get().getNoteCache().getNoteMap().get(newBookNote.getNoteId()));
         assertFalse(updatedBookNote.equals(testBookNote));
         assertEquals(updatedBookNote.getChapterId(), newBookNote.getChapterId());
-        assertFalse(updatedBookNote.getChapterId() == testBookNote.getChapterId());
+        assertFalse(updatedBookNote.getChapterId().equals(testBookNote.getChapterId()));
         assertEquals(testBookNote.getNoteId(), updatedBookNote.getNoteId());
         assertEquals(testBookNote.getCreatedTime(), updatedBookNote.getCreatedTime());
         Cache.get().reload();

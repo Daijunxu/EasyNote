@@ -3,6 +3,11 @@
  */
 package notes.data.cache;
 
+import notes.article.ArticleNote;
+import notes.book.BookNote;
+import notes.dao.DuplicateRecordException;
+import notes.entity.Note;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -11,11 +16,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import notes.article.ArticleNote;
-import notes.book.BookNote;
-import notes.dao.DuplicateRecordException;
-import notes.entity.Note;
 
 /**
  * Stores all the notes.
@@ -65,7 +65,7 @@ public class NoteCache {
     /**
      * Gets the note map.
      *
-     * @return {@code Map<Long, Note>} The noteMap.
+     * @return {@code Map} The noteMap.
      */
     public Map<Long, Note> getNoteMap() {
         return noteMap;
@@ -75,14 +75,13 @@ public class NoteCache {
      * Reads all notes' data from data file.
      *
      * @param input The {@code BufferedReader} in use.
-     * @return True if note cache has been successfully loaded, otherwise false.
      */
     private void loadNoteCache(BufferedReader input) {
-        String line = "";
+        String line;
 
         try {
             line = input.readLine();
-            if (line.equals("#NOTES") == false) {
+            if (!line.equals("#NOTES")) {
                 throw new InvalidDataFormatException("No note head: expecting \"#NOTES\".");
             }
 
@@ -121,7 +120,7 @@ public class NoteCache {
                 newNote.setChapterId(Long.parseLong(input.readLine()));
 
                 List<Long> tagIds = new ArrayList<Long>();
-                if ((line = input.readLine()).equals("0") == false) {
+                if (!(line = input.readLine()).equals("0")) {
                     String[] tags = line.split(",");
                     for (String tag : tags) {
                         tagIds.add(Long.parseLong(tag));
@@ -130,7 +129,7 @@ public class NoteCache {
                 newNote.setTagIds(tagIds);
 
                 StringBuilder noteTextBuilder = new StringBuilder();
-                while ((line = input.readLine()).equals("#END_TEXT") == false) {
+                while (!(line = input.readLine()).equals("#END_TEXT")) {
                     noteTextBuilder.append(line);
                     noteTextBuilder.append("\n");
                 }
@@ -147,7 +146,7 @@ public class NoteCache {
                 newNote.setDocumentId(Long.parseLong(input.readLine()));
 
                 List<Long> tagIds = new ArrayList<Long>();
-                if ((line = input.readLine()).equals("0") == false) {
+                if (!(line = input.readLine()).equals("0")) {
                     String[] tags = line.split(",");
                     for (String tag : tags) {
                         tagIds.add(Long.parseLong(tag));
@@ -156,7 +155,7 @@ public class NoteCache {
                 newNote.setTagIds(tagIds);
 
                 StringBuilder noteTextBuilder = new StringBuilder();
-                while ((line = input.readLine()).equals("#END_TEXT") == false) {
+                while (!(line = input.readLine()).equals("#END_TEXT")) {
                     noteTextBuilder.append(line);
                     noteTextBuilder.append("\n");
                 }

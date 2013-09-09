@@ -3,37 +3,21 @@
  */
 package notes.gui.article.component;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.util.Date;
-import java.util.List;
-
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
-import notes.dao.impl.ArticleNoteDAO;
 import notes.article.Article;
 import notes.bean.ArticleHome;
+import notes.dao.impl.ArticleNoteDAO;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
 import notes.utils.EntityStrListBuilder;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
-
 import org.apache.commons.lang3.text.WordUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Defines the dialog and event listener for editing an article.
@@ -69,7 +53,7 @@ public class EditArticleDialog extends JDialog {
                 documentTitleField.requestFocus();
                 return;
             } else if (authorField.getText() != null
-                    && authorField.getText().trim().equals("") == false
+                    && !authorField.getText().trim().equals("")
                     && authorField.getText().trim().split("\n").length > 1) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();
@@ -107,10 +91,10 @@ public class EditArticleDialog extends JDialog {
                     .trim()));
             updatedArticle.setAuthorsList(EntityStrListBuilder.buildAuthorsStrList(authorField
                     .getText()));
-            if (commentField.getText() != null && commentField.getText().trim().equals("") == false) {
+            if (commentField.getText() != null && !commentField.getText().trim().equals("")) {
                 updatedArticle.setComment(commentField.getText().trim());
             }
-            if (sourceField.getText() != null && sourceField.getText().trim().equals("") == false) {
+            if (sourceField.getText() != null && !sourceField.getText().trim().equals("")) {
                 updatedArticle.setSource(sourceField.getText().trim());
             }
             updatedArticle.setCreatedTime(home.getCurrentArticle().getCreatedTime());
@@ -191,7 +175,7 @@ public class EditArticleDialog extends JDialog {
         authorField.setLineWrap(true);
         StringBuilder sb = new StringBuilder();
         List<String> authorsList = home.getCurrentArticle().getAuthorsList();
-        if (authorsList.isEmpty() == false) {
+        if (!authorsList.isEmpty()) {
             for (String author : home.getCurrentArticle().getAuthorsList()) {
                 sb.append(author);
                 sb.append(", ");
