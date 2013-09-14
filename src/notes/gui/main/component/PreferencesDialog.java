@@ -37,12 +37,13 @@ public class PreferencesDialog extends JDialog {
         return instance;
     }
 
-    private JButton okButton = new JButton(new AbstractAction("OK") {
+    private final JButton okButton = new JButton(new AbstractAction("OK") {
         private static final long serialVersionUID = -1077277029101012739L;
 
         public void actionPerformed(ActionEvent e) {
             MainPanel frame = MainPanel.get();
 
+            // Check setting for data location.
             if (!dataLocationField.getText().equals(Property.get().getDataLocation())) {
                 // Save current cache data.
                 Cache.get().saveAllCaches();
@@ -56,7 +57,11 @@ public class PreferencesDialog extends JDialog {
                 frame.setDefaultPanel();
             }
 
+            // Check setting for sound theme.
             Property.get().setSoundTheme(soundThemeField.getSelectedItem().toString());
+
+            // Check setting for option of whether to open the last document when program starts.
+            Property.get().setShowLastDocumentOnOpening(showLastDocumentOnOpeningCheckBox.isSelected());
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playUpdate();
@@ -66,7 +71,7 @@ public class PreferencesDialog extends JDialog {
         }
     });
 
-    private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
+    private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         private static final long serialVersionUID = 4172730058717036113L;
 
         public void actionPerformed(ActionEvent e) {
@@ -77,9 +82,10 @@ public class PreferencesDialog extends JDialog {
         }
     });
 
-    private JTextField dataLocationField = new JTextField(40);
-    private JButton chooseDataLocationButtion = new JButton("Choose");
-    private JComboBox soundThemeField = new JComboBox();
+    private final JTextField dataLocationField = new JTextField(40);
+    private final JButton chooseDataLocationButton = new JButton("Choose");
+    private final JComboBox soundThemeField = new JComboBox();
+    private final JCheckBox showLastDocumentOnOpeningCheckBox = new JCheckBox("Open last viewed document when program starts");
 
     private PreferencesDialog() {
         super(MainPanel.get(), "Edit Preferences", true);
@@ -110,7 +116,8 @@ public class PreferencesDialog extends JDialog {
         c.gridx = 2;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
-        chooseDataLocationButtion.addActionListener(new ActionListener() {
+        c.gridwidth = 2;
+        chooseDataLocationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
@@ -119,7 +126,7 @@ public class PreferencesDialog extends JDialog {
                 new ChooseDataLocationDialog();
             }
         });
-        preferencesPanel.add(chooseDataLocationButtion, c);
+        preferencesPanel.add(chooseDataLocationButton, c);
 
         c.gridx = 0;
         c.gridy = 1;
@@ -133,8 +140,14 @@ public class PreferencesDialog extends JDialog {
             soundThemeField.addItem(theme.getDescription());
         }
         soundThemeField.setSelectedItem(Property.get().getSoundTheme());
-
         preferencesPanel.add(soundThemeField, c);
+
+        c.gridx = 0;
+        c.gridy = 2;
+        c.ipadx = 2;
+        c.insets = new Insets(5, 5, 5, 5);
+        showLastDocumentOnOpeningCheckBox.setSelected(Property.get().showLastDocumentOnOpening());
+        preferencesPanel.add(showLastDocumentOnOpeningCheckBox, c);
 
         dialogPanel.add(preferencesPanel);
 

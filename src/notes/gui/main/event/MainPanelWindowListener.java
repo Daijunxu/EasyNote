@@ -3,13 +3,17 @@
  */
 package notes.gui.main.event;
 
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-
+import notes.bean.ArticleHome;
+import notes.bean.BookHome;
 import notes.data.cache.Cache;
 import notes.data.cache.Property;
+import notes.entity.SystemMode;
+import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 /**
  * Window listener of the main panel.
@@ -47,6 +51,19 @@ public class MainPanelWindowListener implements WindowListener {
             e.printStackTrace();
         }
         Cache.get().saveAllCaches();
+
+        // Save the current opened document id.
+        SystemMode currentMode = MainPanel.get().getCurrentMode();
+        if (currentMode != null) {
+            if (currentMode.equals(SystemMode.ARTICLE)
+                    && ArticleHome.get().getCurrentArticle() != null) {
+                Property.get().setLastOpenedDocumentId(ArticleHome.get().getCurrentArticle().getDocumentId());
+            } else if (currentMode.equals(SystemMode.BOOK)
+                    && BookHome.get().getCurrentBook() != null) {
+                Property.get().setLastOpenedDocumentId(BookHome.get().getCurrentBook().getDocumentId());
+            }
+        }
+
         Property.get().saveProperty();
     }
 

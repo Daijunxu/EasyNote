@@ -37,6 +37,16 @@ public class Property {
     private String soundTheme;
 
     /**
+     * Whether to open the last document when program starts.
+     */
+    private boolean showLastDocumentOnOpening;
+
+    /**
+     * The id of last opened document.
+     */
+    private Long lastOpenedDocumentId;
+
+    /**
      * The single instance that is used in the system.
      */
     private static final Property instance = new Property();
@@ -68,6 +78,16 @@ public class Property {
         setDataLocation(PROPERTIES.getProperty("dataLocation"));
         documentTypes = Arrays.asList(PROPERTIES.getProperty("documentType").split(","));
         setSoundTheme(PROPERTIES.getProperty("soundTheme"));
+
+        if (PROPERTIES.getProperty("showLastDocumentOnOpening") != null) {
+            setShowLastDocumentOnOpening(PROPERTIES.getProperty("showLastDocumentOnOpening").equals("true"));
+        } else {
+            setShowLastDocumentOnOpening(false);
+        }
+
+        if (PROPERTIES.getProperty("lastOpenedDocumentId") != null) {
+            setLastOpenedDocumentId(Long.parseLong(PROPERTIES.getProperty("lastOpenedDocumentId")));
+        }
     }
 
     /**
@@ -97,6 +117,24 @@ public class Property {
         return soundTheme;
     }
 
+    /**
+     * Gets the value of whether to open the last document when program starts.
+     *
+     * @return boolean Whether to open the last document when program starts.
+     */
+    public boolean showLastDocumentOnOpening() {
+        return showLastDocumentOnOpening;
+    }
+
+    /**
+     * Gets the id of last opened document.
+     *
+     * @return {@code Long} The id of last opened document.
+     */
+    public Long getLastOpenedDocumentId() {
+        return lastOpenedDocumentId;
+    }
+
     public void saveProperty() {
         Properties PROPERTIES = new Properties();
         PROPERTIES.setProperty("dataLocation", getDataLocation());
@@ -112,10 +150,15 @@ public class Property {
         PROPERTIES.setProperty("documentType", sb.toString());
 
         PROPERTIES.setProperty("soundTheme", getSoundTheme());
+        PROPERTIES.setProperty("showLastDocumentOnOpening", String.valueOf(showLastDocumentOnOpening()));
+
+        if (getLastOpenedDocumentId() != null) {
+            PROPERTIES.setProperty("lastOpenedDocumentId", getLastOpenedDocumentId().toString());
+        }
 
         try {
             OutputStream output = new FileOutputStream("./Config.xml");
-            PROPERTIES.storeToXML(output, "Updated at " + (new Date(System.currentTimeMillis())),
+            PROPERTIES.storeToXML(output, "Updated on " + (new Date(System.currentTimeMillis())),
                     "UTF-8");
             output.close();
         } catch (IOException e) {
@@ -140,5 +183,23 @@ public class Property {
      */
     public void setSoundTheme(String soundTheme) {
         this.soundTheme = soundTheme;
+    }
+
+    /**
+     * Sets the value of whether to open the last document when program starts.
+     *
+     * @param value Whether to open the last document when program starts.
+     */
+    public void setShowLastDocumentOnOpening(boolean value) {
+        showLastDocumentOnOpening = value;
+    }
+
+    /**
+     * Sets the id of last opened document.
+     *
+     * @param documentId The id of last opened document.
+     */
+    public void setLastOpenedDocumentId(Long documentId) {
+        lastOpenedDocumentId = documentId;
     }
 }

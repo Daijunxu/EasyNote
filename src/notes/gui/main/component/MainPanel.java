@@ -12,6 +12,7 @@ import notes.book.BookNote;
 import notes.book.Chapter;
 import notes.data.cache.Cache;
 import notes.data.cache.Property;
+import notes.entity.Document;
 import notes.entity.SystemMode;
 import notes.gui.article.event.ArticleNoteListMouseListener;
 import notes.gui.article.event.DeleteArticleActionListener;
@@ -88,9 +89,11 @@ public class MainPanel extends JFrame {
      * @param args The array of arguments when starting the program.
      */
     public static void main(String[] args) {
+        Property property = Property.get();
+
         if (Cache.get() == null || Cache.hasProblem) {
             System.out.println("Cache is having problem!");
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+            if (!property.getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNotify();
             }
             int result = JOptionPane.showConfirmDialog(null,
@@ -98,7 +101,7 @@ public class MainPanel extends JFrame {
                     "Confirm Dialog", JOptionPane.YES_NO_OPTION);
             // 0 for yes and 1 for no.
             if (result == 0) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+                if (!property.getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playPopup();
                 }
                 new InitialChooseDataLocationDialog();
@@ -106,13 +109,29 @@ public class MainPanel extends JFrame {
                 System.exit(0);
             }
         } else {
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+            // Data has loaded successfully.
+
+            if (!property.getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playOn();
             }
+
+            if (property.showLastDocumentOnOpening() && property.getLastOpenedDocumentId() != null) {
+                MainPanel.get().openLastDocument(property.getLastOpenedDocumentId());
+            }
+
             MainPanel.get().setVisible(true);
             MainPanel.get().setLocation(MainPanel.get().getLocationOnScreen());
         }
 
+    }
+
+    private void openLastDocument(Long documentId) {
+        Document document = BookHome.get().getBookNoteDAO().findDocumentById(documentId);
+        if (document instanceof Book) {
+            MainPanel.get().setBookPanel((Book) document);
+        } else if (document instanceof Article) {
+            MainPanel.get().setArticlePanel((Article) document);
+        }
     }
 
     /**
