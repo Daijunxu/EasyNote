@@ -3,18 +3,19 @@
  */
 package notes.gui.main.event;
 
-import javax.swing.JList;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
 import notes.book.BookNote;
 import notes.data.cache.Property;
+import notes.entity.SystemMode;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  * The event listener for book note list. Triggers when selected item in the list changes.
@@ -35,11 +36,11 @@ public class NoteListSelectionListener implements ListSelectionListener {
             JList list = (JList) event.getSource();
             int selected = list.getSelectedIndex();
             MainPanel frame = MainPanel.get();
-            if (frame.getCurrentMode().equals("Article")) {
+            if (frame.getCurrentMode().equals(SystemMode.ARTICLE)) {
                 ArticleNote articleNote = ArticleHome.get().getCurrentArticleNotesList()
                         .get(selected);
                 ArticleHome.get().setCurrentArticleNote(articleNote);
-            } else if (frame.getCurrentMode().equals("Book")) {
+            } else if (frame.getCurrentMode().equals(SystemMode.BOOK)) {
                 BookNote bookNote = BookHome.get().getCurrentBookNotesList().get(selected);
                 BookHome.get().setCurrentBookNote(bookNote);
             }

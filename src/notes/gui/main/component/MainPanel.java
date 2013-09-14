@@ -12,6 +12,7 @@ import notes.book.BookNote;
 import notes.book.Chapter;
 import notes.data.cache.Cache;
 import notes.data.cache.Property;
+import notes.entity.SystemMode;
 import notes.gui.article.event.ArticleNoteListMouseListener;
 import notes.gui.article.event.DeleteArticleActionListener;
 import notes.gui.article.event.DeleteArticleNoteActionListener;
@@ -117,7 +118,7 @@ public class MainPanel extends JFrame {
     /**
      * The current mode indicating the type of the current opened document.
      */
-    private String currentMode;
+    private SystemMode currentMode;
 
     /**
      * The menu bar on the main panel that contains different operations for this application.
@@ -425,9 +426,9 @@ public class MainPanel extends JFrame {
     /**
      * Gets the current mode.
      *
-     * @return {@code String} The current mode.
+     * @return {@code SystemMode} The current mode.
      */
-    public String getCurrentMode() {
+    public SystemMode getCurrentMode() {
         return currentMode;
     }
 
@@ -450,7 +451,7 @@ public class MainPanel extends JFrame {
         ArticleHome home = ArticleHome.get();
 
         // Set current mode to "Article".
-        setCurrentMode("Article");
+        setCurrentMode(SystemMode.ARTICLE);
 
         // Change panel's title.
         setTitle(article.getDocumentTitle());
@@ -488,7 +489,7 @@ public class MainPanel extends JFrame {
         BookHome home = BookHome.get();
 
         // Set current mode to "Book".
-        setCurrentMode("Book");
+        setCurrentMode(SystemMode.BOOK);
 
         // Change panel's title.
         setTitle(book.getDocumentTitle());
@@ -534,7 +535,7 @@ public class MainPanel extends JFrame {
      *
      * @param currentMode The current mode to set
      */
-    public void setCurrentMode(String currentMode) {
+    public void setCurrentMode(SystemMode currentMode) {
         this.currentMode = currentMode;
     }
 
