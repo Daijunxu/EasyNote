@@ -3,12 +3,11 @@
  */
 package notes.entity.impl;
 
-import java.util.Date;
-import java.util.List;
-
+import notes.entity.Note;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
-import notes.entity.Note;
+import java.util.Date;
+import java.util.List;
 
 /**
  * An abstract entity class specifying the basic members and methods of a note.
@@ -22,22 +21,18 @@ public abstract class AbstractNote implements Note {
      * The unique identifier for the note.
      */
     private Long noteId;
-
     /**
      * The document identifier.
      */
     private Long documentId;
-
     /**
      * The tag identifiers.
      */
     private List<Long> tagIds;
-
     /**
      * The note's text.
      */
     private String noteText;
-
     /**
      * The created time of this note.
      */
@@ -67,8 +62,23 @@ public abstract class AbstractNote implements Note {
     /**
      * {@inheritDoc}
      */
+    @Override
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public Long getDocumentId() {
         return documentId;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setDocumentId(Long documentId) {
+        this.documentId = documentId;
     }
 
     /**
@@ -83,37 +93,6 @@ public abstract class AbstractNote implements Note {
      * {@inheritDoc}
      */
     @Override
-    public String getNoteText() {
-        return noteText;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Long> getTagIds() {
-        return tagIds;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void setDocumentId(Long documentId) {
-        this.documentId = documentId;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void setNoteId(Long noteId) {
         this.noteId = noteId;
     }
@@ -122,8 +101,24 @@ public abstract class AbstractNote implements Note {
      * {@inheritDoc}
      */
     @Override
+    public String getNoteText() {
+        return noteText;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void setNoteText(String noteText) {
         this.noteText = noteText;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Long> getTagIds() {
+        return tagIds;
     }
 
     /**

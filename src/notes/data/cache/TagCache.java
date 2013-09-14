@@ -23,12 +23,10 @@ public class TagCache {
      * The map of all tags from tag IDs to the tags.
      */
     private Map<Long, Tag> tagIdMap;
-
     /**
      * The map of all tags from tag texts to the tags.
      */
     private Map<String, Tag> tagTextMap;
-
     /**
      * The maximum tag ID in the data.
      */
@@ -64,6 +62,15 @@ public class TagCache {
     }
 
     /**
+     * Sets the maximum tag ID.
+     *
+     * @param maxTagId The maximum tag ID to set.
+     */
+    public void setMaxTagId(Long maxTagId) {
+        this.maxTagId = maxTagId;
+    }
+
+    /**
      * Gets the tag ID map.
      *
      * @return {@code Map} The tag ID map.
@@ -73,12 +80,30 @@ public class TagCache {
     }
 
     /**
+     * Sets the tag ID map.
+     *
+     * @param tagIdMap The tag ID map to set.
+     */
+    public void setTagIdMap(Map<Long, Tag> tagIdMap) {
+        this.tagIdMap = tagIdMap;
+    }
+
+    /**
      * Gets the tag text map.
      *
      * @return {@code Map} The tag text map.
      */
     public Map<String, Tag> getTagTextMap() {
         return tagTextMap;
+    }
+
+    /**
+     * Sets the tag text map.
+     *
+     * @param tagTextMap The tag text map to set.
+     */
+    public void setTagTextMap(Map<String, Tag> tagTextMap) {
+        this.tagTextMap = tagTextMap;
     }
 
     /**
@@ -159,32 +184,5 @@ public class TagCache {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Sets the maximum tag ID.
-     *
-     * @param maxTagId The maximum tag ID to set.
-     */
-    public void setMaxTagId(Long maxTagId) {
-        this.maxTagId = maxTagId;
-    }
-
-    /**
-     * Sets the tag ID map.
-     *
-     * @param tagIdMap The tag ID map to set.
-     */
-    public void setTagIdMap(Map<Long, Tag> tagIdMap) {
-        this.tagIdMap = tagIdMap;
-    }
-
-    /**
-     * Sets the tag text map.
-     *
-     * @param tagTextMap The tag text map to set.
-     */
-    public void setTagTextMap(Map<String, Tag> tagTextMap) {
-        this.tagTextMap = tagTextMap;
     }
 }

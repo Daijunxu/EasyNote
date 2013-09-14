@@ -30,12 +30,10 @@ public class DocumentCache {
      * The map of all documents from document IDs to the documents.
      */
     private Map<Long, Document> documentMap;
-
     /**
      * The map of all documents' titles to their IDs.
      */
     private Map<String, Long> documentTitleIdMap;
-
     /**
      * The maximum document ID in the data.
      */
@@ -71,6 +69,15 @@ public class DocumentCache {
     }
 
     /**
+     * Sets the document map.
+     *
+     * @param documentMap The document map to set.
+     */
+    public void setDocumentMap(Map<Long, Document> documentMap) {
+        this.documentMap = documentMap;
+    }
+
+    /**
      * Gets the map of all documents' titles to their IDs.
      *
      * @return {@code Map} The map of all documents' titles to their IDs.
@@ -80,12 +87,30 @@ public class DocumentCache {
     }
 
     /**
+     * Sets the map of all documents' titles to their IDs.
+     *
+     * @param documentTitleIdMap The map of all documents' titles to their IDs.
+     */
+    public void setDocumentTitleIdMap(Map<String, Long> documentTitleIdMap) {
+        this.documentTitleIdMap = documentTitleIdMap;
+    }
+
+    /**
      * Gets the maximum document ID.
      *
      * @return {@code Long} The maximum document ID.
      */
     public Long getMaxDocumentId() {
         return maxDocumentId;
+    }
+
+    /**
+     * Sets the maximum document ID.
+     *
+     * @param maxDocumentId The maximum document ID to set.
+     */
+    public void setMaxDocumentId(Long maxDocumentId) {
+        this.maxDocumentId = maxDocumentId;
     }
 
     /**
@@ -294,32 +319,5 @@ public class DocumentCache {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Sets the document map.
-     *
-     * @param documentMap The document map to set.
-     */
-    public void setDocumentMap(Map<Long, Document> documentMap) {
-        this.documentMap = documentMap;
-    }
-
-    /**
-     * Sets the map of all documents' titles to their IDs.
-     *
-     * @param documentTitleIdMap The map of all documents' titles to their IDs.
-     */
-    public void setDocumentTitleIdMap(Map<String, Long> documentTitleIdMap) {
-        this.documentTitleIdMap = documentTitleIdMap;
-    }
-
-    /**
-     * Sets the maximum document ID.
-     *
-     * @param maxDocumentId The maximum document ID to set.
-     */
-    public void setMaxDocumentId(Long maxDocumentId) {
-        this.maxDocumentId = maxDocumentId;
     }
 }

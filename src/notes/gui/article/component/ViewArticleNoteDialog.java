@@ -22,7 +22,6 @@ import java.awt.event.ActionEvent;
 public class ViewArticleNoteDialog extends JDialog {
 
     private static final long serialVersionUID = -8380650370707991224L;
-
     private JButton okButton = new JButton(new AbstractAction("OK") {
         private static final long serialVersionUID = -5237737680519770896L;
 
@@ -33,7 +32,6 @@ public class ViewArticleNoteDialog extends JDialog {
             setVisible(false);
         }
     });
-
     private JLabel noteIdField = new JLabel();
     private JTextArea documentField = new JTextArea(2, 50);
     private JTextArea tagsField = new JTextArea(2, 50);

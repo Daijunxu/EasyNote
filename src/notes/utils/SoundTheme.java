@@ -12,7 +12,6 @@ package notes.utils;
 public enum SoundTheme {
 
     NONE("No Sound"), OUTLOOK("Windows Outlook"), WINDOWS("Windows Default");
-
     private String description;
 
     /**
@@ -22,15 +21,6 @@ public enum SoundTheme {
      */
     private SoundTheme(String description) {
         this.description = description;
-    }
-
-    /**
-     * Gets the description message of the sound theme.
-     *
-     * @return {@code String} The description message of the sound theme.
-     */
-    public String getDescription() {
-        return description;
     }
 
     /**
@@ -47,5 +37,14 @@ public enum SoundTheme {
             }
         }
         return null;
+    }
+
+    /**
+     * Gets the description message of the sound theme.
+     *
+     * @return {@code String} The description message of the sound theme.
+     */
+    public String getDescription() {
+        return description;
     }
 }

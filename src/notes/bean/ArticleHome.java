@@ -24,45 +24,30 @@ public class ArticleHome implements Serializable {
      * The generated serial version UID.
      */
     private static final long serialVersionUID = 5485984267066020550L;
-
-    /**
-     * The article note DAO.
-     */
-    private ArticleNoteDAO articleNoteDAO;
-
-    /**
-     * The list of documents.
-     */
-    private List<Document> documentList;
-
-    /**
-     * The current selected article.
-     */
-    private Article currentArticle;
-
-    /**
-     * The current selected article note.
-     */
-    private ArticleNote currentArticleNote;
-
-    /**
-     * The list of article notes in current selected article.
-     */
-    private List<ArticleNote> currentArticleNotesList;
-
     /**
      * The single instance of ArticleHome.
      */
     private static final ArticleHome instance = new ArticleHome();
-
     /**
-     * Gets the instance of {@code ArticleHome}.
-     *
-     * @return {@code ArticleHome} The instance of {@code ArticleHome}.
+     * The article note DAO.
      */
-    public static ArticleHome get() {
-        return instance;
-    }
+    private ArticleNoteDAO articleNoteDAO;
+    /**
+     * The list of documents.
+     */
+    private List<Document> documentList;
+    /**
+     * The current selected article.
+     */
+    private Article currentArticle;
+    /**
+     * The current selected article note.
+     */
+    private ArticleNote currentArticleNote;
+    /**
+     * The list of article notes in current selected article.
+     */
+    private List<ArticleNote> currentArticleNotesList;
 
     /**
      * Constructs an instance of {@code ArticleHome}.
@@ -71,6 +56,15 @@ public class ArticleHome implements Serializable {
         articleNoteDAO = new ArticleNoteDAO();
         documentList = articleNoteDAO.findAllDocuments();
         currentArticleNotesList = new ArrayList<ArticleNote>();
+    }
+
+    /**
+     * Gets the instance of {@code ArticleHome}.
+     *
+     * @return {@code ArticleHome} The instance of {@code ArticleHome}.
+     */
+    public static ArticleHome get() {
+        return instance;
     }
 
     /**
@@ -102,39 +96,21 @@ public class ArticleHome implements Serializable {
     }
 
     /**
-     * Gets the current selected article note.
-     *
-     * @return {@code ArticleNote} The current selected article note.
-     */
-    public ArticleNote getCurrentArticleNote() {
-        return currentArticleNote;
-    }
-
-    /**
-     * Gets the article list of notes in current selected article.
-     *
-     * @return {@code List<ArticleNote>} The list of article notes in current selected article.
-     */
-    public List<ArticleNote> getCurrentArticleNotesList() {
-        return currentArticleNotesList;
-    }
-
-    /**
-     * Gets the list of documents.
-     *
-     * @return {@code List<Document>} The list of documents.
-     */
-    public List<Document> getDocumentList() {
-        return documentList;
-    }
-
-    /**
      * Sets the current selected article.
      *
      * @param currentArticle The current selected article to set.
      */
     public void setCurrentArticle(Article currentArticle) {
         this.currentArticle = currentArticle;
+    }
+
+    /**
+     * Gets the current selected article note.
+     *
+     * @return {@code ArticleNote} The current selected article note.
+     */
+    public ArticleNote getCurrentArticleNote() {
+        return currentArticleNote;
     }
 
     /**
@@ -147,12 +123,30 @@ public class ArticleHome implements Serializable {
     }
 
     /**
+     * Gets the article list of notes in current selected article.
+     *
+     * @return {@code List<ArticleNote>} The list of article notes in current selected article.
+     */
+    public List<ArticleNote> getCurrentArticleNotesList() {
+        return currentArticleNotesList;
+    }
+
+    /**
      * Sets the list of article notes in current selected article.
      *
      * @param currentArticleNotesList The list of article note in current selected article to set.
      */
     public void setCurrentArticleNotesList(List<ArticleNote> currentArticleNotesList) {
         this.currentArticleNotesList = currentArticleNotesList;
+    }
+
+    /**
+     * Gets the list of documents.
+     *
+     * @return {@code List<Document>} The list of documents.
+     */
+    public List<Document> getDocumentList() {
+        return documentList;
     }
 
     /**

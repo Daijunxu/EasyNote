@@ -23,7 +23,6 @@ import java.util.List;
 public class ViewBookDialog extends JDialog {
 
     private static final long serialVersionUID = 4306956396552952456L;
-
     private JButton okButton = new JButton(new AbstractAction("OK") {
         private static final long serialVersionUID = 1L;
 
@@ -34,7 +33,6 @@ public class ViewBookDialog extends JDialog {
             setVisible(false);
         }
     });
-
     private JTextField documentIdField = new JTextField();
     private JTextArea documentTitleField = new JTextArea(2, 50);
     private JTextArea authorField = new JTextArea(2, 50);

@@ -22,21 +22,7 @@ import java.awt.event.ActionListener;
 public class PreferencesDialog extends JDialog {
 
     private static final long serialVersionUID = 5443009634695952662L;
-
     private static PreferencesDialog instance;
-
-    /**
-     * Gets the instance of {@code PreferencesDialog}.
-     *
-     * @return {@code PreferencesDialog} The instance of {@code PreferencesDialog}.
-     */
-    public static PreferencesDialog get() {
-        if (instance == null) {
-            instance = new PreferencesDialog();
-        }
-        return instance;
-    }
-
     private final JButton okButton = new JButton(new AbstractAction("OK") {
         private static final long serialVersionUID = -1077277029101012739L;
 
@@ -70,7 +56,6 @@ public class PreferencesDialog extends JDialog {
             setVisible(false);
         }
     });
-
     private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         private static final long serialVersionUID = 4172730058717036113L;
 
@@ -81,12 +66,10 @@ public class PreferencesDialog extends JDialog {
             setVisible(false);
         }
     });
-
     private final JTextField dataLocationField = new JTextField(40);
     private final JButton chooseDataLocationButton = new JButton("Choose");
     private final JComboBox soundThemeField = new JComboBox();
     private final JCheckBox showLastDocumentOnOpeningCheckBox = new JCheckBox("Open last viewed document when program starts");
-
     private PreferencesDialog() {
         super(MainPanel.get(), "Edit Preferences", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
@@ -160,6 +143,18 @@ public class PreferencesDialog extends JDialog {
         pack();
         setSize(getWidth() + 15, getHeight());
         setResizable(false);
+    }
+
+    /**
+     * Gets the instance of {@code PreferencesDialog}.
+     *
+     * @return {@code PreferencesDialog} The instance of {@code PreferencesDialog}.
+     */
+    public static PreferencesDialog get() {
+        if (instance == null) {
+            instance = new PreferencesDialog();
+        }
+        return instance;
     }
 
     /**

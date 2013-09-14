@@ -22,43 +22,29 @@ import java.util.Properties;
  */
 public class Property {
     /**
-     * The location of data file.
+     * The single instance that is used in the system.
      */
-    private String dataLocation;
-
+    private static final Property instance = new Property();
     /**
      * The list of document types.
      */
     private final List<String> documentTypes;
-
+    /**
+     * The location of data file.
+     */
+    private String dataLocation;
     /**
      * The default sound theme.
      */
     private String soundTheme;
-
     /**
      * Whether to open the last document when program starts.
      */
     private boolean showLastDocumentOnOpening;
-
     /**
      * The id of last opened document.
      */
     private Long lastOpenedDocumentId;
-
-    /**
-     * The single instance that is used in the system.
-     */
-    private static final Property instance = new Property();
-
-    /**
-     * Gets the instance of {@code Property}.
-     *
-     * @return {@code Property} The instance of {@code Property}.
-     */
-    public static Property get() {
-        return instance;
-    }
 
     /**
      * Constructs an instance of {@code Property}.
@@ -91,12 +77,30 @@ public class Property {
     }
 
     /**
+     * Gets the instance of {@code Property}.
+     *
+     * @return {@code Property} The instance of {@code Property}.
+     */
+    public static Property get() {
+        return instance;
+    }
+
+    /**
      * Gets the data file location.
      *
      * @return {@code String} The data file location.
      */
     public String getDataLocation() {
         return dataLocation;
+    }
+
+    /**
+     * Sets the data file location.
+     *
+     * @param dataLocation The data file location to set.
+     */
+    public void setDataLocation(String dataLocation) {
+        this.dataLocation = dataLocation;
     }
 
     /**
@@ -118,6 +122,15 @@ public class Property {
     }
 
     /**
+     * Sets the default sound theme.
+     *
+     * @param soundTheme The default sound theme to set.
+     */
+    public void setSoundTheme(String soundTheme) {
+        this.soundTheme = soundTheme;
+    }
+
+    /**
      * Gets the value of whether to open the last document when program starts.
      *
      * @return boolean Whether to open the last document when program starts.
@@ -133,6 +146,15 @@ public class Property {
      */
     public Long getLastOpenedDocumentId() {
         return lastOpenedDocumentId;
+    }
+
+    /**
+     * Sets the id of last opened document.
+     *
+     * @param documentId The id of last opened document.
+     */
+    public void setLastOpenedDocumentId(Long documentId) {
+        lastOpenedDocumentId = documentId;
     }
 
     public void saveProperty() {
@@ -168,38 +190,11 @@ public class Property {
     }
 
     /**
-     * Sets the data file location.
-     *
-     * @param dataLocation The data file location to set.
-     */
-    public void setDataLocation(String dataLocation) {
-        this.dataLocation = dataLocation;
-    }
-
-    /**
-     * Sets the default sound theme.
-     *
-     * @param soundTheme The default sound theme to set.
-     */
-    public void setSoundTheme(String soundTheme) {
-        this.soundTheme = soundTheme;
-    }
-
-    /**
      * Sets the value of whether to open the last document when program starts.
      *
      * @param value Whether to open the last document when program starts.
      */
     public void setShowLastDocumentOnOpening(boolean value) {
         showLastDocumentOnOpening = value;
-    }
-
-    /**
-     * Sets the id of last opened document.
-     *
-     * @param documentId The id of last opened document.
-     */
-    public void setLastOpenedDocumentId(Long documentId) {
-        lastOpenedDocumentId = documentId;
     }
 }

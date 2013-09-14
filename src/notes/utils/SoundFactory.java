@@ -17,9 +17,7 @@ import sun.audio.AudioStream;
 public class SoundFactory {
 
     private static AudioPlayer player = AudioPlayer.player;
-
     private static Map<String, Map<String, String>> soundMap;
-
     static {
         soundMap = new HashMap<String, Map<String, String>>();
 

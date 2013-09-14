@@ -1,10 +1,10 @@
 package notes.book;
 
-import java.util.List;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.List;
 
 /**
  * Entity class to describe a chapter. A book contains multiple chapters, while a chapter belongs to
@@ -19,12 +19,10 @@ public class Chapter {
      * The chapter identifier.
      */
     private Long chapterId;
-
     /**
      * The chapter's title.
      */
     private String chapterTitle;
-
     /**
      * The list of note identifiers.
      */
@@ -76,42 +74,21 @@ public class Chapter {
     }
 
     /**
-     * Gets the chapter's title.
-     *
-     * @return {@code String} The chapter's title.
-     */
-    public String getChapterTitle() {
-        return chapterTitle;
-    }
-
-    /**
-     * Gets the list of note identifiers.
-     *
-     * @return {@code List<Long>} The list of note identifiers.
-     */
-    public List<Long> getNotesList() {
-        return notesList;
-    }
-
-    /**
-     * Returns a hash code value for the object.
-     *
-     * @return int A hash code value for this object.
-     * @see Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(getChapterId()).append(getChapterTitle())
-                .append(getNotesList()).toHashCode();
-    }
-
-    /**
      * Sets the chapter identifier.
      *
      * @param chapterId The chapter identifier to set.
      */
     public void setChapterId(final Long chapterId) {
         this.chapterId = chapterId;
+    }
+
+    /**
+     * Gets the chapter's title.
+     *
+     * @return {@code String} The chapter's title.
+     */
+    public String getChapterTitle() {
+        return chapterTitle;
     }
 
     /**
@@ -124,12 +101,33 @@ public class Chapter {
     }
 
     /**
+     * Gets the list of note identifiers.
+     *
+     * @return {@code List<Long>} The list of note identifiers.
+     */
+    public List<Long> getNotesList() {
+        return notesList;
+    }
+
+    /**
      * Sets the list of note identifiers.
      *
      * @param notesList The list of note identifiers to set.
      */
     public void setNotesList(final List<Long> notesList) {
         this.notesList = notesList;
+    }
+
+    /**
+     * Returns a hash code value for the object.
+     *
+     * @return int A hash code value for this object.
+     * @see Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(getChapterId()).append(getChapterTitle())
+                .append(getNotesList()).toHashCode();
     }
 
     /**

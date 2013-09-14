@@ -32,7 +32,6 @@ import java.util.TreeMap;
 public class NewBookDialog extends JDialog {
 
     private static final long serialVersionUID = 3262391130437264155L;
-
     private JButton okButton = new JButton(new AbstractAction("OK") {
         private static final long serialVersionUID = 3450970158920647973L;
 
@@ -153,7 +152,6 @@ public class NewBookDialog extends JDialog {
             }
         }
     });
-
     private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         private static final long serialVersionUID = 6895836087981161903L;
 
@@ -164,7 +162,6 @@ public class NewBookDialog extends JDialog {
             setVisible(false);
         }
     });
-
     private JTextArea documentTitleField = new JTextArea(2, 50);
     private JTextArea authorField = new JTextArea(2, 50);
     private JTextField editionField = new JTextField();

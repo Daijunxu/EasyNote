@@ -1,14 +1,13 @@
 package notes.book;
 
-import java.util.Date;
-import java.util.List;
-import java.util.TreeMap;
-
+import notes.entity.impl.AbstractDocument;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import notes.entity.impl.AbstractDocument;
+import java.util.Date;
+import java.util.List;
+import java.util.TreeMap;
 
 /**
  * Entity class to describe a book.
@@ -22,17 +21,14 @@ public class Book extends AbstractDocument {
      * The book's edition number.
      */
     private Integer edition;
-
     /**
      * The book's published year.
      */
     private Integer publishedYear;
-
     /**
      * The book's ISBN.
      */
     private String isbn;
-
     /**
      * The ordered map for chapters.
      */
@@ -105,6 +101,15 @@ public class Book extends AbstractDocument {
     }
 
     /**
+     * Sets the ordered map for chapters.
+     *
+     * @param chaptersMap The ordered map for chapters to set.
+     */
+    public void setChaptersMap(final TreeMap<Long, Chapter> chaptersMap) {
+        this.chaptersMap = chaptersMap;
+    }
+
+    /**
      * Gets the book's edition number.
      *
      * @return {@code Integer} The book's edition number.
@@ -114,12 +119,30 @@ public class Book extends AbstractDocument {
     }
 
     /**
+     * Sets the book's edition number.
+     *
+     * @param edition The book's edition number to set.
+     */
+    public void setEdition(final Integer edition) {
+        this.edition = edition;
+    }
+
+    /**
      * Gets the book's ISBN.
      *
      * @return {@code String} The book's ISBN.
      */
     public String getIsbn() {
         return isbn;
+    }
+
+    /**
+     * Sets the book's ISBN.
+     *
+     * @param isbn The book's ISBN to set.
+     */
+    public void setIsbn(final String isbn) {
+        this.isbn = isbn;
     }
 
     /**
@@ -148,6 +171,15 @@ public class Book extends AbstractDocument {
     }
 
     /**
+     * Sets the book's published year.
+     *
+     * @param publishedYear The book's published year to set.
+     */
+    public void setPublishedYear(final Integer publishedYear) {
+        this.publishedYear = publishedYear;
+    }
+
+    /**
      * Returns a hash code value for the object.
      *
      * @return int A hash code value for this object.
@@ -159,42 +191,6 @@ public class Book extends AbstractDocument {
                 .append(getAuthorsList()).append(getComment()).append(getEdition())
                 .append(getPublishedYear()).append(getIsbn()).append(getChaptersMap())
                 .append(getCreatedTime()).append(getLastUpdatedTime()).toHashCode();
-    }
-
-    /**
-     * Sets the ordered map for chapters.
-     *
-     * @param chaptersMap The ordered map for chapters to set.
-     */
-    public void setChaptersMap(final TreeMap<Long, Chapter> chaptersMap) {
-        this.chaptersMap = chaptersMap;
-    }
-
-    /**
-     * Sets the book's edition number.
-     *
-     * @param edition The book's edition number to set.
-     */
-    public void setEdition(final Integer edition) {
-        this.edition = edition;
-    }
-
-    /**
-     * Sets the book's ISBN.
-     *
-     * @param isbn The book's ISBN to set.
-     */
-    public void setIsbn(final String isbn) {
-        this.isbn = isbn;
-    }
-
-    /**
-     * Sets the book's published year.
-     *
-     * @param publishedYear The book's published year to set.
-     */
-    public void setPublishedYear(final Integer publishedYear) {
-        this.publishedYear = publishedYear;
     }
 
     /**

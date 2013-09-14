@@ -29,7 +29,6 @@ public class NoteCache {
      * The map of all notes from note IDs to the notes.
      */
     private Map<Long, Note> noteMap;
-
     /**
      * The maximum note ID in the data.
      */
@@ -63,12 +62,30 @@ public class NoteCache {
     }
 
     /**
+     * Sets the maximum note ID.
+     *
+     * @param maxNoteId The maximum note ID to set.
+     */
+    public void setMaxNoteId(Long maxNoteId) {
+        this.maxNoteId = maxNoteId;
+    }
+
+    /**
      * Gets the note map.
      *
      * @return {@code Map} The noteMap.
      */
     public Map<Long, Note> getNoteMap() {
         return noteMap;
+    }
+
+    /**
+     * Sets the note map.
+     *
+     * @param noteMap The note map to set.
+     */
+    public void setNoteMap(Map<Long, Note> noteMap) {
+        this.noteMap = noteMap;
     }
 
     /**
@@ -240,23 +257,5 @@ public class NoteCache {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Sets the maximum note ID.
-     *
-     * @param maxNoteId The maximum note ID to set.
-     */
-    public void setMaxNoteId(Long maxNoteId) {
-        this.maxNoteId = maxNoteId;
-    }
-
-    /**
-     * Sets the note map.
-     *
-     * @param noteMap The note map to set.
-     */
-    public void setNoteMap(Map<Long, Note> noteMap) {
-        this.noteMap = noteMap;
     }
 }

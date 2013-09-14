@@ -24,7 +24,6 @@ import java.util.List;
  */
 public class EditArticleNoteDialog extends JDialog {
     private static final long serialVersionUID = -4771583013693557849L;
-
     private JButton okButton = new JButton(new AbstractAction("OK") {
         private static final long serialVersionUID = 1L;
 
@@ -104,7 +103,6 @@ public class EditArticleNoteDialog extends JDialog {
             setVisible(false);
         }
     });
-
     private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         private static final long serialVersionUID = 1L;
 
@@ -115,7 +113,6 @@ public class EditArticleNoteDialog extends JDialog {
             setVisible(false);
         }
     });
-
     private JTextArea documentField = new JTextArea(2, 50);
     private JTextField tagsField = new JTextField();
     private JTextArea noteTextField = new JTextArea(10, 50);

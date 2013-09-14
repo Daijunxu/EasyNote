@@ -11,7 +11,6 @@ public class Tag implements Comparable<Tag> {
      * The tag identifier.
      */
     private Long tagId;
-
     /**
      * The tag's text.
      */
@@ -72,12 +71,30 @@ public class Tag implements Comparable<Tag> {
     }
 
     /**
+     * Sets the tag identifier.
+     *
+     * @param tagId the tag identifier to set.
+     */
+    public void setTagId(final Long tagId) {
+        this.tagId = tagId;
+    }
+
+    /**
      * Gets the tag's text.
      *
      * @return {@code String} The tag's text.
      */
     public String getTagText() {
         return tagText;
+    }
+
+    /**
+     * Sets the tag's text.
+     *
+     * @param tagText the tag's text to set.
+     */
+    public void setTagText(final String tagText) {
+        this.tagText = tagText;
     }
 
     /**
@@ -89,24 +106,6 @@ public class Tag implements Comparable<Tag> {
     @Override
     public int hashCode() {
         return new HashCodeBuilder().append(getTagId()).append(getTagText()).toHashCode();
-    }
-
-    /**
-     * Sets the tag identifier.
-     *
-     * @param tagId the tag identifier to set.
-     */
-    public void setTagId(final Long tagId) {
-        this.tagId = tagId;
-    }
-
-    /**
-     * Sets the tag's text.
-     *
-     * @param tagText the tag's text to set.
-     */
-    public void setTagText(final String tagText) {
-        this.tagText = tagText;
     }
 
     /**

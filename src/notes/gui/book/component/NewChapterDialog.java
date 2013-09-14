@@ -43,7 +43,6 @@ import org.apache.commons.lang3.text.WordUtils;
 public class NewChapterDialog extends JDialog {
 
     private static final long serialVersionUID = -2657534900412465114L;
-
     private JButton okButton = new JButton(new AbstractAction("OK") {
         private static final long serialVersionUID = -3654597593178177421L;
 
@@ -114,7 +113,6 @@ public class NewChapterDialog extends JDialog {
 
         }
     });
-
     private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         private static final long serialVersionUID = 789206680230884263L;
 
@@ -125,7 +123,6 @@ public class NewChapterDialog extends JDialog {
             setVisible(false);
         }
     });
-
     private JTextArea documentField = new JTextArea(2, 50);
     private JTextField chapterIdField = new JTextField();
     private JTextArea chapterField = new JTextArea(2, 50);

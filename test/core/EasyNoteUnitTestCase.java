@@ -48,11 +48,9 @@ public class EasyNoteUnitTestCase {
         public Map<Long, Document> documentMap;
         public Map<String, Long> documentTitleIdMap;
         public Long maxDocumentId;
-
         public Map<Long, Tag> tagIdMap;
         public Map<String, Tag> tagTextMap;
         public Long maxTagId;
-
         public Map<Long, Note> noteMap;
         public Long maxNoteId;
 

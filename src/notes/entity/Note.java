@@ -22,39 +22,18 @@ public interface Note extends Comparable<Note> {
     Date getCreatedTime();
 
     /**
-     * Gets the document identifier.
-     *
-     * @return {@code Long} The document identifier.
-     */
-    public Long getDocumentId();
-
-    /**
-     * Gets the note identifier.
-     *
-     * @return {@code Long} The note identifier.
-     */
-    Long getNoteId();
-
-    /**
-     * Gets the note's text.
-     *
-     * @return {@code String} The note's text.
-     */
-    String getNoteText();
-
-    /**
-     * Gets the tag identifiers.
-     *
-     * @return {@code List<Long>} The tag identifiers.
-     */
-    List<Long> getTagIds();
-
-    /**
      * Sets the note's created time.
      *
      * @param createdTime The note's created time to set.
      */
     void setCreatedTime(Date createdTime);
+
+    /**
+     * Gets the document identifier.
+     *
+     * @return {@code Long} The document identifier.
+     */
+    public Long getDocumentId();
 
     /**
      * Sets the document identifier.
@@ -64,6 +43,13 @@ public interface Note extends Comparable<Note> {
     public void setDocumentId(Long documentId);
 
     /**
+     * Gets the note identifier.
+     *
+     * @return {@code Long} The note identifier.
+     */
+    Long getNoteId();
+
+    /**
      * Sets the note identifier.
      *
      * @param noteId The note identifier to set.
@@ -71,11 +57,25 @@ public interface Note extends Comparable<Note> {
     void setNoteId(Long noteId);
 
     /**
+     * Gets the note's text.
+     *
+     * @return {@code String} The note's text.
+     */
+    String getNoteText();
+
+    /**
      * Sets the note's text.
      *
      * @param noteText The note's text to set.
      */
     void setNoteText(String noteText);
+
+    /**
+     * Gets the tag identifiers.
+     *
+     * @return {@code List<Long>} The tag identifiers.
+     */
+    List<Long> getTagIds();
 
     /**
      * Sets the tag identifiers.

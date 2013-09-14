@@ -31,7 +31,6 @@ import java.util.List;
 public class EditBookDialog extends JDialog {
 
     private static final long serialVersionUID = -2671765147267457209L;
-
     private JButton okButton = new JButton(new AbstractAction("OK") {
         private static final long serialVersionUID = 774378583007771273L;
 
@@ -144,7 +143,6 @@ public class EditBookDialog extends JDialog {
             setVisible(false);
         }
     });
-
     private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         private static final long serialVersionUID = -8851788447035738145L;
 
@@ -155,7 +153,6 @@ public class EditBookDialog extends JDialog {
             setVisible(false);
         }
     });
-
     private JTextArea documentTitleField = new JTextArea(2, 50);
     private JTextArea authorField = new JTextArea(2, 50);
     private JTextField editionField = new JTextField();

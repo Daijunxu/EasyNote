@@ -3,33 +3,18 @@
  */
 package notes.gui.main.component;
 
-import java.awt.Color;
-import java.awt.Desktop;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import notes.data.cache.Property;
+import notes.utils.SoundFactory;
+import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JEditorPane;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
-
-import notes.data.cache.Property;
-import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 /**
  * Defines the dialog and event listener for system's information.
@@ -40,7 +25,6 @@ import notes.utils.SoundTheme;
 public class AboutDialog extends JDialog {
 
     private static final long serialVersionUID = -4869669171177951394L;
-
     private JButton okButton = new JButton(new AbstractAction("OK") {
         private static final long serialVersionUID = 8804876275155669513L;
 

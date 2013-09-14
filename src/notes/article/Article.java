@@ -3,14 +3,13 @@
  */
 package notes.article;
 
-import java.util.Date;
-import java.util.List;
-
 import notes.entity.impl.AbstractDocument;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * Entity class to describe an article.
@@ -24,7 +23,6 @@ public class Article extends AbstractDocument {
      * The article's source, could be an URL or a description text.
      */
     private String source;
-
     /**
      * The list of note identifiers.
      */
@@ -98,12 +96,30 @@ public class Article extends AbstractDocument {
     }
 
     /**
+     * Sets the list of note identifiers.
+     *
+     * @param notesList The list of note identifiers to set.
+     */
+    public void setNotesList(final List<Long> notesList) {
+        this.notesList = notesList;
+    }
+
+    /**
      * Gets the article's source.
      *
      * @return {@code String} The article's source.
      */
     public String getSource() {
         return source;
+    }
+
+    /**
+     * Sets the article's source.
+     *
+     * @param source The article's source to set.
+     */
+    public void setSource(String source) {
+        this.source = source;
     }
 
     /**
@@ -118,24 +134,6 @@ public class Article extends AbstractDocument {
                 .append(getAuthorsList()).append(getComment()).append(getSource())
                 .append(getCreatedTime()).append(getLastUpdatedTime()).append(getNotesList())
                 .toHashCode();
-    }
-
-    /**
-     * Sets the list of note identifiers.
-     *
-     * @param notesList The list of note identifiers to set.
-     */
-    public void setNotesList(final List<Long> notesList) {
-        this.notesList = notesList;
-    }
-
-    /**
-     * Sets the article's source.
-     *
-     * @param source The article's source to set.
-     */
-    public void setSource(String source) {
-        this.source = source;
     }
 
     /**

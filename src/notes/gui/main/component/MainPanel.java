@@ -65,14 +65,51 @@ import java.util.Map;
 public class MainPanel extends JFrame {
 
     /**
-     * The generated serial version UID.
-     */
-    private static final long serialVersionUID = -6486524899782603246L;
-
-    /**
      * The single instance of {@code MainPanel}.
      */
     public static final MainPanel instance = new MainPanel();
+    /**
+     * The generated serial version UID.
+     */
+    private static final long serialVersionUID = -6486524899782603246L;
+    /**
+     * The current mode indicating the type of the current opened document.
+     */
+    private SystemMode currentMode;
+    /**
+     * The menu bar on the main panel that contains different operations for this application.
+     */
+    private JMenuBar menuBar;
+    /**
+     * The chapter panel that contains the information of chapters in a book.
+     */
+    private JPanel chaptersPanel;
+    /**
+     * The note panel that contains the information of notes in current document/chapter.
+     */
+    private JPanel notesPanel;
+
+    /**
+     * Constructs an instance of {@code MainPanel}.
+     */
+    private MainPanel() {
+
+        setDefaultPanel();
+
+        setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
+        addWindowListener(new MainPanelWindowListener());
+
+        // Fix the form to locate in the middle of screen.
+        int width = 1280;
+        int height = 800;
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screen.width - width) / 2;
+        int y = (screen.height - height) / 2;
+        setBounds(x, y, width, height);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        setResizable(false);
+    }
 
     /**
      * Gets the instance of {@code MainPanel}.
@@ -132,48 +169,6 @@ public class MainPanel extends JFrame {
         } else if (document instanceof Article) {
             MainPanel.get().setArticlePanel((Article) document);
         }
-    }
-
-    /**
-     * The current mode indicating the type of the current opened document.
-     */
-    private SystemMode currentMode;
-
-    /**
-     * The menu bar on the main panel that contains different operations for this application.
-     */
-    private JMenuBar menuBar;
-
-    /**
-     * The chapter panel that contains the information of chapters in a book.
-     */
-    private JPanel chaptersPanel;
-
-    /**
-     * The note panel that contains the information of notes in current document/chapter.
-     */
-    private JPanel notesPanel;
-
-    /**
-     * Constructs an instance of {@code MainPanel}.
-     */
-    private MainPanel() {
-
-        setDefaultPanel();
-
-        setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
-        addWindowListener(new MainPanelWindowListener());
-
-        // Fix the form to locate in the middle of screen.
-        int width = 1280;
-        int height = 800;
-        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (screen.width - width) / 2;
-        int y = (screen.height - height) / 2;
-        setBounds(x, y, width, height);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        setResizable(false);
     }
 
     /**
@@ -443,12 +438,30 @@ public class MainPanel extends JFrame {
     }
 
     /**
+     * Sets the chapters' panel.
+     *
+     * @param chaptersPanel The chapters' panel to set.
+     */
+    public void setChaptersPanel(JPanel chaptersPanel) {
+        this.chaptersPanel = chaptersPanel;
+    }
+
+    /**
      * Gets the current mode.
      *
      * @return {@code SystemMode} The current mode.
      */
     public SystemMode getCurrentMode() {
         return currentMode;
+    }
+
+    /**
+     * Sets the current mode.
+     *
+     * @param currentMode The current mode to set
+     */
+    public void setCurrentMode(SystemMode currentMode) {
+        this.currentMode = currentMode;
     }
 
     /**
@@ -538,24 +551,6 @@ public class MainPanel extends JFrame {
 
         validate();
         repaint();
-    }
-
-    /**
-     * Sets the chapters' panel.
-     *
-     * @param chaptersPanel The chapters' panel to set.
-     */
-    public void setChaptersPanel(JPanel chaptersPanel) {
-        this.chaptersPanel = chaptersPanel;
-    }
-
-    /**
-     * Sets the current mode.
-     *
-     * @param currentMode The current mode to set
-     */
-    public void setCurrentMode(SystemMode currentMode) {
-        this.currentMode = currentMode;
     }
 
     /**

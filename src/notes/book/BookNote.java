@@ -1,13 +1,12 @@
 package notes.book;
 
-import java.util.Date;
-import java.util.List;
-
+import notes.entity.impl.AbstractNote;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import notes.entity.impl.AbstractNote;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Entity class to describe a book note.
@@ -76,6 +75,15 @@ public class BookNote extends AbstractNote {
     }
 
     /**
+     * Sets the chapter identifier.
+     *
+     * @param chapterId The chapter identifier to set.
+     */
+    public void setChapterId(Long chapterId) {
+        this.chapterId = chapterId;
+    }
+
+    /**
      * Returns a hash code value for the object.
      *
      * @return int A hash code value for this object.
@@ -86,15 +94,6 @@ public class BookNote extends AbstractNote {
         return new HashCodeBuilder().append(getNoteId()).append(getDocumentId())
                 .append(getChapterId()).append(getTagIds()).append(getNoteText())
                 .append(getCreatedTime()).toHashCode();
-    }
-
-    /**
-     * Sets the chapter identifier.
-     *
-     * @param chapterId The chapter identifier to set.
-     */
-    public void setChapterId(Long chapterId) {
-        this.chapterId = chapterId;
     }
 
     /**

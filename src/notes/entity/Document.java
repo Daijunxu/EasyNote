@@ -22,53 +22,18 @@ public interface Document extends Comparable<Document> {
     List<String> getAuthorsList();
 
     /**
-     * Gets the comment.
-     *
-     * @return {@code String} The comment.
-     */
-    String getComment();
-
-    /**
-     * Gets the document's created time.
-     *
-     * @return {@code Date} The document's created time.
-     */
-    Date getCreatedTime();
-
-    /**
-     * Gets the document identifier.
-     *
-     * @return {@code Long} The document identifier.
-     */
-    Long getDocumentId();
-
-    /**
-     * Gets the document title.
-     *
-     * @return {@code String} The document title.
-     */
-    String getDocumentTitle();
-
-    /**
-     * Gets the document's last updated time.
-     *
-     * @return {@code Date} The document's last updated time.
-     */
-    Date getLastUpdatedTime();
-
-    /**
-     * Gets the number of notes in the document.
-     *
-     * @return {@code int} The number of notes in the document.
-     */
-    int getNotesCount();
-
-    /**
      * Sets the list of authors.
      *
      * @param authorsList The list of authors to set.
      */
     void setAuthorsList(List<String> authorsList);
+
+    /**
+     * Gets the comment.
+     *
+     * @return {@code String} The comment.
+     */
+    String getComment();
 
     /**
      * Sets the comment.
@@ -78,11 +43,25 @@ public interface Document extends Comparable<Document> {
     void setComment(String comment);
 
     /**
+     * Gets the document's created time.
+     *
+     * @return {@code Date} The document's created time.
+     */
+    Date getCreatedTime();
+
+    /**
      * Sets the document's created time.
      *
      * @param createTime The document's created time to set.
      */
     void setCreatedTime(Date createTime);
+
+    /**
+     * Gets the document identifier.
+     *
+     * @return {@code Long} The document identifier.
+     */
+    Long getDocumentId();
 
     /**
      * Sets the document identifier.
@@ -92,6 +71,13 @@ public interface Document extends Comparable<Document> {
     void setDocumentId(Long documentId);
 
     /**
+     * Gets the document title.
+     *
+     * @return {@code String} The document title.
+     */
+    String getDocumentTitle();
+
+    /**
      * Sets the document title.
      *
      * @param documentTitle The document title to set.
@@ -99,10 +85,24 @@ public interface Document extends Comparable<Document> {
     void setDocumentTitle(String documentTitle);
 
     /**
+     * Gets the document's last updated time.
+     *
+     * @return {@code Date} The document's last updated time.
+     */
+    Date getLastUpdatedTime();
+
+    /**
      * Sets the document's last updated time.
      *
      * @param lastUpdatedTime The document's last updated time.
      */
     void setLastUpdatedTime(Date lastUpdatedTime);
+
+    /**
+     * Gets the number of notes in the document.
+     *
+     * @return {@code int} The number of notes in the document.
+     */
+    int getNotesCount();
 
 }

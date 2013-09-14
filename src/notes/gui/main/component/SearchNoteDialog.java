@@ -35,21 +35,7 @@ import java.util.Set;
 public class SearchNoteDialog extends JDialog {
 
     private static final long serialVersionUID = 7628446361794621752L;
-
     private static SearchNoteDialog instance;
-
-    /**
-     * Gets the instance of {@code SearchNoteDialog}.
-     *
-     * @return {@code SearchNoteDialog} The instance of {@code SearchNoteDialog}.
-     */
-    public static SearchNoteDialog get() {
-        if (instance == null) {
-            instance = new SearchNoteDialog();
-        }
-        return instance;
-    }
-
     private JButton searchButton = new JButton(new AbstractAction("Search") {
         private static final long serialVersionUID = 5205542001174164075L;
 
@@ -82,7 +68,6 @@ public class SearchNoteDialog extends JDialog {
 
         }
     });
-
     private JButton clearButton = new JButton(new AbstractAction(" Clear ") {
         private static final long serialVersionUID = 7109420683537804720L;
 
@@ -95,7 +80,6 @@ public class SearchNoteDialog extends JDialog {
             }
         }
     });
-
     private JPanel dialogPanel = new JPanel();
     private JPanel searchPanel = new JPanel();
     private JComboBox searchScopeField = new JComboBox();
@@ -107,7 +91,6 @@ public class SearchNoteDialog extends JDialog {
     private JScrollPane resultScrollPane = new JScrollPane();
     private JList resultList;
     private List<Note> noteList;
-
     private SearchNoteDialog() {
         super(MainPanel.get(), "Search Notes", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
@@ -284,6 +267,18 @@ public class SearchNoteDialog extends JDialog {
         setResizable(false);
     }
 
+    /**
+     * Gets the instance of {@code SearchNoteDialog}.
+     *
+     * @return {@code SearchNoteDialog} The instance of {@code SearchNoteDialog}.
+     */
+    public static SearchNoteDialog get() {
+        if (instance == null) {
+            instance = new SearchNoteDialog();
+        }
+        return instance;
+    }
+
     private void filterNotesByScope(String scope) {
         BookNoteDAO dao = BookHome.get().getBookNoteDAO();
         List<Note> newNoteList = new ArrayList<Note>();
@@ -371,7 +366,6 @@ public class SearchNoteDialog extends JDialog {
             }
         }
     }
-
 
     // TODO: fix this!
     private void searchNotesInOneDocument(Long documentId) {

@@ -3,18 +3,18 @@
  */
 package notes.data.cache;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import notes.article.Article;
 import notes.article.ArticleNote;
 import notes.book.Book;
 import notes.book.BookNote;
 import notes.book.Chapter;
 import notes.entity.Note;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * The data cache composed of multiple caches.
@@ -28,11 +28,29 @@ public class Cache {
      * The flag of whether the cache is having a problem.
      */
     public static boolean hasProblem = false;
-
     /**
      * The single instance that is used in the system.
      */
     private static Cache instance;
+    /**
+     * The document cache.
+     */
+    private DocumentCache documentCache;
+    /**
+     * The tag cache.
+     */
+    private TagCache tagCache;
+    /**
+     * The note cache.
+     */
+    private NoteCache noteCache;
+
+    /**
+     * Constructs an instance of {@code Cache}.
+     */
+    private Cache() {
+        loadAllCaches();
+    }
 
     /**
      * Gets the instance of {@code Cache}.
@@ -44,28 +62,6 @@ public class Cache {
             instance = new Cache();
         }
         return instance;
-    }
-
-    /**
-     * The document cache.
-     */
-    private DocumentCache documentCache;
-
-    /**
-     * The tag cache.
-     */
-    private TagCache tagCache;
-
-    /**
-     * The note cache.
-     */
-    private NoteCache noteCache;
-
-    /**
-     * Constructs an instance of {@code Cache}.
-     */
-    private Cache() {
-        loadAllCaches();
     }
 
     /**
@@ -110,6 +106,15 @@ public class Cache {
     }
 
     /**
+     * Sets the document cache.
+     *
+     * @param documentCache The document cache to set.
+     */
+    public void setDocumentCache(DocumentCache documentCache) {
+        this.documentCache = documentCache;
+    }
+
+    /**
      * Gets the note cache.
      *
      * @return {@code NoteCache} The note cache.
@@ -119,12 +124,30 @@ public class Cache {
     }
 
     /**
+     * Sets the note cache.
+     *
+     * @param noteCache The note cache to set.
+     */
+    public void setNoteCache(NoteCache noteCache) {
+        this.noteCache = noteCache;
+    }
+
+    /**
      * Gets the tag cache.
      *
      * @return {@code TagCache} The tag cache.
      */
     public TagCache getTagCache() {
         return tagCache;
+    }
+
+    /**
+     * Sets the tag cache.
+     *
+     * @param tagCache The tag cache to set.
+     */
+    public void setTagCache(TagCache tagCache) {
+        this.tagCache = tagCache;
     }
 
     /**
@@ -172,33 +195,6 @@ public class Cache {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Sets the document cache.
-     *
-     * @param documentCache The document cache to set.
-     */
-    public void setDocumentCache(DocumentCache documentCache) {
-        this.documentCache = documentCache;
-    }
-
-    /**
-     * Sets the note cache.
-     *
-     * @param noteCache The note cache to set.
-     */
-    public void setNoteCache(NoteCache noteCache) {
-        this.noteCache = noteCache;
-    }
-
-    /**
-     * Sets the tag cache.
-     *
-     * @param tagCache The tag cache to set.
-     */
-    public void setTagCache(TagCache tagCache) {
-        this.tagCache = tagCache;
     }
 
 }

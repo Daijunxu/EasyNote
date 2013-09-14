@@ -3,30 +3,6 @@
  */
 package notes.gui.main.component;
 
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-
 import notes.article.Article;
 import notes.bean.BookHome;
 import notes.book.Book;
@@ -34,6 +10,13 @@ import notes.data.cache.Property;
 import notes.entity.Document;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Defines the dialog and event listener for opening a document.
@@ -43,7 +26,6 @@ import notes.utils.SoundTheme;
  */
 public class OpenDocumentDialog extends JDialog {
     private static final long serialVersionUID = 3402344999808907159L;
-
     private JButton okButton = new JButton(new AbstractAction("OK") {
         private static final long serialVersionUID = -4225868807457964012L;
 
@@ -73,7 +55,6 @@ public class OpenDocumentDialog extends JDialog {
             setVisible(false);
         }
     });
-
     private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         private static final long serialVersionUID = -8921821739904585632L;
 
@@ -84,7 +65,6 @@ public class OpenDocumentDialog extends JDialog {
             setVisible(false);
         }
     });
-
     private JComboBox documentTypeField = new JComboBox(Property.get().getDocumentTypes().toArray());
     private JList documentTitleField;
 

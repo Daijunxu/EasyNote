@@ -27,60 +27,42 @@ public class BookHome implements Serializable {
      * Generated serial version UID.
      */
     private static final long serialVersionUID = -641364457490299907L;
-
-    /**
-     * The book note DAO.
-     */
-    private BookNoteDAO bookNoteDAO;
-
-    /**
-     * The list of documents.
-     */
-    private List<Document> documentList;
-
-    /**
-     * The current selected book.
-     */
-    private Book currentBook;
-
-    /**
-     * The current selected chapter.
-     */
-    private Chapter currentChapter;
-
-    /**
-     * The current selected book note.
-     */
-    private BookNote currentBookNote;
-
-    /**
-     * The list of chapters in current selected book.
-     */
-    private List<Chapter> currentChapterList;
-
-    /**
-     * The map from chapter IDs to notes in current selected book.
-     */
-    private Map<Long, List<BookNote>> currentChapterNotesMap;
-
-    /**
-     * The list of book notes in current selected chapter.
-     */
-    private List<BookNote> currentBookNotesList;
-
     /**
      * The single instance of BookHome.
      */
     private static final BookHome instance = new BookHome();
-
     /**
-     * Gets the instance of {@code BookHome}.
-     *
-     * @return {@code BookHome} The instance of {@code BookHome}.
+     * The book note DAO.
      */
-    public static BookHome get() {
-        return instance;
-    }
+    private BookNoteDAO bookNoteDAO;
+    /**
+     * The list of documents.
+     */
+    private List<Document> documentList;
+    /**
+     * The current selected book.
+     */
+    private Book currentBook;
+    /**
+     * The current selected chapter.
+     */
+    private Chapter currentChapter;
+    /**
+     * The current selected book note.
+     */
+    private BookNote currentBookNote;
+    /**
+     * The list of chapters in current selected book.
+     */
+    private List<Chapter> currentChapterList;
+    /**
+     * The map from chapter IDs to notes in current selected book.
+     */
+    private Map<Long, List<BookNote>> currentChapterNotesMap;
+    /**
+     * The list of book notes in current selected chapter.
+     */
+    private List<BookNote> currentBookNotesList;
 
     /**
      * Constructs an instance of {@code BookHome}.
@@ -91,6 +73,15 @@ public class BookHome implements Serializable {
         currentChapterList = new ArrayList<Chapter>();
         currentChapterNotesMap = new HashMap<Long, List<BookNote>>();
         currentBookNotesList = new ArrayList<BookNote>();
+    }
+
+    /**
+     * Gets the instance of {@code BookHome}.
+     *
+     * @return {@code BookHome} The instance of {@code BookHome}.
+     */
+    public static BookHome get() {
+        return instance;
     }
 
     /**
@@ -125,12 +116,30 @@ public class BookHome implements Serializable {
     }
 
     /**
+     * Sets the current selected book.
+     *
+     * @param currentBook The current selected book to set.
+     */
+    public void setCurrentBook(Book currentBook) {
+        this.currentBook = currentBook;
+    }
+
+    /**
      * Gets the current selected book note.
      *
      * @return {@code BookNote} The current selected book note.
      */
     public BookNote getCurrentBookNote() {
         return currentBookNote;
+    }
+
+    /**
+     * Sets the current selected book note.
+     *
+     * @param currentBookNote The current selected book note to set.
+     */
+    public void setCurrentBookNote(BookNote currentBookNote) {
+        this.currentBookNote = currentBookNote;
     }
 
     /**
@@ -143,6 +152,15 @@ public class BookHome implements Serializable {
     }
 
     /**
+     * Sets the list of book notes in current selected chapter.
+     *
+     * @param currentBookNotesList The list of book note in current selected chapter to set.
+     */
+    public void setCurrentBookNotesList(List<BookNote> currentBookNotesList) {
+        this.currentBookNotesList = currentBookNotesList;
+    }
+
+    /**
      * Gets the current selected chapter.
      *
      * @return {@code Chapter} The current selected chapter.
@@ -152,12 +170,30 @@ public class BookHome implements Serializable {
     }
 
     /**
+     * Sets the current selected chapter.
+     *
+     * @param currentChapter The current selected chapter to set.
+     */
+    public void setCurrentChapter(Chapter currentChapter) {
+        this.currentChapter = currentChapter;
+    }
+
+    /**
      * Gets the list of chapters in current selected book.
      *
      * @return {@code List<Chapter>} The list of chapters in current selected book.
      */
     public List<Chapter> getCurrentChapterList() {
         return currentChapterList;
+    }
+
+    /**
+     * Sets the list of chapters in current selected book.
+     *
+     * @param currentChapterList The list of chapters in current selected book to set.
+     */
+    public void setCurrentChapterList(List<Chapter> currentChapterList) {
+        this.currentChapterList = currentChapterList;
     }
 
     /**
@@ -171,66 +207,21 @@ public class BookHome implements Serializable {
     }
 
     /**
-     * Gets the list of documents.
-     *
-     * @return {@code List<Document>} The list of documents.
-     */
-    public List<Document> getDocumentList() {
-        return documentList;
-    }
-
-    /**
-     * Sets the current selected book.
-     *
-     * @param currentBook The current selected book to set.
-     */
-    public void setCurrentBook(Book currentBook) {
-        this.currentBook = currentBook;
-    }
-
-    /**
-     * Sets the current selected book note.
-     *
-     * @param currentBookNote The current selected book note to set.
-     */
-    public void setCurrentBookNote(BookNote currentBookNote) {
-        this.currentBookNote = currentBookNote;
-    }
-
-    /**
-     * Sets the list of book notes in current selected chapter.
-     *
-     * @param currentBookNotesList The list of book note in current selected chapter to set.
-     */
-    public void setCurrentBookNotesList(List<BookNote> currentBookNotesList) {
-        this.currentBookNotesList = currentBookNotesList;
-    }
-
-    /**
-     * Sets the current selected chapter.
-     *
-     * @param currentChapter The current selected chapter to set.
-     */
-    public void setCurrentChapter(Chapter currentChapter) {
-        this.currentChapter = currentChapter;
-    }
-
-    /**
-     * Sets the list of chapters in current selected book.
-     *
-     * @param currentChapterList The list of chapters in current selected book to set.
-     */
-    public void setCurrentChapterList(List<Chapter> currentChapterList) {
-        this.currentChapterList = currentChapterList;
-    }
-
-    /**
      * Sets the map from chapter IDs to notes in current selected book.
      *
      * @param currentChapterNotesMap The map from chapter IDs to notes in current selected book to set.
      */
     public void setCurrentChapterNotesMap(Map<Long, List<BookNote>> currentChapterNotesMap) {
         this.currentChapterNotesMap = currentChapterNotesMap;
+    }
+
+    /**
+     * Gets the list of documents.
+     *
+     * @return {@code List<Document>} The list of documents.
+     */
+    public List<Document> getDocumentList() {
+        return documentList;
     }
 
     /**

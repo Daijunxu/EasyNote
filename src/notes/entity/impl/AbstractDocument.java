@@ -3,12 +3,11 @@
  */
 package notes.entity.impl;
 
+import notes.entity.Document;
+import org.apache.commons.lang3.builder.CompareToBuilder;
+
 import java.util.Date;
 import java.util.List;
-
-import notes.entity.Document;
-
-import org.apache.commons.lang3.builder.CompareToBuilder;
 
 /**
  * An abstract entity class specifying the basic members and methods of a document.
@@ -22,27 +21,22 @@ public abstract class AbstractDocument implements Document {
      * The document identifier.
      */
     private Long documentId;
-
     /**
      * The document's title.
      */
     private String documentTitle;
-
     /**
      * The list of authors.
      */
     private List<String> authorsList;
-
     /**
      * The comment.
      */
     private String comment;
-
     /**
      * The create time of this document.
      */
     private Date createdTime;
-
     /**
      * The last update time of this document.
      */
@@ -73,48 +67,16 @@ public abstract class AbstractDocument implements Document {
      * {@inheritDoc}
      */
     @Override
-    public String getComment() {
-        return comment;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Date getCreatedTime() {
-        return createdTime;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Long getDocumentId() {
-        return documentId;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getDocumentTitle() {
-        return documentTitle;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Date getLastUpdatedTime() {
-        return lastUpdatedTime;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void setAuthorsList(final List<String> authorsList) {
         this.authorsList = authorsList;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getComment() {
+        return comment;
     }
 
     /**
@@ -129,8 +91,24 @@ public abstract class AbstractDocument implements Document {
      * {@inheritDoc}
      */
     @Override
+    public Date getCreatedTime() {
+        return createdTime;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void setCreatedTime(Date createdTime) {
         this.createdTime = createdTime;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Long getDocumentId() {
+        return documentId;
     }
 
     /**
@@ -145,8 +123,24 @@ public abstract class AbstractDocument implements Document {
      * {@inheritDoc}
      */
     @Override
+    public String getDocumentTitle() {
+        return documentTitle;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void setDocumentTitle(final String documentTitle) {
         this.documentTitle = documentTitle;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Date getLastUpdatedTime() {
+        return lastUpdatedTime;
     }
 
     /**

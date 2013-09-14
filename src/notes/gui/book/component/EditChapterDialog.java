@@ -84,7 +84,6 @@ public class EditChapterDialog extends JDialog {
             setVisible(false);
         }
     });
-
     private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         private static final long serialVersionUID = 2102103830307858159L;
 
@@ -95,7 +94,6 @@ public class EditChapterDialog extends JDialog {
             setVisible(false);
         }
     });
-
     private JTextArea documentField = new JTextArea(2, 50);
     private JTextField chapterIdField = new JTextField();
     private JTextArea chapterField = new JTextArea(2, 50);

@@ -27,7 +27,6 @@ import java.util.Date;
  */
 public class NewArticleDialog extends JDialog {
     private static final long serialVersionUID = 6759636401637649597L;
-
     private JButton okButton = new JButton(new AbstractAction("OK") {
         private static final long serialVersionUID = 5215148273923029678L;
 
@@ -123,7 +122,6 @@ public class NewArticleDialog extends JDialog {
             }
         }
     });
-
     private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         private static final long serialVersionUID = -8851788447035738145L;
 
@@ -134,7 +132,6 @@ public class NewArticleDialog extends JDialog {
             setVisible(false);
         }
     });
-
     private JTextArea documentTitleField = new JTextArea(2, 50);
     private JTextArea authorField = new JTextArea(2, 50);
     private JTextArea commentField = new JTextArea(10, 50);
