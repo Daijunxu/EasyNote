@@ -363,7 +363,6 @@ public class SearchNoteDialog extends JDialog {
         }
     }
 
-    // TODO: fix this!
     private void searchNotesInOneDocument(Long documentId) {
         BookNoteDAO dao = BookHome.get().getBookNoteDAO();
         boolean caseSensitive = (caseSensitiveField.isSelected());
@@ -372,22 +371,18 @@ public class SearchNoteDialog extends JDialog {
         if (!caseSensitive) {
             if (!exactSearch) {
                 // Not case sensitive, not exact search.
-                noteList = dao.findAllNotesContainingText(noteTextField.getText().trim(), false,
-                        false);
+                noteList = dao.findAllNotesContainingText(documentId, noteTextField.getText().trim(), false, false);
             } else {
                 // Not case sensitive, exact search.
-                noteList = dao.findAllNotesContainingText(noteTextField.getText().trim(), false,
-                        true);
+                noteList = dao.findAllNotesContainingText(documentId, noteTextField.getText().trim(), false, true);
             }
         } else {
             if (!exactSearch) {
                 // Case sensitive, not exact search.
-                noteList = dao.findAllNotesContainingText(noteTextField.getText().trim(), true,
-                        false);
+                noteList = dao.findAllNotesContainingText(documentId, noteTextField.getText().trim(), true, false);
             } else {
                 // Case sensitive, exact search.
-                noteList = dao.findAllNotesContainingText(noteTextField.getText().trim(), true,
-                        true);
+                noteList = dao.findAllNotesContainingText(documentId, noteTextField.getText().trim(), true, true);
             }
         }
     }
