@@ -77,6 +77,12 @@ public class MainPanel extends JFrame {
     @Setter
     private SystemMode currentMode;
     /**
+     * The flag of whether search dialog is poped up.
+     */
+    @Getter
+    @Setter
+    private boolean isSearchMode;
+    /**
      * The menu bar on the main panel that contains different operations for this application.
      */
     private JMenuBar menuBar;

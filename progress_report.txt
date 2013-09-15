@@ -80,4 +80,4 @@
 [09/08/2013] 14366: Some more code refactoring, no functional change.
 [09/14/2013] 14332: Add open last document functionality. Reorder members and methods in all classes.
 [09/14/2013] 13033: Add Lombok library for automatic code generation.
-[09/15/2013] 12829: Deprecate ViewNoteDialog and use specific view dialogs.
+[09/15/2013] 12829: Add edit button in view book/article note dialog. Deprecate ViewNoteDialog and use specific view dialogs.

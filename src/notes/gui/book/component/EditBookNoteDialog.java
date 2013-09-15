@@ -1,12 +1,14 @@
 package notes.gui.book.component;
 
 import notes.bean.BookHome;
+import notes.book.Book;
 import notes.book.BookNote;
 import notes.book.Chapter;
 import notes.dao.impl.BookNoteDAO;
 import notes.data.cache.Property;
 import notes.entity.Tag;
 import notes.gui.main.component.MainPanel;
+import notes.gui.main.component.SearchNoteDialog;
 import notes.utils.EntityStrListBuilder;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
@@ -24,7 +26,7 @@ import java.util.List;
  * @version 1.0
  */
 public class EditBookNoteDialog extends JDialog {
-
+    private final BookNote selectedNote;
     private final JButton okButton = new JButton(new AbstractAction("OK") {
         public void actionPerformed(ActionEvent e) {
 
@@ -74,15 +76,11 @@ public class EditBookNoteDialog extends JDialog {
             BookHome home = BookHome.get();
             BookNoteDAO dao = home.getBookNoteDAO();
 
-            // Create instance of the updated book note.
-            BookNote updatedBookNote = new BookNote();
-            updatedBookNote.setNoteId(home.getCurrentBookNote().getNoteId());
-            updatedBookNote.setDocumentId(home.getCurrentBookNote().getDocumentId());
             String chapterStr = (String) chapterField.getSelectedItem();
             Long selectedChapterId = Long.parseLong(chapterStr.substring(0, chapterStr.indexOf(".")));
-            updatedBookNote.setChapterId(selectedChapterId);
-            List<Long> updatedTagsList = new ArrayList<Long>();
+            selectedNote.setChapterId(selectedChapterId);
 
+            List<Long> updatedTagsList = new ArrayList<Long>();
             for (String tagStr : tagsStrList) {
                 // Set the new tag IDs, save tags if they are new.
                 Tag cachedTag = dao.findTagByText(tagStr);
@@ -95,18 +93,18 @@ public class EditBookNoteDialog extends JDialog {
                     updatedTagsList.add(savedTag.getTagId());
                 }
             }
-            updatedBookNote.setTagIds(updatedTagsList);
-            updatedBookNote.setNoteText(noteTextField.getText());
+            selectedNote.setTagIds(updatedTagsList);
+            selectedNote.setNoteText(noteTextField.getText());
 
             // Save the updated book note.
-            BookNote newBookNote = (BookNote) (dao.mergeNote(updatedBookNote));
-
-            // Update temporary data in the BookHome.
-            home.updateTemporaryData(home.getCurrentBook().getDocumentId(), home
-                    .getCurrentChapter().getChapterId(), newBookNote.getNoteId());
+            dao.mergeNote(selectedNote);
 
             // Update the note panel.
-            frame.updateBookNotePanel();
+            if (frame.isSearchMode()) {
+                SearchNoteDialog.get().updateResultPanel();
+            } else {
+                frame.updateBookNotePanel();
+            }
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playUpdate();
@@ -131,8 +129,11 @@ public class EditBookNoteDialog extends JDialog {
     /**
      * Creates an instance of {@code EditBookNoteDialog}.
      */
-    public EditBookNoteDialog() {
+    public EditBookNoteDialog(Book selectedBook, Chapter selectedChapter, BookNote selectedNote) {
         super(MainPanel.get(), "Edit Book Note", true);
+
+        this.selectedNote = selectedNote;
+
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         MainPanel frame = MainPanel.get();
         BookHome home = BookHome.get();
@@ -156,7 +157,7 @@ public class EditBookNoteDialog extends JDialog {
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         documentField.setLineWrap(true);
-        documentField.setText(home.getCurrentBook().getDocumentTitle());
+        documentField.setText(selectedBook.getDocumentTitle());
         documentField.setEditable(false);
         notePanel.add(new JScrollPane(documentField), c);
 
@@ -170,12 +171,12 @@ public class EditBookNoteDialog extends JDialog {
         c.insets = new Insets(5, 5, 5, 5);
         int selected = -1;
         int counter = -1;
-        for (Long chapterId : home.getCurrentBook().getChaptersMap().keySet()) {
+        for (Long chapterId : selectedBook.getChaptersMap().keySet()) {
             counter++;
-            if (home.getCurrentChapter().getChapterId().equals(chapterId)) {
+            if (selectedChapter.getChapterId().equals(chapterId)) {
                 selected = counter;
             }
-            Chapter chapter = home.getCurrentBook().getChaptersMap().get(chapterId);
+            Chapter chapter = selectedBook.getChaptersMap().get(chapterId);
             chapterField.addItem(chapterId + ". " + chapter.getChapterTitle());
         }
         chapterField.setSelectedIndex(selected);
@@ -190,9 +191,9 @@ public class EditBookNoteDialog extends JDialog {
         c.gridy = 2;
         c.insets = new Insets(5, 5, 0, 5);
         StringBuilder tagStrBuilder = new StringBuilder();
-        if (!home.getCurrentBookNote().getTagIds().isEmpty()) {
-            for (Long tagId : home.getCurrentBookNote().getTagIds()) {
-                tagStrBuilder.append(BookHome.get().getBookNoteDAO().findTagById(tagId).getTagText()).append(",");
+        if (!selectedNote.getTagIds().isEmpty()) {
+            for (Long tagId : selectedNote.getTagIds()) {
+                tagStrBuilder.append(home.getBookNoteDAO().findTagById(tagId).getTagText()).append(",");
             }
             tagStrBuilder.deleteCharAt(tagStrBuilder.length() - 1);
         }
@@ -204,7 +205,7 @@ public class EditBookNoteDialog extends JDialog {
         c.gridy = 3;
         c.insets = new Insets(0, 5, 5, 5);
         JLabel suggestionLabel = new JLabel(
-                "Use captialized words and separate tags by \",\". E.g. \"Design Pattern,Algrithm\"");
+                "Use capitalized words and separate tags by \",\". E.g. \"Design Pattern,Algorithm\"");
         suggestionLabel.setForeground(Color.GRAY);
         notePanel.add(suggestionLabel, c);
 
@@ -217,7 +218,7 @@ public class EditBookNoteDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 4;
         c.insets = new Insets(5, 5, 5, 5);
-        noteTextField.setText(home.getCurrentBookNote().getNoteText());
+        noteTextField.setText(selectedNote.getNoteText());
         notePanel.add(new JScrollPane(noteTextField), c);
 
         dialogPanel.add(notePanel);

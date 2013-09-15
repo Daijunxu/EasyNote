@@ -10,6 +10,7 @@ import notes.dao.impl.BookNoteDAO;
 import notes.data.cache.Property;
 import notes.entity.Document;
 import notes.entity.Note;
+import notes.gui.main.event.SearchNoteDialogWindowListener;
 import notes.gui.main.event.SearchNoteListMouseListener;
 import notes.utils.EntityStrListBuilder;
 import notes.utils.SoundFactory;
@@ -90,6 +91,7 @@ public class SearchNoteDialog extends JDialog {
     private SearchNoteDialog() {
         super(MainPanel.get(), "Search Notes", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
+        addWindowListener(new SearchNoteDialogWindowListener());
         BookHome home = BookHome.get();
 
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
@@ -387,7 +389,7 @@ public class SearchNoteDialog extends JDialog {
         }
     }
 
-    private void updateResultPanel() {
+    public void updateResultPanel() {
         searchPanel.remove(resultScrollPane);
 
         resultSummaryField.setText("Found " + noteList.size() + " note(s).");

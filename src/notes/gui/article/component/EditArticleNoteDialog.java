@@ -1,11 +1,13 @@
 package notes.gui.article.component;
 
+import notes.article.Article;
 import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
 import notes.dao.impl.ArticleNoteDAO;
 import notes.data.cache.Property;
 import notes.entity.Tag;
 import notes.gui.main.component.MainPanel;
+import notes.gui.main.component.SearchNoteDialog;
 import notes.utils.EntityStrListBuilder;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
@@ -23,6 +25,7 @@ import java.util.List;
  * @version 1.0
  */
 public class EditArticleNoteDialog extends JDialog {
+    private final ArticleNote selectedNote;
     private final JButton okButton = new JButton(new AbstractAction("OK") {
         public void actionPerformed(ActionEvent e) {
 
@@ -62,11 +65,6 @@ public class EditArticleNoteDialog extends JDialog {
             ArticleHome home = ArticleHome.get();
             ArticleNoteDAO dao = home.getArticleNoteDAO();
 
-            // Create instance of the updated article note.
-            ArticleNote updatedArticleNote = new ArticleNote();
-            updatedArticleNote.setNoteId(home.getCurrentArticleNote().getNoteId());
-            updatedArticleNote.setDocumentId(home.getCurrentArticleNote().getDocumentId());
-
             List<Long> updatedTagsList = new ArrayList<Long>();
             for (String tagStr : tagsStrList) {
                 // Set the new tag IDs, save tags if they are new.
@@ -80,18 +78,18 @@ public class EditArticleNoteDialog extends JDialog {
                     updatedTagsList.add(savedTag.getTagId());
                 }
             }
-            updatedArticleNote.setTagIds(updatedTagsList);
-            updatedArticleNote.setNoteText(noteTextField.getText());
+            selectedNote.setTagIds(updatedTagsList);
+            selectedNote.setNoteText(noteTextField.getText());
 
             // Save the updated article note.
-            ArticleNote newArticleNote = (ArticleNote) (dao.mergeNote(updatedArticleNote));
-
-            // Update temporary data in the ArticleHome.
-            home.updateTemporaryData(home.getCurrentArticle().getDocumentId(),
-                    newArticleNote.getNoteId());
+            dao.mergeNote(selectedNote);
 
             // Update the note panel.
-            frame.updateArticleNotePanel();
+            if (frame.isSearchMode()) {
+                SearchNoteDialog.get().updateResultPanel();
+            } else {
+                frame.updateArticleNotePanel();
+            }
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playUpdate();
@@ -115,8 +113,11 @@ public class EditArticleNoteDialog extends JDialog {
     /**
      * Creates an instance of {@code EditArticleNoteDialog}.
      */
-    public EditArticleNoteDialog() {
+    public EditArticleNoteDialog(Article selectedArticle, ArticleNote selectedNote) {
         super(MainPanel.get(), "Edit Article Note", true);
+
+        this.selectedNote = selectedNote;
+
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         MainPanel frame = MainPanel.get();
         ArticleHome home = ArticleHome.get();
@@ -140,7 +141,7 @@ public class EditArticleNoteDialog extends JDialog {
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         documentField.setLineWrap(true);
-        documentField.setText(home.getCurrentArticle().getDocumentTitle());
+        documentField.setText(selectedArticle.getDocumentTitle());
         documentField.setEditable(false);
         notePanel.add(new JScrollPane(documentField), c);
 
@@ -153,9 +154,9 @@ public class EditArticleNoteDialog extends JDialog {
         c.gridy = 1;
         c.insets = new Insets(5, 5, 0, 5);
         StringBuilder tagStrBuilder = new StringBuilder();
-        if (!home.getCurrentArticleNote().getTagIds().isEmpty()) {
-            for (Long tagId : home.getCurrentArticleNote().getTagIds()) {
-                tagStrBuilder.append(ArticleHome.get().getArticleNoteDAO().findTagById(tagId).getTagText()).append(",");
+        if (!selectedNote.getTagIds().isEmpty()) {
+            for (Long tagId : selectedNote.getTagIds()) {
+                tagStrBuilder.append(home.getArticleNoteDAO().findTagById(tagId).getTagText()).append(",");
             }
             tagStrBuilder.deleteCharAt(tagStrBuilder.length() - 1);
         }
@@ -179,7 +180,7 @@ public class EditArticleNoteDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
-        noteTextField.setText(home.getCurrentArticleNote().getNoteText());
+        noteTextField.setText(selectedNote.getNoteText());
         notePanel.add(new JScrollPane(noteTextField), c);
 
         dialogPanel.add(notePanel);

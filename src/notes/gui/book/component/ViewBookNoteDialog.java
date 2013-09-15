@@ -24,6 +24,10 @@ import java.awt.event.ActionEvent;
  */
 public class ViewBookNoteDialog extends JDialog {
 
+    private final Book selectedBook;
+    private final Chapter selectedChapter;
+    private final BookNote selectedNote;
+
     private final JButton editButton = new JButton(new AbstractAction("Edit") {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -34,7 +38,7 @@ public class ViewBookNoteDialog extends JDialog {
             setVisible(false);
 
             // Show edit book note dialog.
-            new EditBookNoteDialog();
+            new EditBookNoteDialog(selectedBook, selectedChapter, selectedNote);
         }
     });
     private final JButton okButton = new JButton(new AbstractAction("OK") {
@@ -57,6 +61,11 @@ public class ViewBookNoteDialog extends JDialog {
      */
     public ViewBookNoteDialog(Book selectedBook, Chapter selectedChapter, BookNote selectedNote) {
         super(MainPanel.get(), "View Book Note", true);
+
+        this.selectedBook = selectedBook;
+        this.selectedChapter = selectedChapter;
+        this.selectedNote = selectedNote;
+
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         MainPanel frame = MainPanel.get();
         BookHome home = BookHome.get();

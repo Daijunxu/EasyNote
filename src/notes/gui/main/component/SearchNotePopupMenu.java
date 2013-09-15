@@ -46,11 +46,13 @@ public class SearchNotePopupMenu extends JPopupMenu {
                 if (selectedNote instanceof ArticleNote) {
                     Article article = (Article) ArticleHome.get().getArticleNoteDAO()
                             .findDocumentById(selectedNote.getDocumentId());
+                    MainPanel.get().setSearchMode(false);
                     SearchNoteDialog.get().setVisible(false);
                     MainPanel.get().setArticlePanel(article);
                 } else if (selectedNote instanceof BookNote) {
                     Book book = (Book) BookHome.get().getBookNoteDAO()
                             .findDocumentById(selectedNote.getDocumentId());
+                    MainPanel.get().setSearchMode(false);
                     SearchNoteDialog.get().setVisible(false);
                     MainPanel.get().setBookPanel(book);
                 }

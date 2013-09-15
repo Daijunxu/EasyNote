@@ -3,16 +3,15 @@
  */
 package notes.gui.article.event;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JOptionPane;
-
 import notes.bean.ArticleHome;
 import notes.data.cache.Property;
 import notes.gui.article.component.EditArticleNoteDialog;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Defines event listener of editing an article note.
@@ -28,13 +27,14 @@ public class EditArticleNoteActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
-            if (ArticleHome.get().getCurrentArticle() == null) {
+            ArticleHome home = ArticleHome.get();
+            if (home.getCurrentArticle() == null) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();
                 }
                 JOptionPane.showMessageDialog(null, "No article is selected!", "Input error",
                         JOptionPane.ERROR_MESSAGE);
-            } else if (ArticleHome.get().getCurrentArticleNote() == null) {
+            } else if (home.getCurrentArticleNote() == null) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();
                 }
@@ -44,7 +44,7 @@ public class EditArticleNoteActionListener implements ActionListener {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playPopup();
                 }
-                new EditArticleNoteDialog();
+                new EditArticleNoteDialog(home.getCurrentArticle(), home.getCurrentArticleNote());
             }
         } catch (Exception e) {
             e.printStackTrace();

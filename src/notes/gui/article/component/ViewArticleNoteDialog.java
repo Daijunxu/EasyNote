@@ -23,6 +23,9 @@ import java.awt.event.ActionEvent;
  */
 public class ViewArticleNoteDialog extends JDialog {
 
+    private final Article selectedArticle;
+    private final ArticleNote selectedNote;
+
     private final JButton editButton = new JButton(new AbstractAction("Edit") {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -33,7 +36,7 @@ public class ViewArticleNoteDialog extends JDialog {
             setVisible(false);
 
             // Show edit article note dialog.
-            new EditArticleNoteDialog();
+            new EditArticleNoteDialog(selectedArticle, selectedNote);
         }
     });
     private final JButton okButton = new JButton(new AbstractAction("OK") {
@@ -56,8 +59,11 @@ public class ViewArticleNoteDialog extends JDialog {
      */
     public ViewArticleNoteDialog(Article selectedArticle, ArticleNote selectedNote) {
         super(MainPanel.get(), "View Article Note", true);
-        setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
 
+        this.selectedArticle = selectedArticle;
+        this.selectedNote = selectedNote;
+
+        setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         MainPanel frame = MainPanel.get();
         ArticleHome home = ArticleHome.get();
 

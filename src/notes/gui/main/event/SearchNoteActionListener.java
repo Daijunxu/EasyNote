@@ -3,14 +3,14 @@
  */
 package notes.gui.main.event;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.SearchNoteDialog;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * The event listener for note searching.
@@ -29,6 +29,7 @@ public class SearchNoteActionListener implements ActionListener {
         if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
             SoundFactory.playPopup();
         }
+        MainPanel.get().setSearchMode(true);
         SearchNoteDialog.get().setVisible(true);
     }
 }
