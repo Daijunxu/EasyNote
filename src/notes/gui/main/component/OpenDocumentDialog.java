@@ -25,7 +25,7 @@ import java.util.List;
  * @version 1.0
  */
 public class OpenDocumentDialog extends JDialog {
-    private JButton okButton = new JButton(new AbstractAction("OK") {
+    private final JButton okButton = new JButton(new AbstractAction("OK") {
         public void actionPerformed(ActionEvent e) {
 
             // Input validation.
@@ -52,7 +52,7 @@ public class OpenDocumentDialog extends JDialog {
             setVisible(false);
         }
     });
-    private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
+    private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();
@@ -60,8 +60,8 @@ public class OpenDocumentDialog extends JDialog {
             setVisible(false);
         }
     });
-    private JComboBox documentTypeField = new JComboBox(Property.get().getDocumentTypes().toArray());
-    private JList documentTitleField;
+    private final JComboBox documentTypeField = new JComboBox(Property.get().getDocumentTypes().toArray());
+    private final JList documentTitleField;
 
     /**
      * Constructs an instance of {@code OpenDocumentDialog}.

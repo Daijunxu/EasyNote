@@ -22,10 +22,10 @@ public class ArticleNotePopupMenu extends JPopupMenu {
      * Creates an instance of {@code ArticleNotePopupMenu}.
      */
     public ArticleNotePopupMenu() {
-        JMenuItem newItem;
-        JMenuItem viewItem;
-        JMenuItem editItem;
-        JMenuItem deleteItem;
+        final JMenuItem newItem;
+        final JMenuItem viewItem;
+        final JMenuItem editItem;
+        final JMenuItem deleteItem;
 
         newItem = new JMenuItem("New");
         newItem.addActionListener(new NewArticleNoteActionListener());

@@ -18,9 +18,9 @@ import javax.swing.*;
  */
 public class ChapterPopupMenu extends JPopupMenu {
 
-    private JMenuItem newItem;
-    private JMenuItem editItem;
-    private JMenuItem deleteItem;
+    private final JMenuItem newItem;
+    private final JMenuItem editItem;
+    private final JMenuItem deleteItem;
 
     /**
      * Creates an instance of {@code ChapterPopupMenu}.

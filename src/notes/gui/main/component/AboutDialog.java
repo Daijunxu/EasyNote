@@ -24,7 +24,7 @@ import java.net.URISyntaxException;
  */
 public class AboutDialog extends JDialog {
 
-    private JButton okButton = new JButton(new AbstractAction("OK") {
+    private final JButton okButton = new JButton(new AbstractAction("OK") {
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();

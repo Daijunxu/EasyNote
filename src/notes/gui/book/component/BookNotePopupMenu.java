@@ -19,10 +19,10 @@ import javax.swing.*;
  */
 public class BookNotePopupMenu extends JPopupMenu {
 
-    private JMenuItem newItem;
-    private JMenuItem viewItem;
-    private JMenuItem editItem;
-    private JMenuItem deleteItem;
+    private final JMenuItem newItem;
+    private final JMenuItem viewItem;
+    private final JMenuItem editItem;
+    private final JMenuItem deleteItem;
 
     /**
      * Creates an instance of {@code BookNotePopupMenu}.

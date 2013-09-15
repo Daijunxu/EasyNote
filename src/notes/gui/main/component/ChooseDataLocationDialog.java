@@ -23,7 +23,7 @@ import java.io.IOException;
  */
 public class ChooseDataLocationDialog extends JDialog {
 
-    private JFileChooser fileChooserField = new JFileChooser();
+    private final JFileChooser fileChooserField = new JFileChooser();
 
     /**
      * Constructs an instance of {@code ChooseDataLocationDialog}.

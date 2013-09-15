@@ -27,8 +27,8 @@ import java.awt.event.ActionListener;
  */
 public class SearchNotePopupMenu extends JPopupMenu {
 
-    private JMenuItem viewItem;
-    private JMenuItem openDocumentItem;
+    private final JMenuItem viewItem;
+    private final JMenuItem openDocumentItem;
 
     /**
      * Creates an instance of {@code SearchNotePopupMenu}.

@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class NewBookNoteDialog extends JDialog {
 
-    private JButton okButton = new JButton(new AbstractAction("OK") {
+    private final JButton okButton = new JButton(new AbstractAction("OK") {
         public void actionPerformed(ActionEvent e) {
 
             // Input validation.
@@ -116,7 +116,7 @@ public class NewBookNoteDialog extends JDialog {
             setVisible(false);
         }
     });
-    private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
+    private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();
@@ -124,10 +124,10 @@ public class NewBookNoteDialog extends JDialog {
             setVisible(false);
         }
     });
-    private JTextArea documentField = new JTextArea(2, 50);
-    private JComboBox chapterField = new JComboBox();
-    private JTextArea tagsField = new JTextArea(2, 50);
-    private JTextArea noteTextField = new JTextArea(10, 50);
+    private final JTextArea documentField = new JTextArea(2, 50);
+    private final JComboBox chapterField = new JComboBox();
+    private final JTextArea tagsField = new JTextArea(2, 50);
+    private final JTextArea noteTextField = new JTextArea(10, 50);
 
     /**
      * Creates an instance of {@code NewBookNoteDialog}.

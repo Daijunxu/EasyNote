@@ -35,7 +35,7 @@ import java.util.Set;
 public class SearchNoteDialog extends JDialog {
 
     private static SearchNoteDialog instance;
-    private JButton searchButton = new JButton(new AbstractAction("Search") {
+    private final JButton searchButton = new JButton(new AbstractAction("Search") {
         public void actionPerformed(ActionEvent e) {
             int selectedIndex = searchScopeField.getSelectedIndex();
             if (selectedIndex <= 2) {
@@ -65,7 +65,7 @@ public class SearchNoteDialog extends JDialog {
 
         }
     });
-    private JButton clearButton = new JButton(new AbstractAction(" Clear ") {
+    private final JButton clearButton = new JButton(new AbstractAction(" Clear ") {
         public void actionPerformed(ActionEvent e) {
             searchScopeField.setSelectedIndex(0);
             noteTextField.setText(null);
@@ -75,17 +75,18 @@ public class SearchNoteDialog extends JDialog {
             }
         }
     });
-    private JPanel dialogPanel = new JPanel();
-    private JPanel searchPanel = new JPanel();
-    private JComboBox searchScopeField = new JComboBox();
-    private JTextField noteTextField = new JTextField(50);
-    private JCheckBox caseSensitiveField = new JCheckBox();
-    private JCheckBox exactSearchField = new JCheckBox();
-    private JTextField tagsField = new JTextField();
-    private JLabel resultSummaryField = new JLabel();
+    private final JPanel dialogPanel = new JPanel();
+    private final JPanel searchPanel = new JPanel();
+    private final JComboBox searchScopeField = new JComboBox();
+    private final JTextField noteTextField = new JTextField(50);
+    private final JCheckBox caseSensitiveField = new JCheckBox();
+    private final JCheckBox exactSearchField = new JCheckBox();
+    private final JTextField tagsField = new JTextField();
+    private final JLabel resultSummaryField = new JLabel();
     private JScrollPane resultScrollPane = new JScrollPane();
     private JList resultList;
     private List<Note> noteList;
+
     private SearchNoteDialog() {
         super(MainPanel.get(), "Search Notes", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());

@@ -25,7 +25,7 @@ import java.awt.event.ActionEvent;
  */
 public class EditChapterDialog extends JDialog {
 
-    private JButton okButton = new JButton(new AbstractAction("OK") {
+    private final JButton okButton = new JButton(new AbstractAction("OK") {
         public void actionPerformed(ActionEvent e) {
 
             // Input validation.
@@ -81,7 +81,7 @@ public class EditChapterDialog extends JDialog {
             setVisible(false);
         }
     });
-    private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
+    private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();
@@ -89,9 +89,9 @@ public class EditChapterDialog extends JDialog {
             setVisible(false);
         }
     });
-    private JTextArea documentField = new JTextArea(2, 50);
-    private JTextField chapterIdField = new JTextField();
-    private JTextArea chapterField = new JTextArea(2, 50);
+    private final JTextArea documentField = new JTextArea(2, 50);
+    private final JTextField chapterIdField = new JTextField();
+    private final JTextArea chapterField = new JTextArea(2, 50);
 
     /**
      * Creates an instance of {@code EditChapterDialog}.

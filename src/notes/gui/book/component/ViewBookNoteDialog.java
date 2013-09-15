@@ -21,7 +21,7 @@ import java.awt.event.ActionEvent;
  */
 public class ViewBookNoteDialog extends JDialog {
 
-    private JButton okButton = new JButton(new AbstractAction("OK") {
+    private final JButton okButton = new JButton(new AbstractAction("OK") {
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();
@@ -29,12 +29,12 @@ public class ViewBookNoteDialog extends JDialog {
             setVisible(false);
         }
     });
-    private JLabel noteIdField = new JLabel();
-    private JTextArea documentField = new JTextArea(2, 50);
-    private JTextArea chapterField = new JTextArea(2, 50);
-    private JTextArea tagsField = new JTextArea(2, 50);
-    private JTextArea noteTextField = new JTextArea(10, 50);
-    private JLabel createdTimeField = new JLabel();
+    private final JLabel noteIdField = new JLabel();
+    private final JTextArea documentField = new JTextArea(2, 50);
+    private final JTextArea chapterField = new JTextArea(2, 50);
+    private final JTextArea tagsField = new JTextArea(2, 50);
+    private final JTextArea noteTextField = new JTextArea(10, 50);
+    private final JLabel createdTimeField = new JLabel();
 
     /**
      * Creates an instance of {@code ViewBookNoteDialog}.
