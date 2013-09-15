@@ -29,7 +29,7 @@ public class ArticleNotePopupMenu extends JPopupMenu {
 
         newItem = new JMenuItem("New");
         newItem.addActionListener(new NewArticleNoteActionListener());
-        viewItem = new JMenuItem("Details");
+        viewItem = new JMenuItem("View");
         viewItem.addActionListener(new ViewArticleNoteActionListener());
         editItem = new JMenuItem("Edit");
         editItem.addActionListener(new EditArticleNoteActionListener());

@@ -3,18 +3,16 @@
  */
 package notes.gui.book.event;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JList;
-import javax.swing.SwingUtilities;
-
 import notes.bean.BookHome;
 import notes.data.cache.Property;
 import notes.gui.book.component.BookNotePopupMenu;
 import notes.gui.book.component.ViewBookNoteDialog;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Mouse event listener for notes' JList in book panel.
@@ -34,13 +32,14 @@ public class BookNoteListMouseListener extends MouseAdapter {
      */
     @Override
     public void mouseClicked(MouseEvent event) {
-        if (event.getClickCount() == 2 && BookHome.get().getCurrentBook() != null
-                && BookHome.get().getCurrentChapter() != null
-                && BookHome.get().getCurrentBookNote() != null) {
+        BookHome home = BookHome.get();
+        if (event.getClickCount() == 2 && home.getCurrentBook() != null
+                && home.getCurrentChapter() != null
+                && home.getCurrentBookNote() != null) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playPopup();
             }
-            new ViewBookNoteDialog();
+            new ViewBookNoteDialog(home.getCurrentBook(), home.getCurrentChapter(), home.getCurrentBookNote());
         }
     }
 

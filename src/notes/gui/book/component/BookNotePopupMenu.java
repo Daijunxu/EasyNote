@@ -30,7 +30,7 @@ public class BookNotePopupMenu extends JPopupMenu {
     public BookNotePopupMenu() {
         newItem = new JMenuItem("New");
         newItem.addActionListener(new NewBookNoteActionListener());
-        viewItem = new JMenuItem("Details");
+        viewItem = new JMenuItem("View");
         viewItem.addActionListener(new ViewBookNoteActionListener());
         editItem = new JMenuItem("Edit");
         editItem.addActionListener(new EditBookNoteActionListener());

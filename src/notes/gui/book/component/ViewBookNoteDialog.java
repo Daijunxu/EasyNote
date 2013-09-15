@@ -4,6 +4,9 @@
 package notes.gui.book.component;
 
 import notes.bean.BookHome;
+import notes.book.Book;
+import notes.book.BookNote;
+import notes.book.Chapter;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
@@ -52,7 +55,7 @@ public class ViewBookNoteDialog extends JDialog {
     /**
      * Creates an instance of {@code ViewBookNoteDialog}.
      */
-    public ViewBookNoteDialog() {
+    public ViewBookNoteDialog(Book selectedBook, Chapter selectedChapter, BookNote selectedNote) {
         super(MainPanel.get(), "View Book Note", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         MainPanel frame = MainPanel.get();
@@ -76,7 +79,7 @@ public class ViewBookNoteDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
-        noteIdField.setText(home.getCurrentBookNote().getNoteId().toString());
+        noteIdField.setText(selectedNote.getNoteId().toString());
         notePanel.add(noteIdField, c);
 
         c.gridx = 0;
@@ -88,7 +91,7 @@ public class ViewBookNoteDialog extends JDialog {
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         documentField.setLineWrap(true);
-        documentField.setText(home.getCurrentBook().getDocumentTitle());
+        documentField.setText(selectedBook.getDocumentTitle());
         documentField.setEditable(false);
         notePanel.add(new JScrollPane(documentField), c);
 
@@ -101,8 +104,8 @@ public class ViewBookNoteDialog extends JDialog {
         c.gridy = 2;
         c.insets = new Insets(5, 5, 5, 5);
         chapterField.setLineWrap(true);
-        chapterField.setText(home.getCurrentChapter().getChapterId() + ". "
-                + home.getCurrentChapter().getChapterTitle());
+        chapterField.setText(selectedChapter.getChapterId() + ". "
+                + selectedChapter.getChapterTitle());
         chapterField.setEditable(false);
         notePanel.add(new JScrollPane(chapterField), c);
 
@@ -115,9 +118,9 @@ public class ViewBookNoteDialog extends JDialog {
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
         StringBuilder tagStrBuilder = new StringBuilder();
-        if (!home.getCurrentBookNote().getTagIds().isEmpty()) {
-            for (Long tagId : home.getCurrentBookNote().getTagIds()) {
-                tagStrBuilder.append(BookHome.get().getBookNoteDAO().findTagById(tagId).getTagText()).append(",");
+        if (!selectedNote.getTagIds().isEmpty()) {
+            for (Long tagId : selectedNote.getTagIds()) {
+                tagStrBuilder.append(home.getBookNoteDAO().findTagById(tagId).getTagText()).append(",");
             }
             tagStrBuilder.deleteCharAt(tagStrBuilder.length() - 1);
         }
@@ -135,7 +138,7 @@ public class ViewBookNoteDialog extends JDialog {
         c.gridy = 4;
         c.insets = new Insets(5, 5, 5, 5);
         noteTextField.setLineWrap(true);
-        noteTextField.setText(home.getCurrentBookNote().getNoteText());
+        noteTextField.setText(selectedNote.getNoteText());
         noteTextField.setEditable(false);
         notePanel.add(new JScrollPane(noteTextField), c);
 
@@ -147,7 +150,7 @@ public class ViewBookNoteDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 5;
         c.insets = new Insets(5, 5, 5, 5);
-        createdTimeField.setText(home.getCurrentBookNote().getCreatedTime().toString());
+        createdTimeField.setText(selectedNote.getCreatedTime().toString());
         notePanel.add(createdTimeField, c);
 
         dialogPanel.add(notePanel);

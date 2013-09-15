@@ -3,6 +3,8 @@
  */
 package notes.gui.article.component;
 
+import notes.article.Article;
+import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
@@ -52,7 +54,7 @@ public class ViewArticleNoteDialog extends JDialog {
     /**
      * Creates an instance of {@code ViewArticleNoteDialog}.
      */
-    public ViewArticleNoteDialog() {
+    public ViewArticleNoteDialog(Article selectedArticle, ArticleNote selectedNote) {
         super(MainPanel.get(), "View Article Note", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
 
@@ -77,7 +79,7 @@ public class ViewArticleNoteDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
-        noteIdField.setText(home.getCurrentArticleNote().getNoteId().toString());
+        noteIdField.setText(selectedNote.getNoteId().toString());
         notePanel.add(noteIdField, c);
 
         c.gridx = 0;
@@ -89,7 +91,7 @@ public class ViewArticleNoteDialog extends JDialog {
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         documentField.setLineWrap(true);
-        documentField.setText(home.getCurrentArticle().getDocumentTitle());
+        documentField.setText(selectedArticle.getDocumentTitle());
         documentField.setEditable(false);
         notePanel.add(new JScrollPane(documentField), c);
 
@@ -102,9 +104,9 @@ public class ViewArticleNoteDialog extends JDialog {
         c.gridy = 2;
         c.insets = new Insets(5, 5, 5, 5);
         StringBuilder tagStrBuilder = new StringBuilder();
-        if (!home.getCurrentArticleNote().getTagIds().isEmpty()) {
-            for (Long tagId : home.getCurrentArticleNote().getTagIds()) {
-                tagStrBuilder.append(ArticleHome.get().getArticleNoteDAO().findTagById(tagId).getTagText()).append(",");
+        if (!selectedNote.getTagIds().isEmpty()) {
+            for (Long tagId : selectedNote.getTagIds()) {
+                tagStrBuilder.append(home.getArticleNoteDAO().findTagById(tagId).getTagText()).append(",");
             }
             tagStrBuilder.deleteCharAt(tagStrBuilder.length() - 1);
         }
@@ -122,7 +124,7 @@ public class ViewArticleNoteDialog extends JDialog {
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
         noteTextField.setLineWrap(true);
-        noteTextField.setText(home.getCurrentArticleNote().getNoteText());
+        noteTextField.setText(selectedNote.getNoteText());
         noteTextField.setEditable(false);
         notePanel.add(new JScrollPane(noteTextField), c);
 
@@ -134,7 +136,7 @@ public class ViewArticleNoteDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 4;
         c.insets = new Insets(5, 5, 5, 5);
-        createdTimeField.setText(home.getCurrentArticleNote().getCreatedTime().toString());
+        createdTimeField.setText(selectedNote.getCreatedTime().toString());
         notePanel.add(createdTimeField, c);
 
         dialogPanel.add(notePanel);

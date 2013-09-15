@@ -3,18 +3,16 @@
  */
 package notes.gui.article.event;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JList;
-import javax.swing.SwingUtilities;
-
 import notes.bean.ArticleHome;
 import notes.data.cache.Property;
 import notes.gui.article.component.ArticleNotePopupMenu;
 import notes.gui.article.component.ViewArticleNoteDialog;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Mouse event listener for notes' JList in article panel.
@@ -34,12 +32,13 @@ public class ArticleNoteListMouseListener extends MouseAdapter {
      */
     @Override
     public void mouseClicked(MouseEvent event) {
-        if (event.getClickCount() == 2 && ArticleHome.get().getCurrentArticle() != null
-                && ArticleHome.get().getCurrentArticleNote() != null) {
+        ArticleHome home = ArticleHome.get();
+        if (event.getClickCount() == 2 && home.getCurrentArticle() != null
+                && home.getCurrentArticleNote() != null) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playPopup();
             }
-            new ViewArticleNoteDialog();
+            new ViewArticleNoteDialog(home.getCurrentArticle(), home.getCurrentArticleNote());
         }
     }
 
