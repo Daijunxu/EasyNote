@@ -21,7 +21,21 @@ import java.awt.event.ActionEvent;
  */
 public class ViewArticleNoteDialog extends JDialog {
 
+    private final JButton editButton = new JButton(new AbstractAction("Edit") {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+                SoundFactory.playNavigation();
+            }
+            // Make the current view article note dialog disappear.
+            setVisible(false);
+
+            // Show edit article note dialog.
+            new EditArticleNoteDialog();
+        }
+    });
     private final JButton okButton = new JButton(new AbstractAction("OK") {
+        @Override
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();
@@ -126,6 +140,7 @@ public class ViewArticleNoteDialog extends JDialog {
         dialogPanel.add(notePanel);
 
         JPanel buttons = new JPanel(new FlowLayout());
+        buttons.add(editButton);
         buttons.add(okButton);
 
         dialogPanel.add(buttons);
