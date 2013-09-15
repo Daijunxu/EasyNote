@@ -25,10 +25,7 @@ import java.util.List;
  * @version 1.0
  */
 public class OpenDocumentDialog extends JDialog {
-    private static final long serialVersionUID = 3402344999808907159L;
     private JButton okButton = new JButton(new AbstractAction("OK") {
-        private static final long serialVersionUID = -4225868807457964012L;
-
         public void actionPerformed(ActionEvent e) {
 
             // Input validation.
@@ -56,8 +53,6 @@ public class OpenDocumentDialog extends JDialog {
         }
     });
     private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
-        private static final long serialVersionUID = -8921821739904585632L;
-
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();

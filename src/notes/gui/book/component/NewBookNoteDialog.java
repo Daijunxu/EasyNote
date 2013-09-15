@@ -28,10 +28,7 @@ import java.util.List;
  */
 public class NewBookNoteDialog extends JDialog {
 
-    private static final long serialVersionUID = -7192332704393872884L;
     private JButton okButton = new JButton(new AbstractAction("OK") {
-        private static final long serialVersionUID = -2907333622653387945L;
-
         public void actionPerformed(ActionEvent e) {
 
             // Input validation.
@@ -120,9 +117,6 @@ public class NewBookNoteDialog extends JDialog {
         }
     });
     private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
-
-        private static final long serialVersionUID = 5403162925832694102L;
-
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();

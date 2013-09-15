@@ -3,6 +3,8 @@
  */
 package notes.utils;
 
+import lombok.Getter;
+
 /**
  * The enumeration of available sound themes.
  *
@@ -12,6 +14,7 @@ package notes.utils;
 public enum SoundTheme {
 
     NONE("No Sound"), OUTLOOK("Windows Outlook"), WINDOWS("Windows Default");
+    @Getter
     private String description;
 
     /**
@@ -37,14 +40,5 @@ public enum SoundTheme {
             }
         }
         return null;
-    }
-
-    /**
-     * Gets the description message of the sound theme.
-     *
-     * @return {@code String} The description message of the sound theme.
-     */
-    public String getDescription() {
-        return description;
     }
 }

@@ -3,6 +3,7 @@
  */
 package notes.gui.main.component;
 
+import lombok.Getter;
 import notes.data.cache.Cache;
 import notes.data.cache.Property;
 import notes.utils.SoundFactory;
@@ -21,11 +22,8 @@ import java.awt.event.ActionListener;
  */
 public class PreferencesDialog extends JDialog {
 
-    private static final long serialVersionUID = 5443009634695952662L;
     private static PreferencesDialog instance;
     private final JButton okButton = new JButton(new AbstractAction("OK") {
-        private static final long serialVersionUID = -1077277029101012739L;
-
         public void actionPerformed(ActionEvent e) {
             MainPanel frame = MainPanel.get();
 
@@ -57,8 +55,6 @@ public class PreferencesDialog extends JDialog {
         }
     });
     private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {
-        private static final long serialVersionUID = 4172730058717036113L;
-
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();
@@ -66,10 +62,12 @@ public class PreferencesDialog extends JDialog {
             setVisible(false);
         }
     });
+    @Getter
     private final JTextField dataLocationField = new JTextField(40);
     private final JButton chooseDataLocationButton = new JButton("Choose");
     private final JComboBox soundThemeField = new JComboBox();
     private final JCheckBox showLastDocumentOnOpeningCheckBox = new JCheckBox("Open last viewed document when program starts");
+
     private PreferencesDialog() {
         super(MainPanel.get(), "Edit Preferences", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
@@ -129,7 +127,7 @@ public class PreferencesDialog extends JDialog {
         c.gridy = 2;
         c.ipadx = 2;
         c.insets = new Insets(5, 5, 5, 5);
-        showLastDocumentOnOpeningCheckBox.setSelected(Property.get().showLastDocumentOnOpening());
+        showLastDocumentOnOpeningCheckBox.setSelected(Property.get().isShowLastDocumentOnOpening());
         preferencesPanel.add(showLastDocumentOnOpeningCheckBox, c);
 
         dialogPanel.add(preferencesPanel);
@@ -155,14 +153,5 @@ public class PreferencesDialog extends JDialog {
             instance = new PreferencesDialog();
         }
         return instance;
-    }
-
-    /**
-     * Gets the data location field.
-     *
-     * @return {@code JTextField} The data location field.
-     */
-    public JTextField getDataLocationField() {
-        return dataLocationField;
     }
 }

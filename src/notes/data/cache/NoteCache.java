@@ -3,6 +3,8 @@
  */
 package notes.data.cache;
 
+import lombok.Getter;
+import lombok.Setter;
 import notes.article.ArticleNote;
 import notes.book.BookNote;
 import notes.dao.DuplicateRecordException;
@@ -28,10 +30,14 @@ public class NoteCache {
     /**
      * The map of all notes from note IDs to the notes.
      */
+    @Getter
+    @Setter
     private Map<Long, Note> noteMap;
     /**
      * The maximum note ID in the data.
      */
+    @Getter
+    @Setter
     private Long maxNoteId = 0L;
 
     /**
@@ -50,42 +56,6 @@ public class NoteCache {
     public void clear() {
         this.noteMap.clear();
         this.maxNoteId = Long.MIN_VALUE;
-    }
-
-    /**
-     * Gets the maximum note ID.
-     *
-     * @return {@code Long} The maximum note ID.
-     */
-    public Long getMaxNoteId() {
-        return maxNoteId;
-    }
-
-    /**
-     * Sets the maximum note ID.
-     *
-     * @param maxNoteId The maximum note ID to set.
-     */
-    public void setMaxNoteId(Long maxNoteId) {
-        this.maxNoteId = maxNoteId;
-    }
-
-    /**
-     * Gets the note map.
-     *
-     * @return {@code Map} The noteMap.
-     */
-    public Map<Long, Note> getNoteMap() {
-        return noteMap;
-    }
-
-    /**
-     * Sets the note map.
-     *
-     * @param noteMap The note map to set.
-     */
-    public void setNoteMap(Map<Long, Note> noteMap) {
-        this.noteMap = noteMap;
     }
 
     /**

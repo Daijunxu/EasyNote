@@ -3,36 +3,20 @@
  */
 package notes.gui.book.component;
 
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
 import notes.bean.BookHome;
-import notes.dao.impl.BookNoteDAO;
 import notes.book.Chapter;
+import notes.dao.impl.BookNoteDAO;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.verifier.IdInputVerifier;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
-
 import org.apache.commons.lang3.text.WordUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 /**
  * Defines the dialog and event listener for creating a chapter.
@@ -42,10 +26,7 @@ import org.apache.commons.lang3.text.WordUtils;
  */
 public class NewChapterDialog extends JDialog {
 
-    private static final long serialVersionUID = -2657534900412465114L;
     private JButton okButton = new JButton(new AbstractAction("OK") {
-        private static final long serialVersionUID = -3654597593178177421L;
-
         public void actionPerformed(ActionEvent e) {
 
             // Input validation.
@@ -114,8 +95,6 @@ public class NewChapterDialog extends JDialog {
         }
     });
     private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
-        private static final long serialVersionUID = 789206680230884263L;
-
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();

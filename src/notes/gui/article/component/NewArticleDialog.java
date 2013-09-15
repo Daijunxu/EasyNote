@@ -26,10 +26,7 @@ import java.util.Date;
  * @version 1.0
  */
 public class NewArticleDialog extends JDialog {
-    private static final long serialVersionUID = 6759636401637649597L;
     private JButton okButton = new JButton(new AbstractAction("OK") {
-        private static final long serialVersionUID = 5215148273923029678L;
-
         public void actionPerformed(ActionEvent e) {
 
             // Input validation.
@@ -123,8 +120,6 @@ public class NewArticleDialog extends JDialog {
         }
     });
     private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
-        private static final long serialVersionUID = -8851788447035738145L;
-
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();

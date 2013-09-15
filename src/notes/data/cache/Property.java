@@ -3,6 +3,9 @@
  */
 package notes.data.cache;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,22 +31,31 @@ public class Property {
     /**
      * The list of document types.
      */
+    @Getter
     private final List<String> documentTypes;
     /**
      * The location of data file.
      */
+    @Getter
+    @Setter
     private String dataLocation;
     /**
      * The default sound theme.
      */
+    @Getter
+    @Setter
     private String soundTheme;
     /**
      * Whether to open the last document when program starts.
      */
+    @Setter
+    @Getter
     private boolean showLastDocumentOnOpening;
     /**
      * The id of last opened document.
      */
+    @Getter
+    @Setter
     private Long lastOpenedDocumentId;
 
     /**
@@ -85,78 +97,6 @@ public class Property {
         return instance;
     }
 
-    /**
-     * Gets the data file location.
-     *
-     * @return {@code String} The data file location.
-     */
-    public String getDataLocation() {
-        return dataLocation;
-    }
-
-    /**
-     * Sets the data file location.
-     *
-     * @param dataLocation The data file location to set.
-     */
-    public void setDataLocation(String dataLocation) {
-        this.dataLocation = dataLocation;
-    }
-
-    /**
-     * Gets the list of document types.
-     *
-     * @return {@code List<String>} The list of document types.
-     */
-    public List<String> getDocumentTypes() {
-        return documentTypes;
-    }
-
-    /**
-     * Gets the default sound theme.
-     *
-     * @return {@code String} The default sound theme.
-     */
-    public String getSoundTheme() {
-        return soundTheme;
-    }
-
-    /**
-     * Sets the default sound theme.
-     *
-     * @param soundTheme The default sound theme to set.
-     */
-    public void setSoundTheme(String soundTheme) {
-        this.soundTheme = soundTheme;
-    }
-
-    /**
-     * Gets the value of whether to open the last document when program starts.
-     *
-     * @return boolean Whether to open the last document when program starts.
-     */
-    public boolean showLastDocumentOnOpening() {
-        return showLastDocumentOnOpening;
-    }
-
-    /**
-     * Gets the id of last opened document.
-     *
-     * @return {@code Long} The id of last opened document.
-     */
-    public Long getLastOpenedDocumentId() {
-        return lastOpenedDocumentId;
-    }
-
-    /**
-     * Sets the id of last opened document.
-     *
-     * @param documentId The id of last opened document.
-     */
-    public void setLastOpenedDocumentId(Long documentId) {
-        lastOpenedDocumentId = documentId;
-    }
-
     public void saveProperty() {
         Properties PROPERTIES = new Properties();
         PROPERTIES.setProperty("dataLocation", getDataLocation());
@@ -172,7 +112,7 @@ public class Property {
         PROPERTIES.setProperty("documentType", sb.toString());
 
         PROPERTIES.setProperty("soundTheme", getSoundTheme());
-        PROPERTIES.setProperty("showLastDocumentOnOpening", String.valueOf(showLastDocumentOnOpening()));
+        PROPERTIES.setProperty("showLastDocumentOnOpening", String.valueOf(isShowLastDocumentOnOpening()));
 
         if (getLastOpenedDocumentId() != null) {
             PROPERTIES.setProperty("lastOpenedDocumentId", getLastOpenedDocumentId().toString());
@@ -187,14 +127,5 @@ public class Property {
             System.err.println("Error occurred writing Config.xml file: " + e.getMessage());
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Sets the value of whether to open the last document when program starts.
-     *
-     * @param value Whether to open the last document when program starts.
-     */
-    public void setShowLastDocumentOnOpening(boolean value) {
-        showLastDocumentOnOpening = value;
     }
 }

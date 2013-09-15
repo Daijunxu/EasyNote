@@ -78,3 +78,4 @@
 [09/07/2013] 15136: Some refactoring on current codes.
 [09/07/2013] 14795: Add EasyNoteUnitTestCase and refactor all unit tests.
 [09/08/2013] 14366: Some more code refactoring, no functional change.
+[09/14/2013] 14332: Add open last document functionality. Reorder members and methods in all classes.

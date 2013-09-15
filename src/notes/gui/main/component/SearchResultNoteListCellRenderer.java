@@ -3,21 +3,12 @@
  */
 package notes.gui.main.component;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.Font;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-
 import notes.bean.BookHome;
 import notes.book.BookNote;
 import notes.entity.Note;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Defines the cell renderer for the notes' JList in note search dialog.
@@ -26,7 +17,6 @@ import notes.entity.Note;
  * @version 1.0
  */
 public class SearchResultNoteListCellRenderer extends DefaultListCellRenderer {
-    private static final long serialVersionUID = 7131433347478877040L;
     private final String HTML_1 = "<html><body style='width: ";
     private final String HTML_2 = "'>";
     private final String HTML_3 = "</body></html>";

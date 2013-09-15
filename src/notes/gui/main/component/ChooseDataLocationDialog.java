@@ -23,7 +23,6 @@ import java.io.IOException;
  */
 public class ChooseDataLocationDialog extends JDialog {
 
-    private static final long serialVersionUID = 2102847941754963450L;
     private JFileChooser fileChooserField = new JFileChooser();
 
     /**

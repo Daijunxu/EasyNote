@@ -1,9 +1,11 @@
 package notes.book;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import notes.entity.impl.AbstractNote;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Date;
 import java.util.List;
@@ -14,18 +16,17 @@ import java.util.List;
  * @author Rui Du
  * @version 1.0
  */
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+@ToString(callSuper = true, includeFieldNames = true)
 public class BookNote extends AbstractNote {
 
     /**
      * The chapter identifier.
      */
+    @Getter
+    @Setter
     private Long chapterId;
-
-    /**
-     * Constructs a default instance of {@code BookNote}.
-     */
-    public BookNote() {
-    }
 
     /**
      * Constructs an instance of {@code BookNote}.
@@ -45,68 +46,5 @@ public class BookNote extends AbstractNote {
         setTagIds(tagIds);
         setNoteText(noteText);
         setCreatedTime(new Date(System.currentTimeMillis()));
-    }
-
-    /**
-     * Indicates whether some other object is "equal to" this one.
-     *
-     * @param obj The reference object with which to compare.
-     * @return boolean Returns true if this object is the same as the obj argument; false otherwise.
-     * @see Object#equals(Object)
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        return obj instanceof BookNote
-                && new EqualsBuilder().append(getNoteId(), ((BookNote) obj).getNoteId())
-                .append(getDocumentId(), ((BookNote) obj).getDocumentId())
-                .append(getChapterId(), ((BookNote) obj).getChapterId())
-                .append(getTagIds(), ((BookNote) obj).getTagIds())
-                .append(getNoteText(), ((BookNote) obj).getNoteText())
-                .append(getCreatedTime(), ((BookNote) obj).getCreatedTime()).isEquals();
-    }
-
-    /**
-     * Gets the chapter identifier.
-     *
-     * @return {@code Long} The chapter identifier.
-     */
-    public Long getChapterId() {
-        return chapterId;
-    }
-
-    /**
-     * Sets the chapter identifier.
-     *
-     * @param chapterId The chapter identifier to set.
-     */
-    public void setChapterId(Long chapterId) {
-        this.chapterId = chapterId;
-    }
-
-    /**
-     * Returns a hash code value for the object.
-     *
-     * @return int A hash code value for this object.
-     * @see Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(getNoteId()).append(getDocumentId())
-                .append(getChapterId()).append(getTagIds()).append(getNoteText())
-                .append(getCreatedTime()).toHashCode();
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * @return {@code String} A string representation of the object.
-     * @see Object#toString()
-     */
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).append("noteId", getNoteId())
-                .append("documentId", getDocumentId()).append("chapterId", getChapterId())
-                .append("tagIds", getTagIds()).append("noteText", getNoteText())
-                .append("createdTime", getCreatedTime()).toString();
     }
 }

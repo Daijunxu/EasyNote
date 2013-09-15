@@ -31,10 +31,7 @@ import java.util.TreeMap;
  */
 public class NewBookDialog extends JDialog {
 
-    private static final long serialVersionUID = 3262391130437264155L;
     private JButton okButton = new JButton(new AbstractAction("OK") {
-        private static final long serialVersionUID = 3450970158920647973L;
-
         public void actionPerformed(ActionEvent e) {
 
             // Input validation.
@@ -153,8 +150,6 @@ public class NewBookDialog extends JDialog {
         }
     });
     private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
-        private static final long serialVersionUID = 6895836087981161903L;
-
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();

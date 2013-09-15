@@ -27,12 +27,9 @@ import java.util.List;
  */
 public class EditArticleDialog extends JDialog {
 
-    private static final long serialVersionUID = 5523266061079957193L;
     private JButton okButton = new JButton(new AbstractAction("OK") {
-        private static final long serialVersionUID = 5215148273923029678L;
 
         public void actionPerformed(ActionEvent e) {
-
             // Input validation.
             if (documentTitleField.getText() == null
                     || documentTitleField.getText().trim().equals("")) {
@@ -116,8 +113,6 @@ public class EditArticleDialog extends JDialog {
         }
     });
     private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
-        private static final long serialVersionUID = -8851788447035738145L;
-
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();

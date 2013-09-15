@@ -3,16 +3,16 @@
  */
 package notes.gui.book.event;
 
-import javax.swing.JList;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import notes.bean.BookHome;
 import notes.book.Chapter;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  * The event listener for chapter list. Triggers when selected item in the list changes.
@@ -31,7 +31,7 @@ public class ChapterListSelectionListener implements ListSelectionListener {
         // getValueIsAdjusting() becomes false.
         if (!event.getValueIsAdjusting()) {
             MainPanel frame = MainPanel.get();
-            frame.remove(frame.getNotesPane());
+            frame.remove(frame.getNotesPanel());
 
             JList list = (JList) event.getSource();
             int selected = list.getSelectedIndex();

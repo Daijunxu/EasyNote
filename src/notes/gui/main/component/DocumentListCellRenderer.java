@@ -3,16 +3,8 @@
  */
 package notes.gui.main.component;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Defines the cell renderer for the documents' JList.
@@ -21,7 +13,6 @@ import javax.swing.JPanel;
  * @version 1.0
  */
 public class DocumentListCellRenderer extends DefaultListCellRenderer {
-    private static final long serialVersionUID = 7707321743546342477L;
     private final String HTML_1 = "<html><body style='width: ";
     private final String HTML_2 = "'>";
     private final String HTML_3 = "</html>";

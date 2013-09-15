@@ -24,10 +24,7 @@ import java.net.URISyntaxException;
  */
 public class AboutDialog extends JDialog {
 
-    private static final long serialVersionUID = -4869669171177951394L;
     private JButton okButton = new JButton(new AbstractAction("OK") {
-        private static final long serialVersionUID = 8804876275155669513L;
-
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();

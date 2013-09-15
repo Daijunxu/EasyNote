@@ -12,11 +12,6 @@ package notes.data.cache;
 public class InvalidDataFormatException extends Exception {
 
     /**
-     * Generated serial version UID.
-     */
-    private static final long serialVersionUID = 577245767688832437L;
-
-    /**
      * Constructs a new exception with null as its detail message.
      */
     public InvalidDataFormatException() {

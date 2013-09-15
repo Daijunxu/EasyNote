@@ -25,10 +25,7 @@ import java.awt.event.ActionEvent;
  */
 public class EditChapterDialog extends JDialog {
 
-    private static final long serialVersionUID = -2114620012726407866L;
     private JButton okButton = new JButton(new AbstractAction("OK") {
-        private static final long serialVersionUID = -2907333622653387945L;
-
         public void actionPerformed(ActionEvent e) {
 
             // Input validation.
@@ -85,8 +82,6 @@ public class EditChapterDialog extends JDialog {
         }
     });
     private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
-        private static final long serialVersionUID = 2102103830307858159L;
-
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();

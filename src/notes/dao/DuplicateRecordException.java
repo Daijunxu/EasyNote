@@ -12,11 +12,6 @@ package notes.dao;
 public class DuplicateRecordException extends Exception {
 
     /**
-     * Generated serial version UID.
-     */
-    private static final long serialVersionUID = 8345690329455002833L;
-
-    /**
      * Constructs a new exception with null as its detail message.
      */
     public DuplicateRecordException() {

@@ -3,13 +3,12 @@
  */
 package notes.gui.book.component;
 
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-
 import notes.bean.BookHome;
 import notes.gui.book.event.DeleteChapterActionListener;
 import notes.gui.book.event.EditChapterActionListener;
 import notes.gui.book.event.NewChapterActionListener;
+
+import javax.swing.*;
 
 /**
  * Pops up when right clicking a chapter in the chapter panel.
@@ -19,7 +18,6 @@ import notes.gui.book.event.NewChapterActionListener;
  */
 public class ChapterPopupMenu extends JPopupMenu {
 
-    private static final long serialVersionUID = 6551334066426524181L;
     private JMenuItem newItem;
     private JMenuItem editItem;
     private JMenuItem deleteItem;

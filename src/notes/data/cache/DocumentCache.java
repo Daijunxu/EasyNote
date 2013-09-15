@@ -3,6 +3,8 @@
  */
 package notes.data.cache;
 
+import lombok.Getter;
+import lombok.Setter;
 import notes.article.Article;
 import notes.book.Book;
 import notes.book.Chapter;
@@ -29,14 +31,20 @@ public class DocumentCache {
     /**
      * The map of all documents from document IDs to the documents.
      */
+    @Getter
+    @Setter
     private Map<Long, Document> documentMap;
     /**
      * The map of all documents' titles to their IDs.
      */
+    @Getter
+    @Setter
     private Map<String, Long> documentTitleIdMap;
     /**
      * The maximum document ID in the data.
      */
+    @Getter
+    @Setter
     private Long maxDocumentId = 0L;
 
     /**
@@ -57,60 +65,6 @@ public class DocumentCache {
         this.documentMap.clear();
         this.documentTitleIdMap.clear();
         this.maxDocumentId = Long.MIN_VALUE;
-    }
-
-    /**
-     * Gets the document map.
-     *
-     * @return {@code Map} The document map.
-     */
-    public Map<Long, Document> getDocumentMap() {
-        return documentMap;
-    }
-
-    /**
-     * Sets the document map.
-     *
-     * @param documentMap The document map to set.
-     */
-    public void setDocumentMap(Map<Long, Document> documentMap) {
-        this.documentMap = documentMap;
-    }
-
-    /**
-     * Gets the map of all documents' titles to their IDs.
-     *
-     * @return {@code Map} The map of all documents' titles to their IDs.
-     */
-    public Map<String, Long> getDocumentTitleIdMap() {
-        return documentTitleIdMap;
-    }
-
-    /**
-     * Sets the map of all documents' titles to their IDs.
-     *
-     * @param documentTitleIdMap The map of all documents' titles to their IDs.
-     */
-    public void setDocumentTitleIdMap(Map<String, Long> documentTitleIdMap) {
-        this.documentTitleIdMap = documentTitleIdMap;
-    }
-
-    /**
-     * Gets the maximum document ID.
-     *
-     * @return {@code Long} The maximum document ID.
-     */
-    public Long getMaxDocumentId() {
-        return maxDocumentId;
-    }
-
-    /**
-     * Sets the maximum document ID.
-     *
-     * @param maxDocumentId The maximum document ID to set.
-     */
-    public void setMaxDocumentId(Long maxDocumentId) {
-        this.maxDocumentId = maxDocumentId;
     }
 
     /**

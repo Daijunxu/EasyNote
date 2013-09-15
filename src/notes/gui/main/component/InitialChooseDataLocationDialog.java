@@ -24,7 +24,6 @@ import java.io.IOException;
  */
 public class InitialChooseDataLocationDialog extends JDialog {
 
-    private static final long serialVersionUID = -1716696885453447338L;
     private JFileChooser fileChooserField = new JFileChooser();
 
     /**
@@ -49,8 +48,6 @@ public class InitialChooseDataLocationDialog extends JDialog {
         fileChooserField.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         fileChooserField.setCurrentDirectory(new File(Property.get().getDataLocation()));
         fileChooserField.addActionListener(new AbstractAction() {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void actionPerformed(ActionEvent event) {
                 JFileChooser chooser = (JFileChooser) event.getSource();

@@ -30,10 +30,7 @@ import java.util.List;
  */
 public class EditBookDialog extends JDialog {
 
-    private static final long serialVersionUID = -2671765147267457209L;
     private JButton okButton = new JButton(new AbstractAction("OK") {
-        private static final long serialVersionUID = 774378583007771273L;
-
         public void actionPerformed(ActionEvent e) {
 
             // Input validation.
@@ -144,8 +141,6 @@ public class EditBookDialog extends JDialog {
         }
     });
     private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
-        private static final long serialVersionUID = -8851788447035738145L;
-
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();

@@ -3,6 +3,8 @@
  */
 package notes.data.cache;
 
+import lombok.Getter;
+import lombok.Setter;
 import notes.article.Article;
 import notes.article.ArticleNote;
 import notes.book.Book;
@@ -35,14 +37,20 @@ public class Cache {
     /**
      * The document cache.
      */
+    @Getter
+    @Setter
     private DocumentCache documentCache;
     /**
      * The tag cache.
      */
+    @Getter
+    @Setter
     private TagCache tagCache;
     /**
      * The note cache.
      */
+    @Getter
+    @Setter
     private NoteCache noteCache;
 
     /**
@@ -94,60 +102,6 @@ public class Cache {
         if (noteCache != null) {
             noteCache.clear();
         }
-    }
-
-    /**
-     * Gets the document cache.
-     *
-     * @return {@code DocumentCache} The document cache.
-     */
-    public DocumentCache getDocumentCache() {
-        return documentCache;
-    }
-
-    /**
-     * Sets the document cache.
-     *
-     * @param documentCache The document cache to set.
-     */
-    public void setDocumentCache(DocumentCache documentCache) {
-        this.documentCache = documentCache;
-    }
-
-    /**
-     * Gets the note cache.
-     *
-     * @return {@code NoteCache} The note cache.
-     */
-    public NoteCache getNoteCache() {
-        return noteCache;
-    }
-
-    /**
-     * Sets the note cache.
-     *
-     * @param noteCache The note cache to set.
-     */
-    public void setNoteCache(NoteCache noteCache) {
-        this.noteCache = noteCache;
-    }
-
-    /**
-     * Gets the tag cache.
-     *
-     * @return {@code TagCache} The tag cache.
-     */
-    public TagCache getTagCache() {
-        return tagCache;
-    }
-
-    /**
-     * Sets the tag cache.
-     *
-     * @param tagCache The tag cache to set.
-     */
-    public void setTagCache(TagCache tagCache) {
-        this.tagCache = tagCache;
     }
 
     /**

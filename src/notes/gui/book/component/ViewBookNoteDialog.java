@@ -21,10 +21,7 @@ import java.awt.event.ActionEvent;
  */
 public class ViewBookNoteDialog extends JDialog {
 
-    private static final long serialVersionUID = -6695210036171096675L;
     private JButton okButton = new JButton(new AbstractAction("OK") {
-        private static final long serialVersionUID = -3137484288088623070L;
-
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();
@@ -107,9 +104,7 @@ public class ViewBookNoteDialog extends JDialog {
         StringBuilder tagStrBuilder = new StringBuilder();
         if (!home.getCurrentBookNote().getTagIds().isEmpty()) {
             for (Long tagId : home.getCurrentBookNote().getTagIds()) {
-                tagStrBuilder.append(BookHome.get().getBookNoteDAO().findTagById(tagId)
-                        .getTagText()
-                        + ",");
+                tagStrBuilder.append(BookHome.get().getBookNoteDAO().findTagById(tagId).getTagText()).append(",");
             }
             tagStrBuilder.deleteCharAt(tagStrBuilder.length() - 1);
         }

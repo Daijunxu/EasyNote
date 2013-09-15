@@ -28,8 +28,6 @@ import java.io.IOException;
  */
 public class ExportArticleDialog extends JDialog {
 
-    private static final long serialVersionUID = 3138411222044812952L;
-
     /**
      * Creates an instance of {@code ExportArticleDialog}.
      */
@@ -59,8 +57,6 @@ public class ExportArticleDialog extends JDialog {
         fileChooserField.setSelectedFile(new File(Property.get().getDataLocation() + "/[Notes] "
                 + article.getDocumentTitle() + ".html"));
         fileChooserField.addActionListener(new AbstractAction() {
-            private static final long serialVersionUID = -3689467804538872221L;
-
             @Override
             public void actionPerformed(ActionEvent event) {
                 JFileChooser chooser = (JFileChooser) event.getSource();

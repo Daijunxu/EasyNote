@@ -23,9 +23,7 @@ import java.util.List;
  * @version 1.0
  */
 public class EditArticleNoteDialog extends JDialog {
-    private static final long serialVersionUID = -4771583013693557849L;
     private JButton okButton = new JButton(new AbstractAction("OK") {
-        private static final long serialVersionUID = 1L;
 
         public void actionPerformed(ActionEvent e) {
 
@@ -104,8 +102,6 @@ public class EditArticleNoteDialog extends JDialog {
         }
     });
     private JButton cancelButton = new JButton(new AbstractAction("Cancel") {
-        private static final long serialVersionUID = 1L;
-
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();

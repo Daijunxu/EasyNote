@@ -1,9 +1,11 @@
 package notes.book;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import notes.entity.impl.AbstractDocument;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Date;
 import java.util.List;
@@ -15,30 +17,35 @@ import java.util.TreeMap;
  * @author Rui Du
  * @version 1.0
  */
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, includeFieldNames = true)
 public class Book extends AbstractDocument {
 
     /**
      * The book's edition number.
      */
+    @Getter
+    @Setter
     private Integer edition;
     /**
      * The book's published year.
      */
+    @Getter
+    @Setter
     private Integer publishedYear;
     /**
      * The book's ISBN.
      */
+    @Getter
+    @Setter
     private String isbn;
     /**
      * The ordered map for chapters.
      */
+    @Getter
+    @Setter
     private TreeMap<Long, Chapter> chaptersMap;
-
-    /**
-     * Constructs a default instance of {@code Book}.
-     */
-    public Book() {
-    }
 
     /**
      * Constructs an instance of {@code Book}.
@@ -69,81 +76,6 @@ public class Book extends AbstractDocument {
         setLastUpdatedTime(new Date(System.currentTimeMillis()));
     }
 
-    /**
-     * Indicates whether some other object is "equal to" this one.
-     *
-     * @param obj The reference object with which to compare.
-     * @return boolean Returns true if this object is the same as the obj argument; false otherwise.
-     * @see Object#equals(Object)
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        return obj instanceof Book
-                && new EqualsBuilder().append(getDocumentId(), ((Book) obj).getDocumentId())
-                .append(getDocumentTitle(), ((Book) obj).getDocumentTitle())
-                .append(getAuthorsList(), ((Book) obj).getAuthorsList())
-                .append(getComment(), ((Book) obj).getComment())
-                .append(getEdition(), ((Book) obj).getEdition())
-                .append(getPublishedYear(), ((Book) obj).getPublishedYear())
-                .append(getIsbn(), ((Book) obj).getIsbn())
-                .append(getChaptersMap(), ((Book) obj).getChaptersMap())
-                .append(getCreatedTime(), ((Book) obj).getCreatedTime())
-                .append(getLastUpdatedTime(), ((Book) obj).getLastUpdatedTime()).isEquals();
-    }
-
-    /**
-     * Gets the ordered map for chapters.
-     *
-     * @return {@code TreeMap} The ordered map for chapters.
-     */
-    public TreeMap<Long, Chapter> getChaptersMap() {
-        return chaptersMap;
-    }
-
-    /**
-     * Sets the ordered map for chapters.
-     *
-     * @param chaptersMap The ordered map for chapters to set.
-     */
-    public void setChaptersMap(final TreeMap<Long, Chapter> chaptersMap) {
-        this.chaptersMap = chaptersMap;
-    }
-
-    /**
-     * Gets the book's edition number.
-     *
-     * @return {@code Integer} The book's edition number.
-     */
-    public Integer getEdition() {
-        return edition;
-    }
-
-    /**
-     * Sets the book's edition number.
-     *
-     * @param edition The book's edition number to set.
-     */
-    public void setEdition(final Integer edition) {
-        this.edition = edition;
-    }
-
-    /**
-     * Gets the book's ISBN.
-     *
-     * @return {@code String} The book's ISBN.
-     */
-    public String getIsbn() {
-        return isbn;
-    }
-
-    /**
-     * Sets the book's ISBN.
-     *
-     * @param isbn The book's ISBN to set.
-     */
-    public void setIsbn(final String isbn) {
-        this.isbn = isbn;
-    }
 
     /**
      * {@inheritDoc}
@@ -159,53 +91,5 @@ public class Book extends AbstractDocument {
             result += chapter.getNotesList().size();
         }
         return result;
-    }
-
-    /**
-     * Gets book's published year.
-     *
-     * @return {@code Integer} The book's published year.
-     */
-    public Integer getPublishedYear() {
-        return publishedYear;
-    }
-
-    /**
-     * Sets the book's published year.
-     *
-     * @param publishedYear The book's published year to set.
-     */
-    public void setPublishedYear(final Integer publishedYear) {
-        this.publishedYear = publishedYear;
-    }
-
-    /**
-     * Returns a hash code value for the object.
-     *
-     * @return int A hash code value for this object.
-     * @see Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(getDocumentId()).append(getDocumentTitle())
-                .append(getAuthorsList()).append(getComment()).append(getEdition())
-                .append(getPublishedYear()).append(getIsbn()).append(getChaptersMap())
-                .append(getCreatedTime()).append(getLastUpdatedTime()).toHashCode();
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * @return {@code String} A string representation of the object.
-     * @see Object#toString()
-     */
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).append("documentId", getDocumentId())
-                .append("documentTitle", getDocumentTitle()).append("authorList", getAuthorsList())
-                .append("comment", getComment()).append("edition", getEdition())
-                .append("publishedYear", getPublishedYear()).append("ISBN", getIsbn())
-                .append("chapterMap", getChaptersMap()).append("createdTime", getCreatedTime())
-                .append("lastUpdatedTime", getLastUpdatedTime()).toString();
     }
 }

@@ -3,6 +3,8 @@
  */
 package notes.gui.main.component;
 
+import lombok.Getter;
+import lombok.Setter;
 import notes.article.Article;
 import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
@@ -69,12 +71,10 @@ public class MainPanel extends JFrame {
      */
     public static final MainPanel instance = new MainPanel();
     /**
-     * The generated serial version UID.
-     */
-    private static final long serialVersionUID = -6486524899782603246L;
-    /**
      * The current mode indicating the type of the current opened document.
      */
+    @Getter
+    @Setter
     private SystemMode currentMode;
     /**
      * The menu bar on the main panel that contains different operations for this application.
@@ -83,10 +83,14 @@ public class MainPanel extends JFrame {
     /**
      * The chapter panel that contains the information of chapters in a book.
      */
+    @Getter
+    @Setter
     private JPanel chaptersPanel;
     /**
      * The note panel that contains the information of notes in current document/chapter.
      */
+    @Getter
+    @Setter
     private JPanel notesPanel;
 
     /**
@@ -152,7 +156,7 @@ public class MainPanel extends JFrame {
                 SoundFactory.playOn();
             }
 
-            if (property.showLastDocumentOnOpening() && property.getLastOpenedDocumentId() != null) {
+            if (property.isShowLastDocumentOnOpening() && property.getLastOpenedDocumentId() != null) {
                 MainPanel.get().openLastDocument(property.getLastOpenedDocumentId());
             }
 
@@ -429,51 +433,6 @@ public class MainPanel extends JFrame {
     }
 
     /**
-     * Gets the chapters' panel.
-     *
-     * @return {@code JPanel} The chapters' panel.
-     */
-    public JPanel getChaptersPanel() {
-        return chaptersPanel;
-    }
-
-    /**
-     * Sets the chapters' panel.
-     *
-     * @param chaptersPanel The chapters' panel to set.
-     */
-    public void setChaptersPanel(JPanel chaptersPanel) {
-        this.chaptersPanel = chaptersPanel;
-    }
-
-    /**
-     * Gets the current mode.
-     *
-     * @return {@code SystemMode} The current mode.
-     */
-    public SystemMode getCurrentMode() {
-        return currentMode;
-    }
-
-    /**
-     * Sets the current mode.
-     *
-     * @param currentMode The current mode to set
-     */
-    public void setCurrentMode(SystemMode currentMode) {
-        this.currentMode = currentMode;
-    }
-
-    /**
-     * Gets the notes' panel.
-     *
-     * @return {@code JPanel} The notes' panel.
-     */
-    public JPanel getNotesPane() {
-        return notesPanel;
-    }
-
-    /**
      * Sets up the panel when opening an article.
      *
      * @param article The article that is being opened.
@@ -572,15 +531,6 @@ public class MainPanel extends JFrame {
 
         validate();
         repaint();
-    }
-
-    /**
-     * Sets the notes' panel.
-     *
-     * @param notesPanel The notes' panel to set.
-     */
-    public void setNotesPanel(JPanel notesPanel) {
-        this.notesPanel = notesPanel;
     }
 
     /**

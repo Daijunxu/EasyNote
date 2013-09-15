@@ -3,6 +3,8 @@
  */
 package notes.data.cache;
 
+import lombok.Getter;
+import lombok.Setter;
 import notes.entity.Tag;
 
 import java.io.BufferedReader;
@@ -22,14 +24,20 @@ public class TagCache {
     /**
      * The map of all tags from tag IDs to the tags.
      */
+    @Getter
+    @Setter
     private Map<Long, Tag> tagIdMap;
     /**
      * The map of all tags from tag texts to the tags.
      */
+    @Getter
+    @Setter
     private Map<String, Tag> tagTextMap;
     /**
      * The maximum tag ID in the data.
      */
+    @Getter
+    @Setter
     private Long maxTagId = 0L;
 
     /**
@@ -52,59 +60,6 @@ public class TagCache {
         this.maxTagId = Long.MIN_VALUE;
     }
 
-    /**
-     * Gets the maximum tag ID.
-     *
-     * @return {@code Long} The maximum tag ID.
-     */
-    public Long getMaxTagId() {
-        return maxTagId;
-    }
-
-    /**
-     * Sets the maximum tag ID.
-     *
-     * @param maxTagId The maximum tag ID to set.
-     */
-    public void setMaxTagId(Long maxTagId) {
-        this.maxTagId = maxTagId;
-    }
-
-    /**
-     * Gets the tag ID map.
-     *
-     * @return {@code Map} The tag ID map.
-     */
-    public Map<Long, Tag> getTagIdMap() {
-        return tagIdMap;
-    }
-
-    /**
-     * Sets the tag ID map.
-     *
-     * @param tagIdMap The tag ID map to set.
-     */
-    public void setTagIdMap(Map<Long, Tag> tagIdMap) {
-        this.tagIdMap = tagIdMap;
-    }
-
-    /**
-     * Gets the tag text map.
-     *
-     * @return {@code Map} The tag text map.
-     */
-    public Map<String, Tag> getTagTextMap() {
-        return tagTextMap;
-    }
-
-    /**
-     * Sets the tag text map.
-     *
-     * @param tagTextMap The tag text map to set.
-     */
-    public void setTagTextMap(Map<String, Tag> tagTextMap) {
-        this.tagTextMap = tagTextMap;
-    }
 
     /**
      * Reads all tags' data from data file.

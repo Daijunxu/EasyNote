@@ -3,14 +3,13 @@
  */
 package notes.gui.book.component;
 
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-
 import notes.bean.BookHome;
 import notes.gui.book.event.DeleteBookNoteActionListener;
 import notes.gui.book.event.EditBookNoteActionListener;
 import notes.gui.book.event.NewBookNoteActionListener;
 import notes.gui.book.event.ViewBookNoteActionListener;
+
+import javax.swing.*;
 
 /**
  * Pops up when right clicking a note in the book note panel.
@@ -20,7 +19,6 @@ import notes.gui.book.event.ViewBookNoteActionListener;
  */
 public class BookNotePopupMenu extends JPopupMenu {
 
-    private static final long serialVersionUID = 8528670988811138651L;
     private JMenuItem newItem;
     private JMenuItem viewItem;
     private JMenuItem editItem;

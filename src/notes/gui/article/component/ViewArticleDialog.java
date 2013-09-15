@@ -22,10 +22,7 @@ import java.util.List;
  */
 public class ViewArticleDialog extends JDialog {
 
-    private static final long serialVersionUID = -8430094254439667310L;
     private JButton okButton = new JButton(new AbstractAction("OK") {
-        private static final long serialVersionUID = -1239276335577405220L;
-
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();

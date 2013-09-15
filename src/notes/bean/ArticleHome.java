@@ -3,6 +3,8 @@
  */
 package notes.bean;
 
+import lombok.Getter;
+import lombok.Setter;
 import notes.article.Article;
 import notes.article.ArticleNote;
 import notes.dao.impl.ArticleNoteDAO;
@@ -21,32 +23,37 @@ import java.util.List;
 public class ArticleHome implements Serializable {
 
     /**
-     * The generated serial version UID.
-     */
-    private static final long serialVersionUID = 5485984267066020550L;
-    /**
      * The single instance of ArticleHome.
      */
     private static final ArticleHome instance = new ArticleHome();
     /**
      * The article note DAO.
      */
+    @Getter
     private ArticleNoteDAO articleNoteDAO;
     /**
      * The list of documents.
      */
+    @Getter
+    @Setter
     private List<Document> documentList;
     /**
      * The current selected article.
      */
+    @Getter
+    @Setter
     private Article currentArticle;
     /**
      * The current selected article note.
      */
+    @Getter
+    @Setter
     private ArticleNote currentArticleNote;
     /**
      * The list of article notes in current selected article.
      */
+    @Getter
+    @Setter
     private List<ArticleNote> currentArticleNotesList;
 
     /**
@@ -75,87 +82,6 @@ public class ArticleHome implements Serializable {
         currentArticle = null;
         currentArticleNote = null;
         currentArticleNotesList.clear();
-    }
-
-    /**
-     * Gets the article note DAO.
-     *
-     * @return {@code ArticleNoteDAO} The article note DAO.
-     */
-    public ArticleNoteDAO getArticleNoteDAO() {
-        return articleNoteDAO;
-    }
-
-    /**
-     * Gets the current selected article.
-     *
-     * @return {@code Article} The current selected article.
-     */
-    public Article getCurrentArticle() {
-        return currentArticle;
-    }
-
-    /**
-     * Sets the current selected article.
-     *
-     * @param currentArticle The current selected article to set.
-     */
-    public void setCurrentArticle(Article currentArticle) {
-        this.currentArticle = currentArticle;
-    }
-
-    /**
-     * Gets the current selected article note.
-     *
-     * @return {@code ArticleNote} The current selected article note.
-     */
-    public ArticleNote getCurrentArticleNote() {
-        return currentArticleNote;
-    }
-
-    /**
-     * Sets the current selected article note.
-     *
-     * @param currentArticleNote The current selected article note to set.
-     */
-    public void setCurrentArticleNote(ArticleNote currentArticleNote) {
-        this.currentArticleNote = currentArticleNote;
-    }
-
-    /**
-     * Gets the article list of notes in current selected article.
-     *
-     * @return {@code List<ArticleNote>} The list of article notes in current selected article.
-     */
-    public List<ArticleNote> getCurrentArticleNotesList() {
-        return currentArticleNotesList;
-    }
-
-    /**
-     * Sets the list of article notes in current selected article.
-     *
-     * @param currentArticleNotesList The list of article note in current selected article to set.
-     */
-    public void setCurrentArticleNotesList(List<ArticleNote> currentArticleNotesList) {
-        this.currentArticleNotesList = currentArticleNotesList;
-    }
-
-    /**
-     * Gets the list of documents.
-     *
-     * @return {@code List<Document>} The list of documents.
-     */
-    public List<Document> getDocumentList() {
-        return documentList;
-    }
-
-    /**
-     * Sets the list of documents.
-     *
-     * @param documentList The list of documents to set.
-     */
-    public void setDocumentList(List<Document> documentList) {
-        this.documentList = documentList;
     }
 
     /**

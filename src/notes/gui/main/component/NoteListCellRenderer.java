@@ -3,20 +3,11 @@
  */
 package notes.gui.main.component;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.Font;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-
 import notes.bean.BookHome;
 import notes.entity.Note;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Defines the cell renderer for the notes' JList.
@@ -25,7 +16,6 @@ import notes.entity.Note;
  * @version 1.0
  */
 public class NoteListCellRenderer extends DefaultListCellRenderer {
-    private static final long serialVersionUID = 8002857349513268856L;
     private final String HTML_1 = "<html><body style='width: ";
     private final String HTML_2 = "'>";
     private final String HTML_3 = "</body></html>";

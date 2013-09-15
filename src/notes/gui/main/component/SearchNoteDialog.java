@@ -34,11 +34,8 @@ import java.util.Set;
  */
 public class SearchNoteDialog extends JDialog {
 
-    private static final long serialVersionUID = 7628446361794621752L;
     private static SearchNoteDialog instance;
     private JButton searchButton = new JButton(new AbstractAction("Search") {
-        private static final long serialVersionUID = 5205542001174164075L;
-
         public void actionPerformed(ActionEvent e) {
             int selectedIndex = searchScopeField.getSelectedIndex();
             if (selectedIndex <= 2) {
@@ -69,8 +66,6 @@ public class SearchNoteDialog extends JDialog {
         }
     });
     private JButton clearButton = new JButton(new AbstractAction(" Clear ") {
-        private static final long serialVersionUID = 7109420683537804720L;
-
         public void actionPerformed(ActionEvent e) {
             searchScopeField.setSelectedIndex(0);
             noteTextField.setText(null);
