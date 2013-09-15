@@ -3,18 +3,24 @@
  */
 package notes.gui.main.event;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JList;
-import javax.swing.SwingUtilities;
-
+import notes.article.Article;
+import notes.article.ArticleNote;
+import notes.bean.ArticleHome;
+import notes.bean.BookHome;
+import notes.book.Book;
+import notes.book.BookNote;
+import notes.book.Chapter;
 import notes.data.cache.Property;
 import notes.entity.Note;
+import notes.gui.article.component.ViewArticleNoteDialog;
+import notes.gui.book.component.ViewBookNoteDialog;
 import notes.gui.main.component.SearchNotePopupMenu;
-import notes.gui.main.component.ViewNoteDialog;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Mouse event listener for notes' JList in search note panel.
@@ -36,11 +42,21 @@ public class SearchNoteListMouseListener extends MouseAdapter {
     public void mouseClicked(MouseEvent event) {
         JList noteList = (JList) event.getSource();
         Note selectedNote = (Note) noteList.getSelectedValue();
+
         if (event.getClickCount() == 2) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playPopup();
             }
-            new ViewNoteDialog(selectedNote);
+            if (selectedNote instanceof ArticleNote) {
+                Article selectedArticle = (Article) ArticleHome.get().getArticleNoteDAO()
+                        .findDocumentById(selectedNote.getDocumentId());
+                new ViewArticleNoteDialog(selectedArticle, (ArticleNote) selectedNote);
+            } else if (selectedNote instanceof BookNote) {
+                Book selectedBook = (Book) BookHome.get().getBookNoteDAO()
+                        .findDocumentById(selectedNote.getDocumentId());
+                Chapter selectedChapter = selectedBook.getChaptersMap().get(((BookNote) selectedNote).getChapterId());
+                new ViewBookNoteDialog(selectedBook, selectedChapter, (BookNote) selectedNote);
+            }
         }
     }
 

@@ -3,8 +3,6 @@
  */
 package notes.gui.article.event;
 
-import notes.article.Article;
-import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
 import notes.data.cache.Property;
 import notes.gui.article.component.ViewArticleNoteDialog;
@@ -29,13 +27,14 @@ public class ViewArticleNoteActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
-            if (ArticleHome.get().getCurrentArticle() == null) {
+            ArticleHome home = ArticleHome.get();
+            if (home.getCurrentArticle() == null) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();
                 }
                 JOptionPane.showMessageDialog(null, "No article is selected!", "Input error",
                         JOptionPane.ERROR_MESSAGE);
-            } else if (ArticleHome.get().getCurrentArticleNote() == null) {
+            } else if (home.getCurrentArticleNote() == null) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();
                 }
@@ -45,9 +44,7 @@ public class ViewArticleNoteActionListener implements ActionListener {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playPopup();
                 }
-                ArticleNote selectedNote = ArticleHome.get().getCurrentArticleNote();
-                Article selectedArticle = ArticleHome.get().getCurrentArticle();
-                new ViewArticleNoteDialog(selectedArticle, selectedNote);
+                new ViewArticleNoteDialog(home.getCurrentArticle(), home.getCurrentArticleNote());
             }
         } catch (Exception e) {
             e.printStackTrace();
