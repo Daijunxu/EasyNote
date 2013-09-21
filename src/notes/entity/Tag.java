@@ -7,12 +7,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.dom4j.Element;
+import org.dom4j.tree.DefaultElement;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true, includeFieldNames = true)
-public class Tag implements Comparable<Tag> {
+public class Tag implements Comparable<Tag>, XMLSerializable {
 
     /**
      * The tag identifier.
@@ -38,5 +40,18 @@ public class Tag implements Comparable<Tag> {
     @Override
     public int compareTo(Tag other) {
         return new CompareToBuilder().append(getTagId(), other.getTagId()).toComparison();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Element toXMLElement() {
+        Element tagElement = new DefaultElement("Tag");
+
+        tagElement.addAttribute("Id", tagId.toString());
+        tagElement.addText(tagText);
+
+        return tagElement;
     }
 }

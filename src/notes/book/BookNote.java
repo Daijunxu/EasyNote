@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import notes.entity.impl.AbstractNote;
+import notes.utils.EntityHelper;
+import org.dom4j.Element;
+import org.dom4j.tree.DefaultElement;
 
 import java.util.Date;
 import java.util.List;
@@ -40,11 +43,28 @@ public class BookNote extends AbstractNote {
      */
     public BookNote(final Long noteId, final Long documentId, final Long chapterId,
                     final List<Long> tagIds, final String noteText) throws IllegalArgumentException {
-        setNoteId(noteId);
-        setDocumentId(documentId);
-        setChapterId(chapterId);
-        setTagIds(tagIds);
-        setNoteText(noteText);
-        setCreatedTime(new Date(System.currentTimeMillis()));
+        this.noteId = noteId;
+        this.documentId = documentId;
+        this.chapterId = chapterId;
+        this.tagIds = tagIds;
+        this.noteText = noteText;
+        this.createdTime = new Date(System.currentTimeMillis());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Element toXMLElement() {
+        Element bookNoteElement = new DefaultElement("BookNote");
+
+        bookNoteElement.addAttribute("NoteId", noteId.toString());
+        bookNoteElement.addAttribute("DocumentId", documentId.toString());
+        bookNoteElement.addAttribute("ChapterId", chapterId.toString());
+        bookNoteElement.addAttribute("TagIds", EntityHelper.buildEntityStrFromList(tagIds));
+        bookNoteElement.addAttribute("CreatedTime", createdTime.toString());
+        bookNoteElement.addText(noteText);
+
+        return bookNoteElement;
     }
 }

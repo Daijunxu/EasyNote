@@ -11,7 +11,7 @@ import notes.gui.book.verifier.EditionInputVerifier;
 import notes.gui.book.verifier.ISBNInputVerifier;
 import notes.gui.book.verifier.PublishedYearInputVerifier;
 import notes.gui.main.component.MainPanel;
-import notes.utils.EntityStrListBuilder;
+import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 import org.apache.commons.lang3.text.WordUtils;
@@ -105,7 +105,7 @@ public class EditBookDialog extends JDialog {
             Book updatedBook = new Book();
             updatedBook.setDocumentId(home.getCurrentBook().getDocumentId());
             updatedBook.setDocumentTitle(WordUtils.capitalize(documentTitleField.getText().trim()));
-            updatedBook.setAuthorsList(EntityStrListBuilder.buildAuthorsStrList(authorField
+            updatedBook.setAuthorsList(EntityHelper.buildAuthorsStrList(authorField
                     .getText()));
             if (commentField.getText() != null && !commentField.getText().trim().equals("")) {
                 updatedBook.setComment(commentField.getText().trim());

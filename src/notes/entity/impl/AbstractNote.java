@@ -26,31 +26,31 @@ public abstract class AbstractNote implements Note {
      */
     @Getter
     @Setter
-    private Long noteId;
+    protected Long noteId;
     /**
      * The document identifier.
      */
     @Getter
     @Setter
-    private Long documentId;
+    protected Long documentId;
     /**
      * The tag identifiers.
      */
     @Getter
     @Setter
-    private List<Long> tagIds;
+    protected List<Long> tagIds;
     /**
      * The note's text.
      */
     @Getter
     @Setter
-    private String noteText;
+    protected String noteText;
     /**
      * The created time of this note.
      */
     @Getter
     @Setter
-    private Date createdTime;
+    protected Date createdTime;
 
     /**
      * Compares this object with the specified object for sorting.

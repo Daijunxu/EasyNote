@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import notes.entity.impl.AbstractDocument;
+import notes.utils.EntityHelper;
+import org.dom4j.Element;
+import org.dom4j.tree.DefaultElement;
 
 import java.util.Date;
 import java.util.List;
@@ -51,14 +54,14 @@ public class Article extends AbstractDocument {
     public Article(final Long documentId, final String documentTitle,
                    final List<String> authorsList, final String comment, final String source,
                    final List<Long> notesList) throws IllegalArgumentException {
-        setDocumentId(documentId);
-        setDocumentTitle(documentTitle);
-        setAuthorsList(authorsList);
-        setComment(comment);
-        setSource(source);
-        setNotesList(notesList);
-        setCreatedTime(new Date(System.currentTimeMillis()));
-        setLastUpdatedTime(new Date(System.currentTimeMillis()));
+        this.documentId = documentId;
+        this.documentTitle = documentTitle;
+        this.authorsList = authorsList;
+        this.comment = comment;
+        this.source = source;
+        this.notesList = notesList;
+        this.createdTime = new Date(System.currentTimeMillis());
+        this.lastUpdatedTime = new Date(System.currentTimeMillis());
     }
 
     /**
@@ -67,5 +70,24 @@ public class Article extends AbstractDocument {
     @Override
     public int getNotesCount() {
         return notesList.size();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Element toXMLElement() {
+        Element articleElement = new DefaultElement("Article");
+
+        articleElement.addAttribute("DocumentId", documentId.toString());
+        articleElement.addAttribute("DocumentTitle", documentTitle);
+        articleElement.addAttribute("AuthorsList", EntityHelper.buildEntityStrFromList(authorsList));
+        articleElement.addAttribute("Comment", comment);
+        articleElement.addAttribute("Source", source);
+        articleElement.addAttribute("NotesList", EntityHelper.buildEntityStrFromList(notesList));
+        articleElement.addAttribute("CreatedTime", createdTime.toString());
+        articleElement.addAttribute("LastUpdatedTime", lastUpdatedTime.toString());
+
+        return articleElement;
     }
 }

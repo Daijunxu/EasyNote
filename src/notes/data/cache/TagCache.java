@@ -66,6 +66,7 @@ public class TagCache {
      *
      * @param input The {@code BufferedReader} in use.
      */
+    @Deprecated
     private void loadTagCache(BufferedReader input) {
         String line;
 
@@ -100,6 +101,7 @@ public class TagCache {
      * @return {@code Tag} The created tag.
      * @throws InvalidDataFormatException
      */
+    @Deprecated
     private Tag readNextTag(BufferedReader input) throws InvalidDataFormatException {
         try {
             String line = input.readLine();
@@ -128,6 +130,7 @@ public class TagCache {
      *
      * @param output The {@code BufferedWriter} in use.
      */
+    @Deprecated
     public void saveTagCache(BufferedWriter output) {
         try {
             output.append("#TAGS\n");

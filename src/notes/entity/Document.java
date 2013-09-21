@@ -12,7 +12,7 @@ import java.util.List;
  * @author Rui Du
  * @version 1.0
  */
-public interface Document extends Comparable<Document> {
+public interface Document extends Comparable<Document>, XMLSerializable {
 
     /**
      * Gets the list of authors.

@@ -10,7 +10,7 @@ import notes.dao.impl.BookNoteDAO;
 import notes.data.cache.Property;
 import notes.entity.Tag;
 import notes.gui.main.component.MainPanel;
-import notes.utils.EntityStrListBuilder;
+import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 
@@ -42,7 +42,7 @@ public class NewBookNoteDialog extends JDialog {
                 tagsField.requestFocus();
                 return;
             }
-            List<String> tagsStrList = EntityStrListBuilder.buildTagsStrList(tagsField.getText());
+            List<String> tagsStrList = EntityHelper.buildTagsStrList(tagsField.getText());
             if (tagsStrList.size() > 5) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();

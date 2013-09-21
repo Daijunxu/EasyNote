@@ -72,6 +72,7 @@ public class DocumentCache {
      *
      * @param input The {@code BufferedReader} in use.
      */
+    @Deprecated
     private void loadDocumentCache(BufferedReader input) {
         String line;
 
@@ -107,6 +108,7 @@ public class DocumentCache {
      * @return {@code Document} The created document.
      * @throws InvalidDataFormatException
      */
+    @Deprecated
     private Document readNextDocument(BufferedReader input) throws InvalidDataFormatException {
         try {
             String line = input.readLine();
@@ -184,6 +186,7 @@ public class DocumentCache {
      *
      * @param output The {@code BufferedWriter} in use.
      */
+    @Deprecated
     public void saveDocumentCache(BufferedWriter output) {
         try {
             output.append("#DOCUMENTS\n");

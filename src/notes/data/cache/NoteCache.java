@@ -63,6 +63,7 @@ public class NoteCache {
      *
      * @param input The {@code BufferedReader} in use.
      */
+    @Deprecated
     private void loadNoteCache(BufferedReader input) {
         String line;
 
@@ -96,6 +97,7 @@ public class NoteCache {
      * @return {@code Note} The created note.
      * @throws InvalidDataFormatException
      */
+    @Deprecated
     private Note readNextNote(BufferedReader input) throws InvalidDataFormatException {
         try {
             String line = input.readLine();
@@ -172,6 +174,7 @@ public class NoteCache {
      *
      * @param output The {@code BufferedWriter} in use.
      */
+    @Deprecated
     public void saveNoteCache(BufferedWriter output) {
         try {
             output.append("#NOTES\n");

@@ -8,7 +8,7 @@ import notes.bean.ArticleHome;
 import notes.dao.impl.ArticleNoteDAO;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
-import notes.utils.EntityStrListBuilder;
+import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 import org.apache.commons.lang3.text.WordUtils;
@@ -84,7 +84,7 @@ public class EditArticleDialog extends JDialog {
             updatedArticle.setDocumentId(home.getCurrentArticle().getDocumentId());
             updatedArticle.setDocumentTitle(WordUtils.capitalize(documentTitleField.getText()
                     .trim()));
-            updatedArticle.setAuthorsList(EntityStrListBuilder.buildAuthorsStrList(authorField
+            updatedArticle.setAuthorsList(EntityHelper.buildAuthorsStrList(authorField
                     .getText()));
             if (commentField.getText() != null && !commentField.getText().trim().equals("")) {
                 updatedArticle.setComment(commentField.getText().trim());

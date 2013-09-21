@@ -6,6 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import notes.entity.XMLSerializable;
+import notes.utils.EntityHelper;
+import org.dom4j.Element;
+import org.dom4j.tree.DefaultElement;
 
 import java.util.List;
 
@@ -20,7 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true, includeFieldNames = true)
-public class Chapter {
+public class Chapter implements XMLSerializable {
 
     /**
      * The chapter identifier.
@@ -40,5 +44,20 @@ public class Chapter {
     @Getter
     @Setter
     private List<Long> notesList;
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Element toXMLElement() {
+        Element chapterElement = new DefaultElement("Chapter");
+
+        chapterElement.addAttribute("ChapterId", chapterId.toString());
+        chapterElement.addAttribute("ChapterTitle", chapterTitle);
+        chapterElement.addAttribute("NotesList", EntityHelper.buildEntityStrFromList(notesList));
+
+        return chapterElement;
+    }
 
 }

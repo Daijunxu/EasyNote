@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import notes.entity.impl.AbstractDocument;
+import notes.utils.EntityHelper;
+import org.dom4j.Element;
+import org.dom4j.tree.DefaultElement;
 
 import java.util.Date;
 import java.util.List;
@@ -64,16 +67,16 @@ public class Book extends AbstractDocument {
                 final String comment, final Integer edition, final Integer publishedYear,
                 final String isbn, final TreeMap<Long, Chapter> chaptersMap)
             throws IllegalArgumentException {
-        setDocumentId(documentId);
-        setDocumentTitle(documentTitle);
-        setAuthorsList(authorsList);
-        setComment(comment);
-        setEdition(edition);
-        setPublishedYear(publishedYear);
-        setIsbn(isbn);
-        setChaptersMap(chaptersMap);
-        setCreatedTime(new Date(System.currentTimeMillis()));
-        setLastUpdatedTime(new Date(System.currentTimeMillis()));
+        this.documentId = documentId;
+        this.documentTitle = documentTitle;
+        this.authorsList = authorsList;
+        this.comment = comment;
+        this.edition = edition;
+        this.publishedYear = publishedYear;
+        this.isbn = isbn;
+        this.chaptersMap = chaptersMap;
+        this.createdTime = new Date(System.currentTimeMillis());
+        this.lastUpdatedTime = new Date(System.currentTimeMillis());
     }
 
 
@@ -91,5 +94,29 @@ public class Book extends AbstractDocument {
             result += chapter.getNotesList().size();
         }
         return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Element toXMLElement() {
+        Element bookElement = new DefaultElement("Article");
+
+        bookElement.addAttribute("DocumentId", documentId.toString());
+        bookElement.addAttribute("DocumentTitle", documentTitle);
+        bookElement.addAttribute("AuthorsList", EntityHelper.buildEntityStrFromList(authorsList));
+        bookElement.addAttribute("Comment", comment);
+        bookElement.addAttribute("Edition", edition.toString());
+        bookElement.addAttribute("PublishedYear", publishedYear.toString());
+        bookElement.addAttribute("ISBN", isbn);
+        bookElement.addAttribute("CreatedTime", createdTime.toString());
+        bookElement.addAttribute("LastUpdatedTime", lastUpdatedTime.toString());
+
+        for (Long chapterId : chaptersMap.keySet()) {
+            bookElement.add(chaptersMap.get(chapterId).toXMLElement());
+        }
+
+        return bookElement;
     }
 }

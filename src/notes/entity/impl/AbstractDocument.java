@@ -26,37 +26,37 @@ public abstract class AbstractDocument implements Document {
      */
     @Getter
     @Setter
-    private Long documentId;
+    protected Long documentId;
     /**
      * The document's title.
      */
     @Getter
     @Setter
-    private String documentTitle;
+    protected String documentTitle;
     /**
      * The list of authors.
      */
     @Getter
     @Setter
-    private List<String> authorsList;
+    protected List<String> authorsList;
     /**
      * The comment.
      */
     @Getter
     @Setter
-    private String comment;
+    protected String comment;
     /**
      * The create time of this document.
      */
     @Getter
     @Setter
-    private Date createdTime;
+    protected Date createdTime;
     /**
      * The last update time of this document.
      */
     @Getter
     @Setter
-    private Date lastUpdatedTime;
+    protected Date lastUpdatedTime;
 
     /**
      * Compares this object with the specified object for sorting.

@@ -4,6 +4,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import notes.entity.impl.AbstractNote;
+import notes.utils.EntityHelper;
+import org.dom4j.Element;
+import org.dom4j.tree.DefaultElement;
 
 import java.util.Date;
 import java.util.List;
@@ -30,11 +33,27 @@ public class ArticleNote extends AbstractNote {
      */
     public ArticleNote(final Long noteId, final Long documentId, final List<Long> tagIds,
                        final String noteText) throws IllegalArgumentException {
-        setNoteId(noteId);
-        setDocumentId(documentId);
-        setTagIds(tagIds);
-        setNoteText(noteText);
-        setCreatedTime(new Date(System.currentTimeMillis()));
+        this.noteId = noteId;
+        this.documentId = documentId;
+        this.tagIds = tagIds;
+        this.noteText = noteText;
+        this.createdTime = new Date(System.currentTimeMillis());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Element toXMLElement() {
+        Element articleNoteElement = new DefaultElement("ArticleNote");
+
+        articleNoteElement.addAttribute("NoteId", noteId.toString());
+        articleNoteElement.addAttribute("DocumentId", documentId.toString());
+        articleNoteElement.addAttribute("TagIds", EntityHelper.buildEntityStrFromList(tagIds));
+        articleNoteElement.addAttribute("CreatedTime", createdTime.toString());
+        articleNoteElement.addText(noteText);
+
+        return articleNoteElement;
     }
 
 }

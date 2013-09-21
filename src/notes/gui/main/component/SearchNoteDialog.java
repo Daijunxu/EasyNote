@@ -12,7 +12,7 @@ import notes.entity.Document;
 import notes.entity.Note;
 import notes.gui.main.event.SearchNoteDialogWindowListener;
 import notes.gui.main.event.SearchNoteListMouseListener;
-import notes.utils.EntityStrListBuilder;
+import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 
@@ -299,7 +299,7 @@ public class SearchNoteDialog extends JDialog {
 
     private void filterNotesByTagsAND() {
         BookNoteDAO dao = BookHome.get().getBookNoteDAO();
-        List<String> tagsList = EntityStrListBuilder.buildTagsStrList(tagsField.getText());
+        List<String> tagsList = EntityHelper.buildTagsStrList(tagsField.getText());
         if (tagsList.isEmpty()) {
             return;
         }

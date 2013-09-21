@@ -12,7 +12,7 @@ import java.util.List;
  * @author Rui Du
  * @version 1.0
  */
-public interface Note extends Comparable<Note> {
+public interface Note extends Comparable<Note>, XMLSerializable {
 
     /**
      * Gets the note's created time.

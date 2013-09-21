@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Builds a list of entity strings from a string.
+ * A helper class for entities classes.
  *
  * @author Rui Du
  * @version 1.0
  */
-public class EntityStrListBuilder {
+public class EntityHelper {
 
     /**
      * Builds an list of author strings from one input string. Note: The authors in the input string
@@ -59,5 +59,20 @@ public class EntityStrListBuilder {
             }
         }
         return tagsStrList;
+    }
+
+    /**
+     * Builds a String of entities from a list of entities. Each entity in the string is separated by ",".
+     *
+     * @param entityList A list of entities.
+     * @return {@code String} A string representation of entities.
+     */
+    public static String buildEntityStrFromList(List<?> entityList) {
+        StringBuilder sb = new StringBuilder();
+        for (Object entity : entityList) {
+            sb.append(entity.toString()).append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
     }
 }
