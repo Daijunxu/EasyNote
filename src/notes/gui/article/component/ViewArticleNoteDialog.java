@@ -112,9 +112,9 @@ public class ViewArticleNoteDialog extends JDialog {
         StringBuilder tagStrBuilder = new StringBuilder();
         if (!selectedNote.getTagIds().isEmpty()) {
             for (Long tagId : selectedNote.getTagIds()) {
-                tagStrBuilder.append(home.getArticleNoteDAO().findTagById(tagId).getTagText()).append(",");
+                tagStrBuilder.append(home.getArticleNoteDAO().findTagById(tagId).getTagText()).append(", ");
             }
-            tagStrBuilder.deleteCharAt(tagStrBuilder.length() - 1);
+            tagStrBuilder.delete(tagStrBuilder.length() - 2, tagStrBuilder.length());
         }
         tagsField.setLineWrap(true);
         tagsField.setText(tagStrBuilder.toString());

@@ -129,9 +129,9 @@ public class ViewBookNoteDialog extends JDialog {
         StringBuilder tagStrBuilder = new StringBuilder();
         if (!selectedNote.getTagIds().isEmpty()) {
             for (Long tagId : selectedNote.getTagIds()) {
-                tagStrBuilder.append(home.getBookNoteDAO().findTagById(tagId).getTagText()).append(",");
+                tagStrBuilder.append(home.getBookNoteDAO().findTagById(tagId).getTagText()).append(", ");
             }
-            tagStrBuilder.deleteCharAt(tagStrBuilder.length() - 1);
+            tagStrBuilder.delete(tagStrBuilder.length() - 2, tagStrBuilder.length());
         }
         tagsField.setLineWrap(true);
         tagsField.setText(tagStrBuilder.toString());
