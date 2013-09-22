@@ -5,6 +5,7 @@ package notes.data.cache;
 
 import core.EasyNoteUnitTestCase;
 import notes.entity.Note;
+import org.dom4j.Element;
 import org.junit.Test;
 
 import java.util.Map;
@@ -22,15 +23,17 @@ import static org.junit.Assert.assertTrue;
  */
 public class NoteCacheUnitTests extends EasyNoteUnitTestCase {
 
+    private final NoteCache noteCache = NoteCache.get();
+
     /**
      * Test method for {@link notes.data.cache.NoteCache#clear()}.
      */
     @Test
     public void testClear() {
-        Cache.get().getNoteCache().clear();
-        assertNotNull(Cache.get().getNoteCache());
-        assertTrue(Cache.get().getNoteCache().getNoteMap().isEmpty());
-        assertTrue(Cache.get().getNoteCache().getMaxNoteId() == Long.MIN_VALUE);
+        noteCache.clear();
+        assertNotNull(noteCache);
+        assertTrue(noteCache.getNoteMap().isEmpty());
+        assertTrue(noteCache.getMaxNoteId() == Long.MIN_VALUE);
     }
 
     /**
@@ -39,8 +42,8 @@ public class NoteCacheUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testGetMaxNoteId() {
         final UnitTestData testData = new UnitTestData();
-        assertNotNull(Cache.get().getNoteCache().getMaxNoteId());
-        assertEquals(testData.maxNoteId, Cache.get().getNoteCache().getMaxNoteId());
+        assertNotNull(noteCache.getMaxNoteId());
+        assertEquals(testData.maxNoteId, noteCache.getMaxNoteId());
     }
 
     /**
@@ -49,12 +52,40 @@ public class NoteCacheUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testGetNoteMap() {
         final UnitTestData testData = new UnitTestData();
-        assertNotNull(Cache.get().getNoteCache().getNoteMap());
-        Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
+        assertNotNull(noteCache.getNoteMap());
+        Map<Long, Note> noteMap = noteCache.getNoteMap();
         assertFalse(noteMap.isEmpty());
         assertEquals(testData.noteMap.keySet(), noteMap.keySet());
         for (Note note : testData.noteMap.values()) {
             assertEquals(note, noteMap.get(note.getNoteId()));
         }
+    }
+
+    /**
+     * Test method for {@link notes.data.cache.NoteCache#toXMLElement()}.
+     */
+    @Test
+    public void testToXMLElement() {
+        final UnitTestData testData = new UnitTestData();
+        Element noteCacheElement = noteCache.toXMLElement();
+        assertEquals(noteCacheElement.getName(), "Notes");
+        assertNotNull(noteCacheElement.elements());
+        assertEquals(noteCacheElement.elements().size(), testData.noteMap.size());
+        for (Element element : noteCacheElement.elements()) {
+            assertTrue(element.getName().equals("BookNote") || element.getName().equals("ArticleNote"));
+        }
+    }
+
+    /**
+     * Test method for {@link notes.data.cache.NoteCache#buildFromXMLElement(org.dom4j.Element)}.
+     */
+    @Test
+    public void testBuildFromXMLElement() {
+        final UnitTestData testData = new UnitTestData();
+        Element noteCacheElement = noteCache.toXMLElement();
+        noteCache.buildFromXMLElement(noteCacheElement);
+
+        assertEquals(noteCache.getNoteMap(), testData.noteMap);
+        assertEquals(noteCache.getMaxNoteId(), testData.maxNoteId);
     }
 }

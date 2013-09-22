@@ -50,10 +50,23 @@ public class ArticleNote extends AbstractNote {
         articleNoteElement.addAttribute("NoteId", noteId.toString());
         articleNoteElement.addAttribute("DocumentId", documentId.toString());
         articleNoteElement.addAttribute("TagIds", EntityHelper.buildEntityStrFromList(tagIds));
-        articleNoteElement.addAttribute("CreatedTime", createdTime.toString());
+        articleNoteElement.addAttribute("CreatedTime", String.valueOf(createdTime.getTime()));
         articleNoteElement.addText(noteText);
 
         return articleNoteElement;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ArticleNote buildFromXMLElement(Element element) {
+        noteId = Long.parseLong(element.attributeValue("NoteId"));
+        documentId = Long.parseLong(element.attributeValue("DocumentId"));
+        tagIds = EntityHelper.buildIDsList(element.attributeValue("TagIds"));
+        noteText = element.getText();
+        createdTime = new Date(Long.parseLong(element.attributeValue("CreatedTime")));
+
+        return this;
+    }
 }

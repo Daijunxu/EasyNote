@@ -6,10 +6,12 @@ package notes.entity;
 import core.EasyNoteUnitTestCase;
 import notes.data.cache.Cache;
 import org.apache.commons.lang3.StringUtils;
+import org.dom4j.Element;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -54,4 +56,32 @@ public class TagUnitTests extends EasyNoteUnitTestCase {
                 StringUtils.substringAfter(cachedTag.toString(), "["));
     }
 
+    /**
+     * Test method for {@link notes.entity.Tag#toXMLElement()}.
+     */
+    @Test
+    public void testToXMLElement() {
+        final UnitTestData testData = new UnitTestData();
+        Tag testTag = testData.tagIdMap.get(1L);
+        Element tagElement = testTag.toXMLElement();
+
+        assertEquals(tagElement.getName(), "Tag");
+        assertNotNull(tagElement.attribute("TagId"));
+        assertNotNull(tagElement.getText());
+        assertEquals(Long.parseLong(tagElement.attributeValue("TagId")), testTag.getTagId().longValue());
+        assertEquals(tagElement.getText(), testTag.getTagText());
+    }
+
+    /**
+     * Test method for {@link notes.entity.Tag#buildFromXMLElement(org.dom4j.Element)}.
+     */
+    @Test
+    public void testBuildFromXMLElement() {
+        final UnitTestData testData = new UnitTestData();
+        Tag testTag = testData.tagIdMap.get(1L);
+        Element tagElement = testTag.toXMLElement();
+        Tag newTag = new Tag().buildFromXMLElement(tagElement);
+
+        assertEquals(testTag, newTag);
+    }
 }

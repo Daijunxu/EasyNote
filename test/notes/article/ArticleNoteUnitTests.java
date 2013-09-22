@@ -5,11 +5,14 @@ package notes.article;
 
 import core.EasyNoteUnitTestCase;
 import notes.data.cache.Cache;
+import notes.utils.EntityHelper;
 import org.apache.commons.lang3.StringUtils;
+import org.dom4j.Element;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -55,4 +58,42 @@ public class ArticleNoteUnitTests extends EasyNoteUnitTestCase {
                 StringUtils.substringAfter(cachedArticleNote.toString(), "["));
     }
 
+    /**
+     * Test method for {@link notes.article.ArticleNote#toXMLElement()}.
+     */
+    @Test
+    public void testToXMLElement() {
+        final UnitTestData testData = new UnitTestData();
+        ArticleNote testArticleNote = (ArticleNote) (testData.noteMap.get(2L));
+        Element articleNoteElement = testArticleNote.toXMLElement();
+
+        assertEquals(articleNoteElement.getName(), "ArticleNote");
+        assertNotNull(articleNoteElement.attribute("NoteId"));
+        assertNotNull(articleNoteElement.attribute("DocumentId"));
+        assertNotNull(articleNoteElement.attribute("TagIds"));
+        assertNotNull(articleNoteElement.attribute("CreatedTime"));
+        assertNotNull(articleNoteElement.getText());
+        assertEquals(Long.parseLong(articleNoteElement.attributeValue("NoteId")),
+                        testArticleNote.getNoteId().longValue());
+        assertEquals(Long.parseLong(articleNoteElement.attributeValue("DocumentId")),
+                testArticleNote.getDocumentId().longValue());
+        assertEquals(EntityHelper.buildIDsList(articleNoteElement.attributeValue("TagIds")),
+                testArticleNote.getTagIds());
+        assertEquals(Long.parseLong(articleNoteElement.attributeValue("CreatedTime")),
+                testArticleNote.getCreatedTime().getTime());
+        assertEquals(articleNoteElement.getText(), testArticleNote.getNoteText());
+    }
+
+    /**
+     * Test method for {@link notes.article.ArticleNote#buildFromXMLElement(org.dom4j.Element)}.
+     */
+    @Test
+    public void testBuildFromXMLElement() {
+        final UnitTestData testData = new UnitTestData();
+        ArticleNote testArticleNote = (ArticleNote) (testData.noteMap.get(2L));
+        Element articleNoteElement = testArticleNote.toXMLElement();
+        ArticleNote newArticleNote = new ArticleNote().buildFromXMLElement(articleNoteElement);
+
+        assertEquals(testArticleNote, newArticleNote);
+    }
 }

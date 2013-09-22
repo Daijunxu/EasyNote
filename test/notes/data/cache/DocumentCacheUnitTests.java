@@ -5,6 +5,7 @@ package notes.data.cache;
 
 import core.EasyNoteUnitTestCase;
 import notes.entity.Document;
+import org.dom4j.Element;
 import org.junit.Test;
 
 import java.util.Map;
@@ -22,16 +23,18 @@ import static org.junit.Assert.assertTrue;
  */
 public class DocumentCacheUnitTests extends EasyNoteUnitTestCase {
 
+    private final DocumentCache documentCache = DocumentCache.get();
+
     /**
      * Test method for {@link notes.data.cache.DocumentCache#clear()}.
      */
     @Test
     public void testClear() {
-        Cache.get().getDocumentCache().clear();
-        assertNotNull(Cache.get().getDocumentCache());
-        assertTrue(Cache.get().getDocumentCache().getDocumentMap().isEmpty());
-        assertTrue(Cache.get().getDocumentCache().getDocumentTitleIdMap().isEmpty());
-        assertTrue(Cache.get().getDocumentCache().getMaxDocumentId() == Long.MIN_VALUE);
+        documentCache.clear();
+        assertNotNull(documentCache);
+        assertTrue(documentCache.getDocumentMap().isEmpty());
+        assertTrue(documentCache.getDocumentTitleIdMap().isEmpty());
+        assertTrue(documentCache.getMaxDocumentId() == Long.MIN_VALUE);
     }
 
     /**
@@ -40,8 +43,8 @@ public class DocumentCacheUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testGetDocumentMap() {
         final UnitTestData testData = new UnitTestData();
-        assertNotNull(Cache.get().getDocumentCache().getDocumentMap());
-        Map<Long, Document> documentMap = Cache.get().getDocumentCache().getDocumentMap();
+        assertNotNull(documentCache.getDocumentMap());
+        Map<Long, Document> documentMap = documentCache.getDocumentMap();
         assertFalse(documentMap.isEmpty());
         assertEquals(testData.documentMap.keySet(), documentMap.keySet());
         for (Document document : testData.documentMap.values()) {
@@ -55,8 +58,8 @@ public class DocumentCacheUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testGetDocumentTitleSet() {
         final UnitTestData testData = new UnitTestData();
-        assertNotNull(Cache.get().getDocumentCache().getDocumentTitleIdMap());
-        Map<String, Long> documentTitleIdMap = Cache.get().getDocumentCache()
+        assertNotNull(documentCache.getDocumentTitleIdMap());
+        Map<String, Long> documentTitleIdMap = documentCache
                 .getDocumentTitleIdMap();
         assertFalse(documentTitleIdMap.isEmpty());
         assertEquals(testData.documentTitleIdMap, documentTitleIdMap);
@@ -68,8 +71,36 @@ public class DocumentCacheUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testGetMaxDocumentId() {
         final UnitTestData testData = new UnitTestData();
-        assertNotNull(Cache.get().getDocumentCache().getMaxDocumentId());
-        assertEquals(testData.maxDocumentId, Cache.get().getDocumentCache().getMaxDocumentId());
+        assertNotNull(documentCache.getMaxDocumentId());
+        assertEquals(testData.maxDocumentId, documentCache.getMaxDocumentId());
     }
 
+    /**
+     * Test method for {@link notes.data.cache.DocumentCache#toXMLElement()}.
+     */
+    @Test
+    public void testToXMLElement() {
+        final UnitTestData testData = new UnitTestData();
+        Element documentCacheElement = documentCache.toXMLElement();
+        assertEquals(documentCacheElement.getName(), "Documents");
+        assertNotNull(documentCacheElement.elements());
+        assertEquals(documentCacheElement.elements().size(), testData.documentMap.size());
+        for (Element element : documentCacheElement.elements()) {
+            assertTrue(element.getName().equals("Book") || element.getName().equals("Article"));
+        }
+    }
+
+    /**
+     * Test method for {@link notes.data.cache.DocumentCache#buildFromXMLElement(org.dom4j.Element)}.
+     */
+    @Test
+    public void testBuildFromXMLElement() {
+        final UnitTestData testData = new UnitTestData();
+        Element documentCacheElement = documentCache.toXMLElement();
+        documentCache.buildFromXMLElement(documentCacheElement);
+
+        assertEquals(documentCache.getDocumentMap(), testData.documentMap);
+        assertEquals(documentCache.getDocumentTitleIdMap(), testData.documentTitleIdMap);
+        assertEquals(documentCache.getMaxDocumentId(), testData.maxDocumentId);
+    }
 }

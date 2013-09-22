@@ -62,9 +62,24 @@ public class BookNote extends AbstractNote {
         bookNoteElement.addAttribute("DocumentId", documentId.toString());
         bookNoteElement.addAttribute("ChapterId", chapterId.toString());
         bookNoteElement.addAttribute("TagIds", EntityHelper.buildEntityStrFromList(tagIds));
-        bookNoteElement.addAttribute("CreatedTime", createdTime.toString());
+        bookNoteElement.addAttribute("CreatedTime", String.valueOf(createdTime.getTime()));
         bookNoteElement.addText(noteText);
 
         return bookNoteElement;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public BookNote buildFromXMLElement(Element element) {
+        noteId = Long.parseLong(element.attributeValue("NoteId"));
+        documentId = Long.parseLong(element.attributeValue("DocumentId"));
+        chapterId = Long.parseLong(element.attributeValue("ChapterId"));
+        tagIds = EntityHelper.buildIDsList(element.attributeValue("TagIds"));
+        noteText = element.getText();
+        createdTime = new Date(Long.parseLong(element.attributeValue("CreatedTime")));
+
+        return this;
     }
 }

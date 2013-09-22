@@ -29,7 +29,7 @@ import java.io.IOException;
  * @author Rui Du
  * @version 1.0
  */
-public class Cache implements XMLSerializable {
+public class Cache implements XMLSerializable<Cache> {
 
     /**
      * The flag of whether the cache is having a problem.
@@ -162,6 +162,18 @@ public class Cache implements XMLSerializable {
         cacheElement.add(noteCache.toXMLElement());
 
         return cacheElement;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Cache buildFromXMLElement(Element element) {
+        documentCache.buildFromXMLElement(element.element("Documents"));
+        tagCache.buildFromXMLElement(element.element("Tags"));
+        noteCache.buildFromXMLElement(element.element("Notes"));
+
+        return this;
     }
 
 }

@@ -4,6 +4,7 @@
 package notes.data.cache;
 
 import core.EasyNoteUnitTestCase;
+import org.dom4j.Element;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -17,12 +18,14 @@ import static org.junit.Assert.assertNotNull;
  */
 public class CacheUnitTests extends EasyNoteUnitTestCase {
 
+    private final Cache cache = Cache.get();
+
     /**
      * Test method for {@link notes.data.cache.Cache#getDocumentCache()}.
      */
     @Test
     public void testGetDocumentCache() {
-        assertNotNull(Cache.get().getDocumentCache());
+        assertNotNull(cache.getDocumentCache());
     }
 
     /**
@@ -30,7 +33,7 @@ public class CacheUnitTests extends EasyNoteUnitTestCase {
      */
     @Test
     public void testGetInstance() {
-        assertNotNull(Cache.get());
+        assertNotNull(cache);
     }
 
     /**
@@ -38,7 +41,7 @@ public class CacheUnitTests extends EasyNoteUnitTestCase {
      */
     @Test
     public void testGetNoteCache() {
-        assertNotNull(Cache.get().getNoteCache());
+        assertNotNull(cache.getNoteCache());
     }
 
     /**
@@ -46,7 +49,7 @@ public class CacheUnitTests extends EasyNoteUnitTestCase {
      */
     @Test
     public void testGetTagCache() {
-        assertNotNull(Cache.get().getTagCache());
+        assertNotNull(cache.getTagCache());
     }
 
     /**
@@ -55,14 +58,45 @@ public class CacheUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testLoadAllCaches() {
         final UnitTestData testData = new UnitTestData();
-        Cache.get().getDocumentCache().clear();
-        Cache.get().loadAllCaches();
-        assertNotNull(Cache.get());
-        assertEquals(Cache.get().getDocumentCache().getDocumentMap(), testData.documentMap);
-        assertEquals(Cache.get().getDocumentCache().getMaxDocumentId(), testData.maxDocumentId);
-        assertEquals(Cache.get().getTagCache().getTagIdMap(), testData.tagIdMap);
-        assertEquals(Cache.get().getTagCache().getMaxTagId(), testData.maxTagId);
-        assertEquals(Cache.get().getNoteCache().getNoteMap(), testData.noteMap);
-        assertEquals(Cache.get().getNoteCache().getMaxNoteId(), testData.maxNoteId);
+        cache.getDocumentCache().clear();
+        cache.loadAllCaches();
+        assertNotNull(cache);
+        assertEquals(cache.getDocumentCache().getDocumentMap(), testData.documentMap);
+        assertEquals(cache.getDocumentCache().getMaxDocumentId(), testData.maxDocumentId);
+        assertEquals(cache.getTagCache().getTagIdMap(), testData.tagIdMap);
+        assertEquals(cache.getTagCache().getMaxTagId(), testData.maxTagId);
+        assertEquals(cache.getNoteCache().getNoteMap(), testData.noteMap);
+        assertEquals(cache.getNoteCache().getMaxNoteId(), testData.maxNoteId);
+    }
+
+    /**
+     * Test method for {@link notes.data.cache.Cache#toXMLElement()}.
+     */
+    @Test
+    public void testToXMLElement() {
+        Element cacheElement = cache.toXMLElement();
+        assertEquals(cacheElement.getName(), "Data");
+        assertNotNull(cacheElement.elements());
+        assertEquals(cacheElement.elements().size(), 3);
+        assertNotNull(cacheElement.element("Documents"));
+        assertNotNull(cacheElement.element("Tags"));
+        assertNotNull(cacheElement.element("Notes"));
+    }
+
+    /**
+     * Test method for {@link notes.data.cache.Cache#buildFromXMLElement(org.dom4j.Element)}.
+     */
+    @Test
+    public void testBuildFromXMLElement() {
+        final UnitTestData testData = new UnitTestData();
+        Element noteCacheElement = cache.toXMLElement();
+        cache.buildFromXMLElement(noteCacheElement);
+
+        assertEquals(cache.getDocumentCache().getDocumentMap(), testData.documentMap);
+        assertEquals(cache.getDocumentCache().getMaxDocumentId(), testData.maxDocumentId);
+        assertEquals(cache.getTagCache().getTagIdMap(), testData.tagIdMap);
+        assertEquals(cache.getTagCache().getMaxTagId(), testData.maxTagId);
+        assertEquals(cache.getNoteCache().getNoteMap(), testData.noteMap);
+        assertEquals(cache.getNoteCache().getMaxNoteId(), testData.maxNoteId);
     }
 }

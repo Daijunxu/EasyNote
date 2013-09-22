@@ -14,7 +14,7 @@ import org.dom4j.tree.DefaultElement;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true, includeFieldNames = true)
-public class Tag implements Comparable<Tag>, XMLSerializable {
+public class Tag implements Comparable<Tag>, XMLSerializable<Tag> {
 
     /**
      * The tag identifier.
@@ -49,9 +49,20 @@ public class Tag implements Comparable<Tag>, XMLSerializable {
     public Element toXMLElement() {
         Element tagElement = new DefaultElement("Tag");
 
-        tagElement.addAttribute("Id", tagId.toString());
+        tagElement.addAttribute("TagId", tagId.toString());
         tagElement.addText(tagText);
 
         return tagElement;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Tag buildFromXMLElement(Element element) {
+        tagId = Long.parseLong(element.attributeValue("TagId"));
+        tagText = element.getText();
+
+        return this;
     }
 }

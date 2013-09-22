@@ -17,8 +17,8 @@ import java.util.List;
 public class EntityHelper {
 
     /**
-     * Builds an list of author strings from one input string. Note: The authors in the input string
-     * are separated by ",".
+     * Builds an list of author strings from one input string.
+     * Note: The authors in the input string are separated by ",".
      *
      * @param input The input string of authors.
      * @return {@code List<String>} The list of author string.
@@ -40,8 +40,8 @@ public class EntityHelper {
     }
 
     /**
-     * Builds an list of tag strings from one input string. Note: The tags in the input string are
-     * separated by ",".
+     * Builds an list of tag strings from one input string.
+     * Note: The tags in the input string are separated by ",".
      *
      * @param input The input string of tags.
      * @return {@code List<String>} The list of tag string.
@@ -62,7 +62,27 @@ public class EntityHelper {
     }
 
     /**
-     * Builds a String of entities from a list of entities. Each entity in the string is separated by ",".
+     * Builds an list of entity IDs from one input string.
+     * Note: The IDs in the input string are separated by ",".
+     *
+     * @param input The input string of entity IDs.
+     * @return {@code List<Long>} The list of entity IDs.
+     */
+    public static List<Long> buildIDsList(String input) {
+        List<Long> idList = new ArrayList<Long>();
+        if (input == null) {
+            return idList;
+        }
+        String[] idStrs = input.split(",");
+        for (String idStr : idStrs) {
+            idList.add(Long.parseLong(idStr));
+        }
+        return idList;
+    }
+
+    /**
+     * Builds a String of entities from a list of entities.
+     * Each entity in the string is separated by ",".
      *
      * @param entityList A list of entities.
      * @return {@code String} A string representation of entities.

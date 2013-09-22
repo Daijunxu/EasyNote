@@ -110,13 +110,37 @@ public class Book extends AbstractDocument {
         bookElement.addAttribute("Edition", edition.toString());
         bookElement.addAttribute("PublishedYear", publishedYear.toString());
         bookElement.addAttribute("ISBN", isbn);
-        bookElement.addAttribute("CreatedTime", createdTime.toString());
-        bookElement.addAttribute("LastUpdatedTime", lastUpdatedTime.toString());
+        bookElement.addAttribute("CreatedTime", String.valueOf(createdTime.getTime()));
+        bookElement.addAttribute("LastUpdatedTime", String.valueOf(lastUpdatedTime.getTime()));
 
         for (Long chapterId : chaptersMap.keySet()) {
             bookElement.add(chaptersMap.get(chapterId).toXMLElement());
         }
 
         return bookElement;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Book buildFromXMLElement(Element element) {
+        documentId = Long.parseLong(element.attributeValue("DocumentId"));
+        documentTitle = element.attributeValue("DocumentTitle");
+        authorsList = EntityHelper.buildAuthorsStrList(element.attributeValue("AuthorsList"));
+        comment = element.attributeValue("Comment");
+        edition = Integer.parseInt(element.attributeValue("Edition"));
+        publishedYear = Integer.parseInt(element.attributeValue("PublishedYear"));
+        isbn = element.attributeValue("ISBN");
+        createdTime = new Date(Long.parseLong(element.attributeValue("CreatedTime")));
+        lastUpdatedTime = new Date(Long.parseLong(element.attributeValue("LastUpdatedTime")));
+
+        chaptersMap = new TreeMap<Long, Chapter>();
+        for (Element chapterElement : element.elements()) {
+            Chapter newChapter = new Chapter().buildFromXMLElement(chapterElement);
+            chaptersMap.put(newChapter.getChapterId(), newChapter);
+        }
+
+        return this;
     }
 }

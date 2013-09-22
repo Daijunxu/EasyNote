@@ -22,7 +22,7 @@ import java.util.Map;
  * @author Rui Du
  * @version 1.0
  */
-public class TagCache implements XMLSerializable {
+public class TagCache implements XMLSerializable<TagCache> {
 
     /**
      * The single instance that is used in this system.
@@ -168,5 +168,21 @@ public class TagCache implements XMLSerializable {
         }
 
         return tagCacheElement;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public TagCache buildFromXMLElement(Element element) {
+        for (Element tagElement : element.elements()) {
+            Tag newTag = new Tag().buildFromXMLElement(tagElement);
+            tagIdMap.put(newTag.getTagId(), newTag);
+            tagTextMap.put(newTag.getTagText(), newTag);
+            if (maxTagId < newTag.getTagId()) {
+                maxTagId = newTag.getTagId();
+            }
+        }
+        return this;
     }
 }

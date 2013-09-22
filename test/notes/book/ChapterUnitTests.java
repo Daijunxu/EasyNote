@@ -6,10 +6,12 @@ package notes.book;
 import core.EasyNoteUnitTestCase;
 import notes.data.cache.Cache;
 import org.apache.commons.lang3.StringUtils;
+import org.dom4j.Element;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -62,4 +64,34 @@ public class ChapterUnitTests extends EasyNoteUnitTestCase {
                 StringUtils.substringAfter(cachedChapter.toString(), "["));
     }
 
+    /**
+     * Test method for {@link notes.book.Chapter#toXMLElement()}.
+     */
+    @Test
+    public void testToXMLElement() {
+        final UnitTestData testData = new UnitTestData();
+        Book testBook = (Book) (testData.documentMap.get(1L));
+        Chapter testChapter = testBook.getChaptersMap().get(1L);
+        Element chapterElement = testChapter.toXMLElement();
+
+        assertEquals(chapterElement.getName(), "Chapter");
+        assertNotNull(chapterElement.attribute("ChapterId"));
+        assertNotNull(chapterElement.getText());
+        assertEquals(Long.parseLong(chapterElement.attributeValue("ChapterId")), testChapter.getChapterId().longValue());
+        assertEquals(chapterElement.attributeValue("ChapterTitle"), testChapter.getChapterTitle());
+    }
+
+    /**
+     * Test method for {@link notes.book.Chapter#buildFromXMLElement(org.dom4j.Element)}.
+     */
+    @Test
+    public void testBuildFromXMLElement() {
+        final UnitTestData testData = new UnitTestData();
+        Book testBook = (Book) (testData.documentMap.get(1L));
+        Chapter testChapter = testBook.getChaptersMap().get(1L);
+        Element chapterElement = testChapter.toXMLElement();
+        Chapter newChapter = new Chapter().buildFromXMLElement(chapterElement);
+
+        assertEquals(testChapter, newChapter);
+    }
 }

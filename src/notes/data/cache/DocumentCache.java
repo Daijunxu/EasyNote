@@ -304,4 +304,28 @@ public class DocumentCache implements XMLSerializable {
 
         return documentCacheElement;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public DocumentCache buildFromXMLElement(Element element) {
+        for (Element documentElement : element.elements()) {
+            Document newDocument;
+            if (documentElement.getName().equals("Book")) {
+                newDocument = new Book().buildFromXMLElement(documentElement);
+            } else if (documentElement.getName().equals("Article")) {
+                newDocument = new Article().buildFromXMLElement(documentElement);
+            } else {
+                throw new UnsupportedOperationException("Unsupported document type: " + documentElement.getName());
+            }
+
+            documentMap.put(newDocument.getDocumentId(), newDocument);
+            documentTitleIdMap.put(newDocument.getDocumentTitle(), newDocument.getDocumentId());
+            if (maxDocumentId < newDocument.getDocumentId()) {
+                maxDocumentId = newDocument.getDocumentId();
+            }
+        }
+        return this;
+    }
 }

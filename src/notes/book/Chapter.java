@@ -24,7 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true, includeFieldNames = true)
-public class Chapter implements XMLSerializable {
+public class Chapter implements XMLSerializable<Chapter> {
 
     /**
      * The chapter identifier.
@@ -45,7 +45,6 @@ public class Chapter implements XMLSerializable {
     @Setter
     private List<Long> notesList;
 
-
     /**
      * {@inheritDoc}
      */
@@ -60,4 +59,15 @@ public class Chapter implements XMLSerializable {
         return chapterElement;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Chapter buildFromXMLElement(Element element) {
+        chapterId = Long.parseLong(element.attributeValue("ChapterId"));
+        chapterTitle = element.attributeValue("ChapterTitle");
+        notesList = EntityHelper.buildIDsList(element.attributeValue("NotesList"));
+
+        return this;
+    }
 }

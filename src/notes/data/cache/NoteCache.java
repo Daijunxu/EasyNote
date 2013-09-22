@@ -259,4 +259,27 @@ public class NoteCache implements XMLSerializable {
 
         return noteCacheElement;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public NoteCache buildFromXMLElement(Element element) {
+        for (Element noteElement : element.elements()) {
+            Note newNote;
+            if (noteElement.getName().equals("BookNote")) {
+                newNote = new BookNote().buildFromXMLElement(noteElement);
+            } else if (noteElement.getName().equals("ArticleNote")) {
+                newNote = new ArticleNote().buildFromXMLElement(noteElement);
+            } else {
+                throw new UnsupportedOperationException("Unsupported note type: " + noteElement.getName());
+            }
+
+            noteMap.put(newNote.getNoteId(), newNote);
+            if (maxNoteId < newNote.getNoteId()) {
+                maxNoteId = newNote.getNoteId();
+            }
+        }
+        return this;
+    }
 }

@@ -85,9 +85,26 @@ public class Article extends AbstractDocument {
         articleElement.addAttribute("Comment", comment);
         articleElement.addAttribute("Source", source);
         articleElement.addAttribute("NotesList", EntityHelper.buildEntityStrFromList(notesList));
-        articleElement.addAttribute("CreatedTime", createdTime.toString());
-        articleElement.addAttribute("LastUpdatedTime", lastUpdatedTime.toString());
+        articleElement.addAttribute("CreatedTime", String.valueOf(createdTime.getTime()));
+        articleElement.addAttribute("LastUpdatedTime", String.valueOf(lastUpdatedTime.getTime()));
 
         return articleElement;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Article buildFromXMLElement(Element element) {
+        documentId = Long.parseLong(element.attributeValue("DocumentId"));
+        documentTitle = element.attributeValue("DocumentTitle");
+        authorsList = EntityHelper.buildAuthorsStrList(element.attributeValue("AuthorsList"));
+        comment = element.attributeValue("Comment");
+        source = element.attributeValue("Source");
+        notesList = EntityHelper.buildIDsList(element.attributeValue("NotesList"));
+        createdTime = new Date(Long.parseLong(element.attributeValue("CreatedTime")));
+        lastUpdatedTime = new Date(Long.parseLong(element.attributeValue("LastUpdatedTime")));
+
+        return this;
     }
 }
