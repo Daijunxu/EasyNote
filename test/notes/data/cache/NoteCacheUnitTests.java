@@ -31,7 +31,6 @@ public class NoteCacheUnitTests extends EasyNoteUnitTestCase {
         assertNotNull(Cache.get().getNoteCache());
         assertTrue(Cache.get().getNoteCache().getNoteMap().isEmpty());
         assertTrue(Cache.get().getNoteCache().getMaxNoteId() == Long.MIN_VALUE);
-        Cache.get().reload();
     }
 
     /**

@@ -51,7 +51,6 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         assertFalse(cachedBook.getChaptersMap().isEmpty());
         assertFalse(cachedBook.getChaptersMap().containsKey(1L));
         assertFalse(Cache.get().getNoteCache().getNoteMap().containsKey(1L));
-        Cache.get().reload();
     }
 
     /**
@@ -71,7 +70,6 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         assertFalse(Cache.get().getDocumentCache().getDocumentTitleIdMap()
                 .containsKey(deleteDocument.getDocumentTitle()));
         assertFalse(Cache.get().getNoteCache().getNoteMap().containsKey(1L));
-        Cache.get().reload();
     }
 
     /**
@@ -89,7 +87,6 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
                 .get(deleteNote.getDocumentId());
         assertFalse(book.getChaptersMap().get(deleteNote.getChapterId()).getNotesList()
                 .contains(deleteNote.getNoteId()));
-        Cache.get().reload();
     }
 
     /**
@@ -172,7 +169,6 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         assertEquals(testBook.getDocumentId(), updatedBook.getDocumentId());
         assertEquals(testBook.getCreatedTime(), updatedBook.getCreatedTime());
         assertTrue(testBook.getLastUpdatedTime().compareTo(updatedBook.getLastUpdatedTime()) < 0);
-        Cache.get().reload();
     }
 
     /**
@@ -197,7 +193,6 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         assertFalse(updatedBookNote.getChapterId().equals(testBookNote.getChapterId()));
         assertEquals(testBookNote.getNoteId(), updatedBookNote.getNoteId());
         assertEquals(testBookNote.getCreatedTime(), updatedBookNote.getCreatedTime());
-        Cache.get().reload();
     }
 
     /**
@@ -215,7 +210,6 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         assertEquals(savedChapter, book.getChaptersMap().get(3L));
         assertNotNull(savedChapter.getNotesList());
         assertTrue(savedChapter.getNotesList().isEmpty());
-        Cache.get().reload();
     }
 
     /**
@@ -245,7 +239,6 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         assertEquals(Cache.get().getDocumentCache().getMaxDocumentId(), newBook.getDocumentId());
         assertNotNull(savedBook.getCreatedTime());
         assertNotNull(savedBook.getLastUpdatedTime());
-        Cache.get().reload();
     }
 
     /**
@@ -269,6 +262,5 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
                 .get(savedBookNote.getDocumentId());
         Chapter chapter = book.getChaptersMap().get(savedBookNote.getChapterId());
         assertTrue(chapter.getNotesList().contains(savedBookNote.getNoteId()));
-        Cache.get().reload();
     }
 }

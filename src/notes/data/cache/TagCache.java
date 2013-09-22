@@ -77,7 +77,7 @@ public class TagCache implements XMLSerializable {
      * @param input The {@code BufferedReader} in use.
      */
     public void load(BufferedReader input) {
-        // Clear the content in the document cache before loading.
+        // Clear the content in the tag cache before loading.
         clear();
 
         String line;

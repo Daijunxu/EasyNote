@@ -48,7 +48,6 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
         assertFalse(Cache.get().getTagCache().getTagTextMap().containsKey(deletedTag.getTagText()));
         assertFalse(Cache.get().getNoteCache().getNoteMap().get(2L).getTagIds()
                 .contains(deletedTag.getTagId()));
-        Cache.get().reload();
     }
 
     /**
@@ -264,7 +263,6 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
         assertEquals(updatedTag.getTagText(), newTag.getTagText());
         assertFalse(Cache.get().getTagCache().getTagTextMap().containsKey(testTag.getTagText()));
         assertTrue(Cache.get().getTagCache().getTagTextMap().containsKey(updatedTag.getTagText()));
-        Cache.get().reload();
     }
 
     /**
@@ -277,7 +275,6 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
         assertEquals(savedTag, Cache.get().getTagCache().getTagIdMap().get(newTag.getTagId()));
         assertTrue(Cache.get().getTagCache().getTagTextMap().containsKey(newTag.getTagText()));
         assertEquals(Cache.get().getTagCache().getMaxTagId(), newTag.getTagId());
-        Cache.get().reload();
     }
 
 }

@@ -76,6 +76,9 @@ public class NoteCache implements XMLSerializable {
      * @param input The {@code BufferedReader} in use.
      */
     public void load(BufferedReader input) {
+        // Clear the content in the note cache before loading.
+        clear();
+
         String line;
 
         try {

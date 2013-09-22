@@ -32,7 +32,6 @@ public class TagCacheUnitTests extends EasyNoteUnitTestCase {
         assertTrue(Cache.get().getTagCache().getTagIdMap().isEmpty());
         assertTrue(Cache.get().getTagCache().getTagTextMap().isEmpty());
         assertTrue(Cache.get().getTagCache().getMaxTagId() == Long.MIN_VALUE);
-        Cache.get().reload();
     }
 
     /**

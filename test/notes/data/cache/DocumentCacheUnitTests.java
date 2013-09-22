@@ -32,7 +32,6 @@ public class DocumentCacheUnitTests extends EasyNoteUnitTestCase {
         assertTrue(Cache.get().getDocumentCache().getDocumentMap().isEmpty());
         assertTrue(Cache.get().getDocumentCache().getDocumentTitleIdMap().isEmpty());
         assertTrue(Cache.get().getDocumentCache().getMaxDocumentId() == Long.MIN_VALUE);
-        Cache.get().reload();
     }
 
     /**

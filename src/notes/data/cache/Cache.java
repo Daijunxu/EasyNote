@@ -96,24 +96,9 @@ public class Cache implements XMLSerializable {
     }
 
     /**
-     * Removes all data stored in the cache.
-     */
-    private void clear() {
-        if (documentCache != null) {
-            documentCache.clear();
-        }
-        if (tagCache != null) {
-            tagCache.clear();
-        }
-        if (noteCache != null) {
-            noteCache.clear();
-        }
-    }
-
-    /**
      * Reads all data into memory.
      */
-    private void loadAllCaches() {
+    public void loadAllCaches() {
         try {
             String path = Property.get().getDataLocation();
             BufferedReader input = new BufferedReader(new FileReader(path));
@@ -129,14 +114,6 @@ public class Cache implements XMLSerializable {
             Cache.hasProblem = true;
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Removes all data stored in the cache, and loads all latest data into the cache.
-     */
-    public void reload() {
-        instance.clear();
-        instance.loadAllCaches();
     }
 
     /**

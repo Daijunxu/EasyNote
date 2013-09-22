@@ -35,7 +35,7 @@ public class PreferencesDialog extends JDialog {
                 // Change default data location.
                 Property.get().setDataLocation(dataLocationField.getText());
                 // Reload the cache data.
-                Cache.get().reload();
+                Cache.get().loadAllCaches();
                 // Clear all temporary data.
                 frame.clearAllTemporaryData();
                 // Set up the default panel.

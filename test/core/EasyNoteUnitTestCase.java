@@ -38,7 +38,7 @@ public class EasyNoteUnitTestCase {
     @Before
     public void initializeCache() throws Exception {
         Property.get().setDataLocation(TEST_DATA_LOCATION_OVERRIDE);
-        Cache.get().reload();
+        Cache.get().loadAllCaches();
     }
 
     /**

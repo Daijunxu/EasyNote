@@ -50,13 +50,13 @@ public class CacheUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.data.cache.Cache#reload()}.
+     * Test method for {@link notes.data.cache.Cache#loadAllCaches()}.
      */
     @Test
-    public void testReload() {
+    public void testLoadAllCaches() {
         final UnitTestData testData = new UnitTestData();
         Cache.get().getDocumentCache().clear();
-        Cache.get().reload();
+        Cache.get().loadAllCaches();
         assertNotNull(Cache.get());
         assertEquals(Cache.get().getDocumentCache().getDocumentMap(), testData.documentMap);
         assertEquals(Cache.get().getDocumentCache().getMaxDocumentId(), testData.maxDocumentId);
@@ -65,5 +65,4 @@ public class CacheUnitTests extends EasyNoteUnitTestCase {
         assertEquals(Cache.get().getNoteCache().getNoteMap(), testData.noteMap);
         assertEquals(Cache.get().getNoteCache().getMaxNoteId(), testData.maxNoteId);
     }
-
 }

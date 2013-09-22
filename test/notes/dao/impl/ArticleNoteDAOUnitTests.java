@@ -51,7 +51,6 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
         assertFalse(Cache.get().getDocumentCache().getDocumentTitleIdMap()
                 .containsKey(deleteDocument.getDocumentTitle()));
         assertFalse(Cache.get().getNoteCache().getNoteMap().containsKey(2L));
-        Cache.get().reload();
     }
 
     /**
@@ -68,7 +67,6 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
         Article article = (Article) Cache.get().getDocumentCache().getDocumentMap()
                 .get(deleteNote.getDocumentId());
         assertFalse(article.getNotesList().contains(deleteNote.getNoteId()));
-        Cache.get().reload();
     }
 
     /**
@@ -109,7 +107,6 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
         assertEquals(testArticle.getDocumentId(), updatedArticle.getDocumentId());
         assertEquals(testArticle.getCreatedTime(), updatedArticle.getCreatedTime());
         assertTrue(testArticle.getLastUpdatedTime().compareTo(updatedArticle.getLastUpdatedTime()) < 0);
-        Cache.get().reload();
     }
 
     /**
@@ -133,7 +130,6 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
         assertFalse(updatedArticleNote.getNoteText().equals(testArticleNote.getNoteText()));
         assertEquals(testArticleNote.getNoteId(), updatedArticleNote.getNoteId());
         assertEquals(testArticleNote.getCreatedTime(), updatedArticleNote.getCreatedTime());
-        Cache.get().reload();
     }
 
     /**
@@ -156,7 +152,6 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
         assertEquals(Cache.get().getDocumentCache().getMaxDocumentId(), newArticle.getDocumentId());
         assertNotNull(savedArticle.getCreatedTime());
         assertNotNull(savedArticle.getLastUpdatedTime());
-        Cache.get().reload();
     }
 
     /**
@@ -178,7 +173,6 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
         Article article = (Article) Cache.get().getDocumentCache().getDocumentMap()
                 .get(savedArticleNote.getDocumentId());
         assertTrue(article.getNotesList().contains(savedArticleNote.getNoteId()));
-        Cache.get().reload();
     }
 
 }
