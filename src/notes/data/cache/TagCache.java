@@ -25,17 +25,19 @@ import java.util.Map;
 public class TagCache implements XMLSerializable {
 
     /**
+     * The single instance that is used in this system.
+     */
+    private static final TagCache instance = new TagCache();
+    /**
      * The map of all tags from tag IDs to the tags.
      */
     @Getter
-    @Setter
-    private Map<Long, Tag> tagIdMap;
+    private final Map<Long, Tag> tagIdMap;
     /**
      * The map of all tags from tag texts to the tags.
      */
     @Getter
-    @Setter
-    private Map<String, Tag> tagTextMap;
+    private final Map<String, Tag> tagTextMap;
     /**
      * The maximum tag ID in the data.
      */
@@ -45,13 +47,19 @@ public class TagCache implements XMLSerializable {
 
     /**
      * Constructs an instance of {@code TagCache}. Should only be called by Cache.
-     *
-     * @param input The {@code BufferedReader} instance in use.
      */
-    public TagCache(BufferedReader input) {
-        setTagIdMap(new HashMap<Long, Tag>());
-        setTagTextMap(new HashMap<String, Tag>());
-        loadTagCache(input);
+    public TagCache() {
+        tagIdMap = new HashMap<Long, Tag>();
+        tagTextMap = new HashMap<String, Tag>();
+    }
+
+    /**
+     * Gets the instance of {@code TagCache}.
+     *
+     * @return {@code TagCache} The instance of {@code TagCache}.
+     */
+    public static TagCache get() {
+        return instance;
     }
 
     /**
@@ -63,14 +71,15 @@ public class TagCache implements XMLSerializable {
         this.maxTagId = Long.MIN_VALUE;
     }
 
-
     /**
      * Reads all tags' data from data file.
      *
      * @param input The {@code BufferedReader} in use.
      */
-    @Deprecated
-    private void loadTagCache(BufferedReader input) {
+    public void load(BufferedReader input) {
+        // Clear the content in the document cache before loading.
+        clear();
+
         String line;
 
         try {

@@ -32,17 +32,19 @@ import java.util.TreeMap;
 public class DocumentCache implements XMLSerializable {
 
     /**
+     * The single instance that is used in this system.
+     */
+    private static final DocumentCache instance = new DocumentCache();
+    /**
      * The map of all documents from document IDs to the documents.
      */
     @Getter
-    @Setter
-    private Map<Long, Document> documentMap;
+    private final Map<Long, Document> documentMap;
     /**
      * The map of all documents' titles to their IDs.
      */
     @Getter
-    @Setter
-    private Map<String, Long> documentTitleIdMap;
+    private final Map<String, Long> documentTitleIdMap;
     /**
      * The maximum document ID in the data.
      */
@@ -52,13 +54,19 @@ public class DocumentCache implements XMLSerializable {
 
     /**
      * Constructs an instance of {@code DocumentCache}. Should only be called by Cache.
-     *
-     * @param input The {@code BufferedReader} instance in use.
      */
-    public DocumentCache(BufferedReader input) {
+    public DocumentCache() {
         documentMap = new HashMap<Long, Document>();
         documentTitleIdMap = new HashMap<String, Long>();
-        loadDocumentCache(input);
+    }
+
+    /**
+     * Gets the instance of {@code DocumentCache}.
+     *
+     * @return {@code DocumentCache} The instance of {@code DocumentCache}.
+     */
+    public static DocumentCache get() {
+        return instance;
     }
 
     /**
@@ -75,8 +83,10 @@ public class DocumentCache implements XMLSerializable {
      *
      * @param input The {@code BufferedReader} in use.
      */
-    @Deprecated
-    private void loadDocumentCache(BufferedReader input) {
+    public void load(BufferedReader input) {
+        // Clear the content in the document cache before loading.
+        clear();
+
         String line;
 
         try {

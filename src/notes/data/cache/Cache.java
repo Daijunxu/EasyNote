@@ -4,7 +4,6 @@
 package notes.data.cache;
 
 import lombok.Getter;
-import lombok.Setter;
 import notes.article.Article;
 import notes.article.ArticleNote;
 import notes.book.Book;
@@ -44,25 +43,26 @@ public class Cache implements XMLSerializable {
      * The document cache.
      */
     @Getter
-    @Setter
-    private DocumentCache documentCache;
+    private final DocumentCache documentCache;
     /**
      * The tag cache.
      */
     @Getter
-    @Setter
-    private TagCache tagCache;
+    private final TagCache tagCache;
     /**
      * The note cache.
      */
     @Getter
-    @Setter
-    private NoteCache noteCache;
+    private final NoteCache noteCache;
 
     /**
      * Constructs an instance of {@code Cache}.
      */
     private Cache() {
+        documentCache = DocumentCache.get();
+        tagCache = TagCache.get();
+        noteCache = NoteCache.get();
+
         loadAllCaches();
     }
 
@@ -118,13 +118,13 @@ public class Cache implements XMLSerializable {
             String path = Property.get().getDataLocation();
             BufferedReader input = new BufferedReader(new FileReader(path));
 
-            documentCache = new DocumentCache(input);
-            tagCache = new TagCache(input);
-            noteCache = new NoteCache(input);
+            documentCache.load(input);
+            tagCache.load(input);
+            noteCache.load(input);
+
             buildNotesList();
 
             input.close();
-
         } catch (IOException e) {
             Cache.hasProblem = true;
             e.printStackTrace();

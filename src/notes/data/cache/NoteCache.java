@@ -31,11 +31,14 @@ import java.util.Map;
 public class NoteCache implements XMLSerializable {
 
     /**
+     * The single instance that is used in this system.
+     */
+    private static final NoteCache instance = new NoteCache();
+    /**
      * The map of all notes from note IDs to the notes.
      */
     @Getter
-    @Setter
-    private Map<Long, Note> noteMap;
+    private final Map<Long, Note> noteMap;
     /**
      * The maximum note ID in the data.
      */
@@ -45,12 +48,18 @@ public class NoteCache implements XMLSerializable {
 
     /**
      * Constructs an instance of {@code NoteCache}. Should only be called by Cache.
-     *
-     * @param input The {@code BufferedReader} instance in use.
      */
-    public NoteCache(BufferedReader input) {
-        setNoteMap(new HashMap<Long, Note>());
-        loadNoteCache(input);
+    public NoteCache() {
+        noteMap = new HashMap<Long, Note>();
+    }
+
+    /**
+     * Gets the instance of {@code NoteCache}.
+     *
+     * @return {@code NoteCache} The instance of {@code NoteCache}.
+     */
+    public static NoteCache get() {
+        return instance;
     }
 
     /**
@@ -66,8 +75,7 @@ public class NoteCache implements XMLSerializable {
      *
      * @param input The {@code BufferedReader} in use.
      */
-    @Deprecated
-    private void loadNoteCache(BufferedReader input) {
+    public void load(BufferedReader input) {
         String line;
 
         try {
