@@ -53,23 +53,6 @@ public class CacheUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.data.cache.Cache#loadAllCaches()}.
-     */
-    @Test
-    public void testLoadAllCaches() {
-        final UnitTestData testData = new UnitTestData();
-        cache.getDocumentCache().clear();
-        cache.loadAllCaches();
-        assertNotNull(cache);
-        assertEquals(cache.getDocumentCache().getDocumentMap(), testData.documentMap);
-        assertEquals(cache.getDocumentCache().getMaxDocumentId(), testData.maxDocumentId);
-        assertEquals(cache.getTagCache().getTagIdMap(), testData.tagIdMap);
-        assertEquals(cache.getTagCache().getMaxTagId(), testData.maxTagId);
-        assertEquals(cache.getNoteCache().getNoteMap(), testData.noteMap);
-        assertEquals(cache.getNoteCache().getMaxNoteId(), testData.maxNoteId);
-    }
-
-    /**
      * Test method for {@link notes.data.cache.Cache#toXMLElement()}.
      */
     @Test

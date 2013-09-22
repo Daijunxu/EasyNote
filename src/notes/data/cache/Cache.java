@@ -5,12 +5,6 @@ package notes.data.cache;
 
 import junit.framework.Assert;
 import lombok.Getter;
-import notes.article.Article;
-import notes.article.ArticleNote;
-import notes.book.Book;
-import notes.book.BookNote;
-import notes.book.Chapter;
-import notes.entity.Note;
 import notes.entity.XMLSerializable;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -20,10 +14,7 @@ import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 import org.dom4j.tree.DefaultElement;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -67,7 +58,6 @@ public class Cache implements XMLSerializable<Cache> {
         tagCache = TagCache.get();
         noteCache = NoteCache.get();
 
-//        loadAllCaches();
         loadAllCachesFromXML();
     }
 
@@ -81,45 +71,6 @@ public class Cache implements XMLSerializable<Cache> {
             instance = new Cache();
         }
         return instance;
-    }
-
-    /**
-     * Builds the notes list in document cache.
-     */
-    private void buildNotesList() {
-        for (Note note : noteCache.getNoteMap().values()) {
-            if (note instanceof BookNote) {
-                Book book = (Book) (documentCache.getDocumentMap().get(note.getDocumentId()));
-                Chapter chapter = book.getChaptersMap().get(((BookNote) note).getChapterId());
-                chapter.getNotesList().add(note.getNoteId());
-            } else if (note instanceof ArticleNote) {
-                Article article = (Article) (documentCache.getDocumentMap().get(note
-                        .getDocumentId()));
-                article.getNotesList().add(note.getNoteId());
-            }
-        }
-    }
-
-    /**
-     * Reads all data into memory.
-     */
-    @Deprecated
-    public void loadAllCaches() {
-        try {
-            String path = Property.get().getXmlDataLocation();
-            BufferedReader input = new BufferedReader(new FileReader(path));
-
-            documentCache.load(input);
-            tagCache.load(input);
-            noteCache.load(input);
-
-            buildNotesList();
-
-            input.close();
-        } catch (IOException e) {
-            Cache.hasProblem = true;
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -148,26 +99,6 @@ public class Cache implements XMLSerializable<Cache> {
         Assert.assertNotNull(rootElement.element("Documents"));
         Assert.assertNotNull(rootElement.element("Tags"));
         Assert.assertNotNull(rootElement.element("Notes"));
-    }
-
-    /**
-     * Writes all data into disk.
-     */
-    @Deprecated
-    public void saveAllCaches() {
-        try {
-            String path = Property.get().getDataLocation();
-            BufferedWriter output = new BufferedWriter(new FileWriter(path));
-
-            documentCache.saveDocumentCache(output);
-            tagCache.saveTagCache(output);
-            noteCache.saveNoteCache(output);
-
-            output.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
     }
 
     public void saveAllCachesToXML() {

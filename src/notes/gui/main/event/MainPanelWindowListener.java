@@ -50,7 +50,6 @@ public class MainPanelWindowListener implements WindowListener {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Cache.get().saveAllCaches();
         Cache.get().saveAllCachesToXML();
 
         // Save the current opened document id.

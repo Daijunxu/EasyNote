@@ -56,7 +56,7 @@ public class DocumentCacheUnitTests extends EasyNoteUnitTestCase {
      * Test method for {@link notes.data.cache.DocumentCache#getDocumentTitleIdMap()}.
      */
     @Test
-    public void testGetDocumentTitleSet() {
+    public void testGetDocumentTitleIdMap() {
         final UnitTestData testData = new UnitTestData();
         assertNotNull(documentCache.getDocumentTitleIdMap());
         Map<String, Long> documentTitleIdMap = documentCache

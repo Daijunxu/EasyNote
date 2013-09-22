@@ -27,7 +27,6 @@ public class SaveAllActoinListener implements ActionListener {
         if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
             SoundFactory.playUpdate();
         }
-        Cache.get().saveAllCaches();
         Cache.get().saveAllCachesToXML();
         Property.get().saveProperty();
     }

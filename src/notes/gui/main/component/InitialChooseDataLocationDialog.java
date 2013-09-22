@@ -59,7 +59,6 @@ public class InitialChooseDataLocationDialog extends JDialog {
                         // Change default data location.
                         Property.get().setXmlDataLocation(selectedFile.getAbsolutePath());
                         Cache.hasProblem = false;
-//                        Cache.get().loadAllCaches();
                         Cache.get().loadAllCachesFromXML();
                         if (Cache.hasProblem) {
                             if (!Property.get().getSoundTheme()
@@ -109,7 +108,7 @@ public class InitialChooseDataLocationDialog extends JDialog {
 
                                 Property.get().setXmlDataLocation(path);
                                 Cache.hasProblem = false;
-                                Cache.get().loadAllCaches();
+                                Cache.get().loadAllCachesFromXML();
 
                                 if (!Property.get().getSoundTheme()
                                         .equals(SoundTheme.NONE.getDescription())) {

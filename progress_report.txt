@@ -81,3 +81,5 @@
 [09/14/2013] 14332: Add open last document functionality. Reorder members and methods in all classes.
 [09/14/2013] 13033: Add Lombok library for automatic code generation.
 [09/15/2013] 12983: Add edit button in view book/article note dialog and search dialog. Deprecate ViewNoteDialog and use specific view dialogs.
+[09/22/2013] 13857(120): Switch data storage to XML format.
+[09/22/2013] 13259(120): Remove legacy code for old data format.
