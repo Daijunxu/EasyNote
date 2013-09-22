@@ -9,6 +9,9 @@ import notes.article.ArticleNote;
 import notes.book.BookNote;
 import notes.dao.DuplicateRecordException;
 import notes.entity.Note;
+import notes.entity.XMLSerializable;
+import org.dom4j.Element;
+import org.dom4j.tree.DefaultElement;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -25,7 +28,7 @@ import java.util.Map;
  * @author Rui Du
  * @version 1.0
  */
-public class NoteCache {
+public class NoteCache implements XMLSerializable {
 
     /**
      * The map of all notes from note IDs to the notes.
@@ -230,5 +233,19 @@ public class NoteCache {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Element toXMLElement() {
+        Element noteCacheElement = new DefaultElement("Notes");
+
+        for (Note note : noteMap.values()) {
+            noteCacheElement.add(note.toXMLElement());
+        }
+
+        return noteCacheElement;
     }
 }

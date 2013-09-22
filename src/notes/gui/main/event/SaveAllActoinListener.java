@@ -3,13 +3,13 @@
  */
 package notes.gui.main.event;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import notes.data.cache.Cache;
 import notes.data.cache.Property;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * The event listener for saving all changes.
@@ -28,6 +28,7 @@ public class SaveAllActoinListener implements ActionListener {
             SoundFactory.playUpdate();
         }
         Cache.get().saveAllCaches();
+        Cache.get().saveAllCachesToXML();
         Property.get().saveProperty();
     }
 }

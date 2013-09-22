@@ -9,6 +9,9 @@ import notes.article.Article;
 import notes.book.Book;
 import notes.book.Chapter;
 import notes.entity.Document;
+import notes.entity.XMLSerializable;
+import org.dom4j.Element;
+import org.dom4j.tree.DefaultElement;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -26,7 +29,7 @@ import java.util.TreeMap;
  * @author Rui Du
  * @version 1.0
  */
-public class DocumentCache {
+public class DocumentCache implements XMLSerializable {
 
     /**
      * The map of all documents from document IDs to the documents.
@@ -276,5 +279,19 @@ public class DocumentCache {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Element toXMLElement() {
+        Element documentCacheElement = new DefaultElement("Documents");
+
+        for (Document document : documentMap.values()) {
+            documentCacheElement.add(document.toXMLElement());
+        }
+
+        return documentCacheElement;
     }
 }

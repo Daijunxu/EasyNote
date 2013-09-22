@@ -6,6 +6,9 @@ package notes.data.cache;
 import lombok.Getter;
 import lombok.Setter;
 import notes.entity.Tag;
+import notes.entity.XMLSerializable;
+import org.dom4j.Element;
+import org.dom4j.tree.DefaultElement;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -19,7 +22,7 @@ import java.util.Map;
  * @author Rui Du
  * @version 1.0
  */
-public class TagCache {
+public class TagCache implements XMLSerializable {
 
     /**
      * The map of all tags from tag IDs to the tags.
@@ -142,5 +145,19 @@ public class TagCache {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Element toXMLElement() {
+        Element tagCacheElement = new DefaultElement("Tags");
+
+        for (Tag tag : tagIdMap.values()) {
+            tagCacheElement.add(tag.toXMLElement());
+        }
+
+        return tagCacheElement;
     }
 }

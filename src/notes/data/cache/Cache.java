@@ -11,6 +11,12 @@ import notes.book.Book;
 import notes.book.BookNote;
 import notes.book.Chapter;
 import notes.entity.Note;
+import notes.entity.XMLSerializable;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.dom4j.io.XMLWriter;
+import org.dom4j.tree.DefaultElement;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -24,7 +30,7 @@ import java.io.IOException;
  * @author Rui Du
  * @version 1.0
  */
-public class Cache {
+public class Cache implements XMLSerializable {
 
     /**
      * The flag of whether the cache is having a problem.
@@ -136,6 +142,7 @@ public class Cache {
     /**
      * Writes all data into disk.
      */
+    @Deprecated
     public void saveAllCaches() {
         try {
             String path = Property.get().getDataLocation();
@@ -148,7 +155,36 @@ public class Cache {
             output.close();
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(1);
         }
+    }
+
+    public void saveAllCachesToXML() {
+        try {
+            Document document = DocumentHelper.createDocument(this.toXMLElement());
+
+
+            String outputPath = Property.get().getXmlDataLocation();
+
+            XMLWriter writer = new XMLWriter(
+                    new FileWriter(outputPath)
+            );
+            writer.write(document);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    public Element toXMLElement() {
+        Element cacheElement = new DefaultElement("Data");
+
+        cacheElement.add(documentCache.toXMLElement());
+        cacheElement.add(tagCache.toXMLElement());
+        cacheElement.add(noteCache.toXMLElement());
+
+        return cacheElement;
     }
 
 }

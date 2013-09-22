@@ -51,6 +51,7 @@ public class MainPanelWindowListener implements WindowListener {
             e.printStackTrace();
         }
         Cache.get().saveAllCaches();
+        Cache.get().saveAllCachesToXML();
 
         // Save the current opened document id.
         SystemMode currentMode = MainPanel.get().getCurrentMode();

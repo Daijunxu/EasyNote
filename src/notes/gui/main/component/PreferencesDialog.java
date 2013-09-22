@@ -31,6 +31,7 @@ public class PreferencesDialog extends JDialog {
             if (!dataLocationField.getText().equals(Property.get().getDataLocation())) {
                 // Save current cache data.
                 Cache.get().saveAllCaches();
+                Cache.get().saveAllCachesToXML();
                 // Change default data location.
                 Property.get().setDataLocation(dataLocationField.getText());
                 // Reload the cache data.

@@ -68,6 +68,10 @@ public class EntityHelper {
      * @return {@code String} A string representation of entities.
      */
     public static String buildEntityStrFromList(List<?> entityList) {
+        if (entityList == null || entityList.isEmpty()) {
+            return null;
+        }
+
         StringBuilder sb = new StringBuilder();
         for (Object entity : entityList) {
             sb.append(entity.toString()).append(",");

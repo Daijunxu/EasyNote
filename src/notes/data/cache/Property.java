@@ -40,6 +40,12 @@ public class Property {
     @Setter
     private String dataLocation;
     /**
+     * The location of data file.
+     */
+    @Getter
+    @Setter
+    private String xmlDataLocation;
+    /**
      * The default sound theme.
      */
     @Getter
@@ -74,6 +80,7 @@ public class Property {
             e.printStackTrace();
         }
         setDataLocation(PROPERTIES.getProperty("dataLocation"));
+        setXmlDataLocation(PROPERTIES.getProperty("xmlDataLocation"));
         documentTypes = Arrays.asList(PROPERTIES.getProperty("documentType").split(","));
         setSoundTheme(PROPERTIES.getProperty("soundTheme"));
 
@@ -100,6 +107,7 @@ public class Property {
     public void saveProperty() {
         Properties PROPERTIES = new Properties();
         PROPERTIES.setProperty("dataLocation", getDataLocation());
+        PROPERTIES.setProperty("xmlDataLocation", getXmlDataLocation());
 
         StringBuilder sb = new StringBuilder();
         if (!getDocumentTypes().isEmpty()) {

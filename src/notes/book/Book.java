@@ -101,7 +101,7 @@ public class Book extends AbstractDocument {
      */
     @Override
     public Element toXMLElement() {
-        Element bookElement = new DefaultElement("Article");
+        Element bookElement = new DefaultElement("Book");
 
         bookElement.addAttribute("DocumentId", documentId.toString());
         bookElement.addAttribute("DocumentTitle", documentTitle);
