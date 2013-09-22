@@ -76,6 +76,7 @@ public class TagCache implements XMLSerializable<TagCache> {
      *
      * @param input The {@code BufferedReader} in use.
      */
+    @Deprecated
     public void load(BufferedReader input) {
         // Clear the content in the tag cache before loading.
         clear();
@@ -175,6 +176,9 @@ public class TagCache implements XMLSerializable<TagCache> {
      */
     @Override
     public TagCache buildFromXMLElement(Element element) {
+        // Clear data in the tag cache.
+        clear();
+
         for (Element tagElement : element.elements()) {
             Tag newTag = new Tag().buildFromXMLElement(tagElement);
             tagIdMap.put(newTag.getTagId(), newTag);

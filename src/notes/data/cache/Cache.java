@@ -3,6 +3,7 @@
  */
 package notes.data.cache;
 
+import junit.framework.Assert;
 import lombok.Getter;
 import notes.article.Article;
 import notes.article.ArticleNote;
@@ -12,13 +13,16 @@ import notes.book.Chapter;
 import notes.entity.Note;
 import notes.entity.XMLSerializable;
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 import org.dom4j.tree.DefaultElement;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -63,7 +67,8 @@ public class Cache implements XMLSerializable<Cache> {
         tagCache = TagCache.get();
         noteCache = NoteCache.get();
 
-        loadAllCaches();
+//        loadAllCaches();
+        loadAllCachesFromXML();
     }
 
     /**
@@ -98,9 +103,10 @@ public class Cache implements XMLSerializable<Cache> {
     /**
      * Reads all data into memory.
      */
+    @Deprecated
     public void loadAllCaches() {
         try {
-            String path = Property.get().getDataLocation();
+            String path = Property.get().getXmlDataLocation();
             BufferedReader input = new BufferedReader(new FileReader(path));
 
             documentCache.load(input);
@@ -114,6 +120,34 @@ public class Cache implements XMLSerializable<Cache> {
             Cache.hasProblem = true;
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Reads all data into memory from XML file.
+     */
+    public void loadAllCachesFromXML() {
+        try {
+            String path = Property.get().getXmlDataLocation();
+
+            SAXReader reader = new SAXReader();
+            Document document = reader.read(new File(path));
+
+            // Validate that the XML data is valid before building the cache.
+            validateXMLData(document);
+
+            buildFromXMLElement(document.getRootElement());
+        } catch (DocumentException e) {
+            Cache.hasProblem = true;
+            e.printStackTrace();
+        }
+    }
+
+    private void validateXMLData(Document document) {
+        Element rootElement = document.getRootElement();
+        Assert.assertNotNull(rootElement);
+        Assert.assertNotNull(rootElement.element("Documents"));
+        Assert.assertNotNull(rootElement.element("Tags"));
+        Assert.assertNotNull(rootElement.element("Notes"));
     }
 
     /**
@@ -139,7 +173,6 @@ public class Cache implements XMLSerializable<Cache> {
     public void saveAllCachesToXML() {
         try {
             Document document = DocumentHelper.createDocument(this.toXMLElement());
-
 
             String outputPath = Property.get().getXmlDataLocation();
 

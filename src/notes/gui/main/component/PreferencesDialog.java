@@ -28,14 +28,15 @@ public class PreferencesDialog extends JDialog {
             MainPanel frame = MainPanel.get();
 
             // Check setting for data location.
-            if (!dataLocationField.getText().equals(Property.get().getDataLocation())) {
+            if (!dataLocationField.getText().equals(Property.get().getXmlDataLocation())) {
                 // Save current cache data.
                 Cache.get().saveAllCaches();
                 Cache.get().saveAllCachesToXML();
                 // Change default data location.
-                Property.get().setDataLocation(dataLocationField.getText());
+                Property.get().setXmlDataLocation(dataLocationField.getText());
                 // Reload the cache data.
-                Cache.get().loadAllCaches();
+//                Cache.get().loadAllCaches();
+                Cache.get().loadAllCachesFromXML();
                 // Clear all temporary data.
                 frame.clearAllTemporaryData();
                 // Set up the default panel.
@@ -91,7 +92,7 @@ public class PreferencesDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
-        dataLocationField.setText(Property.get().getDataLocation());
+        dataLocationField.setText(Property.get().getXmlDataLocation());
         dataLocationField.setEditable(false);
         preferencesPanel.add(dataLocationField, c);
 

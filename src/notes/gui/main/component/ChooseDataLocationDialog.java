@@ -46,7 +46,7 @@ public class ChooseDataLocationDialog extends JDialog {
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
         fileChooserField.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        fileChooserField.setCurrentDirectory(new File(Property.get().getDataLocation()));
+        fileChooserField.setCurrentDirectory(new File(Property.get().getXmlDataLocation()));
         fileChooserField.addActionListener(new AbstractAction() {
             private static final long serialVersionUID = -4290129625901289936L;
 

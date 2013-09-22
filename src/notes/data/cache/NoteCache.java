@@ -75,6 +75,7 @@ public class NoteCache implements XMLSerializable {
      *
      * @param input The {@code BufferedReader} in use.
      */
+    @Deprecated
     public void load(BufferedReader input) {
         // Clear the content in the note cache before loading.
         clear();
@@ -265,6 +266,9 @@ public class NoteCache implements XMLSerializable {
      */
     @Override
     public NoteCache buildFromXMLElement(Element element) {
+        // Clear data in the note cache.
+        clear();
+
         for (Element noteElement : element.elements()) {
             Note newNote;
             if (noteElement.getName().equals("BookNote")) {

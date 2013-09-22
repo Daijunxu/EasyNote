@@ -46,7 +46,7 @@ public class InitialChooseDataLocationDialog extends JDialog {
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
         fileChooserField.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        fileChooserField.setCurrentDirectory(new File(Property.get().getDataLocation()));
+        fileChooserField.setCurrentDirectory(new File(Property.get().getXmlDataLocation()));
         fileChooserField.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent event) {
@@ -57,9 +57,10 @@ public class InitialChooseDataLocationDialog extends JDialog {
                     if (selectedFile.isFile()) {
                         setVisible(false);
                         // Change default data location.
-                        Property.get().setDataLocation(selectedFile.getAbsolutePath());
+                        Property.get().setXmlDataLocation(selectedFile.getAbsolutePath());
                         Cache.hasProblem = false;
-                        Cache.get().loadAllCaches();
+//                        Cache.get().loadAllCaches();
+                        Cache.get().loadAllCachesFromXML();
                         if (Cache.hasProblem) {
                             if (!Property.get().getSoundTheme()
                                     .equals(SoundTheme.NONE.getDescription())) {
@@ -106,7 +107,7 @@ public class InitialChooseDataLocationDialog extends JDialog {
                                 output.append("#DOCUMENTS\n#END_DOCUMENTS\n#TAGS\n#END_TAGS\n#NOTES\n#END_NOTES");
                                 output.close();
 
-                                Property.get().setDataLocation(path);
+                                Property.get().setXmlDataLocation(path);
                                 Cache.hasProblem = false;
                                 Cache.get().loadAllCaches();
 

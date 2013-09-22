@@ -83,6 +83,7 @@ public class DocumentCache implements XMLSerializable {
      *
      * @param input The {@code BufferedReader} in use.
      */
+    @Deprecated
     public void load(BufferedReader input) {
         // Clear the content in the document cache before loading.
         clear();
@@ -310,6 +311,9 @@ public class DocumentCache implements XMLSerializable {
      */
     @Override
     public DocumentCache buildFromXMLElement(Element element) {
+        // Clear data in the document cache.
+        clear();
+
         for (Element documentElement : element.elements()) {
             Document newDocument;
             if (documentElement.getName().equals("Book")) {

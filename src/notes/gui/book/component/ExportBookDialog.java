@@ -55,8 +55,8 @@ public class ExportBookDialog extends JDialog {
 
         JFileChooser fileChooserField = new JFileChooser();
         fileChooserField.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        fileChooserField.setCurrentDirectory(new File(Property.get().getDataLocation()));
-        fileChooserField.setSelectedFile(new File(Property.get().getDataLocation() + "/[Notes] "
+        fileChooserField.setCurrentDirectory(new File(Property.get().getXmlDataLocation()));
+        fileChooserField.setSelectedFile(new File(Property.get().getXmlDataLocation() + "/[Notes] "
                 + book.getDocumentTitle() + ".html"));
         fileChooserField.addActionListener(new AbstractAction() {
             @Override

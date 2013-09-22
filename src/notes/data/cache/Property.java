@@ -38,6 +38,7 @@ public class Property {
      */
     @Getter
     @Setter
+    @Deprecated
     private String dataLocation;
     /**
      * The location of data file.
