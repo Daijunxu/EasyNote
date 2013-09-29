@@ -81,7 +81,6 @@ public class NoteListCellRenderer extends DefaultListCellRenderer {
         if (!isSelected) {
             renderer.setFont(new Font("Times", Font.PLAIN, 14));
         } else {
-            renderer.setForeground(Color.RED);
             renderer.setFont(new Font("Times", Font.PLAIN, 14));
         }
 

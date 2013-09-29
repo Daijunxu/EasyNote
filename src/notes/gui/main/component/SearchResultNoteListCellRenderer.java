@@ -108,7 +108,6 @@ public class SearchResultNoteListCellRenderer extends DefaultListCellRenderer {
         } else {
             documentLabel.setFont(new Font("Times", Font.ITALIC, 12));
             documentLabel.setForeground(Color.WHITE);
-            noteLabel.setForeground(Color.RED);
             noteLabel.setFont(new Font("Times", Font.PLAIN, 14));
         }
 

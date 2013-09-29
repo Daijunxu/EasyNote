@@ -39,7 +39,6 @@ public class ChapterListCellRenderer extends DefaultListCellRenderer {
         if (!isSelected) {
             label.setFont(new Font("Times", Font.BOLD, 14));
         } else {
-            label.setForeground(Color.RED);
             label.setFont(new Font("Times", Font.BOLD, 14));
         }
         label.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
