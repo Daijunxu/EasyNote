@@ -21,7 +21,7 @@ import java.awt.event.WindowListener;
  * @author Rui Du
  * @version 1.0
  */
-public class MainPanelWindowListener implements WindowListener {
+public class MainPanelWindowListener implements WindowListener{
 
     /**
      * @see java.awt.event.WindowListener#windowActivated(java.awt.event.WindowEvent)

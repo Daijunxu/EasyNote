@@ -16,9 +16,6 @@ import java.awt.*;
  * @version 1.0
  */
 public class NoteListCellRenderer extends DefaultListCellRenderer {
-    private final String HTML_1 = "<html><body style='width: ";
-    private final String HTML_2 = "'>";
-    private final String HTML_3 = "</body></html>";
     private int width;
 
     /**
@@ -43,6 +40,11 @@ public class NoteListCellRenderer extends DefaultListCellRenderer {
         noteText = noteText.replaceAll("\n", "<br/>");
         noteText = noteText.replaceAll("  ", "&emsp;");
         noteText = noteText.replaceAll("\t", "&emsp;&emsp;");
+
+        final String HTML_1 = "<html><body style='width: ";
+        final String HTML_2 = "'>";
+        final String HTML_3 = "</body></html>";
+
         String text = HTML_1 + String.valueOf(width) + HTML_2 + noteText + HTML_3;
         JLabel renderer = (JLabel) super.getListCellRendererComponent(list, text, index,
                 isSelected, cellHasFocus);

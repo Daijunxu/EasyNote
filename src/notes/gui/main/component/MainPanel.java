@@ -43,7 +43,9 @@ import notes.gui.book.event.NewChapterActionListener;
 import notes.gui.book.event.ViewBookActionListener;
 import notes.gui.book.event.ViewBookNoteActionListener;
 import notes.gui.main.event.AboutActionListener;
+import notes.gui.main.event.MainPanelComponentListener;
 import notes.gui.main.event.MainPanelWindowListener;
+import notes.gui.main.event.MainPanelWindowStateListener;
 import notes.gui.main.event.NoteListSelectionListener;
 import notes.gui.main.event.OpenDocumentActionListener;
 import notes.gui.main.event.OpenPreferencesActionListener;
@@ -65,6 +67,12 @@ import java.util.Map;
  * @version 1.0
  */
 public class MainPanel extends JFrame {
+
+    public static final int DEFAULT_WIDTH = 1280;
+    public static final int DEFAULT_HEIGHT = 800;
+    public static final int ARTICLE_NOTE_LIST_PANEL_WIDTH_INDENTATION = 28;
+    public static final int BOOK_NOTE_LIST_PANEL_WIDTH_INDENTATION = 320;
+//    public static final int BOOK_NOTE_LIST_PANEL_WIDTH_INDENTATION = 318;
 
     /**
      * The single instance of {@code MainPanel}.
@@ -108,17 +116,18 @@ public class MainPanel extends JFrame {
 
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         addWindowListener(new MainPanelWindowListener());
+        addWindowStateListener(new MainPanelWindowStateListener());
+        addComponentListener(new MainPanelComponentListener());
+        setMinimumSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 
         // Fix the form to locate in the middle of screen.
-        int width = 1280;
-        int height = 800;
+
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (screen.width - width) / 2;
-        int y = (screen.height - height) / 2;
-        setBounds(x, y, width, height);
+        int x = (screen.width - DEFAULT_WIDTH) / 2;
+        int y = (screen.height - DEFAULT_HEIGHT) / 2;
+        setBounds(x, y, DEFAULT_WIDTH, DEFAULT_HEIGHT);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        setResizable(false);
     }
 
     /**
@@ -557,7 +566,7 @@ public class MainPanel extends JFrame {
 
         // Create note scroll pane for each chapter.
         JList notesList = new JList(notesObject);
-        int notesListWidth = 1235;
+        int notesListWidth = getWidth() - ARTICLE_NOTE_LIST_PANEL_WIDTH_INDENTATION;
         notesList.setCellRenderer(new NoteListCellRenderer(notesListWidth - 7));
         notesList.setFixedCellWidth(notesListWidth);
         notesList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -596,7 +605,7 @@ public class MainPanel extends JFrame {
 
         // Create note scroll pane for each chapter.
         JList notesList = new JList(notesObject);
-        int notesListWidth = 945;
+        int notesListWidth = getWidth() - BOOK_NOTE_LIST_PANEL_WIDTH_INDENTATION;
         notesList.setCellRenderer(new NoteListCellRenderer(notesListWidth - 7));
         notesList.setFixedCellWidth(notesListWidth);
         notesList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
