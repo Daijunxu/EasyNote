@@ -82,7 +82,7 @@ public class ViewBookNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
-        notePanel.add(new JLabel("Note ID:"), c);
+        notePanel.add(new JLabel("Note ID"), c);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
@@ -94,7 +94,7 @@ public class ViewBookNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Document:"), c);
+        notePanel.add(new JLabel("Document"), c);
 
         c.gridx = 1;
         c.gridy = 1;
@@ -107,7 +107,7 @@ public class ViewBookNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 2;
         c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Chapter:"), c);
+        notePanel.add(new JLabel("Chapter"), c);
 
         c.gridx = 1;
         c.gridy = 2;
@@ -121,7 +121,7 @@ public class ViewBookNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Tags:"), c);
+        notePanel.add(new JLabel("Tags"), c);
 
         c.gridx = 1;
         c.gridy = 3;
@@ -141,7 +141,7 @@ public class ViewBookNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 4;
         c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Note Text:"), c);
+        notePanel.add(new JLabel("Note Text"), c);
 
         c.gridx = 1;
         c.gridy = 4;
@@ -154,7 +154,7 @@ public class ViewBookNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 5;
         c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Created Time:"), c);
+        notePanel.add(new JLabel("Created Time"), c);
 
         c.gridx = 1;
         c.gridy = 5;

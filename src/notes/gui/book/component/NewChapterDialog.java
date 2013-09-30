@@ -128,7 +128,7 @@ public class NewChapterDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
-        chapterPanel.add(new JLabel("Document:"), c);
+        chapterPanel.add(new JLabel("Document *"), c);
 
         c.gridx = 1;
         c.gridy = 0;
@@ -141,7 +141,7 @@ public class NewChapterDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
-        chapterPanel.add(new JLabel("Chapter ID:"), c);
+        chapterPanel.add(new JLabel("Chapter ID *"), c);
 
         c.gridx = 1;
         c.gridy = 1;
@@ -152,7 +152,7 @@ public class NewChapterDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 2;
         c.insets = new Insets(5, 5, 5, 5);
-        chapterPanel.add(new JLabel("Chapter Title:"), c);
+        chapterPanel.add(new JLabel("Chapter Title *"), c);
 
         c.gridx = 1;
         c.gridy = 2;

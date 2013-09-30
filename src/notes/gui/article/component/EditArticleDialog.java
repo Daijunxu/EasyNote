@@ -146,7 +146,7 @@ public class EditArticleDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
-        articlePanel.add(new JLabel("Article Title:"), c);
+        articlePanel.add(new JLabel("Article Title *"), c);
 
         c.gridx = 1;
         c.gridy = 0;
@@ -158,7 +158,7 @@ public class EditArticleDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
-        articlePanel.add(new JLabel("Authors:"), c);
+        articlePanel.add(new JLabel("Authors"), c);
 
         c.gridx = 1;
         c.gridy = 1;
@@ -186,7 +186,7 @@ public class EditArticleDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
-        articlePanel.add(new JLabel("Comment:"), c);
+        articlePanel.add(new JLabel("Comment"), c);
 
         c.gridx = 1;
         c.gridy = 3;
@@ -198,7 +198,7 @@ public class EditArticleDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 4;
         c.insets = new Insets(5, 5, 5, 5);
-        articlePanel.add(new JLabel("Source:"), c);
+        articlePanel.add(new JLabel("Source"), c);
 
         c.gridx = 1;
         c.gridy = 4;

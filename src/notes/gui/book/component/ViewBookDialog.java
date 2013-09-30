@@ -62,7 +62,7 @@ public class ViewBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
-        bookPanel.add(new JLabel("Book ID:"), c);
+        bookPanel.add(new JLabel("Book ID"), c);
 
         c.gridx = 1;
         c.gridy = 0;
@@ -74,7 +74,7 @@ public class ViewBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
-        bookPanel.add(new JLabel("Book Title:"), c);
+        bookPanel.add(new JLabel("Book Title"), c);
 
         c.gridx = 1;
         c.gridy = 1;
@@ -87,7 +87,7 @@ public class ViewBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 2;
         c.insets = new Insets(5, 5, 5, 5);
-        bookPanel.add(new JLabel("Authors:"), c);
+        bookPanel.add(new JLabel("Authors"), c);
 
         c.gridx = 1;
         c.gridy = 2;
@@ -116,7 +116,7 @@ public class ViewBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 4;
         c.insets = new Insets(5, 5, 5, 5);
-        bookPanel.add(new JLabel("Edition:"), c);
+        bookPanel.add(new JLabel("Edition"), c);
 
         c.gridx = 1;
         c.gridy = 4;
@@ -130,7 +130,7 @@ public class ViewBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 5;
         c.insets = new Insets(5, 5, 5, 5);
-        bookPanel.add(new JLabel("Published Year:"), c);
+        bookPanel.add(new JLabel("Published Year"), c);
 
         c.gridx = 1;
         c.gridy = 5;
@@ -144,7 +144,7 @@ public class ViewBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 6;
         c.insets = new Insets(5, 5, 5, 5);
-        bookPanel.add(new JLabel("ISBN:"), c);
+        bookPanel.add(new JLabel("ISBN"), c);
 
         c.gridx = 1;
         c.gridy = 6;
@@ -163,7 +163,7 @@ public class ViewBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 8;
         c.insets = new Insets(5, 5, 5, 5);
-        bookPanel.add(new JLabel("Comment:"), c);
+        bookPanel.add(new JLabel("Comment"), c);
 
         commentField.setLineWrap(true);
         c.gridx = 1;
@@ -176,7 +176,7 @@ public class ViewBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 9;
         c.insets = new Insets(5, 5, 5, 5);
-        bookPanel.add(new JLabel("Created Time:"), c);
+        bookPanel.add(new JLabel("Created Time"), c);
 
         c.gridx = 1;
         c.gridy = 9;
@@ -188,7 +188,7 @@ public class ViewBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 10;
         c.insets = new Insets(5, 5, 5, 5);
-        bookPanel.add(new JLabel("Last Updated Time:"), c);
+        bookPanel.add(new JLabel("Last Updated Time"), c);
 
         c.gridx = 1;
         c.gridy = 10;

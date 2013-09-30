@@ -135,7 +135,7 @@ public class NewArticleNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
-        notePanel.add(new JLabel("Document:"), c);
+        notePanel.add(new JLabel("Document *"), c);
 
         c.gridx = 1;
         c.gridy = 0;
@@ -148,7 +148,7 @@ public class NewArticleNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Tags:"), c);
+        notePanel.add(new JLabel("Tags"), c);
 
         c.gridx = 1;
         c.gridy = 1;
@@ -165,7 +165,7 @@ public class NewArticleNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Note Text:"), c);
+        notePanel.add(new JLabel("Note Text *"), c);
 
         noteTextField.setLineWrap(true);
         c.gridx = 1;

@@ -60,7 +60,7 @@ public class ViewArticleDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
-        articlePanel.add(new JLabel("Article ID:"), c);
+        articlePanel.add(new JLabel("Article ID"), c);
 
         c.gridx = 1;
         c.gridy = 0;
@@ -72,7 +72,7 @@ public class ViewArticleDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
-        articlePanel.add(new JLabel("Article Title:"), c);
+        articlePanel.add(new JLabel("Article Title"), c);
 
         c.gridx = 1;
         c.gridy = 1;
@@ -85,7 +85,7 @@ public class ViewArticleDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 2;
         c.insets = new Insets(5, 5, 5, 5);
-        articlePanel.add(new JLabel("Authors:"), c);
+        articlePanel.add(new JLabel("Authors"), c);
 
         c.gridx = 1;
         c.gridy = 2;
@@ -107,7 +107,7 @@ public class ViewArticleDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
-        articlePanel.add(new JLabel("Source:"), c);
+        articlePanel.add(new JLabel("Source"), c);
 
         c.gridx = 1;
         c.gridy = 3;
@@ -120,7 +120,7 @@ public class ViewArticleDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 4;
         c.insets = new Insets(5, 5, 5, 5);
-        articlePanel.add(new JLabel("Comment:"), c);
+        articlePanel.add(new JLabel("Comment"), c);
 
         commentField.setLineWrap(true);
         c.gridx = 1;
@@ -133,7 +133,7 @@ public class ViewArticleDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 5;
         c.insets = new Insets(5, 5, 5, 5);
-        articlePanel.add(new JLabel("Created Time:"), c);
+        articlePanel.add(new JLabel("Created Time"), c);
 
         c.gridx = 1;
         c.gridy = 5;
@@ -145,7 +145,7 @@ public class ViewArticleDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 6;
         c.insets = new Insets(5, 5, 5, 5);
-        articlePanel.add(new JLabel("Last Updated Time:"), c);
+        articlePanel.add(new JLabel("Last Updated Time"), c);
 
         c.gridx = 1;
         c.gridy = 6;
