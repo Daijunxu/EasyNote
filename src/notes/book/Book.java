@@ -107,8 +107,8 @@ public class Book extends AbstractDocument {
         bookElement.addAttribute("DocumentTitle", documentTitle);
         bookElement.addAttribute("AuthorsList", EntityHelper.buildEntityStrFromList(authorsList));
         bookElement.addAttribute("Comment", comment);
-        bookElement.addAttribute("Edition", edition.toString());
-        bookElement.addAttribute("PublishedYear", publishedYear.toString());
+        bookElement.addAttribute("Edition", (edition == null) ? null : edition.toString());
+        bookElement.addAttribute("PublishedYear", (publishedYear == null) ? null : publishedYear.toString());
         bookElement.addAttribute("ISBN", isbn);
         bookElement.addAttribute("CreatedTime", String.valueOf(createdTime.getTime()));
         bookElement.addAttribute("LastUpdatedTime", String.valueOf(lastUpdatedTime.getTime()));
@@ -129,8 +129,12 @@ public class Book extends AbstractDocument {
         documentTitle = element.attributeValue("DocumentTitle");
         authorsList = EntityHelper.buildAuthorsStrList(element.attributeValue("AuthorsList"));
         comment = element.attributeValue("Comment");
-        edition = Integer.parseInt(element.attributeValue("Edition"));
-        publishedYear = Integer.parseInt(element.attributeValue("PublishedYear"));
+        if (element.attributeValue("Edition") != null) {
+            edition = Integer.parseInt(element.attributeValue("Edition"));
+        }
+        if (element.attributeValue("PublishedYear") != null) {
+            publishedYear = Integer.parseInt(element.attributeValue("PublishedYear"));
+        }
         isbn = element.attributeValue("ISBN");
         createdTime = new Date(Long.parseLong(element.attributeValue("CreatedTime")));
         lastUpdatedTime = new Date(Long.parseLong(element.attributeValue("LastUpdatedTime")));
