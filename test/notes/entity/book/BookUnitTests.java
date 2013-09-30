@@ -1,7 +1,7 @@
 /**
  *
  */
-package notes.book;
+package notes.entity.book;
 
 import core.EasyNoteUnitTestCase;
 import notes.data.cache.Cache;
@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 public class BookUnitTests extends EasyNoteUnitTestCase {
 
     /**
-     * Test method for {@link notes.book.Book#equals(java.lang.Object)}.
+     * Test method for {@link notes.entity.book.Book#equals(java.lang.Object)}.
      */
     @Test
     public void testEquals() {
@@ -36,7 +36,7 @@ public class BookUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.book.Book#getNotesCount()}.
+     * Test method for {@link notes.entity.book.Book#getNotesCount()}.
      */
     @Test
     public void testGetNotesCount() {
@@ -44,7 +44,7 @@ public class BookUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.book.Book#hashCode()}.
+     * Test method for {@link notes.entity.book.Book#hashCode()}.
      */
     @Test
     public void testHashCode() {
@@ -54,7 +54,7 @@ public class BookUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.book.Book#toString()}.
+     * Test method for {@link notes.entity.book.Book#toString()}.
      */
     @Test
     public void testToString() {
@@ -68,7 +68,7 @@ public class BookUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.book.Book#toXMLElement()}.
+     * Test method for {@link notes.entity.book.Book#toXMLElement()}.
      */
     @Test
     public void testToXMLElement() {
@@ -105,7 +105,7 @@ public class BookUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.book.Book#buildFromXMLElement(org.dom4j.Element)}.
+     * Test method for {@link notes.entity.book.Book#buildFromXMLElement(org.dom4j.Element)}.
      */
     @Test
     public void testBuildFromXMLElement() {

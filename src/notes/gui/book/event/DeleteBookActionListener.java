@@ -3,17 +3,16 @@
  */
 package notes.gui.book.event;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JOptionPane;
-
 import notes.bean.BookHome;
-import notes.book.Book;
 import notes.data.cache.Property;
+import notes.entity.book.Book;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Defines event listener of deleting a book.

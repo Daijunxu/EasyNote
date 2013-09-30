@@ -3,18 +3,18 @@
  */
 package notes.dao.impl;
 
+import notes.dao.DuplicateRecordException;
+import notes.data.cache.Cache;
+import notes.entity.Document;
+import notes.entity.Note;
+import notes.entity.article.Article;
+import notes.entity.article.ArticleNote;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import notes.article.Article;
-import notes.article.ArticleNote;
-import notes.dao.DuplicateRecordException;
-import notes.data.cache.Cache;
-import notes.entity.Document;
-import notes.entity.Note;
 
 /**
  * Data access object for article notes.

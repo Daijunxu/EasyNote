@@ -4,8 +4,8 @@
 package notes.gui.main.component;
 
 import notes.bean.BookHome;
-import notes.book.BookNote;
 import notes.entity.Note;
+import notes.entity.book.BookNote;
 
 import javax.swing.*;
 import java.awt.*;

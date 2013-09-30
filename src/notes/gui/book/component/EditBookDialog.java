@@ -4,9 +4,9 @@
 package notes.gui.book.component;
 
 import notes.bean.BookHome;
-import notes.book.Book;
 import notes.dao.impl.BookNoteDAO;
 import notes.data.cache.Property;
+import notes.entity.book.Book;
 import notes.gui.book.verifier.EditionInputVerifier;
 import notes.gui.book.verifier.ISBNInputVerifier;
 import notes.gui.book.verifier.PublishedYearInputVerifier;

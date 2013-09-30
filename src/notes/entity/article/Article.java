@@ -1,7 +1,7 @@
 /**
  *
  */
-package notes.article;
+package notes.entity.article;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

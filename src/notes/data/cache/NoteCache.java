@@ -5,10 +5,10 @@ package notes.data.cache;
 
 import lombok.Getter;
 import lombok.Setter;
-import notes.article.ArticleNote;
-import notes.book.BookNote;
 import notes.entity.Note;
 import notes.entity.XMLSerializable;
+import notes.entity.article.ArticleNote;
+import notes.entity.book.BookNote;
 import org.dom4j.Element;
 import org.dom4j.tree.DefaultElement;
 

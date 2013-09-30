@@ -3,15 +3,15 @@
  */
 package notes.dao.impl;
 
-import notes.article.Article;
-import notes.book.Book;
-import notes.book.Chapter;
-import notes.dao.NoteDAO;
 import notes.dao.DuplicateRecordException;
+import notes.dao.NoteDAO;
 import notes.data.cache.Cache;
 import notes.entity.Document;
 import notes.entity.Note;
 import notes.entity.Tag;
+import notes.entity.article.Article;
+import notes.entity.book.Book;
+import notes.entity.book.Chapter;
 
 import java.util.ArrayList;
 import java.util.Collections;

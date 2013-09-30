@@ -3,12 +3,12 @@
  */
 package notes.gui.main.event;
 
-import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
-import notes.book.BookNote;
 import notes.data.cache.Property;
 import notes.entity.SystemMode;
+import notes.entity.article.ArticleNote;
+import notes.entity.book.BookNote;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;

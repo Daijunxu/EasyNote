@@ -5,11 +5,11 @@ package notes.bean;
 
 import lombok.Getter;
 import lombok.Setter;
-import notes.book.Book;
-import notes.book.BookNote;
-import notes.book.Chapter;
 import notes.dao.impl.BookNoteDAO;
 import notes.entity.Document;
+import notes.entity.book.Book;
+import notes.entity.book.BookNote;
+import notes.entity.book.Chapter;
 
 import java.io.Serializable;
 import java.util.ArrayList;

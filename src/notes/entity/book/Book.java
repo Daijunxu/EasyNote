@@ -1,4 +1,4 @@
-package notes.book;
+package notes.entity.book;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

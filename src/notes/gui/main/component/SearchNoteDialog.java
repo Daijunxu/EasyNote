@@ -3,13 +3,13 @@
  */
 package notes.gui.main.component;
 
-import notes.article.Article;
 import notes.bean.BookHome;
-import notes.book.Book;
 import notes.dao.impl.BookNoteDAO;
 import notes.data.cache.Property;
 import notes.entity.Document;
 import notes.entity.Note;
+import notes.entity.article.Article;
+import notes.entity.book.Book;
 import notes.gui.main.event.SearchNoteDialogWindowListener;
 import notes.gui.main.event.SearchNoteListMouseListener;
 import notes.utils.EntityHelper;

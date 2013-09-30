@@ -3,10 +3,10 @@
  */
 package notes.gui.article.component;
 
-import notes.article.Article;
 import notes.bean.ArticleHome;
 import notes.dao.impl.ArticleNoteDAO;
 import notes.data.cache.Property;
+import notes.entity.article.Article;
 import notes.gui.main.component.MainPanel;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;

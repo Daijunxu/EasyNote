@@ -4,8 +4,8 @@
 package notes.gui.book.event;
 
 import notes.bean.BookHome;
-import notes.book.BookNote;
 import notes.data.cache.Property;
+import notes.entity.book.BookNote;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;

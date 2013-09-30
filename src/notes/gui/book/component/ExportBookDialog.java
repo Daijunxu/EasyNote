@@ -4,10 +4,10 @@
 package notes.gui.book.component;
 
 import notes.bean.BookHome;
-import notes.book.Book;
-import notes.book.BookNote;
-import notes.book.Chapter;
 import notes.data.cache.Property;
+import notes.entity.book.Book;
+import notes.entity.book.BookNote;
+import notes.entity.book.Chapter;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.PreferencesDialog;
 import notes.utils.SoundFactory;

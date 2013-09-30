@@ -1,7 +1,7 @@
 /**
  *
  */
-package notes.article;
+package notes.entity.article;
 
 import core.EasyNoteUnitTestCase;
 import notes.data.cache.Cache;
@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 public class ArticleUnitTests extends EasyNoteUnitTestCase {
 
     /**
-     * Test method for {@link notes.article.Article#equals(java.lang.Object)}.
+     * Test method for {@link notes.entity.article.Article#equals(java.lang.Object)}.
      */
     @Test
     public void testEquals() {
@@ -36,7 +36,7 @@ public class ArticleUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.article.Article#getNotesCount()}.
+     * Test method for {@link notes.entity.article.Article#getNotesCount()}.
      */
     @Test
     public void testGetNotesCount() {
@@ -44,7 +44,7 @@ public class ArticleUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.article.Article#hashCode()}.
+     * Test method for {@link notes.entity.article.Article#hashCode()}.
      */
     @Test
     public void testHashCode() {
@@ -54,7 +54,7 @@ public class ArticleUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.article.Article#toString()}.
+     * Test method for {@link notes.entity.article.Article#toString()}.
      */
     @Test
     public void testToString() {
@@ -66,7 +66,7 @@ public class ArticleUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.article.Article#toXMLElement()}.
+     * Test method for {@link notes.entity.article.Article#toXMLElement()}.
      */
     @Test
     public void testToXMLElement() {
@@ -96,7 +96,7 @@ public class ArticleUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.article.Article#buildFromXMLElement(org.dom4j.Element)}.
+     * Test method for {@link notes.entity.article.Article#buildFromXMLElement(org.dom4j.Element)}.
      */
     @Test
     public void testBuildFromXMLElement() {

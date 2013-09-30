@@ -3,14 +3,14 @@
  */
 package notes.gui.main.component;
 
-import notes.article.Article;
-import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
-import notes.book.Book;
-import notes.book.BookNote;
 import notes.data.cache.Property;
 import notes.entity.Note;
+import notes.entity.article.Article;
+import notes.entity.article.ArticleNote;
+import notes.entity.book.Book;
+import notes.entity.book.BookNote;
 import notes.gui.main.event.EditNoteActionListener;
 import notes.gui.main.event.ViewNoteActionListener;
 import notes.utils.SoundFactory;

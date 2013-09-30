@@ -4,11 +4,11 @@
 package notes.dao.impl;
 
 import core.EasyNoteUnitTestCase;
-import notes.book.Book;
-import notes.book.BookNote;
-import notes.book.Chapter;
 import notes.data.cache.Cache;
 import notes.entity.Note;
+import notes.entity.book.Book;
+import notes.entity.book.BookNote;
+import notes.entity.book.Chapter;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.BookNoteDAO#deleteChapter(notes.book.Chapter, java.lang.Long)}.
+     * {@link notes.dao.impl.BookNoteDAO#deleteChapter(notes.entity.book.Chapter, java.lang.Long)}.
      */
     @Test
     public void testDeleteChapter() {
@@ -121,7 +121,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.BookNoteDAO#mergeChapter(notes.book.Chapter, java.lang.Long)}.
+     * {@link notes.dao.impl.BookNoteDAO#mergeChapter(notes.entity.book.Chapter, java.lang.Long)}.
      */
     @Test
     public void testMergeChapter() {
@@ -197,7 +197,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.BookNoteDAO#saveChapter(notes.book.Chapter, java.lang.Long)}.
+     * {@link notes.dao.impl.BookNoteDAO#saveChapter(notes.entity.book.Chapter, java.lang.Long)}.
      */
     @Test
     public void testSaveChapter() {

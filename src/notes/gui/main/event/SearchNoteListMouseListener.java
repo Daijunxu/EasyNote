@@ -3,15 +3,15 @@
  */
 package notes.gui.main.event;
 
-import notes.article.Article;
-import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
-import notes.book.Book;
-import notes.book.BookNote;
-import notes.book.Chapter;
 import notes.data.cache.Property;
 import notes.entity.Note;
+import notes.entity.article.Article;
+import notes.entity.article.ArticleNote;
+import notes.entity.book.Book;
+import notes.entity.book.BookNote;
+import notes.entity.book.Chapter;
 import notes.gui.article.component.ViewArticleNoteDialog;
 import notes.gui.book.component.ViewBookNoteDialog;
 import notes.gui.main.component.SearchNotePopupMenu;

@@ -5,10 +5,10 @@ package notes.bean;
 
 import lombok.Getter;
 import lombok.Setter;
-import notes.article.Article;
-import notes.article.ArticleNote;
 import notes.dao.impl.ArticleNoteDAO;
 import notes.entity.Document;
+import notes.entity.article.Article;
+import notes.entity.article.ArticleNote;
 
 import java.io.Serializable;
 import java.util.ArrayList;

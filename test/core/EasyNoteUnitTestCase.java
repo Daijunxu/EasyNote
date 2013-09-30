@@ -1,15 +1,15 @@
 package core;
 
-import notes.article.Article;
-import notes.article.ArticleNote;
-import notes.book.Book;
-import notes.book.BookNote;
-import notes.book.Chapter;
 import notes.data.cache.Cache;
 import notes.data.cache.Property;
 import notes.entity.Document;
 import notes.entity.Note;
 import notes.entity.Tag;
+import notes.entity.article.Article;
+import notes.entity.article.ArticleNote;
+import notes.entity.book.Book;
+import notes.entity.book.BookNote;
+import notes.entity.book.Chapter;
 import org.junit.Before;
 
 import java.util.ArrayList;

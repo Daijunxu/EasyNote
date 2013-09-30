@@ -4,10 +4,10 @@
 package notes.dao.impl;
 
 import core.EasyNoteUnitTestCase;
-import notes.article.Article;
-import notes.article.ArticleNote;
 import notes.data.cache.Cache;
 import notes.entity.Note;
+import notes.entity.article.Article;
+import notes.entity.article.ArticleNote;
 import org.junit.Test;
 
 import java.util.ArrayList;

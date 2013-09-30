@@ -1,7 +1,7 @@
 /**
  *
  */
-package notes.article;
+package notes.entity.article;
 
 import core.EasyNoteUnitTestCase;
 import notes.data.cache.Cache;
@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 public class ArticleNoteUnitTests extends EasyNoteUnitTestCase {
 
     /**
-     * Test method for {@link notes.article.ArticleNote#equals(java.lang.Object)}.
+     * Test method for {@link notes.entity.article.ArticleNote#equals(java.lang.Object)}.
      */
     @Test
     public void testEquals() {
@@ -36,7 +36,7 @@ public class ArticleNoteUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.article.ArticleNote#hashCode()}.
+     * Test method for {@link notes.entity.article.ArticleNote#hashCode()}.
      */
     @Test
     public void testHashCode() {
@@ -46,7 +46,7 @@ public class ArticleNoteUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.article.ArticleNote#toString()}.
+     * Test method for {@link notes.entity.article.ArticleNote#toString()}.
      */
     @Test
     public void testToString() {
@@ -59,7 +59,7 @@ public class ArticleNoteUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.article.ArticleNote#toXMLElement()}.
+     * Test method for {@link notes.entity.article.ArticleNote#toXMLElement()}.
      */
     @Test
     public void testToXMLElement() {
@@ -85,7 +85,7 @@ public class ArticleNoteUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.article.ArticleNote#buildFromXMLElement(org.dom4j.Element)}.
+     * Test method for {@link notes.entity.article.ArticleNote#buildFromXMLElement(org.dom4j.Element)}.
      */
     @Test
     public void testBuildFromXMLElement() {

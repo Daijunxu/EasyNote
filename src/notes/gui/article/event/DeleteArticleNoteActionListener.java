@@ -3,17 +3,16 @@
  */
 package notes.gui.article.event;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JOptionPane;
-
-import notes.article.ArticleNote;
 import notes.bean.ArticleHome;
 import notes.data.cache.Property;
+import notes.entity.article.ArticleNote;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Defines event listener of deleting an article note.
