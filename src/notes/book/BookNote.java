@@ -20,7 +20,7 @@ import java.util.List;
  * @version 1.0
  */
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true, includeFieldNames = true)
 public class BookNote extends AbstractNote {
 

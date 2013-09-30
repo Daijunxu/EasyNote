@@ -33,6 +33,9 @@ public class ChapterListSelectionListener implements ListSelectionListener {
             MainPanel frame = MainPanel.get();
             frame.remove(frame.getNotesPanel());
 
+            // Clears the temporary data.
+            BookHome.get().clearTemporaryDataWhenChapterChanged();
+
             JList list = (JList) event.getSource();
             int selected = list.getSelectedIndex();
 

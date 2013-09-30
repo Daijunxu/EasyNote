@@ -111,6 +111,14 @@ public class BookHome implements Serializable {
     }
 
     /**
+     * Clears the corresponding temporary data when current chapter is changed.
+     */
+    public void clearTemporaryDataWhenChapterChanged() {
+        currentChapter = null;
+        currentBookNote = null;
+    }
+
+    /**
      * Updates the data members in BookHome, which are acquired from Cache.
      *
      * @param documentId The current selected document ID.

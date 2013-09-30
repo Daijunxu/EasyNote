@@ -572,6 +572,9 @@ public class MainPanel extends JFrame {
         notesList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         notesList.addListSelectionListener(new NoteListSelectionListener());
         notesList.addMouseListener(new ArticleNoteListMouseListener());
+        if (home.getCurrentArticleNote() != null) {
+            notesList.setSelectedValue(home.getCurrentArticleNote(), false);
+        }
         JScrollPane notesScrollPane = new JScrollPane(notesList);
         notesScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
 
@@ -582,8 +585,6 @@ public class MainPanel extends JFrame {
 
         setNotesPanel(notesPane);
         add(notesPane, BorderLayout.CENTER);
-
-        home.setCurrentArticleNote(null);
 
         add(notesPanel, BorderLayout.CENTER);
         validate();
@@ -616,12 +617,17 @@ public class MainPanel extends JFrame {
 
         // Create note scroll pane for each chapter.
         JList notesList = new JList(notesObject);
-        int notesListWidth = 945;
+        int notesListWidth = getWidth() - BOOK_NOTE_LIST_PANEL_WIDTH_INDENTATION;
         notesList.setCellRenderer(new NoteListCellRenderer(notesListWidth - 7));
         notesList.setFixedCellWidth(notesListWidth);
         notesList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         notesList.addListSelectionListener(new NoteListSelectionListener());
         notesList.addMouseListener(new BookNoteListMouseListener());
+
+        if (home.getCurrentBookNote() != null) {
+            notesList.setSelectedValue(home.getCurrentBookNote(), false);
+        }
+
         JScrollPane notesScrollPane = new JScrollPane(notesList);
         notesScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
 
@@ -632,8 +638,6 @@ public class MainPanel extends JFrame {
 
         setNotesPanel(notesPanel);
         add(notesPanel, BorderLayout.CENTER);
-
-        home.setCurrentBookNote(null);
 
         validate();
     }
