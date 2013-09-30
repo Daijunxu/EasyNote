@@ -121,10 +121,23 @@ public class ViewBookNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Tags"), c);
+        notePanel.add(new JLabel("Note Text"), c);
 
         c.gridx = 1;
         c.gridy = 3;
+        c.insets = new Insets(5, 5, 5, 5);
+        noteTextField.setLineWrap(true);
+        noteTextField.setText(selectedNote.getNoteText());
+        noteTextField.setEditable(false);
+        notePanel.add(new JScrollPane(noteTextField), c);
+
+        c.gridx = 0;
+        c.gridy = 4;
+        c.insets = new Insets(5, 5, 5, 5);
+        notePanel.add(new JLabel("Tags"), c);
+
+        c.gridx = 1;
+        c.gridy = 4;
         c.insets = new Insets(5, 5, 5, 5);
         StringBuilder tagStrBuilder = new StringBuilder();
         if (!selectedNote.getTagIds().isEmpty()) {
@@ -137,19 +150,6 @@ public class ViewBookNoteDialog extends JDialog {
         tagsField.setText(tagStrBuilder.toString());
         tagsField.setEditable(false);
         notePanel.add(new JScrollPane(tagsField), c);
-
-        c.gridx = 0;
-        c.gridy = 4;
-        c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Note Text"), c);
-
-        c.gridx = 1;
-        c.gridy = 4;
-        c.insets = new Insets(5, 5, 5, 5);
-        noteTextField.setLineWrap(true);
-        noteTextField.setText(selectedNote.getNoteText());
-        noteTextField.setEditable(false);
-        notePanel.add(new JScrollPane(noteTextField), c);
 
         c.gridx = 0;
         c.gridy = 5;

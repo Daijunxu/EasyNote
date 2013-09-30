@@ -41,11 +41,11 @@ public class NewArticleNoteDialog extends JDialog {
                 return;
             }
             for (String tagStr : tagsStrList) {
-                if (tagStr.length() > 20) {
+                if (tagStr.length() > 30) {
                     if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                         SoundFactory.playError();
                     }
-                    JOptionPane.showMessageDialog(null, "A tag can have at most 20 characters!",
+                    JOptionPane.showMessageDialog(null, "A tag can have at most 30 characters!",
                             "Input error", JOptionPane.ERROR_MESSAGE);
                     tagsField.requestFocus();
                     return;
@@ -148,30 +148,30 @@ public class NewArticleNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Tags"), c);
-
-        c.gridx = 1;
-        c.gridy = 1;
-        c.insets = new Insets(5, 5, 0, 5);
-        notePanel.add(tagsField, c);
-
-        c.gridx = 1;
-        c.gridy = 2;
-        c.insets = new Insets(0, 5, 5, 5);
-        JLabel suggestionLabel = new JLabel("Words separated by \",\".");
-        suggestionLabel.setForeground(Color.GRAY);
-        notePanel.add(suggestionLabel, c);
-
-        c.gridx = 0;
-        c.gridy = 3;
-        c.insets = new Insets(5, 5, 5, 5);
         notePanel.add(new JLabel("Note Text *"), c);
 
         noteTextField.setLineWrap(true);
         c.gridx = 1;
-        c.gridy = 3;
+        c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         notePanel.add(new JScrollPane(noteTextField), c);
+
+        c.gridx = 0;
+        c.gridy = 2;
+        c.insets = new Insets(5, 5, 5, 5);
+        notePanel.add(new JLabel("Tags"), c);
+
+        c.gridx = 1;
+        c.gridy = 2;
+        c.insets = new Insets(5, 5, 0, 5);
+        notePanel.add(tagsField, c);
+
+        c.gridx = 1;
+        c.gridy = 3;
+        c.insets = new Insets(0, 5, 5, 5);
+        JLabel suggestionLabel = new JLabel("Words separated by \",\".");
+        suggestionLabel.setForeground(Color.GRAY);
+        notePanel.add(suggestionLabel, c);
 
         dialogPanel.add(notePanel);
 

@@ -52,11 +52,11 @@ public class EditBookNoteDialog extends JDialog {
                 return;
             }
             for (String tagStr : tagsStrList) {
-                if (tagStr.length() > 20) {
+                if (tagStr.length() > 30) {
                     if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                         SoundFactory.playError();
                     }
-                    JOptionPane.showMessageDialog(null, "A tag can have at most 20 characters!",
+                    JOptionPane.showMessageDialog(null, "A tag can have at most 30 characters!",
                             "Input error", JOptionPane.ERROR_MESSAGE);
                     tagsField.requestFocus();
                     return;
@@ -185,10 +185,22 @@ public class EditBookNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 2;
         c.insets = new Insets(5, 5, 5, 5);
+        notePanel.add(new JLabel("Note Text *"), c);
+
+        noteTextField.setLineWrap(true);
+        c.gridx = 1;
+        c.gridy = 2;
+        c.insets = new Insets(5, 5, 5, 5);
+        noteTextField.setText(selectedNote.getNoteText());
+        notePanel.add(new JScrollPane(noteTextField), c);
+
+        c.gridx = 0;
+        c.gridy = 3;
+        c.insets = new Insets(5, 5, 5, 5);
         notePanel.add(new JLabel("Tags"), c);
 
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 3;
         c.insets = new Insets(5, 5, 0, 5);
         StringBuilder tagStrBuilder = new StringBuilder();
         if (!selectedNote.getTagIds().isEmpty()) {
@@ -202,24 +214,12 @@ public class EditBookNoteDialog extends JDialog {
         notePanel.add(new JScrollPane(tagsField), c);
 
         c.gridx = 1;
-        c.gridy = 3;
+        c.gridy = 4;
         c.insets = new Insets(0, 5, 5, 5);
         JLabel suggestionLabel = new JLabel(
                 "Use capitalized words and separate tags by \",\". E.g. \"Design Pattern,Algorithm\"");
         suggestionLabel.setForeground(Color.GRAY);
         notePanel.add(suggestionLabel, c);
-
-        c.gridx = 0;
-        c.gridy = 4;
-        c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Note Text *"), c);
-
-        noteTextField.setLineWrap(true);
-        c.gridx = 1;
-        c.gridy = 4;
-        c.insets = new Insets(5, 5, 5, 5);
-        noteTextField.setText(selectedNote.getNoteText());
-        notePanel.add(new JScrollPane(noteTextField), c);
 
         dialogPanel.add(notePanel);
 
