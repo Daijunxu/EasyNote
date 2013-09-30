@@ -591,43 +591,6 @@ public class MainPanel extends JFrame {
     }
 
     /**
-     * Update the book note panel with the current temporary data. No temporary data is reloaded.
-     */
-    public void updateBookNotePanel() {
-        BookHome home = BookHome.get();
-        remove(notesPanel);
-
-        // Get current notes data.
-        Object[] notesObject = new BookNote[home.getCurrentBookNotesList().size()];
-        for (int i = 0; i < home.getCurrentBookNotesList().size(); i++) {
-            notesObject[i] = home.getCurrentBookNotesList().get(i);
-        }
-
-        // Create note scroll pane for each chapter.
-        JList notesList = new JList(notesObject);
-        int notesListWidth = getWidth() - BOOK_NOTE_LIST_PANEL_WIDTH_INDENTATION;
-        notesList.setCellRenderer(new NoteListCellRenderer(notesListWidth - 7));
-        notesList.setFixedCellWidth(notesListWidth);
-        notesList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        notesList.addListSelectionListener(new NoteListSelectionListener());
-        notesList.addMouseListener(new BookNoteListMouseListener());
-        JScrollPane notesScrollPane = new JScrollPane(notesList);
-        notesScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
-
-        JPanel notesPane = new JPanel();
-        notesPane.setLayout(new BoxLayout(notesPane, BoxLayout.PAGE_AXIS));
-        notesPane.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 5));
-        notesPane.add(notesScrollPane);
-
-        setNotesPanel(notesPane);
-        add(notesPane, BorderLayout.CENTER);
-
-        home.setCurrentBookNote(null);
-
-        validate();
-    }
-
-    /**
      * Update the book note panel with the provided chapter. Reload some temporary data is reloaded
      * before the update.
      *
@@ -637,11 +600,15 @@ public class MainPanel extends JFrame {
         BookHome home = BookHome.get();
         remove(notesPanel);
 
+        // Set the notes panel for current chapter.
+        if (currentChapter != null) {
+            home.setCurrentChapter(currentChapter);
+            List<BookNote> notesDataList = home.getCurrentChapterNotesMap().get(
+                    currentChapter.getChapterId());
+            home.setCurrentBookNotesList(notesDataList);
+        }
+
         // Get current notes data.
-        home.setCurrentChapter(currentChapter);
-        List<BookNote> notesDataList = home.getCurrentChapterNotesMap().get(
-                currentChapter.getChapterId());
-        home.setCurrentBookNotesList(notesDataList);
         Object[] notesObject = new BookNote[home.getCurrentBookNotesList().size()];
         for (int i = 0; i < home.getCurrentBookNotesList().size(); i++) {
             notesObject[i] = home.getCurrentBookNotesList().get(i);

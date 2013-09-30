@@ -103,7 +103,7 @@ public class EditBookNoteDialog extends JDialog {
             if (frame.isSearchMode()) {
                 SearchNoteDialog.get().updateResultPanel();
             } else {
-                frame.updateBookNotePanel();
+                frame.updateBookNotePanel(null);
             }
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {

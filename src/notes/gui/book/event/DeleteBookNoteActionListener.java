@@ -3,17 +3,16 @@
  */
 package notes.gui.book.event;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JOptionPane;
-
 import notes.bean.BookHome;
 import notes.book.BookNote;
 import notes.data.cache.Property;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Defines event listener of deleting a book note.
@@ -53,7 +52,7 @@ public class DeleteBookNoteActionListener implements ActionListener {
                 home.updateTemporaryData(home.getCurrentBook().getDocumentId(), home
                         .getCurrentChapter().getChapterId(), null);
                 // Update the note panel.
-                frame.updateBookNotePanel();
+                frame.updateBookNotePanel(null);
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playDelete();
                 }

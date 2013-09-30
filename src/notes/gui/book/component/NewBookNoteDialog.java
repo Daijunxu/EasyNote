@@ -107,7 +107,7 @@ public class NewBookNoteDialog extends JDialog {
                     .getCurrentChapter().getChapterId(), cachedBookNote.getNoteId());
 
             // Update the note panel.
-            frame.updateBookNotePanel();
+            frame.updateBookNotePanel(null);
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playUpdate();
