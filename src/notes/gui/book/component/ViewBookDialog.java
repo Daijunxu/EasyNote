@@ -22,6 +22,19 @@ import java.util.List;
  */
 public class ViewBookDialog extends JDialog {
 
+    private final JButton editButton = new JButton(new AbstractAction("Edit") {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+                SoundFactory.playNavigation();
+            }
+            // Make the current view book note dialog disappear.
+            setVisible(false);
+
+            // Show edit book dialog.
+            new EditBookDialog();
+        }
+    });
     private final JButton okButton = new JButton(new AbstractAction("OK") {
         public void actionPerformed(ActionEvent e) {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
@@ -200,6 +213,7 @@ public class ViewBookDialog extends JDialog {
         dialogPanel.add(bookPanel);
 
         JPanel buttons = new JPanel(new FlowLayout());
+        buttons.add(editButton);
         buttons.add(okButton);
 
         dialogPanel.add(buttons);
