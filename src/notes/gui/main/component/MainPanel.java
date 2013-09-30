@@ -70,9 +70,8 @@ public class MainPanel extends JFrame {
 
     public static final int DEFAULT_WIDTH = 1280;
     public static final int DEFAULT_HEIGHT = 800;
-    public static final int ARTICLE_NOTE_LIST_PANEL_WIDTH_INDENTATION = 28;
-    public static final int BOOK_NOTE_LIST_PANEL_WIDTH_INDENTATION = 320;
-//    public static final int BOOK_NOTE_LIST_PANEL_WIDTH_INDENTATION = 318;
+    public static final int ARTICLE_NOTE_LIST_PANEL_WIDTH_INDENTATION = 40; // For Ubuntu this value should be 28.
+    public static final int BOOK_NOTE_LIST_PANEL_WIDTH_INDENTATION = 342; // For Ubuntu this value should be 328.
 
     /**
      * The single instance of {@code MainPanel}.

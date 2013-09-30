@@ -83,3 +83,4 @@
 [09/15/2013] 12983: Add edit button in view book/article note dialog and search dialog. Deprecate ViewNoteDialog and use specific view dialogs.
 [09/22/2013] 13857(120): Switch data storage to XML format.
 [09/22/2013] 13259(120): Remove legacy code for old data format.
+[09/29/2013] 13348(122): Support resizing for the main panel.
