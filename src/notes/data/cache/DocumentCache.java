@@ -9,6 +9,7 @@ import notes.entity.Document;
 import notes.entity.XMLSerializable;
 import notes.entity.article.Article;
 import notes.entity.book.Book;
+import notes.entity.workset.WorkSet;
 import org.dom4j.Element;
 import org.dom4j.tree.DefaultElement;
 
@@ -98,6 +99,8 @@ public class DocumentCache implements XMLSerializable {
                 newDocument = new Book().buildFromXMLElement(documentElement);
             } else if (documentElement.getName().equals("Article")) {
                 newDocument = new Article().buildFromXMLElement(documentElement);
+            } else if (documentElement.getName().equals("WorkSet")) {
+                newDocument = new WorkSet().buildFromXMLElement(documentElement);
             } else {
                 throw new UnsupportedOperationException("Unsupported document type: " + documentElement.getName());
             }

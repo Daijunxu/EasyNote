@@ -4,12 +4,16 @@ import notes.data.cache.Cache;
 import notes.data.cache.Property;
 import notes.entity.Document;
 import notes.entity.Note;
+import notes.entity.NoteStatus;
 import notes.entity.Tag;
 import notes.entity.article.Article;
 import notes.entity.article.ArticleNote;
 import notes.entity.book.Book;
 import notes.entity.book.BookNote;
 import notes.entity.book.Chapter;
+import notes.entity.workset.WorkSet;
+import notes.entity.workset.Worksheet;
+import notes.entity.workset.WorksheetNote;
 import org.junit.Before;
 
 import java.util.ArrayList;
@@ -96,10 +100,27 @@ public class EasyNoteUnitTestCase {
             document2.setNotesList(new ArrayList<Long>(Arrays.asList(2L)));
             documentMap.put(document2.getDocumentId(), document2);
 
+            WorkSet document3 = new WorkSet();
+            document3.setDocumentId(3L);
+            document3.setDocumentTitle("My WorkSet");
+            document3.setAuthorsList(new ArrayList<String>(Arrays.asList("Rui Du")));
+            document3.setComment("This is my workset.");
+            TreeMap<Long, Worksheet> worksheetsMap = new TreeMap<Long, Worksheet>();
+            Worksheet worksheet1 = new Worksheet(1L, "Worksheet1", new ArrayList<Long>());
+            worksheet1.getNotesList().add(3L);
+            Worksheet worksheet2 = new Worksheet(2L, "Worksheet2", new ArrayList<Long>());
+            worksheetsMap.put(1L, worksheet1);
+            worksheetsMap.put(2L, worksheet2);
+            document3.setWorksheetsMap(worksheetsMap);
+            document3.setCreatedTime(new Date(1341429512312L));
+            document3.setLastUpdatedTime(new Date(1341429512312L));
+            documentMap.put(document3.getDocumentId(), document3);
+
             documentTitleIdMap.put(document1.getDocumentTitle(), document1.getDocumentId());
             documentTitleIdMap.put(document2.getDocumentTitle(), document2.getDocumentId());
+            documentTitleIdMap.put(document3.getDocumentTitle(), document3.getDocumentId());
 
-            maxDocumentId = 2L;
+            maxDocumentId = 3L;
 
             Tag tag1 = new Tag(1L, "Algorithm");
             tagIdMap.put(tag1.getTagId(), tag1);
@@ -132,7 +153,17 @@ public class EasyNoteUnitTestCase {
             note2.setCreatedTime(new Date(1341429591369L));
             noteMap.put(note2.getNoteId(), note2);
 
-            maxNoteId = 2L;
+            WorksheetNote note3 = new WorksheetNote();
+            note3.setNoteId(3L);
+            note3.setDocumentId(3L);
+            note3.setWorksheetId(1L);
+            note3.setTagIds(new ArrayList<Long>(Arrays.asList(2L)));
+            note3.setNoteText("A note in the worksheet.");
+            note3.setNoteStatus(NoteStatus.DONE);
+            note3.setCreatedTime(new Date(1341429578719L));
+            noteMap.put(note3.getNoteId(), note3);
+
+            maxNoteId = 3L;
         }
 
     }

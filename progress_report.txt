@@ -84,3 +84,4 @@
 [09/22/2013] 13857(120): Switch data storage to XML format.
 [09/22/2013] 13259(120): Remove legacy code for old data format.
 [09/29/2013] 13348(122): Support resizing for the main panel.
+[10/01/2013] 13956(128): Add entity classes and tests for WorkSet.

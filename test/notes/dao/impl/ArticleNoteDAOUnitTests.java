@@ -138,7 +138,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testSaveDocument() {
         Article newArticle = new Article();
-        newArticle.setDocumentId(3L);
+        newArticle.setDocumentId(4L);
         newArticle.setDocumentTitle("Data Mining");
         newArticle.setAuthorsList(new ArrayList<String>(Arrays.asList("Author")));
         newArticle.setComment("Good article.");
@@ -160,7 +160,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testSaveNote() {
         ArticleNote newArticleNote = new ArticleNote();
-        newArticleNote.setNoteId(3L);
+        newArticleNote.setNoteId(4L);
         newArticleNote.setDocumentId(2L);
         newArticleNote.setTagIds(new ArrayList<Long>(Arrays.asList(2L)));
         newArticleNote.setNoteText("New note.");

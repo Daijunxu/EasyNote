@@ -59,6 +59,7 @@ public class WorksheetNote extends AbstractNote {
         this.worksheetId = worksheetId;
         this.tagIds = tagIds;
         this.noteText = noteText;
+        this.noteStatus = noteStatus;
         this.createdTime = new Date(System.currentTimeMillis());
     }
 

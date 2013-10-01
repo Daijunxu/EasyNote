@@ -9,6 +9,7 @@ import notes.entity.Note;
 import notes.entity.XMLSerializable;
 import notes.entity.article.ArticleNote;
 import notes.entity.book.BookNote;
+import notes.entity.workset.WorksheetNote;
 import org.dom4j.Element;
 import org.dom4j.tree.DefaultElement;
 
@@ -91,6 +92,8 @@ public class NoteCache implements XMLSerializable {
                 newNote = new BookNote().buildFromXMLElement(noteElement);
             } else if (noteElement.getName().equals("ArticleNote")) {
                 newNote = new ArticleNote().buildFromXMLElement(noteElement);
+            } else if (noteElement.getName().equals("WorksheetNote")) {
+                newNote = new WorksheetNote().buildFromXMLElement(noteElement);
             } else {
                 throw new UnsupportedOperationException("Unsupported note type: " + noteElement.getName());
             }

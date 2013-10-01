@@ -5,6 +5,7 @@ package notes.entity.book;
 
 import core.EasyNoteUnitTestCase;
 import notes.data.cache.Cache;
+import notes.utils.EntityHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Element;
 import org.junit.Test;
@@ -79,6 +80,7 @@ public class ChapterUnitTests extends EasyNoteUnitTestCase {
         assertNotNull(chapterElement.getText());
         assertEquals(Long.parseLong(chapterElement.attributeValue("ChapterId")), testChapter.getChapterId().longValue());
         assertEquals(chapterElement.attributeValue("ChapterTitle"), testChapter.getChapterTitle());
+        assertEquals(chapterElement.attributeValue("NotesList"), EntityHelper.buildEntityStrFromList(testChapter.getNotesList()));
     }
 
     /**

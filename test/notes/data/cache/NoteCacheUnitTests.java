@@ -72,7 +72,9 @@ public class NoteCacheUnitTests extends EasyNoteUnitTestCase {
         assertNotNull(noteCacheElement.elements());
         assertEquals(noteCacheElement.elements().size(), testData.noteMap.size());
         for (Element element : noteCacheElement.elements()) {
-            assertTrue(element.getName().equals("BookNote") || element.getName().equals("ArticleNote"));
+            assertTrue(element.getName().equals("BookNote")
+                    || element.getName().equals("ArticleNote")
+                    || element.getName().equals("WorksheetNote"));
         }
     }
 

@@ -218,7 +218,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testSaveDocument() {
         Book newBook = new Book();
-        newBook.setDocumentId(3L);
+        newBook.setDocumentId(4L);
         newBook.setDocumentTitle("Data Mining");
         newBook.setAuthorsList(new ArrayList<String>(Arrays.asList("Author")));
         newBook.setComment("Good book.");
@@ -247,7 +247,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testSaveNote() {
         BookNote newBookNote = new BookNote();
-        newBookNote.setNoteId(3L);
+        newBookNote.setNoteId(4L);
         newBookNote.setDocumentId(1L);
         newBookNote.setChapterId(2L);
         newBookNote.setTagIds(new ArrayList<Long>(Arrays.asList(2L)));

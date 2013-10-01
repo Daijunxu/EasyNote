@@ -59,7 +59,7 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
         List<Document> documentList = dao.findAllDocuments();
         assertNotNull(documentList);
         assertFalse(documentList.isEmpty());
-        assertTrue(documentList.size() == 2);
+        assertTrue(documentList.size() == testData.documentMap.size());
         for (Document document : documentList) {
             assertEquals(testData.documentMap.get(document.getDocumentId()), document);
         }
@@ -74,7 +74,7 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
         List<Note> noteList = dao.findAllNotes();
         assertNotNull(noteList);
         assertFalse(noteList.isEmpty());
-        assertTrue(noteList.size() == 2);
+        assertTrue(noteList.size() == testData.noteMap.size());
         for (Note note : noteList) {
             assertEquals(testData.noteMap.get(note.getNoteId()), note);
         }

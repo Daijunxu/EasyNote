@@ -86,7 +86,9 @@ public class DocumentCacheUnitTests extends EasyNoteUnitTestCase {
         assertNotNull(documentCacheElement.elements());
         assertEquals(documentCacheElement.elements().size(), testData.documentMap.size());
         for (Element element : documentCacheElement.elements()) {
-            assertTrue(element.getName().equals("Book") || element.getName().equals("Article"));
+            assertTrue(element.getName().equals("Book")
+                    || element.getName().equals("Article")
+                    || element.getName().equals("WorkSet"));
         }
     }
 

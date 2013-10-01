@@ -6,6 +6,7 @@ package notes.entity.impl;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import notes.entity.Note;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
@@ -19,6 +20,7 @@ import java.util.List;
  * @version 1.0
  */
 @EqualsAndHashCode
+@ToString(includeFieldNames = true)
 public abstract class AbstractNote implements Note {
 
     /**
