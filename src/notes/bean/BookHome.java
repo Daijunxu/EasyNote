@@ -11,7 +11,6 @@ import notes.entity.book.Book;
 import notes.entity.book.BookNote;
 import notes.entity.book.Chapter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +22,7 @@ import java.util.Map;
  * @author Rui Du
  * @version 1.0
  */
-public class BookHome implements Serializable {
+public class BookHome {
 
     /**
      * The single instance of BookHome.

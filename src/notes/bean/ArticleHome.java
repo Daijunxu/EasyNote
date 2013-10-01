@@ -10,7 +10,6 @@ import notes.entity.Document;
 import notes.entity.article.Article;
 import notes.entity.article.ArticleNote;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +19,7 @@ import java.util.List;
  * @author Rui Du
  * @version 1.0
  */
-public class ArticleHome implements Serializable {
+public class ArticleHome {
 
     /**
      * The single instance of ArticleHome.
