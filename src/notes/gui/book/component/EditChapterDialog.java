@@ -67,18 +67,28 @@ public class EditChapterDialog extends JDialog {
             updateChapter.setNotesList(home.getCurrentChapter().getNotesList());
 
             // Save the updated chapter.
-            dao.mergeChapter(updateChapter, home.getCurrentBook().getDocumentId());
+            Chapter cachedChapter = dao.mergeChapter(updateChapter, home.getCurrentBook().getDocumentId());
 
-            // Update temporary data in the BookHome.
-            home.updateTemporaryData(home.getCurrentBook().getDocumentId(), null, null);
+            if (cachedChapter != null) {
+                // Update temporary data in the BookHome.
+                home.updateTemporaryData(home.getCurrentBook().getDocumentId(), null, null);
 
-            // Update the chapter and note panel.
-            frame.updateIndexPanel();
+                // Update the chapter and note panel.
+                frame.updateIndexPanel();
 
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playUpdate();
+                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+                    SoundFactory.playUpdate();
+                }
+                setVisible(false);
+            } else {
+                // TODO: Get rid of this if clause.
+                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+                    SoundFactory.playError();
+                }
+                JOptionPane.showMessageDialog(null,
+                        "Duplicate chapter ID!",
+                        "Error Message", JOptionPane.ERROR_MESSAGE);
             }
-            setVisible(false);
         }
     });
     private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {

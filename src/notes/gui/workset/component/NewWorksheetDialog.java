@@ -88,7 +88,7 @@ public class NewWorksheetDialog extends JDialog {
                     SoundFactory.playError();
                 }
                 JOptionPane.showMessageDialog(null,
-                        "Error occurred when creating new worksheet: Duplicate worksheet ID!",
+                        "Duplicate worksheet ID!",
                         "Error Message", JOptionPane.ERROR_MESSAGE);
             }
 

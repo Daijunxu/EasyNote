@@ -67,18 +67,28 @@ public class EditWorksheetDialog extends JDialog {
             updateWorksheet.setNotesList(home.getCurrentWorksheet().getNotesList());
 
             // Save the updated worksheet.
-            dao.mergeWorksheet(updateWorksheet, home.getCurrentWorkset().getDocumentId());
+            Worksheet cachedWorksheet = dao.mergeWorksheet(updateWorksheet, home.getCurrentWorkset().getDocumentId(),
+                    home.getCurrentWorksheet().getWorksheetId());
 
-            // Update temporary data in the WorksetHome.
-            home.updateTemporaryData(home.getCurrentWorkset().getDocumentId(), null, null);
+            if (cachedWorksheet != null) {
+                // Update temporary data in the WorksetHome.
+                home.updateTemporaryData(home.getCurrentWorkset().getDocumentId(), null, null);
 
-            // Update the worksheet and note panel.
-            frame.updateIndexPanel();
+                // Update the worksheet and note panel.
+                frame.updateIndexPanel();
 
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playUpdate();
+                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+                    SoundFactory.playUpdate();
+                }
+                setVisible(false);
+            } else {
+                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+                    SoundFactory.playError();
+                }
+                JOptionPane.showMessageDialog(null,
+                        "Duplicate worksheet ID!",
+                        "Error Message", JOptionPane.ERROR_MESSAGE);
             }
-            setVisible(false);
         }
     });
     private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {

@@ -99,7 +99,7 @@ public class DocumentCache implements XMLSerializable {
                 newDocument = new Book().buildFromXMLElement(documentElement);
             } else if (documentElement.getName().equals("Article")) {
                 newDocument = new Article().buildFromXMLElement(documentElement);
-            } else if (documentElement.getName().equals("WORKSET")) {
+            } else if (documentElement.getName().equals("Workset")) {
                 newDocument = new Workset().buildFromXMLElement(documentElement);
             } else {
                 throw new UnsupportedOperationException("Unsupported document type: " + documentElement.getName());

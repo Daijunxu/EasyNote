@@ -4,9 +4,9 @@
 package notes.gui.workset.component;
 
 import notes.bean.WorksetHome;
-import notes.gui.workset.event.DeleteWorksetActionListener;
-import notes.gui.workset.event.EditWorksetActionListener;
-import notes.gui.workset.event.NewWorksetActionListener;
+import notes.gui.workset.event.DeleteWorksheetActionListener;
+import notes.gui.workset.event.EditWorksheetActionListener;
+import notes.gui.workset.event.NewWorksheetActionListener;
 
 import javax.swing.*;
 
@@ -27,11 +27,11 @@ public class WorksheetPopupMenu extends JPopupMenu {
      */
     public WorksheetPopupMenu() {
         newItem = new JMenuItem("New");
-        newItem.addActionListener(new NewWorksetActionListener());
+        newItem.addActionListener(new NewWorksheetActionListener());
         editItem = new JMenuItem("Edit");
-        editItem.addActionListener(new EditWorksetActionListener());
+        editItem.addActionListener(new EditWorksheetActionListener());
         deleteItem = new JMenuItem("Delete");
-        deleteItem.addActionListener(new DeleteWorksetActionListener());
+        deleteItem.addActionListener(new DeleteWorksheetActionListener());
         if (WorksetHome.get().getCurrentWorkset() == null) {
             editItem.setEnabled(false);
             deleteItem.setEnabled(false);

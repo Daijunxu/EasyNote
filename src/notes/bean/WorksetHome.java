@@ -57,12 +57,6 @@ public class WorksetHome implements Serializable {
     @Setter
     private WorksheetNote currentWorksheetNote;
     /**
-     * The list of worksheets in current selected workset.
-     */
-    @Getter
-    @Setter
-    private List<Worksheet> currentWorksheetList;
-    /**
      * The map from worksheet IDs to notes in current selected workset.
      */
     @Getter
@@ -81,7 +75,6 @@ public class WorksetHome implements Serializable {
     private WorksetHome() {
         worksheetNoteDAO = new WorksheetNoteDAO();
         documentList = worksheetNoteDAO.findAllDocuments();
-        currentWorksheetList = new ArrayList<Worksheet>();
         currentWorksheetNotesMap = new HashMap<Long, List<WorksheetNote>>();
         currentWorksheetNotesList = new ArrayList<WorksheetNote>();
     }
@@ -103,7 +96,6 @@ public class WorksetHome implements Serializable {
         currentWorkset = null;
         currentWorksheet = null;
         currentWorksheetNote = null;
-        currentWorksheetList.clear();
         currentWorksheetNotesMap.clear();
         currentWorksheetNotesList.clear();
     }
@@ -133,11 +125,6 @@ public class WorksetHome implements Serializable {
         if (documentId != null) {
             // Update currentWorkset.
             currentWorkset = ((Workset) worksheetNoteDAO.findDocumentById(documentId));
-
-            // Update worksheetsData.
-            for (Map.Entry<Long, Worksheet> entry : currentWorkset.getWorksheetsMap().entrySet()) {
-                currentWorksheetList.add(entry.getValue());
-            }
 
             // Update notesMap.
             currentWorksheetNotesMap = WorksetHome.get().getWorksheetNoteDAO()

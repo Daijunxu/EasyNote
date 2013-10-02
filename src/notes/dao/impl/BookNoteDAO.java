@@ -11,6 +11,7 @@ import notes.entity.book.Book;
 import notes.entity.book.BookNote;
 import notes.entity.book.Chapter;
 
+import java.security.InvalidKeyException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -142,16 +143,29 @@ public class BookNoteDAO extends AbstractNoteDAO {
      */
     public Chapter mergeChapter(Chapter chapter, Long documentId) {
         try {
-            Book updateBook = (Book) (Cache.get().getDocumentCache().getDocumentMap()
-                    .get(documentId));
-            Chapter updateChapter = updateBook.getChaptersMap().get(chapter.getChapterId());
-            updateChapter.setChapterTitle(chapter.getChapterTitle());
-            updateChapter.setNotesList(chapter.getNotesList());
+            Book cachedBook = (Book) (Cache.get().getDocumentCache().getDocumentMap().get(documentId));
+            TreeMap<Long, Chapter> chaptersMap = cachedBook.getChaptersMap();
+            Chapter cachedChapter = cachedBook.getChaptersMap().get(chapter.getChapterId());
+            Long oldChapterId = cachedChapter.getChapterId();
+            Long updatedChapterId = chapter.getChapterId();
+
+            if (chaptersMap.containsKey(updatedChapterId)) {
+                throw new InvalidKeyException("The updated chapter id is already taken by another chapter.");
+            }
+
+            cachedChapter.setChapterTitle(chapter.getChapterTitle());
+            cachedChapter.setNotesList(chapter.getNotesList());
+
+            if (!oldChapterId.equals(updatedChapterId)) {
+                cachedChapter.setChapterId(updatedChapterId);
+                chaptersMap.remove(oldChapterId);
+                chaptersMap.put(updatedChapterId, cachedChapter);
+            }
 
             // Update book's last updated time.
-            updateBook.setLastUpdatedTime(new Date());
+            cachedBook.setLastUpdatedTime(new Date());
 
-            return updateChapter;
+            return cachedChapter;
         } catch (Exception e) {
             e.printStackTrace();
         }

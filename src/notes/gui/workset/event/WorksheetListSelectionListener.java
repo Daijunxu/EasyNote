@@ -40,7 +40,8 @@ public class WorksheetListSelectionListener implements ListSelectionListener {
             int selected = list.getSelectedIndex();
 
             // Get the worksheet's note data.
-            Worksheet worksheet = WorksetHome.get().getCurrentWorksheetList().get(selected);
+            Long worksheetId = WorksetHome.get().getCurrentWorkset().getWorksheetIdsList().get(selected);
+            Worksheet worksheet = WorksetHome.get().getCurrentWorkset().getWorksheetsMap().get(worksheetId);
             frame.updateWorksheetNotePanel(worksheet);
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {

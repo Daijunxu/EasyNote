@@ -5,17 +5,16 @@ import notes.data.cache.Cache;
 import notes.entity.Document;
 import notes.entity.Note;
 import notes.entity.workset.Workset;
-import notes.entity.workset.Workset;
 import notes.entity.workset.Worksheet;
 import notes.entity.workset.WorksheetNote;
 
+import java.security.InvalidKeyException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Data access object for workset notes.
@@ -133,24 +132,53 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
     }
 
     /**
+     * Updates the worksheetIds list of a workset.
+     *
+     * @param documentId       The document ID of the workset.
+     * @param worksheetIdsList The updated list of worksheetIds.
+     * @return {@code Workset} The updated workset object.
+     */
+    public Workset updateWorksheetsOrder(Long documentId, List<Long> worksheetIdsList) {
+        Workset cachedWorkset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(documentId));
+        cachedWorkset.setWorksheetIdsList(worksheetIdsList);
+
+        return cachedWorkset;
+    }
+
+    /**
      * Merges a worksheet.
      *
      * @param worksheet  The worksheet to merge.
      * @param documentId The document ID of the workset that the worksheet belongs to.
      * @return {@code Worksheet} The merged worksheet object.
      */
-    public Worksheet mergeWorksheet(Worksheet worksheet, Long documentId) {
+    public Worksheet mergeWorksheet(Worksheet worksheet, Long documentId, Long oldWorksheetId) {
         try {
-            Workset updateWorkset = (Workset) (Cache.get().getDocumentCache().getDocumentMap()
-                    .get(documentId));
-            Worksheet updateWorksheet = updateWorkset.getWorksheetsMap().get(worksheet.getWorksheetId());
-            updateWorksheet.setWorksheetTitle(worksheet.getWorksheetTitle());
-            updateWorksheet.setNotesList(worksheet.getNotesList());
+            Workset cachedWorkset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(documentId));
+            Map<Long, Worksheet> worksheetsMap = cachedWorkset.getWorksheetsMap();
+            Worksheet cachedWorksheet = cachedWorkset.getWorksheetsMap().get(oldWorksheetId);
+            Long updatedWorksheetId = worksheet.getWorksheetId();
+
+            System.out.println("old id: " + oldWorksheetId);
+            System.out.println("new id: " + updatedWorksheetId);
+
+            if (worksheetsMap.containsKey(updatedWorksheetId)) {
+                throw new InvalidKeyException("The updated worksheet id is already taken by another worksheet.");
+            }
+
+            cachedWorksheet.setWorksheetTitle(worksheet.getWorksheetTitle());
+            cachedWorksheet.setNotesList(worksheet.getNotesList());
+
+            if (!oldWorksheetId.equals(updatedWorksheetId)) {
+                cachedWorksheet.setWorksheetId(updatedWorksheetId);
+                worksheetsMap.remove(oldWorksheetId);
+                worksheetsMap.put(updatedWorksheetId, cachedWorksheet);
+            }
 
             // Update workset's last updated time.
-            updateWorkset.setLastUpdatedTime(new Date());
+            cachedWorkset.setLastUpdatedTime(new Date());
 
-            return updateWorksheet;
+            return cachedWorksheet;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -171,6 +199,7 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
             updateWorkset.setAuthorsList(document.getAuthorsList());
             updateWorkset.setComment(document.getComment());
             updateWorkset.setWorksheetsMap(((Workset) document).getWorksheetsMap());
+            updateWorkset.setWorksheetIdsList(((Workset) document).getWorksheetIdsList());
             if (document.getLastUpdatedTime() == null) {
                 updateWorkset.setLastUpdatedTime(new Date(System.currentTimeMillis()));
             } else {
@@ -227,7 +256,7 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
         try {
             Workset cachedWorkset = (Workset) Cache.get().getDocumentCache().getDocumentMap()
                     .get(documentId);
-            TreeMap<Long, Worksheet> worksheetMap = cachedWorkset.getWorksheetsMap();
+            Map<Long, Worksheet> worksheetMap = cachedWorkset.getWorksheetsMap();
             if (worksheetMap.containsKey(worksheet.getWorksheetId())) {
                 throw new DuplicateRecordException("Duplicate worksheet ID when saving a new worksheet!");
             }
@@ -235,6 +264,9 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
                 worksheet.setNotesList(new ArrayList<Long>());
             }
             worksheetMap.put(worksheet.getWorksheetId(), worksheet);
+
+            // Add the new worksheet to the bottom of the worksheet list.
+            cachedWorkset.getWorksheetIdsList().add(worksheet.getWorksheetId());
 
             // Update workset's last updated time.
             cachedWorkset.setLastUpdatedTime(new Date());
@@ -261,6 +293,7 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
             newWorkset.setDocumentTitle(document.getDocumentTitle());
             newWorkset.setAuthorsList(document.getAuthorsList());
             newWorkset.setComment(document.getComment());
+            newWorkset.setWorksheetIdsList(((Workset) document).getWorksheetIdsList());
             newWorkset.setWorksheetsMap(((Workset) document).getWorksheetsMap());
             if (document.getCreatedTime() == null) {
                 newWorkset.setCreatedTime(new Date(System.currentTimeMillis()));

@@ -88,7 +88,7 @@ public class NewChapterDialog extends JDialog {
                     SoundFactory.playError();
                 }
                 JOptionPane.showMessageDialog(null,
-                        "Error occurred when creating new chapter: Duplicate chapter ID!",
+                        "Duplicate chapter ID!",
                         "Error Message", JOptionPane.ERROR_MESSAGE);
             }
 

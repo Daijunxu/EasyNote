@@ -85,11 +85,17 @@ public class MainPanel extends JFrame {
 
     private static final int DEFAULT_WIDTH = 1280;
     private static final int DEFAULT_HEIGHT = 800;
+    private static final int BOOK_CHAPTER_LIST_WIDTH = 265;
+    private static final int WORKSET_WORKSHEET_LIST_WIDTH = 265;
     private static final int ARTICLE_NOTE_LIST_PANEL_WIDTH_INDENTATION = 40; // For Ubuntu this value should be 28.
     private static final int BOOK_NOTE_LIST_PANEL_WIDTH_INDENTATION = 342; // For Ubuntu this value should be 328.
     private static final int WORKSHEET_NOTE_LIST_PANEL_WIDTH_INDENTATION = 342; // For Ubuntu this value should be 328.
     private static final int BOOK_NOTE_LIST_WIDTH = 945;
     private static final int WORKSHEET_NOTE_LIST_WIDTH = 945;
+
+    private static final WorksetHome worksetHome = WorksetHome.get();
+    private static final BookHome bookHome = BookHome.get();
+    private static final ArticleHome articleHome = ArticleHome.get();
 
     /**
      * The single instance of {@code MainPanel}.
@@ -200,7 +206,7 @@ public class MainPanel extends JFrame {
 
     private void openLastDocument(Long documentId) {
         // TODO fix this.
-        Document document = BookHome.get().getBookNoteDAO().findDocumentById(documentId);
+        Document document = bookHome.getBookNoteDAO().findDocumentById(documentId);
         if (document instanceof Workset) {
             MainPanel.get().setWorksetPanel((Workset) document);
         } else if (document instanceof Book) {
@@ -214,9 +220,9 @@ public class MainPanel extends JFrame {
      * Clears all temporary data in home beans.
      */
     public void clearAllTemporaryData() {
-        ArticleHome.get().clearAllTemporaryData();
-        BookHome.get().clearAllTemporaryData();
-        WorksetHome.get().clearAllTemporaryData();
+        articleHome.clearAllTemporaryData();
+        bookHome.clearAllTemporaryData();
+        worksetHome.clearAllTemporaryData();
     }
 
     /**
@@ -473,20 +479,19 @@ public class MainPanel extends JFrame {
     /**
      * Creates chapter scroll panel.
      */
-    private void createChapterScrollPane() {
-        int chaptersNumber = BookHome.get().getCurrentBook().getChaptersMap().size();
+    private void createChapterScrollPane(int width) {
+        int chaptersNumber = bookHome.getCurrentBook().getChaptersMap().size();
         int counter = 0;
         String[] chaptersTitle = new String[chaptersNumber];
-        for (Map.Entry<Long, Chapter> entry : BookHome.get().getCurrentBook().getChaptersMap()
+        for (Map.Entry<Long, Chapter> entry : bookHome.getCurrentBook().getChaptersMap()
                 .entrySet()) {
-            BookHome.get().getCurrentChapterList().add(entry.getValue());
+            bookHome.getCurrentChapterList().add(entry.getValue());
             chaptersTitle[counter] = entry.getKey() + ". " + entry.getValue().getChapterTitle();
             counter++;
         }
         JList chaptersList = new JList(chaptersTitle);
-        int chaptersListWidth = 265;
-        chaptersList.setCellRenderer(new ChapterListCellRenderer(chaptersListWidth));
-        chaptersList.setFixedCellWidth(chaptersListWidth);
+        chaptersList.setCellRenderer(new ChapterListCellRenderer(width));
+        chaptersList.setFixedCellWidth(width);
         chaptersList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         chaptersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         chaptersList.addListSelectionListener(new ChapterListSelectionListener());
@@ -502,19 +507,19 @@ public class MainPanel extends JFrame {
     /**
      * Creates worksheet scroll panel.
      */
-    private void createWorksheetScrollPanel() {
-        int worksheetsNumber = WorksetHome.get().getCurrentWorkset().getWorksheetsMap().size();
-        int counter = 0;
+    private void createWorksheetScrollPanel(int width) {
+        Workset currentWorkset = worksetHome.getCurrentWorkset();
+        int worksheetsNumber = currentWorkset.getWorksheetsMap().size();
         String[] worksheetsTitle = new String[worksheetsNumber];
-        for (Map.Entry<Long, Worksheet> entry : WorksetHome.get().getCurrentWorkset().getWorksheetsMap().entrySet()) {
-            WorksetHome.get().getCurrentWorksheetList().add(entry.getValue());
-            worksheetsTitle[counter] = entry.getKey() + ". " + entry.getValue().getWorksheetTitle();
+        int counter = 0;
+        for (Long worksheetId : currentWorkset.getWorksheetIdsList()) {
+            Worksheet worksheet = currentWorkset.getWorksheetsMap().get(worksheetId);
+            worksheetsTitle[counter] = worksheetId + ". " + worksheet.getWorksheetTitle();
             counter++;
         }
         JList worksheetsList = new JList(worksheetsTitle);
-        int worksheetsListWidth = 265;
-        worksheetsList.setCellRenderer(new ChapterListCellRenderer(worksheetsListWidth));
-        worksheetsList.setFixedCellWidth(worksheetsListWidth);
+        worksheetsList.setCellRenderer(new ChapterListCellRenderer(width));
+        worksheetsList.setFixedCellWidth(width);
         worksheetsList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         worksheetsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         worksheetsList.addListSelectionListener(new WorksheetListSelectionListener());
@@ -600,7 +605,6 @@ public class MainPanel extends JFrame {
      */
     public void setArticlePanel(Article article) {
         clearAllTemporaryData();
-        ArticleHome home = ArticleHome.get();
 
         // Set current mode to "Article".
         setCurrentMode(SystemMode.ARTICLE);
@@ -615,7 +619,7 @@ public class MainPanel extends JFrame {
         }
 
         // Update temporary data in article home.
-        home.updateTemporaryData(article.getDocumentId(), null);
+        articleHome.updateTemporaryData(article.getDocumentId(), null);
 
         // Set up the menu bar
         createArticleMenuBar();
@@ -638,7 +642,6 @@ public class MainPanel extends JFrame {
      */
     public void setBookPanel(Book book) {
         clearAllTemporaryData();
-        BookHome home = BookHome.get();
 
         // Set current mode to "Book".
         setCurrentMode(SystemMode.BOOK);
@@ -653,13 +656,13 @@ public class MainPanel extends JFrame {
         }
 
         // Update temporary data in book home.
-        home.updateTemporaryData(book.getDocumentId(), null, null);
+        bookHome.updateTemporaryData(book.getDocumentId(), null, null);
 
         // Set up the menu bar
         createBookMenuBar();
 
         // Set up the chapter scroll panel.
-        createChapterScrollPane();
+        createChapterScrollPane(BOOK_CHAPTER_LIST_WIDTH);
 
         // Create an empty note scroll pane.
         createEmptyNoteScrollPane(BOOK_NOTE_LIST_WIDTH);
@@ -680,7 +683,6 @@ public class MainPanel extends JFrame {
      */
     public void setWorksetPanel(Workset workset) {
         clearAllTemporaryData();
-        WorksetHome home = WorksetHome.get();
 
         // Set current mode to "Workset".
         setCurrentMode(SystemMode.WORKSET);
@@ -695,13 +697,13 @@ public class MainPanel extends JFrame {
         }
 
         // Update temporary data in workset home.
-        home.updateTemporaryData(workset.getDocumentId(), null, null);
+        worksetHome.updateTemporaryData(workset.getDocumentId(), null, null);
 
         // Set up the menu bar
         createWorksetMenuBar();
 
         // Set up the worksheet scroll panel.
-        createWorksheetScrollPanel();
+        createWorksheetScrollPanel(WORKSET_WORKSHEET_LIST_WIDTH);
 
         // Create an empty note scroll pane.
         createEmptyNoteScrollPane(WORKSHEET_NOTE_LIST_WIDTH);
@@ -740,16 +742,15 @@ public class MainPanel extends JFrame {
      * Updates the article note panel with the current temporary data. No note is selected.
      */
     public void updateArticleNotePanel() {
-        ArticleHome home = ArticleHome.get();
         if (notesPanel != null) {
             remove(notesPanel);
         }
         // createEmptyNoteScrollPane();
 
         // Get current notes data.
-        Object[] notesObject = new ArticleNote[home.getCurrentArticleNotesList().size()];
-        for (int i = 0; i < home.getCurrentArticleNotesList().size(); i++) {
-            notesObject[i] = home.getCurrentArticleNotesList().get(i);
+        Object[] notesObject = new ArticleNote[articleHome.getCurrentArticleNotesList().size()];
+        for (int i = 0; i < articleHome.getCurrentArticleNotesList().size(); i++) {
+            notesObject[i] = articleHome.getCurrentArticleNotesList().get(i);
         }
 
         // Create note scroll pane for each chapter.
@@ -760,8 +761,8 @@ public class MainPanel extends JFrame {
         notesList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         notesList.addListSelectionListener(new NoteListSelectionListener());
         notesList.addMouseListener(new ArticleNoteListMouseListener());
-        if (home.getCurrentArticleNote() != null) {
-            notesList.setSelectedValue(home.getCurrentArticleNote(), false);
+        if (articleHome.getCurrentArticleNote() != null) {
+            notesList.setSelectedValue(articleHome.getCurrentArticleNote(), false);
         }
         JScrollPane notesScrollPane = new JScrollPane(notesList);
         notesScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
@@ -786,21 +787,20 @@ public class MainPanel extends JFrame {
      * @param currentChapter The chapter that the update is based on.
      */
     public void updateBookNotePanel(Chapter currentChapter) {
-        BookHome home = BookHome.get();
         remove(notesPanel);
 
         // Set the notes panel for current chapter.
         if (currentChapter != null) {
-            home.setCurrentChapter(currentChapter);
-            List<BookNote> notesDataList = home.getCurrentChapterNotesMap().get(
+            bookHome.setCurrentChapter(currentChapter);
+            List<BookNote> notesDataList = bookHome.getCurrentChapterNotesMap().get(
                     currentChapter.getChapterId());
-            home.setCurrentBookNotesList(notesDataList);
+            bookHome.setCurrentBookNotesList(notesDataList);
         }
 
         // Get current notes data.
-        Object[] notesObject = new BookNote[home.getCurrentBookNotesList().size()];
-        for (int i = 0; i < home.getCurrentBookNotesList().size(); i++) {
-            notesObject[i] = home.getCurrentBookNotesList().get(i);
+        Object[] notesObject = new BookNote[bookHome.getCurrentBookNotesList().size()];
+        for (int i = 0; i < bookHome.getCurrentBookNotesList().size(); i++) {
+            notesObject[i] = bookHome.getCurrentBookNotesList().get(i);
         }
 
         // Create note scroll pane for each chapter.
@@ -812,8 +812,8 @@ public class MainPanel extends JFrame {
         notesList.addListSelectionListener(new NoteListSelectionListener());
         notesList.addMouseListener(new BookNoteListMouseListener());
 
-        if (home.getCurrentBookNote() != null) {
-            notesList.setSelectedValue(home.getCurrentBookNote(), false);
+        if (bookHome.getCurrentBookNote() != null) {
+            notesList.setSelectedValue(bookHome.getCurrentBookNote(), false);
         }
 
         JScrollPane notesScrollPane = new JScrollPane(notesList);
@@ -837,21 +837,20 @@ public class MainPanel extends JFrame {
      * @param currentWorksheet The worksheet that the update is based on.
      */
     public void updateWorksheetNotePanel(Worksheet currentWorksheet) {
-        WorksetHome home = WorksetHome.get();
         remove(notesPanel);
 
         // Set the notes panel for current chapter.
         if (currentWorksheet != null) {
-            home.setCurrentWorksheet(currentWorksheet);
-            List<WorksheetNote> notesDataList = home.getCurrentWorksheetNotesMap().get(
+            worksetHome.setCurrentWorksheet(currentWorksheet);
+            List<WorksheetNote> notesDataList = worksetHome.getCurrentWorksheetNotesMap().get(
                     currentWorksheet.getWorksheetId());
-            home.setCurrentWorksheetNotesList(notesDataList);
+            worksetHome.setCurrentWorksheetNotesList(notesDataList);
         }
 
         // Get current notes data.
-        Object[] notesObject = new WorksheetNote[home.getCurrentWorksheetNotesList().size()];
-        for (int i = 0; i < home.getCurrentWorksheetNotesList().size(); i++) {
-            notesObject[i] = home.getCurrentWorksheetNotesList().get(i);
+        Object[] notesObject = new WorksheetNote[worksetHome.getCurrentWorksheetNotesList().size()];
+        for (int i = 0; i < worksetHome.getCurrentWorksheetNotesList().size(); i++) {
+            notesObject[i] = worksetHome.getCurrentWorksheetNotesList().get(i);
         }
 
         // Create note scroll pane for each worksheet.
@@ -863,8 +862,8 @@ public class MainPanel extends JFrame {
         notesList.addListSelectionListener(new NoteListSelectionListener());
         notesList.addMouseListener(new WorksheetNoteListMouseListener());
 
-        if (home.getCurrentWorksheetNote() != null) {
-            notesList.setSelectedValue(home.getCurrentWorksheetNote(), false);
+        if (worksetHome.getCurrentWorksheetNote() != null) {
+            notesList.setSelectedValue(worksetHome.getCurrentWorksheetNote(), false);
         }
 
         JScrollPane notesScrollPane = new JScrollPane(notesList);
@@ -889,10 +888,10 @@ public class MainPanel extends JFrame {
         remove(indexPanel);
         remove(notesPanel);
         if (currentMode.equals(SystemMode.WORKSET)) {
-            createWorksheetScrollPanel();
+            createWorksheetScrollPanel(WORKSET_WORKSHEET_LIST_WIDTH);
             createEmptyNoteScrollPane(WORKSHEET_NOTE_LIST_WIDTH);
         } else if (currentMode.equals(SystemMode.BOOK)) {
-            createChapterScrollPane();
+            createChapterScrollPane(BOOK_CHAPTER_LIST_WIDTH);
             createEmptyNoteScrollPane(BOOK_NOTE_LIST_WIDTH);
         }
         add(indexPanel, BorderLayout.WEST);

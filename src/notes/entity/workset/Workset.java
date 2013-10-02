@@ -10,9 +10,11 @@ import notes.utils.EntityHelper;
 import org.dom4j.Element;
 import org.dom4j.tree.DefaultElement;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
+import java.util.Map;
 
 /**
  * Entity class to describe a workset. A workset contains a collection of worksheets.
@@ -27,11 +29,18 @@ import java.util.TreeMap;
 public class Workset extends AbstractDocument {
 
     /**
-     * The ordered map for worksheets.
+     * The ordered list of worksheetIds.
      */
     @Getter
     @Setter
-    private TreeMap<Long, Worksheet> worksheetsMap;
+    private List<Long> worksheetIdsList;
+
+    /**
+     * The map from worksheetId to worksheet.
+     */
+    @Getter
+    @Setter
+    private Map<Long, Worksheet> worksheetsMap;
 
     /**
      * Constructs an instance of {@code WORKSET}.
@@ -44,12 +53,13 @@ public class Workset extends AbstractDocument {
      * @throws IllegalArgumentException
      */
     public Workset(final Long documentId, final String documentTitle, final List<String> authorsList,
-                   final String comment, final TreeMap<Long, Worksheet> worksheetsMap)
+                   final String comment, final List<Long> worksheetIdsList, final Map<Long, Worksheet> worksheetsMap)
             throws IllegalArgumentException {
         this.documentId = documentId;
         this.documentTitle = documentTitle;
         this.authorsList = authorsList;
         this.comment = comment;
+        this.worksheetIdsList = worksheetIdsList;
         this.worksheetsMap = worksheetsMap;
         this.createdTime = new Date(System.currentTimeMillis());
         this.lastUpdatedTime = new Date(System.currentTimeMillis());
@@ -76,7 +86,7 @@ public class Workset extends AbstractDocument {
      */
     @Override
     public Element toXMLElement() {
-        Element workSetElement = new DefaultElement("WORKSET");
+        Element workSetElement = new DefaultElement("Workset");
 
         workSetElement.addAttribute("DocumentId", documentId.toString());
         workSetElement.addAttribute("DocumentTitle", documentTitle);
@@ -85,7 +95,7 @@ public class Workset extends AbstractDocument {
         workSetElement.addAttribute("CreatedTime", String.valueOf(createdTime.getTime()));
         workSetElement.addAttribute("LastUpdatedTime", String.valueOf(lastUpdatedTime.getTime()));
 
-        for (Long workSheetId : worksheetsMap.keySet()) {
+        for (Long workSheetId : worksheetIdsList) {
             workSetElement.add(worksheetsMap.get(workSheetId).toXMLElement());
         }
 
@@ -104,9 +114,11 @@ public class Workset extends AbstractDocument {
         createdTime = new Date(Long.parseLong(element.attributeValue("CreatedTime")));
         lastUpdatedTime = new Date(Long.parseLong(element.attributeValue("LastUpdatedTime")));
 
-        worksheetsMap = new TreeMap<Long, Worksheet>();
+        worksheetIdsList = new ArrayList<Long>();
+        worksheetsMap = new HashMap<Long, Worksheet>();
         for (Element worksheetElement : element.elements()) {
             Worksheet newWorksheet = new Worksheet().buildFromXMLElement(worksheetElement);
+            worksheetIdsList.add(newWorksheet.getWorksheetId());
             worksheetsMap.put(newWorksheet.getWorksheetId(), newWorksheet);
         }
 

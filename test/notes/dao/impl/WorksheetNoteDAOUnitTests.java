@@ -4,9 +4,8 @@ import core.EasyNoteUnitTestCase;
 import notes.data.cache.Cache;
 import notes.entity.Note;
 import notes.entity.workset.Workset;
-import notes.entity.workset.Workset;
-import notes.entity.workset.WorksheetNote;
 import notes.entity.workset.Worksheet;
+import notes.entity.workset.WorksheetNote;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -120,7 +119,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.WorksheetNoteDAO#mergeWorksheet(notes.entity.workset.Worksheet, java.lang.Long)}.
+     * {@link notes.dao.impl.WorksheetNoteDAO#mergeWorksheet(notes.entity.workset.Worksheet, Long, Long)}.
      */
     @Test
     public void testMergeWorksheet() {
@@ -128,10 +127,11 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         Workset testWorkset = (Workset) testData.documentMap.get(3L);
         Worksheet testWorksheet = testWorkset.getWorksheetsMap().get(1L);
         Worksheet updateWorksheet = new Worksheet();
-        updateWorksheet.setWorksheetId(testWorksheet.getWorksheetId());
+        updateWorksheet.setWorksheetId(999L);
         updateWorksheet.setWorksheetTitle("Another worksheet title");
         updateWorksheet.setNotesList(testWorksheet.getNotesList());
-        Worksheet mergedWorksheet = dao.mergeWorksheet(updateWorksheet, testWorkset.getDocumentId());
+        Worksheet mergedWorksheet = dao.mergeWorksheet(updateWorksheet, testWorkset.getDocumentId(),
+                testWorksheet.getWorksheetId());
 
         assertNotNull(mergedWorksheet);
         Workset cachedWorkset = (Workset) Cache.get().getDocumentCache().getDocumentMap()
