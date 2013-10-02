@@ -53,6 +53,7 @@ public class NoteListCellRenderer extends DefaultListCellRenderer {
         JPanel tagPanel = new JPanel();
         tagPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         for (Long tagId : note.getTagIds()) {
+            // TODO fix this.
             String tagText = BookHome.get().getBookNoteDAO().findTagById(tagId).getTagText();
             JLabel tagLabel = new JLabel(tagText);
             tagLabel.setFont(new Font("Helvetica", Font.PLAIN, 11));

@@ -102,7 +102,7 @@ public class EasyNoteUnitTestCase {
 
             Workset document3 = new Workset();
             document3.setDocumentId(3L);
-            document3.setDocumentTitle("My Workset");
+            document3.setDocumentTitle("My WORKSET");
             document3.setAuthorsList(new ArrayList<String>(Arrays.asList("Rui Du")));
             document3.setComment("This is my workset.");
             TreeMap<Long, Worksheet> worksheetsMap = new TreeMap<Long, Worksheet>();

@@ -7,5 +7,6 @@ package notes.entity;
  */
 public enum SystemMode {
     ARTICLE,
-    BOOK
+    BOOK,
+    WORKSET
 }

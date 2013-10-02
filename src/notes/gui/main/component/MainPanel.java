@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
+import notes.bean.WorksetHome;
 import notes.data.cache.Cache;
 import notes.data.cache.Property;
 import notes.entity.Document;
@@ -16,6 +17,9 @@ import notes.entity.article.ArticleNote;
 import notes.entity.book.Book;
 import notes.entity.book.BookNote;
 import notes.entity.book.Chapter;
+import notes.entity.workset.Workset;
+import notes.entity.workset.Worksheet;
+import notes.entity.workset.WorksheetNote;
 import notes.gui.article.event.ArticleNoteListMouseListener;
 import notes.gui.article.event.DeleteArticleActionListener;
 import notes.gui.article.event.DeleteArticleNoteActionListener;
@@ -51,6 +55,17 @@ import notes.gui.main.event.OpenDocumentActionListener;
 import notes.gui.main.event.OpenPreferencesActionListener;
 import notes.gui.main.event.SaveAllActoinListener;
 import notes.gui.main.event.SearchNoteActionListener;
+import notes.gui.workset.event.DeleteWorksheetActionListener;
+import notes.gui.workset.event.DeleteWorksheetNoteActionListener;
+import notes.gui.workset.event.EditWorksheetActionListener;
+import notes.gui.workset.event.EditWorksheetNoteActionListener;
+import notes.gui.workset.event.NewWorksetActionListener;
+import notes.gui.workset.event.NewWorksheetActionListener;
+import notes.gui.workset.event.NewWorksheetNoteActionListener;
+import notes.gui.workset.event.ViewWorksheetNoteActionListener;
+import notes.gui.workset.event.WorksheetListMouseListener;
+import notes.gui.workset.event.WorksheetListSelectionListener;
+import notes.gui.workset.event.WorksheetNoteListMouseListener;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 
@@ -68,10 +83,13 @@ import java.util.Map;
  */
 public class MainPanel extends JFrame {
 
-    public static final int DEFAULT_WIDTH = 1280;
-    public static final int DEFAULT_HEIGHT = 800;
-    public static final int ARTICLE_NOTE_LIST_PANEL_WIDTH_INDENTATION = 40; // For Ubuntu this value should be 28.
-    public static final int BOOK_NOTE_LIST_PANEL_WIDTH_INDENTATION = 342; // For Ubuntu this value should be 328.
+    private static final int DEFAULT_WIDTH = 1280;
+    private static final int DEFAULT_HEIGHT = 800;
+    private static final int ARTICLE_NOTE_LIST_PANEL_WIDTH_INDENTATION = 40; // For Ubuntu this value should be 28.
+    private static final int BOOK_NOTE_LIST_PANEL_WIDTH_INDENTATION = 342; // For Ubuntu this value should be 328.
+    private static final int WORKSHEET_NOTE_LIST_PANEL_WIDTH_INDENTATION = 342; // For Ubuntu this value should be 328.
+    private static final int BOOK_NOTE_LIST_WIDTH = 945;
+    private static final int WORKSHEET_NOTE_LIST_WIDTH = 945;
 
     /**
      * The single instance of {@code MainPanel}.
@@ -181,8 +199,11 @@ public class MainPanel extends JFrame {
     }
 
     private void openLastDocument(Long documentId) {
+        // TODO fix this.
         Document document = BookHome.get().getBookNoteDAO().findDocumentById(documentId);
-        if (document instanceof Book) {
+        if (document instanceof Workset) {
+            MainPanel.get().setWorksetPanel((Workset) document);
+        } else if (document instanceof Book) {
             MainPanel.get().setBookPanel((Book) document);
         } else if (document instanceof Article) {
             MainPanel.get().setArticlePanel((Article) document);
@@ -190,11 +211,12 @@ public class MainPanel extends JFrame {
     }
 
     /**
-     * Clears all temporary data in home bean.
+     * Clears all temporary data in home beans.
      */
     public void clearAllTemporaryData() {
         ArticleHome.get().clearAllTemporaryData();
         BookHome.get().clearAllTemporaryData();
+        WorksetHome.get().clearAllTemporaryData();
     }
 
     /**
@@ -210,6 +232,9 @@ public class MainPanel extends JFrame {
         articleMenu.setMnemonic(KeyEvent.VK_A);
         JMenu newDocumentMenu = new JMenu("New Document");
         newDocumentMenu.setMnemonic(KeyEvent.VK_N);
+        JMenuItem newWorksetItem = new JMenuItem("Workset", KeyEvent.VK_W);
+        newWorksetItem.addActionListener(new NewWorksetActionListener());
+        newDocumentMenu.add(newWorksetItem);
         JMenuItem newArticleItem = new JMenuItem("Article", KeyEvent.VK_A);
         newArticleItem.addActionListener(new NewArticleActionListener());
         newDocumentMenu.add(newArticleItem);
@@ -283,6 +308,9 @@ public class MainPanel extends JFrame {
         bookMenu.setMnemonic(KeyEvent.VK_B);
         JMenu newDocumentMenu = new JMenu("New Document");
         newDocumentMenu.setMnemonic(KeyEvent.VK_N);
+        JMenuItem newWorksetItem = new JMenuItem("Workset", KeyEvent.VK_W);
+        newWorksetItem.addActionListener(new NewWorksetActionListener());
+        newDocumentMenu.add(newWorksetItem);
         JMenuItem newArticleItem = new JMenuItem("Article", KeyEvent.VK_A);
         newArticleItem.addActionListener(new NewArticleActionListener());
         newDocumentMenu.add(newArticleItem);
@@ -355,9 +383,97 @@ public class MainPanel extends JFrame {
     }
 
     /**
-     * Creates index scroll panel.
+     * Creates the menu bar when a workset is opened.
      */
-    private void createIndexScrollPane() {
+    private void createWorksetMenuBar() {
+        menuBar = new JMenuBar();
+        JMenu worksetMenu = new JMenu("Workset");
+        JMenu worksheetMenu = new JMenu("Worksheet");
+        JMenu noteMenu = new JMenu("Note");
+        JMenu searchMenu = new JMenu("Search");
+        JMenu helpMenu = new JMenu("Help");
+
+        worksetMenu.setMnemonic(KeyEvent.VK_W);
+        JMenu newDocumentMenu = new JMenu("New Document");
+        newDocumentMenu.setMnemonic(KeyEvent.VK_N);
+        JMenuItem newWorksetItem = new JMenuItem("Workset", KeyEvent.VK_W);
+        newWorksetItem.addActionListener(new NewWorksetActionListener());
+        newDocumentMenu.add(newWorksetItem);
+        JMenuItem newArticleItem = new JMenuItem("Article", KeyEvent.VK_A);
+        newArticleItem.addActionListener(new NewArticleActionListener());
+        newDocumentMenu.add(newArticleItem);
+        JMenuItem newBookItem = new JMenuItem("Book", KeyEvent.VK_B);
+        newBookItem.addActionListener(new NewBookActionListener());
+        newDocumentMenu.add(newBookItem);
+        JMenuItem openDocumentItem = new JMenuItem("Open Document", KeyEvent.VK_O);
+        openDocumentItem.addActionListener(new OpenDocumentActionListener());
+        JMenuItem viewDocumentItem = new JMenuItem("View Workset Info", KeyEvent.VK_V);
+        viewDocumentItem.addActionListener(new ViewBookActionListener());
+        JMenuItem editDocumentItem = new JMenuItem("Edit Workset Info", KeyEvent.VK_E);
+        editDocumentItem.addActionListener(new EditBookActionListener());
+        JMenuItem deleteDocumentItem = new JMenuItem("Delete This Workset", KeyEvent.VK_D);
+        deleteDocumentItem.addActionListener(new DeleteBookActionListener());
+        JMenuItem exportDocumentItem = new JMenuItem("Export", KeyEvent.VK_P);
+        exportDocumentItem.addActionListener(new ExportBookActionListener());
+        JMenuItem saveAllItem = new JMenuItem("Save All", KeyEvent.VK_S);
+        saveAllItem.addActionListener(new SaveAllActoinListener());
+        worksetMenu.add(newDocumentMenu);
+        worksetMenu.add(openDocumentItem);
+        worksetMenu.add(viewDocumentItem);
+        worksetMenu.add(editDocumentItem);
+        worksetMenu.add(deleteDocumentItem);
+        worksetMenu.add(exportDocumentItem);
+        worksetMenu.add(saveAllItem);
+
+        worksheetMenu.setMnemonic(KeyEvent.VK_E);
+        JMenuItem newWorksheetItem = new JMenuItem("New Worksheet", KeyEvent.VK_N);
+        newWorksheetItem.addActionListener(new NewWorksheetActionListener());
+        JMenuItem editWorksheetItem = new JMenuItem("Edit Worksheet", KeyEvent.VK_E);
+        editWorksheetItem.addActionListener(new EditWorksheetActionListener());
+        JMenuItem deleteWorksheetItem = new JMenuItem("Delete Worksheet", KeyEvent.VK_D);
+        deleteWorksheetItem.addActionListener(new DeleteWorksheetActionListener());
+        worksheetMenu.add(newWorksheetItem);
+        worksheetMenu.add(editWorksheetItem);
+        worksheetMenu.add(deleteWorksheetItem);
+
+        noteMenu.setMnemonic(KeyEvent.VK_N);
+        JMenuItem newNoteItem = new JMenuItem("New Note", KeyEvent.VK_N);
+        newNoteItem.addActionListener(new NewWorksheetNoteActionListener());
+        JMenuItem viewNoteItem = new JMenuItem("View This Note", KeyEvent.VK_V);
+        viewNoteItem.addActionListener(new ViewWorksheetNoteActionListener());
+        JMenuItem editNoteItem = new JMenuItem("Edit This Note", KeyEvent.VK_E);
+        editNoteItem.addActionListener(new EditWorksheetNoteActionListener());
+        JMenuItem deleteNoteItem = new JMenuItem("Delete This Note", KeyEvent.VK_D);
+        deleteNoteItem.addActionListener(new DeleteWorksheetNoteActionListener());
+        noteMenu.add(newNoteItem);
+        noteMenu.add(viewNoteItem);
+        noteMenu.add(editNoteItem);
+        noteMenu.add(deleteNoteItem);
+
+        searchMenu.setMnemonic(KeyEvent.VK_S);
+        JMenuItem searchNoteItem = new JMenuItem("Search Notes", KeyEvent.VK_N);
+        searchNoteItem.addActionListener(new SearchNoteActionListener());
+        searchMenu.add(searchNoteItem);
+
+        helpMenu.setMnemonic(KeyEvent.VK_H);
+        JMenuItem aboutItem = new JMenuItem("About EasyNote", KeyEvent.VK_A);
+        aboutItem.addActionListener(new AboutActionListener());
+        JMenuItem preferencesItem = new JMenuItem("Preferences", KeyEvent.VK_P);
+        preferencesItem.addActionListener(new OpenPreferencesActionListener());
+        helpMenu.add(aboutItem);
+        helpMenu.add(preferencesItem);
+
+        menuBar.add(worksetMenu);
+        menuBar.add(worksheetMenu);
+        menuBar.add(noteMenu);
+        menuBar.add(searchMenu);
+        menuBar.add(helpMenu);
+    }
+
+    /**
+     * Creates chapter scroll panel.
+     */
+    private void createChapterScrollPane() {
         int chaptersNumber = BookHome.get().getCurrentBook().getChaptersMap().size();
         int counter = 0;
         String[] chaptersTitle = new String[chaptersNumber];
@@ -381,6 +497,34 @@ public class MainPanel extends JFrame {
         indexPanel.setLayout(new BoxLayout(indexPanel, BoxLayout.PAGE_AXIS));
         indexPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         indexPanel.add(chaptersScrollPane);
+    }
+
+    /**
+     * Creates worksheet scroll panel.
+     */
+    private void createWorksheetScrollPanel() {
+        int worksheetsNumber = WorksetHome.get().getCurrentWorkset().getWorksheetsMap().size();
+        int counter = 0;
+        String[] worksheetsTitle = new String[worksheetsNumber];
+        for (Map.Entry<Long, Worksheet> entry : WorksetHome.get().getCurrentWorkset().getWorksheetsMap().entrySet()) {
+            WorksetHome.get().getCurrentWorksheetList().add(entry.getValue());
+            worksheetsTitle[counter] = entry.getKey() + ". " + entry.getValue().getWorksheetTitle();
+            counter++;
+        }
+        JList worksheetsList = new JList(worksheetsTitle);
+        int worksheetsListWidth = 265;
+        worksheetsList.setCellRenderer(new ChapterListCellRenderer(worksheetsListWidth));
+        worksheetsList.setFixedCellWidth(worksheetsListWidth);
+        worksheetsList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        worksheetsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        worksheetsList.addListSelectionListener(new WorksheetListSelectionListener());
+        worksheetsList.addMouseListener(new WorksheetListMouseListener());
+        JScrollPane worksheetsScrollPane = new JScrollPane(worksheetsList);
+        worksheetsScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
+        indexPanel = new JPanel();
+        indexPanel.setLayout(new BoxLayout(indexPanel, BoxLayout.PAGE_AXIS));
+        indexPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        indexPanel.add(worksheetsScrollPane);
     }
 
     /**
@@ -428,16 +572,19 @@ public class MainPanel extends JFrame {
     }
 
     /**
-     * Creates an empty book note scroll pane.
+     * Creates an empty note scroll pane.
      */
-    private void createEmptyBookNoteScrollPane() {
+    private void createEmptyNoteScrollPane(int notesListWidth) {
         JList notesList = new JList();
-        int notesListWidth = 945;
         notesList.setCellRenderer(new NoteListCellRenderer(notesListWidth));
         notesList.setFixedCellWidth(notesListWidth);
         notesList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         notesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        notesList.addMouseListener(new BookNoteListMouseListener());
+        if (currentMode.equals(SystemMode.WORKSET)) {
+            notesList.addMouseListener(new WorksheetNoteListMouseListener());
+        } else if (currentMode.equals(SystemMode.BOOK)) {
+            notesList.addMouseListener(new BookNoteListMouseListener());
+        }
         JScrollPane notesScrollPane = new JScrollPane(notesList);
         notesScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
         notesPanel = new JPanel();
@@ -511,11 +658,53 @@ public class MainPanel extends JFrame {
         // Set up the menu bar
         createBookMenuBar();
 
-        // Set up the chapter scroll pane.
-        createIndexScrollPane();
+        // Set up the chapter scroll panel.
+        createChapterScrollPane();
 
         // Create an empty note scroll pane.
-        createEmptyBookNoteScrollPane();
+        createEmptyNoteScrollPane(BOOK_NOTE_LIST_WIDTH);
+
+        // Put everything together, using the content pane's BorderLayout.
+        add(menuBar, BorderLayout.NORTH);
+        add(indexPanel, BorderLayout.WEST);
+        add(notesPanel, BorderLayout.CENTER);
+
+        validate();
+        repaint();
+    }
+
+    /**
+     * Sets up the panel when opening a workset.
+     *
+     * @param workset The workset that is being opened.
+     */
+    public void setWorksetPanel(Workset workset) {
+        clearAllTemporaryData();
+        WorksetHome home = WorksetHome.get();
+
+        // Set current mode to "Workset".
+        setCurrentMode(SystemMode.WORKSET);
+
+        // Change panel's title.
+        setTitle(workset.getDocumentTitle());
+
+        // Clear deprecated components.
+        Component[] components = getContentPane().getComponents();
+        for (Component com : components) {
+            remove(com);
+        }
+
+        // Update temporary data in workset home.
+        home.updateTemporaryData(workset.getDocumentId(), null, null);
+
+        // Set up the menu bar
+        createWorksetMenuBar();
+
+        // Set up the worksheet scroll panel.
+        createWorksheetScrollPanel();
+
+        // Create an empty note scroll pane.
+        createEmptyNoteScrollPane(WORKSHEET_NOTE_LIST_WIDTH);
 
         // Put everything together, using the content pane's BorderLayout.
         add(menuBar, BorderLayout.NORTH);
@@ -555,7 +744,7 @@ public class MainPanel extends JFrame {
         if (notesPanel != null) {
             remove(notesPanel);
         }
-        // createEmptyBookNoteScrollPane();
+        // createEmptyNoteScrollPane();
 
         // Get current notes data.
         Object[] notesObject = new ArticleNote[home.getCurrentArticleNotesList().size()];
@@ -642,14 +831,70 @@ public class MainPanel extends JFrame {
     }
 
     /**
+     * Update the worksheet note panel with the provided chapter. Reload some temporary data is reloaded
+     * before the update.
+     *
+     * @param currentWorksheet The worksheet that the update is based on.
+     */
+    public void updateWorksheetNotePanel(Worksheet currentWorksheet) {
+        WorksetHome home = WorksetHome.get();
+        remove(notesPanel);
+
+        // Set the notes panel for current chapter.
+        if (currentWorksheet != null) {
+            home.setCurrentWorksheet(currentWorksheet);
+            List<WorksheetNote> notesDataList = home.getCurrentWorksheetNotesMap().get(
+                    currentWorksheet.getWorksheetId());
+            home.setCurrentWorksheetNotesList(notesDataList);
+        }
+
+        // Get current notes data.
+        Object[] notesObject = new WorksheetNote[home.getCurrentWorksheetNotesList().size()];
+        for (int i = 0; i < home.getCurrentWorksheetNotesList().size(); i++) {
+            notesObject[i] = home.getCurrentWorksheetNotesList().get(i);
+        }
+
+        // Create note scroll pane for each worksheet.
+        JList notesList = new JList(notesObject);
+        int notesListWidth = getWidth() - WORKSHEET_NOTE_LIST_PANEL_WIDTH_INDENTATION;
+        notesList.setCellRenderer(new NoteListCellRenderer(notesListWidth - 7));
+        notesList.setFixedCellWidth(notesListWidth);
+        notesList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        notesList.addListSelectionListener(new NoteListSelectionListener());
+        notesList.addMouseListener(new WorksheetNoteListMouseListener());
+
+        if (home.getCurrentWorksheetNote() != null) {
+            notesList.setSelectedValue(home.getCurrentWorksheetNote(), false);
+        }
+
+        JScrollPane notesScrollPane = new JScrollPane(notesList);
+        notesScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
+
+        JPanel notesPanel = new JPanel();
+        notesPanel.setLayout(new BoxLayout(notesPanel, BoxLayout.PAGE_AXIS));
+        notesPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 5));
+        notesPanel.add(notesScrollPane);
+
+        setNotesPanel(notesPanel);
+        add(notesPanel, BorderLayout.CENTER);
+
+        validate();
+    }
+
+    /**
      * Updates the index panel with the current temporary data, and creates a new empty note
      * panel. No item in the index panel or note in the note panel is selected.
      */
     public void updateIndexPanel() {
         remove(indexPanel);
         remove(notesPanel);
-        createIndexScrollPane();
-        createEmptyBookNoteScrollPane();
+        if (currentMode.equals(SystemMode.WORKSET)) {
+            createWorksheetScrollPanel();
+            createEmptyNoteScrollPane(WORKSHEET_NOTE_LIST_WIDTH);
+        } else if (currentMode.equals(SystemMode.BOOK)) {
+            createChapterScrollPane();
+            createEmptyNoteScrollPane(BOOK_NOTE_LIST_WIDTH);
+        }
         add(indexPanel, BorderLayout.WEST);
         add(notesPanel, BorderLayout.CENTER);
         validate();

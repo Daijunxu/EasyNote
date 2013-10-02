@@ -2,6 +2,7 @@ package notes.gui.main.event;
 
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
+import notes.bean.WorksetHome;
 import notes.data.cache.Property;
 import notes.entity.Note;
 import notes.entity.article.Article;
@@ -9,9 +10,13 @@ import notes.entity.article.ArticleNote;
 import notes.entity.book.Book;
 import notes.entity.book.BookNote;
 import notes.entity.book.Chapter;
+import notes.entity.workset.Workset;
+import notes.entity.workset.Worksheet;
+import notes.entity.workset.WorksheetNote;
 import notes.gui.article.component.EditArticleNoteDialog;
 import notes.gui.book.component.EditBookNoteDialog;
 import notes.gui.main.component.SearchNoteDialog;
+import notes.gui.workset.component.EditWorksheetNoteDialog;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 
@@ -39,7 +44,12 @@ public class EditNoteActionListener implements ActionListener {
 
             Note selectedNote = SearchNoteDialog.get().getSelectedResultNote();
 
-            if (selectedNote instanceof ArticleNote) {
+            if (selectedNote instanceof WorksheetNote) {
+                Workset selectedWorkset = (Workset) WorksetHome.get().getWorksheetNoteDAO()
+                        .findDocumentById(selectedNote.getDocumentId());
+                Worksheet selectedWorksheet = selectedWorkset.getWorksheetsMap().get(((WorksheetNote) selectedNote).getWorksheetId());
+                new EditWorksheetNoteDialog(selectedWorkset, selectedWorksheet, (WorksheetNote) selectedNote);
+            } else if (selectedNote instanceof ArticleNote) {
                 Article selectedArticle = (Article) ArticleHome.get().getArticleNoteDAO()
                         .findDocumentById(selectedNote.getDocumentId());
                 new EditArticleNoteDialog(selectedArticle, (ArticleNote) selectedNote);

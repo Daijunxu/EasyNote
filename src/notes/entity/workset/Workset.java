@@ -34,7 +34,7 @@ public class Workset extends AbstractDocument {
     private TreeMap<Long, Worksheet> worksheetsMap;
 
     /**
-     * Constructs an instance of {@code Workset}.
+     * Constructs an instance of {@code WORKSET}.
      *
      * @param documentId    The document identifier.
      * @param documentTitle The document's title.
@@ -76,7 +76,7 @@ public class Workset extends AbstractDocument {
      */
     @Override
     public Element toXMLElement() {
-        Element workSetElement = new DefaultElement("Workset");
+        Element workSetElement = new DefaultElement("WORKSET");
 
         workSetElement.addAttribute("DocumentId", documentId.toString());
         workSetElement.addAttribute("DocumentTitle", documentTitle);

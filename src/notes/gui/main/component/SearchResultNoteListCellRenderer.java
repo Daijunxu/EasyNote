@@ -4,8 +4,12 @@
 package notes.gui.main.component;
 
 import notes.bean.BookHome;
+import notes.entity.Document;
 import notes.entity.Note;
 import notes.entity.book.BookNote;
+import notes.entity.workset.Workset;
+import notes.entity.workset.Worksheet;
+import notes.entity.workset.WorksheetNote;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,9 +45,13 @@ public class SearchResultNoteListCellRenderer extends DefaultListCellRenderer {
 
         JPanel documentPanel = new JPanel();
         documentPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        String documentTitle = BookHome.get().getBookNoteDAO()
-                .findDocumentById(note.getDocumentId()).getDocumentTitle();
+        Document document = BookHome.get().getBookNoteDAO().findDocumentById(note.getDocumentId());
+        String documentTitle = document.getDocumentTitle();
         JLabel documentLabel = new JLabel();
+        if (note instanceof WorksheetNote) {
+            Worksheet worksheet = ((Workset) document).getWorksheetsMap().get(((WorksheetNote) note).getWorksheetId());
+            documentLabel.setText(documentTitle + " - " + worksheet.getWorksheetTitle());
+        }
         if (note instanceof BookNote) {
             documentLabel.setText(documentTitle + " - Chapter " + ((BookNote) note).getChapterId());
         } else {

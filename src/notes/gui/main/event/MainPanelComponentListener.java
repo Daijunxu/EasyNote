@@ -23,7 +23,9 @@ public class MainPanelComponentListener implements ComponentListener {
             return;
         }
 
-        if (currentMode.equals(SystemMode.BOOK)) {
+        if (currentMode.equals(SystemMode.WORKSET)) {
+            mainPanel.updateWorksheetNotePanel(null);
+        } else if (currentMode.equals(SystemMode.BOOK)) {
             mainPanel.updateBookNotePanel(null);
         } else if (currentMode.equals(SystemMode.ARTICLE)) {
             mainPanel.updateArticleNotePanel();

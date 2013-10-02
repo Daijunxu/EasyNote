@@ -8,6 +8,7 @@ import notes.data.cache.Property;
 import notes.entity.Document;
 import notes.entity.article.Article;
 import notes.entity.book.Book;
+import notes.entity.workset.Workset;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 
@@ -37,9 +38,12 @@ public class OpenDocumentDialog extends JDialog {
             }
 
             String selectedDocumentTitle = documentTitleField.getSelectedValue().toString();
+            // TODO fix this.
             Document document = BookHome.get().getBookNoteDAO()
                     .findDocumentByTitle(selectedDocumentTitle);
-            if (document instanceof Book) {
+            if (document instanceof Workset) {
+                MainPanel.get().setWorksetPanel((Workset) document);
+            } else if (document instanceof Book) {
                 MainPanel.get().setBookPanel((Book) document);
             } else if (document instanceof Article) {
                 MainPanel.get().setArticlePanel((Article) document);
@@ -135,10 +139,12 @@ public class OpenDocumentDialog extends JDialog {
         try {
             Class<?> documentClass;
             String documentType = documentTypeField.getSelectedItem().toString();
-            if (documentType.equals("Article")) {
-                documentClass = Article.class;
+            if (documentType.equals("Workset")) {
+                documentClass = Workset.class;
             } else if (documentType.equals("Book")) {
                 documentClass = Book.class;
+            } else if (documentType.equals("Article")) {
+                documentClass = Article.class;
             } else {
                 throw new Exception(
                         "Class not found exception: no class is matched with current document type.");

@@ -10,6 +10,7 @@ import notes.entity.Document;
 import notes.entity.Note;
 import notes.entity.article.Article;
 import notes.entity.book.Book;
+import notes.entity.workset.Workset;
 import notes.gui.main.event.SearchNoteDialogWindowListener;
 import notes.gui.main.event.SearchNoteListMouseListener;
 import notes.utils.EntityHelper;
@@ -39,10 +40,10 @@ public class SearchNoteDialog extends JDialog {
     private final JButton searchButton = new JButton(new AbstractAction("Search") {
         public void actionPerformed(ActionEvent e) {
             int selectedIndex = searchScopeField.getSelectedIndex();
-            if (selectedIndex <= 2) {
+            if (selectedIndex <= 3) {
                 // Search notes in all documents.
                 searchNotesInAllDocuments();
-                if (selectedIndex == 1 || selectedIndex == 2) {
+                if (selectedIndex == 1 || selectedIndex == 2 || selectedIndex == 3) {
                     // Filter notes in current scope.
                     filterNotesByScope(searchScopeField.getSelectedItem().toString());
                 }
@@ -204,6 +205,7 @@ public class SearchNoteDialog extends JDialog {
         searchScopeField.addItem("All Documents");
         searchScopeField.addItem("All Articles");
         searchScopeField.addItem("All Books");
+        searchScopeField.addItem("All Worksets");
         List<String> documentTitleList = new ArrayList<String>();
         for (Document document : home.getDocumentList()) {
             documentTitleList.add(document.getDocumentTitle());
@@ -289,6 +291,12 @@ public class SearchNoteDialog extends JDialog {
         } else if (scope.equals("All Books")) {
             for (Note note : noteList) {
                 if (dao.findDocumentById(note.getDocumentId()) instanceof Book) {
+                    newNoteList.add(note);
+                }
+            }
+        } else if (scope.equals("All Worksets")) {
+            for (Note note : noteList) {
+                if (dao.findDocumentById(note.getDocumentId()) instanceof Workset) {
                     newNoteList.add(note);
                 }
             }

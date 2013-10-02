@@ -12,7 +12,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Unit tests for the {@code Workset}.
+ * Unit tests for the {@code WORKSET}.
  * <p/>
  * User: rui
  * Date: 9/30/13
@@ -59,7 +59,7 @@ public class WorksetUnitTests extends EasyNoteUnitTestCase {
         Workset testWorkset = (Workset) (testData.documentMap.get(3L));
         Element workSetElement = testWorkset.toXMLElement();
 
-        assertEquals(workSetElement.getName(), "Workset");
+        assertEquals(workSetElement.getName(), "WORKSET");
         assertNotNull(workSetElement.attribute("DocumentId"));
         assertNotNull(workSetElement.attribute("DocumentTitle"));
         assertNotNull(workSetElement.attribute("AuthorsList"));

@@ -5,6 +5,7 @@ package notes.gui.main.event;
 
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
+import notes.bean.WorksetHome;
 import notes.data.cache.Cache;
 import notes.data.cache.Property;
 import notes.entity.SystemMode;
@@ -21,7 +22,7 @@ import java.awt.event.WindowListener;
  * @author Rui Du
  * @version 1.0
  */
-public class MainPanelWindowListener implements WindowListener{
+public class MainPanelWindowListener implements WindowListener {
 
     /**
      * @see java.awt.event.WindowListener#windowActivated(java.awt.event.WindowEvent)
@@ -55,7 +56,10 @@ public class MainPanelWindowListener implements WindowListener{
         // Save the current opened document id.
         SystemMode currentMode = MainPanel.get().getCurrentMode();
         if (currentMode != null) {
-            if (currentMode.equals(SystemMode.ARTICLE)
+            if (currentMode.equals(SystemMode.WORKSET)
+                    && WorksetHome.get().getCurrentWorkset() != null) {
+                Property.get().setLastOpenedDocumentId(WorksetHome.get().getCurrentWorkset().getDocumentId());
+            } else if (currentMode.equals(SystemMode.ARTICLE)
                     && ArticleHome.get().getCurrentArticle() != null) {
                 Property.get().setLastOpenedDocumentId(ArticleHome.get().getCurrentArticle().getDocumentId());
             } else if (currentMode.equals(SystemMode.BOOK)
