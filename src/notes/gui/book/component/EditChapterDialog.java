@@ -73,7 +73,7 @@ public class EditChapterDialog extends JDialog {
             home.updateTemporaryData(home.getCurrentBook().getDocumentId(), null, null);
 
             // Update the chapter and note panel.
-            frame.updateChapterPanel();
+            frame.updateIndexPanel();
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playUpdate();

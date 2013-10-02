@@ -11,7 +11,7 @@ import notes.entity.article.ArticleNote;
 import notes.entity.book.Book;
 import notes.entity.book.BookNote;
 import notes.entity.book.Chapter;
-import notes.entity.workset.WorkSet;
+import notes.entity.workset.Workset;
 import notes.entity.workset.Worksheet;
 import notes.entity.workset.WorksheetNote;
 import org.junit.Before;
@@ -100,9 +100,9 @@ public class EasyNoteUnitTestCase {
             document2.setNotesList(new ArrayList<Long>(Arrays.asList(2L)));
             documentMap.put(document2.getDocumentId(), document2);
 
-            WorkSet document3 = new WorkSet();
+            Workset document3 = new Workset();
             document3.setDocumentId(3L);
-            document3.setDocumentTitle("My WorkSet");
+            document3.setDocumentTitle("My Workset");
             document3.setAuthorsList(new ArrayList<String>(Arrays.asList("Rui Du")));
             document3.setComment("This is my workset.");
             TreeMap<Long, Worksheet> worksheetsMap = new TreeMap<Long, Worksheet>();

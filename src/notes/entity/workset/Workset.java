@@ -24,7 +24,7 @@ import java.util.TreeMap;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true, includeFieldNames = true)
-public class WorkSet extends AbstractDocument {
+public class Workset extends AbstractDocument {
 
     /**
      * The ordered map for worksheets.
@@ -34,7 +34,7 @@ public class WorkSet extends AbstractDocument {
     private TreeMap<Long, Worksheet> worksheetsMap;
 
     /**
-     * Constructs an instance of {@code WorkSet}.
+     * Constructs an instance of {@code Workset}.
      *
      * @param documentId    The document identifier.
      * @param documentTitle The document's title.
@@ -43,7 +43,7 @@ public class WorkSet extends AbstractDocument {
      * @param worksheetsMap The ordered map for worksheets.
      * @throws IllegalArgumentException
      */
-    public WorkSet(final Long documentId, final String documentTitle, final List<String> authorsList,
+    public Workset(final Long documentId, final String documentTitle, final List<String> authorsList,
                    final String comment, final TreeMap<Long, Worksheet> worksheetsMap)
             throws IllegalArgumentException {
         this.documentId = documentId;
@@ -76,7 +76,7 @@ public class WorkSet extends AbstractDocument {
      */
     @Override
     public Element toXMLElement() {
-        Element workSetElement = new DefaultElement("WorkSet");
+        Element workSetElement = new DefaultElement("Workset");
 
         workSetElement.addAttribute("DocumentId", documentId.toString());
         workSetElement.addAttribute("DocumentTitle", documentTitle);
@@ -96,7 +96,7 @@ public class WorkSet extends AbstractDocument {
      * {@inheritDoc}
      */
     @Override
-    public WorkSet buildFromXMLElement(Element element) {
+    public Workset buildFromXMLElement(Element element) {
         documentId = Long.parseLong(element.attributeValue("DocumentId"));
         documentTitle = element.attributeValue("DocumentTitle");
         authorsList = EntityHelper.buildAuthorsStrList(element.attributeValue("AuthorsList"));

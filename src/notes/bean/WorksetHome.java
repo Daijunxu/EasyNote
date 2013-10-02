@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import notes.dao.impl.WorksheetNoteDAO;
 import notes.entity.Document;
+import notes.entity.workset.Workset;
 import notes.entity.workset.Worksheet;
-import notes.entity.workset.WorkSet;
 import notes.entity.workset.WorksheetNote;
 
 import java.io.Serializable;
@@ -21,12 +21,12 @@ import java.util.Map;
  * Date: 10/1/13
  * Time: 12:59 AM
  */
-public class WorkSetHome implements Serializable {
+public class WorksetHome implements Serializable {
 
     /**
-     * The single instance of WorkSetHome.
+     * The single instance of WorksetHome.
      */
-    private static final WorkSetHome instance = new WorkSetHome();
+    private static final WorksetHome instance = new WorksetHome();
     /**
      * The workset note DAO.
      */
@@ -43,7 +43,7 @@ public class WorkSetHome implements Serializable {
      */
     @Getter
     @Setter
-    private WorkSet currentWorkSet;
+    private Workset currentWorkset;
     /**
      * The current selected worksheet.
      */
@@ -76,9 +76,9 @@ public class WorkSetHome implements Serializable {
     private List<WorksheetNote> currentWorksheetNotesList;
 
     /**
-     * Constructs an instance of {@code WorkSetHome}.
+     * Constructs an instance of {@code WorksetHome}.
      */
-    private WorkSetHome() {
+    private WorksetHome() {
         worksheetNoteDAO = new WorksheetNoteDAO();
         documentList = worksheetNoteDAO.findAllDocuments();
         currentWorksheetList = new ArrayList<Worksheet>();
@@ -87,20 +87,20 @@ public class WorkSetHome implements Serializable {
     }
 
     /**
-     * Gets the instance of {@code WorkSetHome}.
+     * Gets the instance of {@code WorksetHome}.
      *
-     * @return {@code WorkSetHome} The instance of {@code WorkSetHome}.
+     * @return {@code WorksetHome} The instance of {@code WorksetHome}.
      */
-    public static WorkSetHome get() {
+    public static WorksetHome get() {
         return instance;
     }
 
     /**
-     * Clears all temporary data stored in WorkSetHome.
+     * Clears all temporary data stored in WorksetHome.
      */
     public void clearAllTemporaryData() {
         documentList.clear();
-        currentWorkSet = null;
+        currentWorkset = null;
         currentWorksheet = null;
         currentWorksheetNote = null;
         currentWorksheetList.clear();
@@ -117,7 +117,7 @@ public class WorkSetHome implements Serializable {
     }
 
     /**
-     * Updates the data members in WorkSetHome, which are acquired from Cache.
+     * Updates the data members in WorksetHome, which are acquired from Cache.
      *
      * @param documentId  The current selected document ID.
      * @param worksheetId The current selected worksheet ID.
@@ -131,22 +131,22 @@ public class WorkSetHome implements Serializable {
         documentList = worksheetNoteDAO.findAllDocuments();
 
         if (documentId != null) {
-            // Update currentWorkSet.
-            currentWorkSet = ((WorkSet) worksheetNoteDAO.findDocumentById(documentId));
+            // Update currentWorkset.
+            currentWorkset = ((Workset) worksheetNoteDAO.findDocumentById(documentId));
 
             // Update worksheetsData.
-            for (Map.Entry<Long, Worksheet> entry : currentWorkSet.getWorksheetsMap().entrySet()) {
+            for (Map.Entry<Long, Worksheet> entry : currentWorkset.getWorksheetsMap().entrySet()) {
                 currentWorksheetList.add(entry.getValue());
             }
 
             // Update notesMap.
-            currentWorksheetNotesMap = WorkSetHome.get().getWorksheetNoteDAO()
+            currentWorksheetNotesMap = WorksetHome.get().getWorksheetNoteDAO()
                     .findAllNotesByWorksheets(documentId);
         }
 
         if (worksheetId != null) {
             // Update currentWorksheet.
-            currentWorksheet = currentWorkSet.getWorksheetsMap().get(worksheetId);
+            currentWorksheet = currentWorkset.getWorksheetsMap().get(worksheetId);
 
             // Update currentNotesList.
             currentWorksheetNotesList = currentWorksheetNotesMap.get(worksheetId);

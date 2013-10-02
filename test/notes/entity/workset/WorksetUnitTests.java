@@ -12,28 +12,28 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Unit tests for the {@code WorkSet}.
+ * Unit tests for the {@code Workset}.
  * <p/>
  * User: rui
  * Date: 9/30/13
  * Time: 10:16 PM
  */
-public class WorkSetUnitTests extends EasyNoteUnitTestCase {
+public class WorksetUnitTests extends EasyNoteUnitTestCase {
     
     /**
-     * Test method for {@link notes.entity.workset.WorkSet#equals(java.lang.Object)}.
+     * Test method for {@link Workset#equals(java.lang.Object)}.
      */
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
-        WorkSet workSet = (WorkSet) (testData.documentMap.get(3L));
-        assertTrue(workSet.equals(Cache.get().getDocumentCache().getDocumentMap().get(3L)));
-        assertFalse(workSet.equals(new WorkSet()));
-        assertFalse(workSet.equals(new Object()));
+        Workset workset = (Workset) (testData.documentMap.get(3L));
+        assertTrue(workset.equals(Cache.get().getDocumentCache().getDocumentMap().get(3L)));
+        assertFalse(workset.equals(new Workset()));
+        assertFalse(workset.equals(new Object()));
     }
 
     /**
-     * Test method for {@link notes.entity.workset.WorkSet#getNotesCount()}.
+     * Test method for {@link Workset#getNotesCount()}.
      */
     @Test
     public void testGetNotesCount() {
@@ -41,7 +41,7 @@ public class WorkSetUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.entity.workset.WorkSet#hashCode()}.
+     * Test method for {@link Workset#hashCode()}.
      */
     @Test
     public void testHashCode() {
@@ -51,15 +51,15 @@ public class WorkSetUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.entity.workset.WorkSet#toXMLElement()}.
+     * Test method for {@link Workset#toXMLElement()}.
      */
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        WorkSet testWorkSet = (WorkSet) (testData.documentMap.get(3L));
-        Element workSetElement = testWorkSet.toXMLElement();
+        Workset testWorkset = (Workset) (testData.documentMap.get(3L));
+        Element workSetElement = testWorkset.toXMLElement();
 
-        assertEquals(workSetElement.getName(), "WorkSet");
+        assertEquals(workSetElement.getName(), "Workset");
         assertNotNull(workSetElement.attribute("DocumentId"));
         assertNotNull(workSetElement.attribute("DocumentTitle"));
         assertNotNull(workSetElement.attribute("AuthorsList"));
@@ -68,29 +68,29 @@ public class WorkSetUnitTests extends EasyNoteUnitTestCase {
         assertNotNull(workSetElement.attribute("LastUpdatedTime"));
         assertNotNull(workSetElement.elements().get(0));
         assertEquals(Long.parseLong(workSetElement.attributeValue("DocumentId")),
-                testWorkSet.getDocumentId().longValue());
-        assertEquals(workSetElement.attributeValue("DocumentTitle"), testWorkSet.getDocumentTitle());
+                testWorkset.getDocumentId().longValue());
+        assertEquals(workSetElement.attributeValue("DocumentTitle"), testWorkset.getDocumentTitle());
         assertEquals(EntityHelper.buildAuthorsStrList(workSetElement.attributeValue("AuthorsList")),
-                testWorkSet.getAuthorsList());
-        assertEquals(workSetElement.attributeValue("Comment"), testWorkSet.getComment());
+                testWorkset.getAuthorsList());
+        assertEquals(workSetElement.attributeValue("Comment"), testWorkset.getComment());
         assertEquals(Long.parseLong(workSetElement.attributeValue("CreatedTime")),
-                testWorkSet.getCreatedTime().getTime());
+                testWorkset.getCreatedTime().getTime());
         assertEquals(Long.parseLong(workSetElement.attributeValue("LastUpdatedTime")),
-                testWorkSet.getLastUpdatedTime().getTime());
+                testWorkset.getLastUpdatedTime().getTime());
         assertEquals(workSetElement.elements().get(0).getName(), "Worksheet");
     }
 
     /**
-     * Test method for {@link notes.entity.workset.WorkSet#buildFromXMLElement(org.dom4j.Element)}.
+     * Test method for {@link Workset#buildFromXMLElement(org.dom4j.Element)}.
      */
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        WorkSet testWorkSet = (WorkSet) (testData.documentMap.get(3L));
-        Element workSetElement = testWorkSet.toXMLElement();
-        WorkSet newWorkSet = new WorkSet().buildFromXMLElement(workSetElement);
+        Workset testWorkset = (Workset) (testData.documentMap.get(3L));
+        Element workSetElement = testWorkset.toXMLElement();
+        Workset newWorkset = new Workset().buildFromXMLElement(workSetElement);
 
-        assertEquals(testWorkSet, newWorkSet);
+        assertEquals(testWorkset, newWorkset);
     }
 
 }

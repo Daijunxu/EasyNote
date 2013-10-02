@@ -27,10 +27,10 @@ public class WorksheetUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
-        WorkSet testWorkSet = (WorkSet) (testData.documentMap.get(3L));
-        Worksheet testWorksheet = testWorkSet.getWorksheetsMap().get(1L);
-        WorkSet cachedWorkSet = (WorkSet) (Cache.get().getDocumentCache().getDocumentMap().get(3L));
-        Worksheet cachedWorksheet = cachedWorkSet.getWorksheetsMap().get(1L);
+        Workset testWorkset = (Workset) (testData.documentMap.get(3L));
+        Worksheet testWorksheet = testWorkset.getWorksheetsMap().get(1L);
+        Workset cachedWorkset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(3L));
+        Worksheet cachedWorksheet = cachedWorkset.getWorksheetsMap().get(1L);
         assertTrue(testWorksheet.equals(cachedWorksheet));
         assertFalse(testWorksheet.equals(new Worksheet()));
         assertFalse(testWorksheet.equals(new Object()));
@@ -42,10 +42,10 @@ public class WorksheetUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        WorkSet testWorkSet = (WorkSet) (testData.documentMap.get(3L));
-        Worksheet testWorksheet = testWorkSet.getWorksheetsMap().get(1L);
-        WorkSet cachedWorkSet = (WorkSet) (Cache.get().getDocumentCache().getDocumentMap().get(3L));
-        Worksheet cachedWorksheet = cachedWorkSet.getWorksheetsMap().get(1L);
+        Workset testWorkset = (Workset) (testData.documentMap.get(3L));
+        Worksheet testWorksheet = testWorkset.getWorksheetsMap().get(1L);
+        Workset cachedWorkset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(3L));
+        Worksheet cachedWorksheet = cachedWorkset.getWorksheetsMap().get(1L);
         assertEquals(testWorksheet.hashCode(), cachedWorksheet.hashCode());
     }
 
@@ -55,10 +55,10 @@ public class WorksheetUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
-        WorkSet testWorkSet = (WorkSet) (testData.documentMap.get(3L));
-        Worksheet testWorksheet = testWorkSet.getWorksheetsMap().get(1L);
-        WorkSet cachedWorkSet = (WorkSet) (Cache.get().getDocumentCache().getDocumentMap().get(3L));
-        Worksheet cachedWorksheet = cachedWorkSet.getWorksheetsMap().get(1L);
+        Workset testWorkset = (Workset) (testData.documentMap.get(3L));
+        Worksheet testWorksheet = testWorkset.getWorksheetsMap().get(1L);
+        Workset cachedWorkset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(3L));
+        Worksheet cachedWorksheet = cachedWorkset.getWorksheetsMap().get(1L);
         assertEquals(StringUtils.substringAfter(testWorksheet.toString(), "["),
                 StringUtils.substringAfter(cachedWorksheet.toString(), "["));
     }
@@ -69,8 +69,8 @@ public class WorksheetUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        WorkSet testWorkSet = (WorkSet) (testData.documentMap.get(3L));
-        Worksheet testWorksheet = testWorkSet.getWorksheetsMap().get(1L);
+        Workset testWorkset = (Workset) (testData.documentMap.get(3L));
+        Worksheet testWorksheet = testWorkset.getWorksheetsMap().get(1L);
         Element worksheetElement = testWorksheet.toXMLElement();
 
         assertEquals(worksheetElement.getName(), "Worksheet");
@@ -87,8 +87,8 @@ public class WorksheetUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        WorkSet testWorkSet = (WorkSet) (testData.documentMap.get(3L));
-        Worksheet testWorksheet = testWorkSet.getWorksheetsMap().get(1L);
+        Workset testWorkset = (Workset) (testData.documentMap.get(3L));
+        Worksheet testWorksheet = testWorkset.getWorksheetsMap().get(1L);
         Element worksheetElement = testWorksheet.toXMLElement();
         Worksheet newWorksheet = new Worksheet().buildFromXMLElement(worksheetElement);
 

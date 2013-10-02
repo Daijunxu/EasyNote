@@ -51,8 +51,8 @@ public class DeleteChapterActionListener implements ActionListener {
                 home.getBookNoteDAO().deleteChapter(chapter, home.getCurrentBook().getDocumentId());
                 // Update temporary data in the BookHome.
                 home.updateTemporaryData(home.getCurrentBook().getDocumentId(), null, null);
-                // Update the note panel.
-                frame.updateChapterPanel();
+                // Update the chapter and note panel.
+                frame.updateIndexPanel();
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playDelete();
                 }

@@ -94,11 +94,11 @@ public class MainPanel extends JFrame {
      */
     private JMenuBar menuBar;
     /**
-     * The chapter panel that contains the information of chapters in a book.
+     * The index panel that contains the information of chapters/worksheets in a book/workSet.
      */
     @Getter
     @Setter
-    private JPanel chaptersPanel;
+    private JPanel indexPanel;
     /**
      * The note panel that contains the information of notes in current document/chapter.
      */
@@ -355,9 +355,9 @@ public class MainPanel extends JFrame {
     }
 
     /**
-     * Creates chapter scroll pane with current book's chapter data.
+     * Creates index scroll panel.
      */
-    private void createChapterScrollPane() {
+    private void createIndexScrollPane() {
         int chaptersNumber = BookHome.get().getCurrentBook().getChaptersMap().size();
         int counter = 0;
         String[] chaptersTitle = new String[chaptersNumber];
@@ -377,10 +377,10 @@ public class MainPanel extends JFrame {
         chaptersList.addMouseListener(new ChapterListMouseListener());
         JScrollPane chaptersScrollPane = new JScrollPane(chaptersList);
         chaptersScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
-        chaptersPanel = new JPanel();
-        chaptersPanel.setLayout(new BoxLayout(chaptersPanel, BoxLayout.PAGE_AXIS));
-        chaptersPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        chaptersPanel.add(chaptersScrollPane);
+        indexPanel = new JPanel();
+        indexPanel.setLayout(new BoxLayout(indexPanel, BoxLayout.PAGE_AXIS));
+        indexPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        indexPanel.add(chaptersScrollPane);
     }
 
     /**
@@ -512,14 +512,14 @@ public class MainPanel extends JFrame {
         createBookMenuBar();
 
         // Set up the chapter scroll pane.
-        createChapterScrollPane();
+        createIndexScrollPane();
 
         // Create an empty note scroll pane.
         createEmptyBookNoteScrollPane();
 
         // Put everything together, using the content pane's BorderLayout.
         add(menuBar, BorderLayout.NORTH);
-        add(chaptersPanel, BorderLayout.WEST);
+        add(indexPanel, BorderLayout.WEST);
         add(notesPanel, BorderLayout.CENTER);
 
         validate();
@@ -642,15 +642,15 @@ public class MainPanel extends JFrame {
     }
 
     /**
-     * Updates the chapter panel with the current temporary data, and creates a new empty note
-     * panel. No chapter or note is selected.
+     * Updates the index panel with the current temporary data, and creates a new empty note
+     * panel. No item in the index panel or note in the note panel is selected.
      */
-    public void updateChapterPanel() {
-        remove(chaptersPanel);
+    public void updateIndexPanel() {
+        remove(indexPanel);
         remove(notesPanel);
-        createChapterScrollPane();
+        createIndexScrollPane();
         createEmptyBookNoteScrollPane();
-        add(chaptersPanel, BorderLayout.WEST);
+        add(indexPanel, BorderLayout.WEST);
         add(notesPanel, BorderLayout.CENTER);
         validate();
         repaint();
