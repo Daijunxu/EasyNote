@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import notes.entity.aware.AuthorsAware;
+import notes.entity.aware.CommentAware;
 import notes.entity.aware.CreatedTimeAware;
 import notes.entity.aware.LastUpdatedTimeAware;
 import notes.entity.impl.AbstractDocument;
@@ -25,7 +26,8 @@ import java.util.TreeMap;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true, includeFieldNames = true)
-public class Book extends AbstractDocument implements AuthorsAware, CreatedTimeAware, LastUpdatedTimeAware {
+public class Book extends AbstractDocument
+        implements AuthorsAware, CreatedTimeAware, LastUpdatedTimeAware, CommentAware {
 
     /**
      * The list of authors.

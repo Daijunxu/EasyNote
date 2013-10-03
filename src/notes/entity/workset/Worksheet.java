@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import notes.entity.XMLSerializable;
+import notes.entity.aware.CommentAware;
 import notes.entity.aware.CreatedTimeAware;
 import notes.entity.aware.LastUpdatedTimeAware;
 import notes.utils.EntityHelper;
@@ -27,7 +28,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true, includeFieldNames = true)
-public class Worksheet implements XMLSerializable<Worksheet>, CreatedTimeAware, LastUpdatedTimeAware {
+public class Worksheet implements XMLSerializable<Worksheet>, CreatedTimeAware, LastUpdatedTimeAware, CommentAware {
 
     /**
      * The worksheet identifier.
