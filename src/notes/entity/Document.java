@@ -28,20 +28,6 @@ public interface Document extends Comparable<Document>, XMLSerializable<Document
     void setComment(String comment);
 
     /**
-     * Gets the document's created time.
-     *
-     * @return {@code Date} The document's created time.
-     */
-    Date getCreatedTime();
-
-    /**
-     * Sets the document's created time.
-     *
-     * @param createTime The document's created time to set.
-     */
-    void setCreatedTime(Date createTime);
-
-    /**
      * Gets the document identifier.
      *
      * @return {@code Long} The document identifier.

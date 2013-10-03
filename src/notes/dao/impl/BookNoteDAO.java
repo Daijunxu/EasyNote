@@ -282,10 +282,10 @@ public class BookNoteDAO extends AbstractNoteDAO {
             newBook.setPublishedYear(((Book) document).getPublishedYear());
             newBook.setIsbn(((Book) document).getIsbn());
             newBook.setChaptersMap(((Book) document).getChaptersMap());
-            if (document.getCreatedTime() == null) {
+            if (((Book) document).getCreatedTime() == null) {
                 newBook.setCreatedTime(new Date(System.currentTimeMillis()));
             } else {
-                newBook.setCreatedTime(document.getCreatedTime());
+                newBook.setCreatedTime(((Book) document).getCreatedTime());
             }
             if (document.getLastUpdatedTime() == null) {
                 newBook.setLastUpdatedTime(new Date(System.currentTimeMillis()));

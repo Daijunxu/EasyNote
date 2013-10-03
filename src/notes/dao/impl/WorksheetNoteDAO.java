@@ -292,10 +292,10 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
             newWorkset.setComment(document.getComment());
             newWorkset.setWorksheetIdsList(((Workset) document).getWorksheetIdsList());
             newWorkset.setWorksheetsMap(((Workset) document).getWorksheetsMap());
-            if (document.getCreatedTime() == null) {
+            if (((Workset) document).getCreatedTime() == null) {
                 newWorkset.setCreatedTime(new Date(System.currentTimeMillis()));
             } else {
-                newWorkset.setCreatedTime(document.getCreatedTime());
+                newWorkset.setCreatedTime(((Workset) document).getCreatedTime());
             }
             if (document.getLastUpdatedTime() == null) {
                 newWorkset.setLastUpdatedTime(new Date(System.currentTimeMillis()));

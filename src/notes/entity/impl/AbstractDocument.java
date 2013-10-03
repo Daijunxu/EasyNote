@@ -39,12 +39,6 @@ public abstract class AbstractDocument implements Document {
     @Setter
     protected String comment;
     /**
-     * The create time of this document.
-     */
-    @Getter
-    @Setter
-    protected Date createdTime;
-    /**
      * The last update time of this document.
      */
     @Getter

@@ -144,10 +144,10 @@ public class ArticleNoteDAO extends AbstractNoteDAO {
             newArticle.setAuthorsList(((Article) document).getAuthorsList());
             newArticle.setComment(document.getComment());
             newArticle.setSource(((Article) document).getSource());
-            if (document.getCreatedTime() == null) {
+            if (((Article) document).getCreatedTime() == null) {
                 newArticle.setCreatedTime(new Date(System.currentTimeMillis()));
             } else {
-                newArticle.setCreatedTime(document.getCreatedTime());
+                newArticle.setCreatedTime(((Article) document).getCreatedTime());
             }
             if (document.getLastUpdatedTime() == null) {
                 newArticle.setLastUpdatedTime(new Date(System.currentTimeMillis()));

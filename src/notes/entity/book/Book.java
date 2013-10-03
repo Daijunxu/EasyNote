@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import notes.entity.aware.AuthorsAware;
+import notes.entity.aware.CreatedTimeAware;
 import notes.entity.impl.AbstractDocument;
 import notes.utils.EntityHelper;
 import org.dom4j.Element;
@@ -24,7 +25,7 @@ import java.util.TreeMap;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true, includeFieldNames = true)
-public class Book extends AbstractDocument implements AuthorsAware {
+public class Book extends AbstractDocument implements AuthorsAware, CreatedTimeAware {
 
     /**
      * The list of authors.
@@ -32,6 +33,12 @@ public class Book extends AbstractDocument implements AuthorsAware {
     @Getter
     @Setter
     protected List<String> authorsList;
+    /**
+     * The create time of this document.
+     */
+    @Getter
+    @Setter
+    protected Date createdTime;
     /**
      * The book's edition number.
      */

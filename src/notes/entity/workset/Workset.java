@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import notes.entity.aware.AuthorsAware;
+import notes.entity.aware.CreatedTimeAware;
 import notes.entity.impl.AbstractDocument;
 import notes.utils.EntityHelper;
 import org.dom4j.Element;
@@ -27,7 +28,7 @@ import java.util.Map;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true, includeFieldNames = true)
-public class Workset extends AbstractDocument implements AuthorsAware {
+public class Workset extends AbstractDocument implements AuthorsAware, CreatedTimeAware {
 
     /**
      * The list of authors.
@@ -36,12 +37,17 @@ public class Workset extends AbstractDocument implements AuthorsAware {
     @Setter
     protected List<String> authorsList;
     /**
+     * The create time of this document.
+     */
+    @Getter
+    @Setter
+    protected Date createdTime;
+    /**
      * The ordered list of worksheetIds.
      */
     @Getter
     @Setter
     private List<Long> worksheetIdsList;
-
     /**
      * The map from worksheetId to worksheet.
      */

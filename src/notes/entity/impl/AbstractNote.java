@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import notes.entity.Note;
+import notes.entity.aware.CreatedTimeAware;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
 import java.util.Date;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = true)
-public abstract class AbstractNote implements Note {
+public abstract class AbstractNote implements Note, CreatedTimeAware {
 
     /**
      * The unique identifier for the note.
