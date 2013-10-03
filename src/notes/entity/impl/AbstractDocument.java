@@ -9,8 +9,6 @@ import lombok.Setter;
 import notes.entity.Document;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
-import java.util.Date;
-
 /**
  * An abstract entity class specifying the basic members and methods of a document.
  *
@@ -38,12 +36,6 @@ public abstract class AbstractDocument implements Document {
     @Getter
     @Setter
     protected String comment;
-    /**
-     * The last update time of this document.
-     */
-    @Getter
-    @Setter
-    protected Date lastUpdatedTime;
 
     /**
      * Compares this object with the specified object for sorting.

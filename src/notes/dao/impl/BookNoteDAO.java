@@ -189,10 +189,10 @@ public class BookNoteDAO extends AbstractNoteDAO {
             updateBook.setPublishedYear(((Book) document).getPublishedYear());
             updateBook.setIsbn(((Book) document).getIsbn());
             updateBook.setChaptersMap(((Book) document).getChaptersMap());
-            if (document.getLastUpdatedTime() == null) {
+            if (((Book) document).getLastUpdatedTime() == null) {
                 updateBook.setLastUpdatedTime(new Date(System.currentTimeMillis()));
             } else {
-                updateBook.setLastUpdatedTime(document.getLastUpdatedTime());
+                updateBook.setLastUpdatedTime(((Book) document).getLastUpdatedTime());
             }
             Cache.get().getDocumentCache().getDocumentTitleIdMap()
                     .put(updateBook.getDocumentTitle(), updateBook.getDocumentId());
@@ -287,10 +287,10 @@ public class BookNoteDAO extends AbstractNoteDAO {
             } else {
                 newBook.setCreatedTime(((Book) document).getCreatedTime());
             }
-            if (document.getLastUpdatedTime() == null) {
+            if (((Book) document).getLastUpdatedTime() == null) {
                 newBook.setLastUpdatedTime(new Date(System.currentTimeMillis()));
             } else {
-                newBook.setLastUpdatedTime(document.getLastUpdatedTime());
+                newBook.setLastUpdatedTime(((Book) document).getLastUpdatedTime());
             }
 
             // Add the document to document cache.

@@ -27,8 +27,6 @@ public class WorksetUnitTests extends EasyNoteUnitTestCase {
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
         Workset workset = (Workset) (testData.documentMap.get(3L));
-        System.out.println("test data: " + workset);
-        System.out.println("cached data: " + Cache.get().getDocumentCache().getDocumentMap().get(3L));
         assertTrue(workset.equals(Cache.get().getDocumentCache().getDocumentMap().get(3L)));
         assertFalse(workset.equals(new Workset()));
         assertFalse(workset.equals(new Object()));

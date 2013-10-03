@@ -3,8 +3,6 @@
  */
 package notes.entity;
 
-import java.util.Date;
-
 /**
  * An interface to describe basic operations of a document.
  *
@@ -54,20 +52,6 @@ public interface Document extends Comparable<Document>, XMLSerializable<Document
      * @param documentTitle The document title to set.
      */
     void setDocumentTitle(String documentTitle);
-
-    /**
-     * Gets the document's last updated time.
-     *
-     * @return {@code Date} The document's last updated time.
-     */
-    Date getLastUpdatedTime();
-
-    /**
-     * Sets the document's last updated time.
-     *
-     * @param lastUpdatedTime The document's last updated time.
-     */
-    void setLastUpdatedTime(Date lastUpdatedTime);
 
     /**
      * Gets the number of notes in the document.

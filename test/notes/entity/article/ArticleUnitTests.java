@@ -30,6 +30,8 @@ public class ArticleUnitTests extends EasyNoteUnitTestCase {
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
         Article article = (Article) (testData.documentMap.get(2L));
+        System.out.println("test data: " + article);
+        System.out.println("cached data: " + Cache.get().getDocumentCache().getDocumentMap().get(2L));
         assertTrue(article.equals(Cache.get().getDocumentCache().getDocumentMap().get(2L)));
         assertFalse(article.equals(new Article()));
         assertFalse(article.equals(new Object()));

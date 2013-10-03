@@ -197,10 +197,10 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
             updateWorkset.setComment(document.getComment());
             updateWorkset.setWorksheetsMap(((Workset) document).getWorksheetsMap());
             updateWorkset.setWorksheetIdsList(((Workset) document).getWorksheetIdsList());
-            if (document.getLastUpdatedTime() == null) {
+            if (((Workset) document).getLastUpdatedTime() == null) {
                 updateWorkset.setLastUpdatedTime(new Date(System.currentTimeMillis()));
             } else {
-                updateWorkset.setLastUpdatedTime(document.getLastUpdatedTime());
+                updateWorkset.setLastUpdatedTime(((Workset) document).getLastUpdatedTime());
             }
             Cache.get().getDocumentCache().getDocumentTitleIdMap()
                     .put(updateWorkset.getDocumentTitle(), updateWorkset.getDocumentId());
@@ -297,10 +297,10 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
             } else {
                 newWorkset.setCreatedTime(((Workset) document).getCreatedTime());
             }
-            if (document.getLastUpdatedTime() == null) {
+            if (((Workset) document).getLastUpdatedTime() == null) {
                 newWorkset.setLastUpdatedTime(new Date(System.currentTimeMillis()));
             } else {
-                newWorkset.setLastUpdatedTime(document.getLastUpdatedTime());
+                newWorkset.setLastUpdatedTime(((Workset) document).getLastUpdatedTime());
             }
 
             // Add the document to document cache.

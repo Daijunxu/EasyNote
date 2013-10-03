@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 import notes.entity.aware.AuthorsAware;
 import notes.entity.aware.CreatedTimeAware;
+import notes.entity.aware.LastUpdatedTimeAware;
 import notes.entity.impl.AbstractDocument;
 import notes.utils.EntityHelper;
 import org.dom4j.Element;
@@ -28,7 +29,7 @@ import java.util.Map;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true, includeFieldNames = true)
-public class Workset extends AbstractDocument implements AuthorsAware, CreatedTimeAware {
+public class Workset extends AbstractDocument implements AuthorsAware, CreatedTimeAware, LastUpdatedTimeAware {
 
     /**
      * The list of authors.
@@ -42,6 +43,12 @@ public class Workset extends AbstractDocument implements AuthorsAware, CreatedTi
     @Getter
     @Setter
     protected Date createdTime;
+    /**
+     * The last update time of this document.
+     */
+    @Getter
+    @Setter
+    protected Date lastUpdatedTime;
     /**
      * The ordered list of worksheetIds.
      */

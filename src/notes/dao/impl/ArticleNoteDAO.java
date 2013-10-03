@@ -94,10 +94,10 @@ public class ArticleNoteDAO extends AbstractNoteDAO {
             updateArticle.setAuthorsList(((Article) document).getAuthorsList());
             updateArticle.setComment(document.getComment());
             updateArticle.setSource(((Article) document).getSource());
-            if (document.getLastUpdatedTime() == null) {
+            if (((Article) document).getLastUpdatedTime() == null) {
                 updateArticle.setLastUpdatedTime(new Date(System.currentTimeMillis()));
             } else {
-                updateArticle.setLastUpdatedTime(document.getLastUpdatedTime());
+                updateArticle.setLastUpdatedTime(((Article) document).getLastUpdatedTime());
             }
             Cache.get().getDocumentCache().getDocumentTitleIdMap()
                     .put(updateArticle.getDocumentTitle(), updateArticle.getDocumentId());
@@ -149,10 +149,10 @@ public class ArticleNoteDAO extends AbstractNoteDAO {
             } else {
                 newArticle.setCreatedTime(((Article) document).getCreatedTime());
             }
-            if (document.getLastUpdatedTime() == null) {
+            if (((Article) document).getLastUpdatedTime() == null) {
                 newArticle.setLastUpdatedTime(new Date(System.currentTimeMillis()));
             } else {
-                newArticle.setLastUpdatedTime(document.getLastUpdatedTime());
+                newArticle.setLastUpdatedTime(((Article) document).getLastUpdatedTime());
             }
             if (((Article) document).getNotesList() == null) {
                 newArticle.setNotesList(new ArrayList<Long>());
