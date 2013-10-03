@@ -86,3 +86,4 @@
 [09/29/2013] 13348(122): Support resizing for the main panel.
 [10/01/2013] 13956(128): Add entity classes and tests for Workset.
 [10/01/2013] 14729(131): Implement DAO and home object for Workset.
+[10/02/2013] 17887(159): Initial commit of the GUI for Workset.

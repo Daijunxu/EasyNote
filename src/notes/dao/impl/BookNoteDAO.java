@@ -149,14 +149,14 @@ public class BookNoteDAO extends AbstractNoteDAO {
             Long oldChapterId = cachedChapter.getChapterId();
             Long updatedChapterId = chapter.getChapterId();
 
-            if (chaptersMap.containsKey(updatedChapterId)) {
-                throw new InvalidKeyException("The updated chapter id is already taken by another chapter.");
-            }
-
             cachedChapter.setChapterTitle(chapter.getChapterTitle());
             cachedChapter.setNotesList(chapter.getNotesList());
 
             if (!oldChapterId.equals(updatedChapterId)) {
+                // Chapter id is changed.
+                if (chaptersMap.containsKey(updatedChapterId)) {
+                    throw new InvalidKeyException("The updated chapter id is already taken by another chapter.");
+                }
                 cachedChapter.setChapterId(updatedChapterId);
                 chaptersMap.remove(oldChapterId);
                 chaptersMap.put(updatedChapterId, cachedChapter);
@@ -183,7 +183,7 @@ public class BookNoteDAO extends AbstractNoteDAO {
             Cache.get().getDocumentCache().getDocumentTitleIdMap()
                     .remove(updateBook.getDocumentTitle());
             updateBook.setDocumentTitle(document.getDocumentTitle());
-            updateBook.setAuthorsList(document.getAuthorsList());
+            updateBook.setAuthorsList(((Book) document).getAuthorsList());
             updateBook.setComment(document.getComment());
             updateBook.setEdition(((Book) document).getEdition());
             updateBook.setPublishedYear(((Book) document).getPublishedYear());
@@ -276,7 +276,7 @@ public class BookNoteDAO extends AbstractNoteDAO {
                 newBook.setDocumentId(document.getDocumentId());
             }
             newBook.setDocumentTitle(document.getDocumentTitle());
-            newBook.setAuthorsList(document.getAuthorsList());
+            newBook.setAuthorsList(((Book) document).getAuthorsList());
             newBook.setComment(document.getComment());
             newBook.setEdition(((Book) document).getEdition());
             newBook.setPublishedYear(((Book) document).getPublishedYear());

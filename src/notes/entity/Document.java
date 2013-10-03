@@ -4,7 +4,6 @@
 package notes.entity;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * An interface to describe basic operations of a document.
@@ -13,20 +12,6 @@ import java.util.List;
  * @version 1.0
  */
 public interface Document extends Comparable<Document>, XMLSerializable<Document> {
-
-    /**
-     * Gets the list of authors.
-     *
-     * @return {@code List<String>} The list of authors.
-     */
-    List<String> getAuthorsList();
-
-    /**
-     * Sets the list of authors.
-     *
-     * @param authorsList The list of authors to set.
-     */
-    void setAuthorsList(List<String> authorsList);
 
     /**
      * Gets the comment.

@@ -10,7 +10,6 @@ import notes.entity.Document;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * An abstract entity class specifying the basic members and methods of a document.
@@ -33,12 +32,6 @@ public abstract class AbstractDocument implements Document {
     @Getter
     @Setter
     protected String documentTitle;
-    /**
-     * The list of authors.
-     */
-    @Getter
-    @Setter
-    protected List<String> authorsList;
     /**
      * The comment.
      */

@@ -159,17 +159,14 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
             Worksheet cachedWorksheet = cachedWorkset.getWorksheetsMap().get(oldWorksheetId);
             Long updatedWorksheetId = worksheet.getWorksheetId();
 
-            System.out.println("old id: " + oldWorksheetId);
-            System.out.println("new id: " + updatedWorksheetId);
-
-            if (worksheetsMap.containsKey(updatedWorksheetId)) {
-                throw new InvalidKeyException("The updated worksheet id is already taken by another worksheet.");
-            }
-
             cachedWorksheet.setWorksheetTitle(worksheet.getWorksheetTitle());
             cachedWorksheet.setNotesList(worksheet.getNotesList());
 
             if (!oldWorksheetId.equals(updatedWorksheetId)) {
+                // Worksheet id is changed.
+                if (worksheetsMap.containsKey(updatedWorksheetId)) {
+                    throw new InvalidKeyException("The updated worksheet id is already taken by another worksheet.");
+                }
                 cachedWorksheet.setWorksheetId(updatedWorksheetId);
                 worksheetsMap.remove(oldWorksheetId);
                 worksheetsMap.put(updatedWorksheetId, cachedWorksheet);
@@ -196,7 +193,7 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
             Cache.get().getDocumentCache().getDocumentTitleIdMap()
                     .remove(updateWorkset.getDocumentTitle());
             updateWorkset.setDocumentTitle(document.getDocumentTitle());
-            updateWorkset.setAuthorsList(document.getAuthorsList());
+            updateWorkset.setAuthorsList(((Workset) document).getAuthorsList());
             updateWorkset.setComment(document.getComment());
             updateWorkset.setWorksheetsMap(((Workset) document).getWorksheetsMap());
             updateWorkset.setWorksheetIdsList(((Workset) document).getWorksheetIdsList());
@@ -291,7 +288,7 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
                 newWorkset.setDocumentId(document.getDocumentId());
             }
             newWorkset.setDocumentTitle(document.getDocumentTitle());
-            newWorkset.setAuthorsList(document.getAuthorsList());
+            newWorkset.setAuthorsList(((Workset) document).getAuthorsList());
             newWorkset.setComment(document.getComment());
             newWorkset.setWorksheetIdsList(((Workset) document).getWorksheetIdsList());
             newWorkset.setWorksheetsMap(((Workset) document).getWorksheetsMap());

@@ -91,7 +91,7 @@ public class ArticleNoteDAO extends AbstractNoteDAO {
             Cache.get().getDocumentCache().getDocumentTitleIdMap()
                     .remove(updateArticle.getDocumentTitle());
             updateArticle.setDocumentTitle(document.getDocumentTitle());
-            updateArticle.setAuthorsList(document.getAuthorsList());
+            updateArticle.setAuthorsList(((Article) document).getAuthorsList());
             updateArticle.setComment(document.getComment());
             updateArticle.setSource(((Article) document).getSource());
             if (document.getLastUpdatedTime() == null) {
@@ -141,7 +141,7 @@ public class ArticleNoteDAO extends AbstractNoteDAO {
                 newArticle.setDocumentId(document.getDocumentId());
             }
             newArticle.setDocumentTitle(document.getDocumentTitle());
-            newArticle.setAuthorsList(document.getAuthorsList());
+            newArticle.setAuthorsList(((Article) document).getAuthorsList());
             newArticle.setComment(document.getComment());
             newArticle.setSource(((Article) document).getSource());
             if (document.getCreatedTime() == null) {

@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import notes.entity.aware.AuthorsAware;
 import notes.entity.impl.AbstractDocument;
 import notes.utils.EntityHelper;
 import org.dom4j.Element;
@@ -25,8 +26,14 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true, includeFieldNames = true)
-public class Article extends AbstractDocument {
+public class Article extends AbstractDocument implements AuthorsAware {
 
+    /**
+     * The list of authors.
+     */
+    @Getter
+    @Setter
+    protected List<String> authorsList;
     /**
      * The article's source, could be an URL or a description text.
      */

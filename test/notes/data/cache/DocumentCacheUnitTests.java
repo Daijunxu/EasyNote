@@ -88,7 +88,7 @@ public class DocumentCacheUnitTests extends EasyNoteUnitTestCase {
         for (Element element : documentCacheElement.elements()) {
             assertTrue(element.getName().equals("Book")
                     || element.getName().equals("Article")
-                    || element.getName().equals("WORKSET"));
+                    || element.getName().equals("Workset"));
         }
     }
 

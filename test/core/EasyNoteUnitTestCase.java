@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -102,16 +103,20 @@ public class EasyNoteUnitTestCase {
 
             Workset document3 = new Workset();
             document3.setDocumentId(3L);
-            document3.setDocumentTitle("My WORKSET");
+            document3.setDocumentTitle("My Workset");
             document3.setAuthorsList(new ArrayList<String>(Arrays.asList("Rui Du")));
             document3.setComment("This is my workset.");
-            TreeMap<Long, Worksheet> worksheetsMap = new TreeMap<Long, Worksheet>();
+            Map<Long, Worksheet> worksheetsMap = new HashMap<Long, Worksheet>();
             Worksheet worksheet1 = new Worksheet(1L, "Worksheet1", new ArrayList<Long>());
             worksheet1.getNotesList().add(3L);
             Worksheet worksheet2 = new Worksheet(2L, "Worksheet2", new ArrayList<Long>());
             worksheetsMap.put(1L, worksheet1);
             worksheetsMap.put(2L, worksheet2);
             document3.setWorksheetsMap(worksheetsMap);
+            List<Long> worksheetIdsList = new ArrayList<Long>();
+            worksheetIdsList.add(1L);
+            worksheetIdsList.add(2L);
+            document3.setWorksheetIdsList(worksheetIdsList);
             document3.setCreatedTime(new Date(1341429512312L));
             document3.setLastUpdatedTime(new Date(1341429512312L));
             documentMap.put(document3.getDocumentId(), document3);
