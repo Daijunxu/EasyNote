@@ -29,7 +29,6 @@ public class WorksheetNoteUnitTests extends EasyNoteUnitTestCase {
     public void testEquals() {
         final EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
         WorksheetNote worksheetNote = (WorksheetNote) (testData.noteMap.get(3L));
-        System.out.println(Cache.get().getNoteCache().getNoteMap().get(3L));
         assertTrue(worksheetNote.equals(Cache.get().getNoteCache().getNoteMap().get(3L)));
         assertFalse(worksheetNote.equals(new WorksheetNote()));
         assertFalse(worksheetNote.equals(new Object()));

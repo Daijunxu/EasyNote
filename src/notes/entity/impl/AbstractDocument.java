@@ -3,6 +3,7 @@ package notes.entity.impl;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import notes.entity.Document;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
@@ -12,6 +13,7 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  * @author Rui Du
  */
 @EqualsAndHashCode
+@ToString(includeFieldNames = true)
 public abstract class AbstractDocument implements Document {
 
     /**
