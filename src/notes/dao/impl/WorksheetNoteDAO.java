@@ -43,6 +43,7 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
 
         // Remove the worksheet.
         cachedWorkset.getWorksheetsMap().remove(worksheet.getWorksheetId());
+        cachedWorkset.getWorksheetIdsList().remove(worksheet.getWorksheetId());
 
         // Update workset's last updated time.
         cachedWorkset.setLastUpdatedTime(new Date());

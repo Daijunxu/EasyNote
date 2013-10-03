@@ -144,4 +144,23 @@ public class Workset extends AbstractDocument implements AuthorsAware, CreatedTi
 
         return this;
     }
+
+    /**
+     * Generates a new worksheet id for the workset.
+     *
+     * @return The Id for the new worksheet.
+     */
+    public Long generateNewWorksheetId() {
+        return getMaxWorksheetId() + 1;
+    }
+
+    private Long getMaxWorksheetId() {
+        Long maxWorksheetId = Long.MIN_VALUE;
+        for (Long worksheetId : worksheetIdsList) {
+            if (maxWorksheetId < worksheetId) {
+                maxWorksheetId = worksheetId;
+            }
+        }
+        return maxWorksheetId;
+    }
 }

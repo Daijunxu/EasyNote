@@ -5,7 +5,6 @@ import notes.dao.impl.WorksheetNoteDAO;
 import notes.data.cache.Property;
 import notes.entity.workset.Worksheet;
 import notes.gui.main.component.MainPanel;
-import notes.gui.main.verifier.IdInputVerifier;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 import org.apache.commons.lang3.text.WordUtils;
@@ -26,28 +25,11 @@ public class NewWorksheetDialog extends JDialog {
         public void actionPerformed(ActionEvent e) {
 
             // Input validation.
-            if (!worksheetIdField.getInputVerifier().verify(worksheetIdField)) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
-                JOptionPane.showMessageDialog(null,
-                        "Please enter a valid worksheet ID!\n(A non-negative integer)",
-                        "Input error", JOptionPane.ERROR_MESSAGE);
-                worksheetIdField.requestFocus();
-                return;
-            } else if (worksheetField.getText() == null || worksheetField.getText().trim().equals("")) {
+            if (worksheetField.getText() == null || worksheetField.getText().trim().equals("")) {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();
                 }
                 JOptionPane.showMessageDialog(null, "Worksheet title cannot be empty!",
-                        "Input error", JOptionPane.ERROR_MESSAGE);
-                worksheetField.requestFocus();
-                return;
-            } else if (worksheetField.getText().trim().split("\n").length > 1) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
-                JOptionPane.showMessageDialog(null, "Worksheet title can only have one line!",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 worksheetField.requestFocus();
                 return;
@@ -59,8 +41,7 @@ public class NewWorksheetDialog extends JDialog {
 
             // Create instance of the created worksheet.
             Worksheet createdWorksheet = new Worksheet();
-            String worksheetIdStr = worksheetIdField.getText();
-            createdWorksheet.setWorksheetId(Long.parseLong(worksheetIdStr));
+            createdWorksheet.setWorksheetId(home.getCurrentWorkset().generateNewWorksheetId());
             createdWorksheet.setWorksheetTitle(WordUtils.capitalize(worksheetField.getText().trim()));
             createdWorksheet.setNotesList(new ArrayList<Long>());
 
@@ -83,8 +64,7 @@ public class NewWorksheetDialog extends JDialog {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playError();
                 }
-                JOptionPane.showMessageDialog(null,
-                        "Duplicate worksheet ID!",
+                JOptionPane.showMessageDialog(null, "Duplicate worksheet ID!",
                         "Error Message", JOptionPane.ERROR_MESSAGE);
             }
 
@@ -98,9 +78,7 @@ public class NewWorksheetDialog extends JDialog {
             setVisible(false);
         }
     });
-    private final JTextArea documentField = new JTextArea(2, 50);
-    private final JTextField worksheetIdField = new JTextField();
-    private final JTextArea worksheetField = new JTextArea(2, 50);
+    private final JTextField worksheetField = new JTextField(30);
 
     /**
      * Creates an instance of {@code NewWorksheetDialog}.
@@ -120,41 +98,15 @@ public class NewWorksheetDialog extends JDialog {
         GridBagConstraints c = new GridBagConstraints();
         worksheetPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 30, 10));
 
-        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
-        c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
-        worksheetPanel.add(new JLabel("Document *"), c);
+        c.insets = new Insets(5, 5, 5, 5);
+        worksheetPanel.add(new JLabel("Title:"), c);
 
         c.gridx = 1;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
-        documentField.setLineWrap(true);
-        documentField.setText(home.getCurrentWorkset().getDocumentTitle());
-        documentField.setEditable(false);
-        worksheetPanel.add(new JScrollPane(documentField), c);
-
-        c.gridx = 0;
-        c.gridy = 1;
-        c.insets = new Insets(5, 5, 5, 5);
-        worksheetPanel.add(new JLabel("Worksheet ID *"), c);
-
-        c.gridx = 1;
-        c.gridy = 1;
-        c.insets = new Insets(5, 5, 5, 5);
-        worksheetIdField.setInputVerifier(new IdInputVerifier());
-        worksheetPanel.add(worksheetIdField, c);
-
-        c.gridx = 0;
-        c.gridy = 2;
-        c.insets = new Insets(5, 5, 5, 5);
-        worksheetPanel.add(new JLabel("Worksheet Title *"), c);
-
-        c.gridx = 1;
-        c.gridy = 2;
-        c.insets = new Insets(5, 5, 5, 5);
-        worksheetField.setLineWrap(true);
-        worksheetPanel.add(new JScrollPane(worksheetField), c);
+        worksheetPanel.add(worksheetField, c);
 
         dialogPanel.add(worksheetPanel);
 

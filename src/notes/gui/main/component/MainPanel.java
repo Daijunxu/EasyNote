@@ -515,7 +515,7 @@ public class MainPanel extends JFrame {
         int counter = 0;
         for (Long worksheetId : currentWorkset.getWorksheetIdsList()) {
             Worksheet worksheet = currentWorkset.getWorksheetsMap().get(worksheetId);
-            worksheetsTitle[counter] = worksheetId + ". " + worksheet.getWorksheetTitle();
+            worksheetsTitle[counter] = worksheet.getWorksheetTitle();
             counter++;
         }
         JList worksheetsList = new JList(worksheetsTitle);
