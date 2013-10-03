@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.workset.event;
 
 import notes.bean.WorksetHome;
@@ -18,7 +15,6 @@ import javax.swing.event.ListSelectionListener;
  * The event listener for worksheet list. Triggers when selected item in the list changes.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class WorksheetListSelectionListener implements ListSelectionListener {
 

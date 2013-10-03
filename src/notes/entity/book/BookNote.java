@@ -17,7 +17,6 @@ import java.util.List;
  * Entity class to describe a book note.
  *
  * @author Rui Du
- * @version 1.0
  */
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)

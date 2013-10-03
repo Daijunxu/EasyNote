@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.entity.impl;
 
 import lombok.EqualsAndHashCode;
@@ -13,7 +10,6 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  * An abstract entity class specifying the basic members and methods of a document.
  *
  * @author Rui Du
- * @version 1.0
  */
 @EqualsAndHashCode
 public abstract class AbstractDocument implements Document {

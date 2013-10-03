@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.main.component;
 
 import notes.bean.ArticleHome;
@@ -24,7 +21,6 @@ import java.awt.event.ActionListener;
  * Pops up when right clicking a note in the result panel in search note dialog.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class SearchNotePopupMenu extends JPopupMenu {
 

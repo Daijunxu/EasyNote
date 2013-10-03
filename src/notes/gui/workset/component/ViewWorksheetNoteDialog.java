@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.workset.component;
 
 import notes.bean.WorksetHome;
@@ -20,7 +17,6 @@ import java.awt.event.ActionEvent;
  * Defines the dialog and event listener for viewing a workset note.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class ViewWorksheetNoteDialog extends JDialog {
 

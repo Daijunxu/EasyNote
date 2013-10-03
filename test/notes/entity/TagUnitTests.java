@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.entity;
 
 import core.EasyNoteUnitTestCase;
@@ -18,7 +15,6 @@ import static org.junit.Assert.assertTrue;
  * Unit tests for the {@code Tag}.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class TagUnitTests extends EasyNoteUnitTestCase {
 

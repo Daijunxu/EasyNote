@@ -10,6 +10,9 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.dom4j.Element;
 import org.dom4j.tree.DefaultElement;
 
+/**
+ * Entity class to describe a tag.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)

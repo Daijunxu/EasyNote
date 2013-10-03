@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.main.event;
 
 import notes.bean.ArticleHome;
@@ -20,7 +17,6 @@ import java.awt.event.WindowListener;
  * Window listener of the main panel.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class MainPanelWindowListener implements WindowListener {
 

@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.main.component;
 
 import notes.data.cache.Property;
@@ -20,7 +17,6 @@ import java.net.URISyntaxException;
  * Defines the dialog and event listener for system's information.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class AboutDialog extends JDialog {
 

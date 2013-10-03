@@ -22,7 +22,6 @@ import java.util.List;
  * Defines the dialog and event listener for editing an article note.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class EditArticleNoteDialog extends JDialog {
     private final ArticleNote selectedNote;

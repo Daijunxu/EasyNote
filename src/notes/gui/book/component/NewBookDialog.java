@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.book.component;
 
 import notes.bean.BookHome;
@@ -27,7 +24,6 @@ import java.util.TreeMap;
  * Defines the dialog and event listener for creating a new book.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class NewBookDialog extends JDialog {
 

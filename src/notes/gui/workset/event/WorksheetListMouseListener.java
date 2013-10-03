@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.workset.event;
 
 import notes.data.cache.Property;
@@ -16,7 +13,6 @@ import java.awt.event.MouseEvent;
  * Mouse event listener for worksheets' list in workset panel.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class WorksheetListMouseListener extends MouseAdapter {
 

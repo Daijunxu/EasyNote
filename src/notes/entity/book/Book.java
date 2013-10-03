@@ -21,7 +21,6 @@ import java.util.TreeMap;
  * Entity class to describe a book.
  *
  * @author Rui Du
- * @version 1.0
  */
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)

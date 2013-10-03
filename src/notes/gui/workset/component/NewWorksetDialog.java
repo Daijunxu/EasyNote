@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.workset.component;
 
 import notes.bean.WorksetHome;
@@ -24,7 +21,6 @@ import java.util.TreeMap;
  * Defines the dialog and event listener for creating a new workset.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class NewWorksetDialog extends JDialog {
 

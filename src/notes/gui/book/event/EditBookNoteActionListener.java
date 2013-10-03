@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.book.event;
 
 import notes.bean.BookHome;
@@ -17,7 +14,6 @@ import java.awt.event.ActionListener;
  * Defines event listener of editing a book note.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class EditBookNoteActionListener implements ActionListener {
 

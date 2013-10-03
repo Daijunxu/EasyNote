@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.workset.component;
 
 import javax.swing.*;
@@ -10,8 +7,8 @@ import java.awt.*;
  * Defines the cell renderer for the worksheets' JList.
  *
  * @author Rui Du
- * @version 1.0
  */
+// TODO: Can we reuse the chapter list cell renderer?
 public class WorksheetListCellRenderer extends DefaultListCellRenderer {
     private final String HTML_1 = "<html><body style='width: ";
     private final String HTML_2 = "'>";

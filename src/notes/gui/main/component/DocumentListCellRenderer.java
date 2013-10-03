@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.main.component;
 
 import javax.swing.*;
@@ -10,7 +7,6 @@ import java.awt.*;
  * Defines the cell renderer for the documents' JList.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class DocumentListCellRenderer extends DefaultListCellRenderer {
     private final String HTML_1 = "<html><body style='width: ";

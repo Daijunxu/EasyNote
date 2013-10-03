@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.book.verifier;
 
 import javax.swing.InputVerifier;
@@ -11,7 +8,6 @@ import javax.swing.JTextField;
  * Verifies that the input text in {@link JTextField} is a valid ISBN number.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class ISBNInputVerifier extends InputVerifier {
 

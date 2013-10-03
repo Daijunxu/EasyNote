@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.main.component;
 
 import notes.bean.BookHome;
@@ -13,7 +10,6 @@ import java.awt.*;
  * Defines the cell renderer for the notes' JList.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class NoteListCellRenderer extends DefaultListCellRenderer {
     private int width;

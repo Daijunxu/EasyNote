@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.article.component;
 
 import notes.bean.ArticleHome;
@@ -15,7 +12,6 @@ import javax.swing.*;
  * Pops up when right clicking a note in the article note panel.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class ArticleNotePopupMenu extends JPopupMenu {
     /**

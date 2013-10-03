@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.article.event;
 
 import notes.bean.ArticleHome;
@@ -17,7 +14,6 @@ import java.awt.event.ActionListener;
  * Defines event listener of editing an article note.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class EditArticleNoteActionListener implements ActionListener {
 

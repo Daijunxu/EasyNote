@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.article.event;
 
 import java.awt.event.ActionEvent;
@@ -15,7 +12,6 @@ import notes.utils.SoundTheme;
  * Defines event listener of creating a new article.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class NewArticleActionListener implements ActionListener {
 

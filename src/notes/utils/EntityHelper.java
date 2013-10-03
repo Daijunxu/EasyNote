@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.utils;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -12,7 +9,6 @@ import java.util.List;
  * A helper class for entities classes.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class EntityHelper {
 

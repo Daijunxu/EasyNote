@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.utils;
 
 import java.io.BufferedReader;
@@ -12,7 +9,6 @@ import java.io.IOException;
  * Calculates how many lines of codes are there in current project.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class LineCalculator {
 

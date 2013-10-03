@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.data.cache;
 
 import core.EasyNoteUnitTestCase;
@@ -19,7 +16,6 @@ import static org.junit.Assert.assertTrue;
  * Unit tests for the {@code TagCache}.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class TagCacheUnitTests extends EasyNoteUnitTestCase {
 

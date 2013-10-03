@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.workset.event;
 
 import notes.data.cache.Property;
@@ -15,7 +12,6 @@ import java.awt.event.ActionListener;
  * Defines event listener of creating a new workset.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class NewWorksetActionListener implements ActionListener {
 

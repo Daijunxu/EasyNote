@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.workset.event;
 
 import notes.bean.WorksetHome;
@@ -17,7 +14,6 @@ import java.awt.event.ActionListener;
  * The event listener for exporting current workset.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class ExportWorksetActionListener implements ActionListener {
 

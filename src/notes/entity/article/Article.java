@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.entity.article;
 
 import lombok.EqualsAndHashCode;
@@ -23,7 +20,6 @@ import java.util.List;
  * Entity class to describe an article.
  *
  * @author Rui Du
- * @version 1.0
  */
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)

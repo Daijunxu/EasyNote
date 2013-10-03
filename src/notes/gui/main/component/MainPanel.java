@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.main.component;
 
 import lombok.Getter;
@@ -55,13 +52,18 @@ import notes.gui.main.event.OpenDocumentActionListener;
 import notes.gui.main.event.OpenPreferencesActionListener;
 import notes.gui.main.event.SaveAllActoinListener;
 import notes.gui.main.event.SearchNoteActionListener;
+import notes.gui.workset.component.WorksheetListCellRenderer;
+import notes.gui.workset.event.DeleteWorksetActionListener;
 import notes.gui.workset.event.DeleteWorksheetActionListener;
 import notes.gui.workset.event.DeleteWorksheetNoteActionListener;
+import notes.gui.workset.event.EditWorksetActionListener;
 import notes.gui.workset.event.EditWorksheetActionListener;
 import notes.gui.workset.event.EditWorksheetNoteActionListener;
+import notes.gui.workset.event.ExportWorksetActionListener;
 import notes.gui.workset.event.NewWorksetActionListener;
 import notes.gui.workset.event.NewWorksheetActionListener;
 import notes.gui.workset.event.NewWorksheetNoteActionListener;
+import notes.gui.workset.event.ViewWorksetActionListener;
 import notes.gui.workset.event.ViewWorksheetNoteActionListener;
 import notes.gui.workset.event.WorksheetListMouseListener;
 import notes.gui.workset.event.WorksheetListSelectionListener;
@@ -79,7 +81,6 @@ import java.util.Map;
  * The main panel.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class MainPanel extends JFrame {
 
@@ -414,13 +415,13 @@ public class MainPanel extends JFrame {
         JMenuItem openDocumentItem = new JMenuItem("Open Document", KeyEvent.VK_O);
         openDocumentItem.addActionListener(new OpenDocumentActionListener());
         JMenuItem viewDocumentItem = new JMenuItem("View Workset Info", KeyEvent.VK_V);
-        viewDocumentItem.addActionListener(new ViewBookActionListener());
+        viewDocumentItem.addActionListener(new ViewWorksetActionListener());
         JMenuItem editDocumentItem = new JMenuItem("Edit Workset Info", KeyEvent.VK_E);
-        editDocumentItem.addActionListener(new EditBookActionListener());
+        editDocumentItem.addActionListener(new EditWorksetActionListener());
         JMenuItem deleteDocumentItem = new JMenuItem("Delete This Workset", KeyEvent.VK_D);
-        deleteDocumentItem.addActionListener(new DeleteBookActionListener());
+        deleteDocumentItem.addActionListener(new DeleteWorksetActionListener());
         JMenuItem exportDocumentItem = new JMenuItem("Export", KeyEvent.VK_P);
-        exportDocumentItem.addActionListener(new ExportBookActionListener());
+        exportDocumentItem.addActionListener(new ExportWorksetActionListener());
         JMenuItem saveAllItem = new JMenuItem("Save All", KeyEvent.VK_S);
         saveAllItem.addActionListener(new SaveAllActoinListener());
         worksetMenu.add(newDocumentMenu);
@@ -518,7 +519,7 @@ public class MainPanel extends JFrame {
             counter++;
         }
         JList worksheetsList = new JList(worksheetsTitle);
-        worksheetsList.setCellRenderer(new ChapterListCellRenderer(width));
+        worksheetsList.setCellRenderer(new WorksheetListCellRenderer(width));
         worksheetsList.setFixedCellWidth(width);
         worksheetsList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         worksheetsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

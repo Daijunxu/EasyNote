@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.workset.event;
 
 import notes.bean.WorksetHome;
@@ -17,7 +14,6 @@ import java.awt.event.ActionListener;
  * Defines event listener of editing a worksheet in a workset.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class EditWorksheetActionListener implements ActionListener {
 

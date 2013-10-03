@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.main.component;
 
 import notes.bean.BookHome;
@@ -32,7 +29,6 @@ import java.util.Set;
  * Defines the dialog and event listener for searching notes.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class SearchNoteDialog extends JDialog {
 

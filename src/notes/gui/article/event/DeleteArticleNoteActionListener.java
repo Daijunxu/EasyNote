@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.article.event;
 
 import notes.bean.ArticleHome;
@@ -18,7 +15,6 @@ import java.awt.event.ActionListener;
  * Defines event listener of deleting an article note.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class DeleteArticleNoteActionListener implements ActionListener {
 

@@ -1,23 +1,23 @@
-/**
- *
- */
 package notes.utils;
-
-import java.io.FileInputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 import notes.data.cache.Property;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
+import java.io.FileInputStream;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
+ * Factory class responsible for playing sound effects.
+ *
  * @author Rui Du
  */
 public class SoundFactory {
 
     private static AudioPlayer player = AudioPlayer.player;
     private static Map<String, Map<String, String>> soundMap;
+
     static {
         soundMap = new HashMap<String, Map<String, String>>();
 

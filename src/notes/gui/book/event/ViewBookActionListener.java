@@ -1,12 +1,4 @@
-/**
- *
- */
 package notes.gui.book.event;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JOptionPane;
 
 import notes.bean.BookHome;
 import notes.data.cache.Property;
@@ -14,11 +6,14 @@ import notes.gui.book.component.ViewBookDialog;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  * Defines event listener of viewing a book.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class ViewBookActionListener implements ActionListener {
 

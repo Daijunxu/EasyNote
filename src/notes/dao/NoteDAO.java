@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.dao;
 
 import notes.entity.Document;
@@ -13,7 +10,6 @@ import java.util.List;
  * An interface to describe the data access object for notes.
  *
  * @author Rui Du
- * @version 1.0
  */
 public interface NoteDAO<N extends Note, D extends Document> {
 

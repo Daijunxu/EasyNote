@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.book.event;
 
 import notes.bean.BookHome;
@@ -18,7 +15,6 @@ import java.awt.event.ActionListener;
  * Defines event listener of deleting a book.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class DeleteBookActionListener implements ActionListener {
 

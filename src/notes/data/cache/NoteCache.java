@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.data.cache;
 
 import lombok.Getter;
@@ -20,7 +17,6 @@ import java.util.Map;
  * Stores all the notes.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class NoteCache implements XMLSerializable {
 

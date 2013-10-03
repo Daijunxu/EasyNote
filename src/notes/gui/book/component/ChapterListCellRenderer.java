@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.book.component;
 
 import javax.swing.*;
@@ -10,7 +7,6 @@ import java.awt.*;
  * Defines the cell renderer for the chapters' JList.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class ChapterListCellRenderer extends DefaultListCellRenderer {
     private final String HTML_1 = "<html><body style='width: ";

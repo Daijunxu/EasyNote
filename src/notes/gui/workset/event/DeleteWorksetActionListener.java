@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.workset.event;
 
 import notes.bean.WorksetHome;
@@ -18,7 +15,6 @@ import java.awt.event.ActionListener;
  * Defines event listener of deleting a workset.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class DeleteWorksetActionListener implements ActionListener {
 

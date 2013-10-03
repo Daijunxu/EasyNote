@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.book.component;
 
 import notes.bean.BookHome;
@@ -15,7 +12,6 @@ import javax.swing.*;
  * Pops up when right clicking a note in the book note panel.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class BookNotePopupMenu extends JPopupMenu {
 

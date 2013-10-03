@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.main.component;
 
 import lombok.Getter;
@@ -18,7 +15,6 @@ import java.awt.event.ActionListener;
  * Defines the dialog and event listener for editing system preferences.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class PreferencesDialog extends JDialog {
 

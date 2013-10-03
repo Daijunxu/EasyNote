@@ -18,7 +18,6 @@ import java.util.List;
  * only one book.
  *
  * @author Rui Du
- * @version 1.0
  */
 @NoArgsConstructor
 @AllArgsConstructor

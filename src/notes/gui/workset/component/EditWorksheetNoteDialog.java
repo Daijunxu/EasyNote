@@ -23,7 +23,6 @@ import java.util.List;
  * Defines the dialog and event listener for editing a worksheet note.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class EditWorksheetNoteDialog extends JDialog {
     private final WorksheetNote selectedNote;

@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.book.component;
 
 import notes.bean.BookHome;
@@ -18,7 +15,6 @@ import java.util.List;
  * Defines the dialog and event listener for viewing a book.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class ViewBookDialog extends JDialog {
 

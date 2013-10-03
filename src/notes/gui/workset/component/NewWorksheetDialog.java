@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.workset.component;
 
 import notes.bean.WorksetHome;
@@ -22,7 +19,6 @@ import java.util.ArrayList;
  * Defines the dialog and event listener for creating a worksheet.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class NewWorksheetDialog extends JDialog {
 

@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.main.event;
 
 import notes.bean.ArticleHome;
@@ -23,7 +20,6 @@ import javax.swing.event.ListSelectionListener;
  * The event listener for book note list. Triggers when selected item in the list changes.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class NoteListSelectionListener implements ListSelectionListener {
 

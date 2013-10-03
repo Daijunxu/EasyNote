@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.workset.event;
 
 import notes.bean.WorksetHome;
@@ -18,7 +15,6 @@ import java.awt.event.MouseEvent;
  * Mouse event listener for notes' JList in workset panel.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class WorksheetNoteListMouseListener extends MouseAdapter {
 

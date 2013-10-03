@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.data.cache;
 
 import lombok.Getter;
@@ -21,7 +18,6 @@ import java.util.Properties;
  * Stores the system's configuration information.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class Property {
     /**

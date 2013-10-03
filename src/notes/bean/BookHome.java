@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.bean;
 
 import lombok.Getter;
@@ -20,7 +17,6 @@ import java.util.Map;
  * The object that stores temporary data for the front end and provides access to DAO component.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class BookHome {
 

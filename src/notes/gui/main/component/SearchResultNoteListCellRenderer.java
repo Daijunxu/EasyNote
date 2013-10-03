@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.main.component;
 
 import notes.bean.BookHome;
@@ -18,7 +15,6 @@ import java.awt.*;
  * Defines the cell renderer for the notes' JList in note search dialog.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class SearchResultNoteListCellRenderer extends DefaultListCellRenderer {
     private final String HTML_1 = "<html><body style='width: ";

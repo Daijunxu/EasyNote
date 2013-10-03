@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.article.event;
 
 import notes.bean.ArticleHome;
@@ -18,7 +15,6 @@ import java.awt.event.MouseEvent;
  * Mouse event listener for notes' JList in article panel.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class ArticleNoteListMouseListener extends MouseAdapter {
 

@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.article.component;
 
 import notes.bean.ArticleHome;
@@ -23,7 +20,6 @@ import java.util.List;
  * Defines the dialog and event listener for creating a article note.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class NewArticleNoteDialog extends JDialog {
     private final JButton okButton = new JButton(new AbstractAction("OK") {

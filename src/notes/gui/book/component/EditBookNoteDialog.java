@@ -23,7 +23,6 @@ import java.util.List;
  * Defines the dialog and event listener for editing a book note.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class EditBookNoteDialog extends JDialog {
     private final BookNote selectedNote;

@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.article.component;
 
 import notes.bean.ArticleHome;
@@ -24,7 +21,6 @@ import java.io.IOException;
  * Defines the dialog and event listener for exporting current article.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class ExportArticleDialog extends JDialog {
 

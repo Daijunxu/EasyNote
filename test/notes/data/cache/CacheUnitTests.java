@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.data.cache;
 
 import core.EasyNoteUnitTestCase;
@@ -14,7 +11,6 @@ import static org.junit.Assert.assertNotNull;
  * Unit tests for the {@code Cache}.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class CacheUnitTests extends EasyNoteUnitTestCase {
 

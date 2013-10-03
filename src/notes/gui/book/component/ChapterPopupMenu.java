@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.book.component;
 
 import notes.bean.BookHome;
@@ -14,7 +11,6 @@ import javax.swing.*;
  * Pops up when right clicking a chapter in the chapter panel.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class ChapterPopupMenu extends JPopupMenu {
 

@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.main.event;
 
 import notes.data.cache.Cache;
@@ -15,7 +12,6 @@ import java.awt.event.ActionListener;
  * The event listener for saving all changes.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class SaveAllActoinListener implements ActionListener {
 

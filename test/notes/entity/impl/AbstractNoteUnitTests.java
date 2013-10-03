@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.entity.impl;
 
 import core.EasyNoteUnitTestCase;
@@ -15,7 +12,6 @@ import static org.junit.Assert.assertTrue;
  * Unit tests for the {@code AbstractNote}.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class AbstractNoteUnitTests extends EasyNoteUnitTestCase {
 

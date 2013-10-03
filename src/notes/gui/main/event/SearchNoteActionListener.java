@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.main.event;
 
 import notes.data.cache.Property;
@@ -16,7 +13,6 @@ import java.awt.event.ActionListener;
  * The event listener for note searching.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class SearchNoteActionListener implements ActionListener {
 

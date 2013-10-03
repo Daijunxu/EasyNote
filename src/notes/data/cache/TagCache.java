@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.data.cache;
 
 import lombok.Getter;
@@ -17,7 +14,6 @@ import java.util.Map;
  * Stores all the tags.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class TagCache implements XMLSerializable<TagCache> {
 

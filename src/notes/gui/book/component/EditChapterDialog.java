@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.book.component;
 
 import notes.bean.BookHome;
@@ -21,7 +18,6 @@ import java.awt.event.ActionEvent;
  * Defines the dialog and event listener for editing a chapter in a book.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class EditChapterDialog extends JDialog {
 

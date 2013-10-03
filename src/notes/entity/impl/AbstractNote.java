@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.entity.impl;
 
 import lombok.EqualsAndHashCode;
@@ -18,7 +15,6 @@ import java.util.List;
  * An abstract entity class specifying the basic members and methods of a note.
  *
  * @author Rui Du
- * @version 1.0
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = true)

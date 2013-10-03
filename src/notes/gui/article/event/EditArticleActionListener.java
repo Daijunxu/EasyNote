@@ -1,12 +1,4 @@
-/**
- *
- */
 package notes.gui.article.event;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JOptionPane;
 
 import notes.bean.ArticleHome;
 import notes.data.cache.Property;
@@ -14,11 +6,14 @@ import notes.gui.article.component.EditArticleDialog;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  * Defines event listener of editing an article.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class EditArticleActionListener implements ActionListener {
 

@@ -1,13 +1,9 @@
-/**
- *
- */
 package notes.entity;
 
 /**
  * An interface to describe basic operations of a document.
  *
  * @author Rui Du
- * @version 1.0
  */
 public interface Document extends Comparable<Document>, XMLSerializable<Document> {
 

@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.book.component;
 
 import notes.bean.BookHome;
@@ -24,7 +21,6 @@ import java.util.List;
  * Defines the dialog and event listener for creating a book note.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class NewBookNoteDialog extends JDialog {
 

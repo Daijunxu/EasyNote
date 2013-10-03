@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.main.component;
 
 import notes.data.cache.Cache;
@@ -20,7 +17,6 @@ import java.io.IOException;
  * Defines the dialog and event listener for choosing data file location.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class InitialChooseDataLocationDialog extends JDialog {
 

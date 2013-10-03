@@ -1,24 +1,18 @@
-/**
- *
- */
 package notes.gui.book.event;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JList;
-import javax.swing.SwingUtilities;
 
 import notes.data.cache.Property;
 import notes.gui.book.component.ChapterPopupMenu;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 
+import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 /**
  * Mouse event listener for chapters' list in book panel.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class ChapterListMouseListener extends MouseAdapter {
 

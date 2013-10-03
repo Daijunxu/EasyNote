@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.dao.impl;
 
 import notes.dao.DuplicateRecordException;
@@ -20,7 +17,6 @@ import java.util.Map;
  * Data access object for article notes.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class ArticleNoteDAO extends AbstractNoteDAO {
 

@@ -1,10 +1,4 @@
-/**
- *
- */
 package notes.gui.article.event;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import notes.bean.ArticleHome;
 import notes.data.cache.Property;
@@ -12,11 +6,13 @@ import notes.gui.article.component.ExportArticleDialog;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  * The event listener for exporting current article.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class ExportArticleEventListener implements ActionListener {
 

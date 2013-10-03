@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.workset.component;
 
 import notes.bean.WorksetHome;
@@ -14,7 +11,6 @@ import javax.swing.*;
  * Pops up when right clicking a Workset in the worksheet panel.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class WorksheetPopupMenu extends JPopupMenu {
 

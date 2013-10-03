@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.data.cache;
 
 import junit.framework.Assert;
@@ -22,7 +19,6 @@ import java.io.IOException;
  * The data cache composed of multiple caches.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class Cache implements XMLSerializable<Cache> {
 

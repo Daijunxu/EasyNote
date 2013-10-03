@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.main.event;
 
 import notes.bean.ArticleHome;
@@ -31,7 +28,6 @@ import java.awt.event.MouseEvent;
  * Mouse event listener for notes' JList in search note panel.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class SearchNoteListMouseListener extends MouseAdapter {
 

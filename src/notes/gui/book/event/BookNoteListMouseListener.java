@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.book.event;
 
 import notes.bean.BookHome;
@@ -18,7 +15,6 @@ import java.awt.event.MouseEvent;
  * Mouse event listener for notes' JList in book panel.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class BookNoteListMouseListener extends MouseAdapter {
 

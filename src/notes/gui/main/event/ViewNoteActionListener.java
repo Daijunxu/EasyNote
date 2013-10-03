@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.main.event;
 
 import notes.bean.ArticleHome;
@@ -30,7 +27,6 @@ import java.awt.event.ActionListener;
  * Defines event listener of viewing a note. Notes can belong to different types.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class ViewNoteActionListener implements ActionListener {
 

@@ -15,7 +15,6 @@ import java.util.List;
  * Entity class to describe an article note.
  *
  * @author Rui Du
- * @version 1.0
  */
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)

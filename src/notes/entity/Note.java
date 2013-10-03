@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.entity;
 
 import java.util.Date;
@@ -10,7 +7,6 @@ import java.util.List;
  * An interface defining the basic operations of a note object.
  *
  * @author Rui Du
- * @version 1.0
  */
 public interface Note extends Comparable<Note>, XMLSerializable<Note> {
 

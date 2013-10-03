@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.gui.main.component;
 
 import notes.bean.BookHome;
@@ -23,7 +20,6 @@ import java.util.List;
  * Defines the dialog and event listener for opening a document.
  *
  * @author Rui Du
- * @version 1.0
  */
 public class OpenDocumentDialog extends JDialog {
     private final JButton okButton = new JButton(new AbstractAction("OK") {

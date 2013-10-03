@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.dao.impl;
 
 import notes.dao.DuplicateRecordException;
@@ -24,7 +21,6 @@ import java.util.Set;
  * An abstract class implementing basic members and methods of a NoteDAO.
  *
  * @author Rui Du
- * @version 1.0
  */
 public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
 

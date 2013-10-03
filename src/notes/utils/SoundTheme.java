@@ -1,6 +1,3 @@
-/**
- *
- */
 package notes.utils;
 
 import lombok.Getter;
@@ -9,7 +6,6 @@ import lombok.Getter;
  * The enumeration of available sound themes.
  *
  * @author Rui Du
- * @version 1.0
  */
 public enum SoundTheme {
 
