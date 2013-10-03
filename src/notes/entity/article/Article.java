@@ -31,19 +31,7 @@ public class Article extends AbstractDocument implements AuthorsAware, CreatedTi
      */
     @Getter
     @Setter
-    protected List<String> authorsList;
-    /**
-     * The create time of this document.
-     */
-    @Getter
-    @Setter
-    protected Date createdTime;
-    /**
-     * The last update time of this document.
-     */
-    @Getter
-    @Setter
-    protected Date lastUpdatedTime;
+    private List<String> authorsList;
     /**
      * The article's source, could be an URL or a description text.
      */
@@ -56,6 +44,18 @@ public class Article extends AbstractDocument implements AuthorsAware, CreatedTi
     @Getter
     @Setter
     private List<Long> notesList;
+    /**
+     * The create time of this article.
+     */
+    @Getter
+    @Setter
+    private Date createdTime;
+    /**
+     * The last update time of this article.
+     */
+    @Getter
+    @Setter
+    private Date lastUpdatedTime;
 
     /**
      * Constructs an instance of {@code Article}.

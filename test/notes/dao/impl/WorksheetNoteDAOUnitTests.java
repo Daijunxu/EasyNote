@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -154,7 +155,8 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         newWorkset.setAuthorsList(testWorkset.getAuthorsList());
         newWorkset.setComment("This workset is not worth reading!");
         newWorkset.setWorksheetsMap(testWorkset.getWorksheetsMap());
-        newWorkset.getWorksheetsMap().put(2L, new Worksheet(2L, "Second Worksheet", new ArrayList<Long>()));
+        newWorkset.getWorksheetsMap().put(2L, new Worksheet(2L, "Second Worksheet", new ArrayList<Long>(),
+                new Date(1341429512312L), new Date(1341429512312L)));
         Workset updatedWorkset = (Workset) dao.mergeDocument(newWorkset);
 
         assertNotNull(updatedWorkset);
@@ -220,7 +222,8 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         newWorkset.setAuthorsList(new ArrayList<String>(Arrays.asList("Author")));
         newWorkset.setComment("Good workset.");
         TreeMap<Long, Worksheet> worksheetsMap = new TreeMap<Long, Worksheet>();
-        Worksheet worksheet1 = new Worksheet(1L, "Worksheet 1", new ArrayList<Long>());
+        Worksheet worksheet1 = new Worksheet(1L, "Worksheet 1", new ArrayList<Long>(), new Date(1341429512312L),
+                new Date(1341429512312L));
         worksheet1.getNotesList().add(1L);
         worksheetsMap.put(1L, worksheet1);
         newWorkset.setWorksheetsMap(worksheetsMap);

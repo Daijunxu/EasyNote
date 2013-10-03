@@ -36,19 +36,7 @@ public class Workset extends AbstractDocument implements AuthorsAware, CreatedTi
      */
     @Getter
     @Setter
-    protected List<String> authorsList;
-    /**
-     * The create time of this document.
-     */
-    @Getter
-    @Setter
-    protected Date createdTime;
-    /**
-     * The last update time of this document.
-     */
-    @Getter
-    @Setter
-    protected Date lastUpdatedTime;
+    private List<String> authorsList;
     /**
      * The ordered list of worksheetIds.
      */
@@ -61,6 +49,18 @@ public class Workset extends AbstractDocument implements AuthorsAware, CreatedTi
     @Getter
     @Setter
     private Map<Long, Worksheet> worksheetsMap;
+    /**
+     * The create time of this workset.
+     */
+    @Getter
+    @Setter
+    private Date createdTime;
+    /**
+     * The last update time of this workset.
+     */
+    @Getter
+    @Setter
+    private Date lastUpdatedTime;
 
     /**
      * Constructs an instance of {@code WORKSET}.

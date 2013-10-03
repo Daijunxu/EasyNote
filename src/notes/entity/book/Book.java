@@ -32,19 +32,7 @@ public class Book extends AbstractDocument implements AuthorsAware, CreatedTimeA
      */
     @Getter
     @Setter
-    protected List<String> authorsList;
-    /**
-     * The create time of this document.
-     */
-    @Getter
-    @Setter
-    protected Date createdTime;
-    /**
-     * The last update time of this document.
-     */
-    @Getter
-    @Setter
-    protected Date lastUpdatedTime;
+    private List<String> authorsList;
     /**
      * The book's edition number.
      */
@@ -69,6 +57,18 @@ public class Book extends AbstractDocument implements AuthorsAware, CreatedTimeA
     @Getter
     @Setter
     private TreeMap<Long, Chapter> chaptersMap;
+    /**
+     * The create time of this book.
+     */
+    @Getter
+    @Setter
+    private Date createdTime;
+    /**
+     * The last update time of this book.
+     */
+    @Getter
+    @Setter
+    private Date lastUpdatedTime;
 
     /**
      * Constructs an instance of {@code Book}.

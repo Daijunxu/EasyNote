@@ -12,16 +12,16 @@ import java.util.Date;
 public interface CreatedTimeAware {
 
     /**
-     * Gets the document's created time.
+     * Gets the created time.
      *
-     * @return {@code Date} The document's created time.
+     * @return {@code Date} The created time.
      */
     Date getCreatedTime();
 
     /**
-     * Sets the document's created time.
+     * Sets the created time.
      *
-     * @param createTime The document's created time to set.
+     * @param createTime The created time to set.
      */
     void setCreatedTime(Date createTime);
 }

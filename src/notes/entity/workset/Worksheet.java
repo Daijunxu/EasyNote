@@ -7,10 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import notes.entity.XMLSerializable;
+import notes.entity.aware.CreatedTimeAware;
+import notes.entity.aware.LastUpdatedTimeAware;
 import notes.utils.EntityHelper;
 import org.dom4j.Element;
 import org.dom4j.tree.DefaultElement;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,7 +27,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true, includeFieldNames = true)
-public class Worksheet implements XMLSerializable<Worksheet> {
+public class Worksheet implements XMLSerializable<Worksheet>, CreatedTimeAware, LastUpdatedTimeAware {
 
     /**
      * The worksheet identifier.
@@ -44,6 +47,18 @@ public class Worksheet implements XMLSerializable<Worksheet> {
     @Getter
     @Setter
     private List<Long> notesList;
+    /**
+     * The create time of this workset.
+     */
+    @Getter
+    @Setter
+    private Date createdTime;
+    /**
+     * The last update time of this workset.
+     */
+    @Getter
+    @Setter
+    private Date lastUpdatedTime;
 
     /**
      * {@inheritDoc}
@@ -55,6 +70,8 @@ public class Worksheet implements XMLSerializable<Worksheet> {
         workSheetElement.addAttribute("WorksheetId", worksheetId.toString());
         workSheetElement.addAttribute("WorksheetTitle", worksheetTitle);
         workSheetElement.addAttribute("NotesList", EntityHelper.buildEntityStrFromList(notesList));
+        workSheetElement.addAttribute("CreatedTime", String.valueOf(createdTime.getTime()));
+        workSheetElement.addAttribute("LastUpdatedTime", String.valueOf(lastUpdatedTime.getTime()));
 
         return workSheetElement;
     }
@@ -67,6 +84,8 @@ public class Worksheet implements XMLSerializable<Worksheet> {
         worksheetId = Long.parseLong(element.attributeValue("WorksheetId"));
         worksheetTitle = element.attributeValue("WorksheetTitle");
         notesList = EntityHelper.buildIDsList(element.attributeValue("NotesList"));
+        createdTime = new Date(Long.parseLong(element.attributeValue("CreatedTime")));
+        lastUpdatedTime = new Date(Long.parseLong(element.attributeValue("LastUpdatedTime")));
 
         return this;
     }

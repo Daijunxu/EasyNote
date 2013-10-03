@@ -12,16 +12,16 @@ import java.util.Date;
 public interface LastUpdatedTimeAware {
 
     /**
-     * Gets the document's last updated time.
+     * Gets last updated time.
      *
-     * @return {@code Date} The document's last updated time.
+     * @return {@code Date} The last updated time.
      */
     Date getLastUpdatedTime();
 
     /**
-     * Sets the document's last updated time.
+     * Sets last updated time.
      *
-     * @param lastUpdatedTime The document's last updated time.
+     * @param lastUpdatedTime The last updated time.
      */
     void setLastUpdatedTime(Date lastUpdatedTime);
 }
