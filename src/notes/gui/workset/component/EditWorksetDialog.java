@@ -82,7 +82,7 @@ public class EditWorksetDialog extends JDialog {
             updatedWorkset.setLastUpdatedTime(new Date(System.currentTimeMillis()));
 
             // Save the updated Workset.
-            dao.mergeDocument(updatedWorkset);
+            dao.updateDocument(updatedWorkset);
 
             // Update temporary data in the WorksetHome.
             home.updateTemporaryData(home.getCurrentWorkset().getDocumentId(), null, null);

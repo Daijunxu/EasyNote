@@ -139,7 +139,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.BookNoteDAO#mergeDocument(notes.entity.Document)}.
+     * Test method for {@link notes.dao.impl.BookNoteDAO#updateDocument(notes.entity.Document)}.
      */
     @Test
     public void testMergeDocument() {
@@ -155,7 +155,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         newBook.setIsbn(testBook.getIsbn());
         newBook.setChaptersMap(testBook.getChaptersMap());
         newBook.getChaptersMap().put(2L, new Chapter(2L, "Second Chapter", new ArrayList<Long>()));
-        Book updatedBook = (Book) dao.mergeDocument(newBook);
+        Book updatedBook = (Book) dao.updateDocument(newBook);
 
         assertNotNull(updatedBook);
         assertEquals(updatedBook, Cache.get().getDocumentCache().getDocumentMap().get(newBook.getDocumentId()));
@@ -168,7 +168,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.BookNoteDAO#mergeNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.BookNoteDAO#updateNote(notes.entity.Note)}.
      */
     @Test
     public void testMergeNote() {
@@ -180,7 +180,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         newBookNote.setChapterId(2L);
         newBookNote.setTagIds(testBookNote.getTagIds());
         newBookNote.setNoteText(testBookNote.getNoteText());
-        BookNote updatedBookNote = (BookNote) dao.mergeNote(newBookNote);
+        BookNote updatedBookNote = (BookNote) dao.updateNote(newBookNote);
 
         assertNotNull(updatedBookNote);
         assertEquals(updatedBookNote, Cache.get().getNoteCache().getNoteMap().get(newBookNote.getNoteId()));

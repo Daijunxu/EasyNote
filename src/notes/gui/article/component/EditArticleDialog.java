@@ -92,7 +92,7 @@ public class EditArticleDialog extends JDialog {
             updatedArticle.setLastUpdatedTime(new Date(System.currentTimeMillis()));
 
             // Save the updated article.
-            dao.mergeDocument(updatedArticle);
+            dao.updateDocument(updatedArticle);
 
             // Update temporary data in the ArticleHome.
             home.updateTemporaryData(home.getCurrentArticle().getDocumentId(), null);

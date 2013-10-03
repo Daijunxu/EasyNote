@@ -135,28 +135,28 @@ public interface NoteDAO<N extends Note, D extends Document> {
     Tag findTagByText(String tagText);
 
     /**
-     * Merges a document.
+     * Updates a document.
      *
-     * @param document The document to merge.
-     * @return {@code D} The merged document.
+     * @param document The document to update.
+     * @return {@code D} The updated document.
      */
-    D mergeDocument(D document);
+    D updateDocument(D document);
 
     /**
-     * Merges a note.
+     * Updates a note.
      *
-     * @param note The note to merge.
-     * @return {@code N} The merged note object.
+     * @param note The note to update.
+     * @return {@code N} The updated note object.
      */
-    N mergeNote(N note);
+    N updateNote(N note);
 
     /**
-     * Merges a tag.
+     * Updates a tag.
      *
-     * @param tag The tag to merge.
-     * @return {@code Tag} The merged tag object.
+     * @param tag The tag to update.
+     * @return {@code Tag} The updated tag object.
      */
-    Tag mergeTag(Tag tag);
+    Tag updateTag(Tag tag);
 
     /**
      * Saves a document.

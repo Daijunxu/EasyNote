@@ -80,7 +80,7 @@ public class ArticleNoteDAO extends AbstractNoteDAO {
      * {@inheritDoc}
      */
     @Override
-    public Document mergeDocument(Document document) {
+    public Document updateDocument(Document document) {
         Article updateArticle = (Article) (Cache.get().getDocumentCache().getDocumentMap()
                 .get(document.getDocumentId()));
         if (updateArticle != null) {
@@ -106,7 +106,7 @@ public class ArticleNoteDAO extends AbstractNoteDAO {
      * {@inheritDoc}
      */
     @Override
-    public Note mergeNote(Note note) {
+    public Note updateNote(Note note) {
         Article article = (Article) Cache.get().getDocumentCache().getDocumentMap()
                 .get(note.getDocumentId());
         ArticleNote updateNote = (ArticleNote) (Cache.get().getNoteCache().getNoteMap().get(note

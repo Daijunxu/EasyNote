@@ -196,7 +196,7 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
      * {@inheritDoc}
      */
     @Override
-    public Document mergeDocument(Document document) {
+    public Document updateDocument(Document document) {
         Workset updateWorkset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(document
                 .getDocumentId()));
         if (updateWorkset != null) {
@@ -223,7 +223,7 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
      * {@inheritDoc}
      */
     @Override
-    public Note mergeNote(Note note) {
+    public Note updateNote(Note note) {
         Workset workset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(note
                 .getDocumentId()));
         WorksheetNote cachedNote = (WorksheetNote) (Cache.get().getNoteCache().getNoteMap().get(note

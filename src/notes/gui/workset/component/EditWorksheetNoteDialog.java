@@ -96,7 +96,7 @@ public class EditWorksheetNoteDialog extends JDialog {
             selectedNote.setNoteText(noteTextField.getText());
 
             // Save the updated workset note.
-            dao.mergeNote(selectedNote);
+            dao.updateNote(selectedNote);
 
             // Update the note panel.
             if (frame.isSearchMode()) {

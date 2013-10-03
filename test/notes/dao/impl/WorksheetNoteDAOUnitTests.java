@@ -148,7 +148,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#mergeDocument(notes.entity.Document)}.
+     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#updateDocument(notes.entity.Document)}.
      */
     @Test
     public void testMergeDocument() {
@@ -162,7 +162,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         newWorkset.setWorksheetsMap(testWorkset.getWorksheetsMap());
         newWorkset.getWorksheetsMap().put(2L, new Worksheet(2L, "Second Worksheet", "New comments", new ArrayList<Long>(),
                 new Date(1341429512312L), new Date(1341429512312L)));
-        Workset updatedWorkset = (Workset) dao.mergeDocument(newWorkset);
+        Workset updatedWorkset = (Workset) dao.updateDocument(newWorkset);
 
         assertNotNull(updatedWorkset);
         assertEquals(updatedWorkset, Cache.get().getDocumentCache().getDocumentMap().get(newWorkset.getDocumentId()));
@@ -175,7 +175,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#mergeNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#updateNote(notes.entity.Note)}.
      */
     @Test
     public void testMergeNote() {
@@ -188,7 +188,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         newWorksheetNote.setTagIds(testWorksheetNote.getTagIds());
         newWorksheetNote.setNoteText(testWorksheetNote.getNoteText());
         newWorksheetNote.setNoteStatus(testWorksheetNote.getNoteStatus());
-        WorksheetNote updatedWorksheetNote = (WorksheetNote) dao.mergeNote(newWorksheetNote);
+        WorksheetNote updatedWorksheetNote = (WorksheetNote) dao.updateNote(newWorksheetNote);
 
         assertNotNull(updatedWorksheetNote);
         assertEquals(updatedWorksheetNote, Cache.get().getNoteCache().getNoteMap().get(newWorksheetNote.getNoteId()));

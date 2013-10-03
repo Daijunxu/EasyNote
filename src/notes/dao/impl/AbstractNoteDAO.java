@@ -334,7 +334,7 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
      * {@inheritDoc}
      */
     @Override
-    public Tag mergeTag(Tag tag) {
+    public Tag updateTag(Tag tag) {
         Tag updateTag = Cache.get().getTagCache().getTagIdMap().get(tag.getTagId());
         if (updateTag != null) {
             Cache.get().getTagCache().getTagTextMap().remove(updateTag.getTagText());

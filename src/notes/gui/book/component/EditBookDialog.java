@@ -121,7 +121,7 @@ public class EditBookDialog extends JDialog {
             updatedBook.setLastUpdatedTime(new Date(System.currentTimeMillis()));
 
             // Save the updated book.
-            dao.mergeDocument(updatedBook);
+            dao.updateDocument(updatedBook);
 
             // Update temporary data in the BookHome.
             home.updateTemporaryData(home.getCurrentBook().getDocumentId(), null, null);

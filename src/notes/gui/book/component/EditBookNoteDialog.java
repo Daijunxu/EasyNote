@@ -96,7 +96,7 @@ public class EditBookNoteDialog extends JDialog {
             selectedNote.setNoteText(noteTextField.getText());
 
             // Save the updated book note.
-            dao.mergeNote(selectedNote);
+            dao.updateNote(selectedNote);
 
             // Update the note panel.
             if (frame.isSearchMode()) {

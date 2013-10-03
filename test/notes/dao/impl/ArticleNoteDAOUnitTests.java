@@ -80,7 +80,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.ArticleNoteDAO#mergeDocument(notes.entity.Document)}
+     * Test method for {@link notes.dao.impl.ArticleNoteDAO#updateDocument(notes.entity.Document)}
      * .
      */
     @Test
@@ -93,7 +93,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
         newArticle.setAuthorsList(testArticle.getAuthorsList());
         newArticle.setComment("This article is not worth reading!");
         newArticle.setSource("Unknown source!");
-        Article updatedArticle = (Article) dao.mergeDocument(newArticle);
+        Article updatedArticle = (Article) dao.updateDocument(newArticle);
 
         assertNotNull(updatedArticle);
         assertEquals(updatedArticle, Cache.get().getDocumentCache().getDocumentMap().get(newArticle.getDocumentId()));
@@ -106,7 +106,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.ArticleNoteDAO#mergeNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.ArticleNoteDAO#updateNote(notes.entity.Note)}.
      */
     @Test
     public void testMergeNote() {
@@ -117,7 +117,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
         newArticleNote.setDocumentId(testArticleNote.getDocumentId());
         newArticleNote.setTagIds(testArticleNote.getTagIds());
         newArticleNote.setNoteText("A new note text.");
-        ArticleNote updatedArticleNote = (ArticleNote) dao.mergeNote(newArticleNote);
+        ArticleNote updatedArticleNote = (ArticleNote) dao.updateNote(newArticleNote);
 
         assertNotNull(updatedArticleNote);
         assertEquals(updatedArticleNote, Cache.get().getNoteCache().getNoteMap().get(newArticleNote.getNoteId()));

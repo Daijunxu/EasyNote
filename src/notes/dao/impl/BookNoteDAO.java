@@ -172,7 +172,7 @@ public class BookNoteDAO extends AbstractNoteDAO {
      * {@inheritDoc}
      */
     @Override
-    public Document mergeDocument(Document document) {
+    public Document updateDocument(Document document) {
         Book updateBook = (Book) (Cache.get().getDocumentCache().getDocumentMap().get(document
                 .getDocumentId()));
         if (updateBook != null) {
@@ -201,7 +201,7 @@ public class BookNoteDAO extends AbstractNoteDAO {
      * {@inheritDoc}
      */
     @Override
-    public Note mergeNote(Note note) {
+    public Note updateNote(Note note) {
         Book book = (Book) (Cache.get().getDocumentCache().getDocumentMap().get(note
                 .getDocumentId()));
         BookNote cachedNote = (BookNote) (Cache.get().getNoteCache().getNoteMap().get(note

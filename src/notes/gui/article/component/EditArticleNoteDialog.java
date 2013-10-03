@@ -81,7 +81,7 @@ public class EditArticleNoteDialog extends JDialog {
             selectedNote.setNoteText(noteTextField.getText());
 
             // Save the updated article note.
-            dao.mergeNote(selectedNote);
+            dao.updateNote(selectedNote);
 
             // Update the note panel.
             if (frame.isSearchMode()) {
