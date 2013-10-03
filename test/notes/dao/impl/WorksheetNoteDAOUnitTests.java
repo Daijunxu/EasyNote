@@ -78,12 +78,16 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
     public void testDeleteNote() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
         WorksheetNote deleteNote = (WorksheetNote) testData.noteMap.get(3L);
+        Workset workset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(deleteNote.getDocumentId()));
+        Worksheet worksheet = workset.getWorksheetsMap().get(deleteNote.getWorksheetId());
+        Date updateTimeBeforeDelete = worksheet.getLastUpdatedTime();
         dao.deleteNote(deleteNote);
+        Date updateTimeAfterDelete = worksheet.getLastUpdatedTime();
+
         assertNotNull(Cache.get().getNoteCache().getNoteMap());
         assertFalse(Cache.get().getNoteCache().getNoteMap().isEmpty());
         assertNull(Cache.get().getNoteCache().getNoteMap().get(deleteNote.getNoteId()));
-        Workset workset = (Workset) Cache.get().getDocumentCache().getDocumentMap()
-                .get(deleteNote.getDocumentId());
+        assertTrue(updateTimeAfterDelete.after(updateTimeBeforeDelete));
         assertFalse(workset.getWorksheetsMap().get(deleteNote.getWorksheetId()).getNotesList()
                 .contains(deleteNote.getNoteId()));
     }
@@ -131,6 +135,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         updateWorksheet.setWorksheetId(999L);
         updateWorksheet.setWorksheetTitle("Another worksheet title");
         updateWorksheet.setNotesList(testWorksheet.getNotesList());
+
         Worksheet mergedWorksheet = dao.mergeWorksheet(updateWorksheet, testWorkset.getDocumentId(),
                 testWorksheet.getWorksheetId());
 
@@ -155,7 +160,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         newWorkset.setAuthorsList(testWorkset.getAuthorsList());
         newWorkset.setComment("This workset is not worth reading!");
         newWorkset.setWorksheetsMap(testWorkset.getWorksheetsMap());
-        newWorkset.getWorksheetsMap().put(2L, new Worksheet(2L, "Second Worksheet", new ArrayList<Long>(),
+        newWorkset.getWorksheetsMap().put(2L, new Worksheet(2L, "Second Worksheet", "New comments", new ArrayList<Long>(),
                 new Date(1341429512312L), new Date(1341429512312L)));
         Workset updatedWorkset = (Workset) dao.mergeDocument(newWorkset);
 
@@ -222,7 +227,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         newWorkset.setAuthorsList(new ArrayList<String>(Arrays.asList("Author")));
         newWorkset.setComment("Good workset.");
         TreeMap<Long, Worksheet> worksheetsMap = new TreeMap<Long, Worksheet>();
-        Worksheet worksheet1 = new Worksheet(1L, "Worksheet 1", new ArrayList<Long>(), new Date(1341429512312L),
+        Worksheet worksheet1 = new Worksheet(1L, "Worksheet 1", "Some comments", new ArrayList<Long>(), new Date(1341429512312L),
                 new Date(1341429512312L));
         worksheet1.getNotesList().add(1L);
         worksheetsMap.put(1L, worksheet1);

@@ -42,6 +42,12 @@ public class Worksheet implements XMLSerializable<Worksheet>, CreatedTimeAware, 
     @Setter
     private String worksheetTitle;
     /**
+     * The comment.
+     */
+    @Getter
+    @Setter
+    private String comment;
+    /**
      * The list of note identifiers.
      */
     @Getter
@@ -69,6 +75,7 @@ public class Worksheet implements XMLSerializable<Worksheet>, CreatedTimeAware, 
 
         workSheetElement.addAttribute("WorksheetId", worksheetId.toString());
         workSheetElement.addAttribute("WorksheetTitle", worksheetTitle);
+        workSheetElement.addAttribute("Comment", comment);
         workSheetElement.addAttribute("NotesList", EntityHelper.buildEntityStrFromList(notesList));
         workSheetElement.addAttribute("CreatedTime", String.valueOf(createdTime.getTime()));
         workSheetElement.addAttribute("LastUpdatedTime", String.valueOf(lastUpdatedTime.getTime()));
@@ -83,6 +90,7 @@ public class Worksheet implements XMLSerializable<Worksheet>, CreatedTimeAware, 
     public Worksheet buildFromXMLElement(Element element) {
         worksheetId = Long.parseLong(element.attributeValue("WorksheetId"));
         worksheetTitle = element.attributeValue("WorksheetTitle");
+        comment = element.attributeValue("Comment");
         notesList = EntityHelper.buildIDsList(element.attributeValue("NotesList"));
         createdTime = new Date(Long.parseLong(element.attributeValue("CreatedTime")));
         lastUpdatedTime = new Date(Long.parseLong(element.attributeValue("LastUpdatedTime")));

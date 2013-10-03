@@ -88,6 +88,9 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
         // Remove the note in the note cache.
         Cache.get().getNoteCache().getNoteMap().remove(noteId);
 
+        // Update worksheet's last updated time.
+        worksheet.setLastUpdatedTime(new Date());
+
         // Update workset's last updated time.
         workset.setLastUpdatedTime(new Date());
     }
@@ -139,6 +142,7 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
      * @param worksheetIdsList The updated list of worksheetIds.
      * @return {@code Workset} The updated workset object.
      */
+    // TODO: do we need this?
     public Workset updateWorksheetsOrder(Long documentId, List<Long> worksheetIdsList) {
         Workset cachedWorkset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(documentId));
         cachedWorkset.setWorksheetIdsList(worksheetIdsList);
@@ -161,8 +165,13 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
             Long updatedWorksheetId = worksheet.getWorksheetId();
 
             cachedWorksheet.setWorksheetTitle(worksheet.getWorksheetTitle());
+            cachedWorksheet.setComment(worksheet.getComment());
             cachedWorksheet.setNotesList(worksheet.getNotesList());
-
+            if (cachedWorksheet.getLastUpdatedTime() == null) {
+                cachedWorksheet.setLastUpdatedTime(new Date());
+            } else {
+                cachedWorksheet.setLastUpdatedTime(worksheet.getLastUpdatedTime());
+            }
             if (!oldWorksheetId.equals(updatedWorksheetId)) {
                 // Worksheet id is changed.
                 if (worksheetsMap.containsKey(updatedWorksheetId)) {
@@ -199,7 +208,7 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
             updateWorkset.setWorksheetsMap(((Workset) document).getWorksheetsMap());
             updateWorkset.setWorksheetIdsList(((Workset) document).getWorksheetIdsList());
             if (((Workset) document).getLastUpdatedTime() == null) {
-                updateWorkset.setLastUpdatedTime(new Date(System.currentTimeMillis()));
+                updateWorkset.setLastUpdatedTime(new Date());
             } else {
                 updateWorkset.setLastUpdatedTime(((Workset) document).getLastUpdatedTime());
             }
@@ -229,10 +238,19 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
 
             // Update worksheets' notes list.
             if (!oldWorksheetId.equals(((WorksheetNote) note).getWorksheetId())) {
+                // The note is moved to another worksheet.
                 Worksheet oldWorksheet = workset.getWorksheetsMap().get(oldWorksheetId);
                 oldWorksheet.getNotesList().remove(note.getNoteId());
                 Worksheet newWorksheet = workset.getWorksheetsMap().get(cachedNote.getWorksheetId());
                 newWorksheet.getNotesList().add(note.getNoteId());
+
+                // Update worksheet's last updated time.
+                oldWorksheet.setLastUpdatedTime(new Date());
+                newWorksheet.setLastUpdatedTime(new Date());
+            } else {
+                // Update worksheet's last updated time.
+                Worksheet worksheet = workset.getWorksheetsMap().get(oldWorksheetId);
+                worksheet.setLastUpdatedTime(new Date());
             }
 
             // Update workset's last updated time.
@@ -294,12 +312,12 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
             newWorkset.setWorksheetIdsList(((Workset) document).getWorksheetIdsList());
             newWorkset.setWorksheetsMap(((Workset) document).getWorksheetsMap());
             if (((Workset) document).getCreatedTime() == null) {
-                newWorkset.setCreatedTime(new Date(System.currentTimeMillis()));
+                newWorkset.setCreatedTime(new Date());
             } else {
                 newWorkset.setCreatedTime(((Workset) document).getCreatedTime());
             }
             if (((Workset) document).getLastUpdatedTime() == null) {
-                newWorkset.setLastUpdatedTime(new Date(System.currentTimeMillis()));
+                newWorkset.setLastUpdatedTime(new Date());
             } else {
                 newWorkset.setLastUpdatedTime(((Workset) document).getLastUpdatedTime());
             }
@@ -351,7 +369,7 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
             newNote.setNoteText(note.getNoteText());
             newNote.setNoteStatus(((WorksheetNote) note).getNoteStatus());
             if (note.getCreatedTime() == null) {
-                newNote.setCreatedTime(new Date(System.currentTimeMillis()));
+                newNote.setCreatedTime(new Date());
             } else {
                 newNote.setCreatedTime(note.getCreatedTime());
             }
@@ -376,6 +394,9 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
                     .getDocumentId()));
             Worksheet worksheet = workset.getWorksheetsMap().get(newNote.getWorksheetId());
             worksheet.getNotesList().add(newNote.getNoteId());
+
+            // Update worksheet's last updated time.
+            worksheet.setLastUpdatedTime(new Date());
 
             // Update workset's last updated time.
             workset.setLastUpdatedTime(new Date());
