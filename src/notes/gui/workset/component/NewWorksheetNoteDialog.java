@@ -76,8 +76,8 @@ public class NewWorksheetNoteDialog extends JDialog {
             // Create instance of the created workset note.
             WorksheetNote createdWorksheetNote = new WorksheetNote();
             createdWorksheetNote.setDocumentId(home.getCurrentWorkset().getDocumentId());
-            String worksheetStr = (String) worksheetField.getSelectedItem();
-            Long selectedWorksheetId = Long.parseLong(worksheetStr.substring(0, worksheetStr.indexOf(".")));
+            Long selectedWorksheetId = home.getCurrentWorkset().getWorksheetIdsList()
+                    .get(worksheetField.getSelectedIndex());
             createdWorksheetNote.setWorksheetId(selectedWorksheetId);
             List<Long> tagsList = new ArrayList<Long>();
             for (String tagStr : tagsStrList) {
@@ -167,13 +167,13 @@ public class NewWorksheetNoteDialog extends JDialog {
         c.insets = new Insets(5, 5, 5, 5);
         int selected = -1;
         int counter = -1;
-        for (Long worksheetId : home.getCurrentWorkset().getWorksheetsMap().keySet()) {
+        for (Long worksheetId : home.getCurrentWorkset().getWorksheetIdsList()) {
             counter++;
             if (home.getCurrentWorksheet().getWorksheetId().equals(worksheetId)) {
                 selected = counter;
             }
             Worksheet worksheet = home.getCurrentWorkset().getWorksheetsMap().get(worksheetId);
-            worksheetField.addItem(worksheetId + ". " + worksheet.getWorksheetTitle());
+            worksheetField.addItem(worksheet.getWorksheetTitle());
         }
         worksheetField.setSelectedIndex(selected);
         notePanel.add(worksheetField, c);

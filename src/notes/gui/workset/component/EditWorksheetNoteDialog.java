@@ -78,8 +78,8 @@ public class EditWorksheetNoteDialog extends JDialog {
             newNote.setNoteId(selectedNote.getNoteId());
             newNote.setDocumentId(selectedNote.getDocumentId());
 
-            String worksheetStr = (String) worksheetField.getSelectedItem();
-            Long selectedWorksheetId = Long.parseLong(worksheetStr.substring(0, worksheetStr.indexOf(".")));
+            Long selectedWorksheetId = home.getCurrentWorkset().getWorksheetIdsList()
+                    .get(worksheetField.getSelectedIndex());
             newNote.setWorksheetId(selectedWorksheetId);
 
             List<Long> updatedTagsList = new ArrayList<Long>();
@@ -176,13 +176,13 @@ public class EditWorksheetNoteDialog extends JDialog {
         c.insets = new Insets(5, 5, 5, 5);
         int selected = -1;
         int counter = -1;
-        for (Long worksheetId : selectedWorkset.getWorksheetsMap().keySet()) {
+        for (Long worksheetId : selectedWorkset.getWorksheetIdsList()) {
             counter++;
             if (selectedWorksheet.getWorksheetId().equals(worksheetId)) {
                 selected = counter;
             }
             Worksheet worksheet = selectedWorkset.getWorksheetsMap().get(worksheetId);
-            worksheetField.addItem(worksheetId + ". " + worksheet.getWorksheetTitle());
+            worksheetField.addItem(worksheet.getWorksheetTitle());
         }
         worksheetField.setSelectedIndex(selected);
         notePanel.add(worksheetField, c);

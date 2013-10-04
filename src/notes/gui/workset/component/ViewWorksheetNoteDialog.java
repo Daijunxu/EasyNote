@@ -109,8 +109,7 @@ public class ViewWorksheetNoteDialog extends JDialog {
         c.gridy = 2;
         c.insets = new Insets(5, 5, 5, 5);
         worksheetField.setLineWrap(true);
-        worksheetField.setText(selectedWorksheet.getWorksheetId() + ". "
-                + selectedWorksheet.getWorksheetTitle());
+        worksheetField.setText(selectedWorksheet.getWorksheetTitle());
         worksheetField.setEditable(false);
         notePanel.add(new JScrollPane(worksheetField), c);
 
