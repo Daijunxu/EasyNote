@@ -3,9 +3,9 @@ package notes.gui.workset.component;
 import notes.bean.WorksetHome;
 import notes.dao.impl.WorksheetNoteDAO;
 import notes.data.cache.Property;
+import notes.entity.NoteStatus;
 import notes.entity.Tag;
 import notes.entity.workset.WorksheetNote;
-import notes.entity.workset.Worksheet;
 import notes.gui.main.component.MainPanel;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
@@ -79,6 +79,8 @@ public class NewWorksheetNoteDialog extends JDialog {
             Long selectedWorksheetId = home.getCurrentWorkset().getWorksheetIdsList()
                     .get(worksheetField.getSelectedIndex());
             createdWorksheetNote.setWorksheetId(selectedWorksheetId);
+            createdWorksheetNote.setNoteText(noteTextField.getText());
+
             List<Long> tagsList = new ArrayList<Long>();
             for (String tagStr : tagsStrList) {
                 // Set the new tag IDs, save tags if they are new.
@@ -92,8 +94,9 @@ public class NewWorksheetNoteDialog extends JDialog {
                     tagsList.add(savedTag.getTagId());
                 }
             }
+
+            createdWorksheetNote.setNoteStatus(NoteStatus.values()[noteStatusField.getSelectedIndex()]);
             createdWorksheetNote.setTagIds(tagsList);
-            createdWorksheetNote.setNoteText(noteTextField.getText());
 
             // Save the created workset note.
             WorksheetNote cachedWorksheetNote = (WorksheetNote) (dao.saveNote(createdWorksheetNote));
@@ -122,8 +125,9 @@ public class NewWorksheetNoteDialog extends JDialog {
     });
     private final JTextArea documentField = new JTextArea(2, 50);
     private final JComboBox worksheetField = new JComboBox();
-    private final JTextArea tagsField = new JTextArea(2, 50);
     private final JTextArea noteTextField = new JTextArea(10, 50);
+    private final JComboBox noteStatusField = new JComboBox();
+    private final JTextArea tagsField = new JTextArea(2, 50);
 
     /**
      * Creates an instance of {@code NewWorksheetNoteDialog}.
@@ -165,17 +169,11 @@ public class NewWorksheetNoteDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
-        int selected = -1;
-        int counter = -1;
         for (Long worksheetId : home.getCurrentWorkset().getWorksheetIdsList()) {
-            counter++;
-            if (home.getCurrentWorksheet().getWorksheetId().equals(worksheetId)) {
-                selected = counter;
-            }
-            Worksheet worksheet = home.getCurrentWorkset().getWorksheetsMap().get(worksheetId);
-            worksheetField.addItem(worksheet.getWorksheetTitle());
+            worksheetField.addItem(home.getCurrentWorkset().getWorksheetsMap().get(worksheetId).getWorksheetTitle());
         }
-        worksheetField.setSelectedIndex(selected);
+        Long currentWorksheetId = home.getCurrentWorksheet().getWorksheetId();
+        worksheetField.setSelectedIndex(home.getCurrentWorkset().getWorksheetIdsList().indexOf(currentWorksheetId));
         notePanel.add(worksheetField, c);
 
         c.gridx = 0;
@@ -192,16 +190,30 @@ public class NewWorksheetNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Tags"), c);
+        notePanel.add(new JLabel("Note Status *"), c);
 
         c.gridx = 1;
         c.gridy = 3;
+        c.insets = new Insets(5, 5, 5, 5);
+        for (NoteStatus noteStatus : NoteStatus.values()) {
+            noteStatusField.addItem(noteStatus.getDescription());
+        }
+        noteStatusField.setSelectedIndex(0); // The default note status is "No Action".
+        notePanel.add(noteStatusField, c);
+
+        c.gridx = 0;
+        c.gridy = 4;
+        c.insets = new Insets(5, 5, 5, 5);
+        notePanel.add(new JLabel("Tags"), c);
+
+        c.gridx = 1;
+        c.gridy = 4;
         c.insets = new Insets(5, 5, 0, 5);
         tagsField.setLineWrap(true);
         notePanel.add(new JScrollPane(tagsField), c);
 
         c.gridx = 1;
-        c.gridy = 4;
+        c.gridy = 5;
         c.insets = new Insets(0, 5, 5, 5);
         JLabel suggestionLabel = new JLabel("Words separated by \",\".");
         suggestionLabel.setForeground(Color.GRAY);

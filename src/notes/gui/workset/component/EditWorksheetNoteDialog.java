@@ -3,6 +3,7 @@ package notes.gui.workset.component;
 import notes.bean.WorksetHome;
 import notes.dao.impl.WorksheetNoteDAO;
 import notes.data.cache.Property;
+import notes.entity.NoteStatus;
 import notes.entity.Tag;
 import notes.entity.workset.Workset;
 import notes.entity.workset.Worksheet;
@@ -82,6 +83,10 @@ public class EditWorksheetNoteDialog extends JDialog {
                     .get(worksheetField.getSelectedIndex());
             newNote.setWorksheetId(selectedWorksheetId);
 
+            newNote.setNoteText(noteTextField.getText());
+
+            newNote.setNoteStatus(NoteStatus.values()[noteStatusField.getSelectedIndex()]);
+
             List<Long> updatedTagsList = new ArrayList<Long>();
             for (String tagStr : tagsStrList) {
                 // Set the new tag IDs, save tags if they are new.
@@ -96,7 +101,6 @@ public class EditWorksheetNoteDialog extends JDialog {
                 }
             }
             newNote.setTagIds(updatedTagsList);
-            newNote.setNoteText(noteTextField.getText());
 
             // Save the updated workset note.
             WorksheetNote updatedNote = (WorksheetNote) dao.updateNote(newNote);
@@ -128,8 +132,9 @@ public class EditWorksheetNoteDialog extends JDialog {
     });
     private final JTextArea documentField = new JTextArea(2, 50);
     private final JComboBox worksheetField = new JComboBox();
-    private final JTextArea tagsField = new JTextArea(2, 50);
     private final JTextArea noteTextField = new JTextArea(10, 50);
+    private final JComboBox noteStatusField = new JComboBox();
+    private final JTextArea tagsField = new JTextArea(2, 50);
 
     /**
      * Creates an instance of {@code EditWorksheetNoteDialog}.
@@ -174,17 +179,11 @@ public class EditWorksheetNoteDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
-        int selected = -1;
-        int counter = -1;
         for (Long worksheetId : selectedWorkset.getWorksheetIdsList()) {
-            counter++;
-            if (selectedWorksheet.getWorksheetId().equals(worksheetId)) {
-                selected = counter;
-            }
-            Worksheet worksheet = selectedWorkset.getWorksheetsMap().get(worksheetId);
-            worksheetField.addItem(worksheet.getWorksheetTitle());
+            worksheetField.addItem(selectedWorkset.getWorksheetsMap().get(worksheetId).getWorksheetTitle());
         }
-        worksheetField.setSelectedIndex(selected);
+        Long currentWorksheetId = selectedWorksheet.getWorksheetId();
+        worksheetField.setSelectedIndex(selectedWorkset.getWorksheetIdsList().indexOf(currentWorksheetId));
         notePanel.add(worksheetField, c);
 
         c.gridx = 0;
@@ -202,10 +201,25 @@ public class EditWorksheetNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Tags"), c);
+        notePanel.add(new JLabel("Note Status *"), c);
 
         c.gridx = 1;
         c.gridy = 3;
+        c.insets = new Insets(5, 5, 5, 5);
+        for (NoteStatus noteStatus : NoteStatus.values()) {
+            // Note: the order should be the same as defined in NoteStatus.
+            noteStatusField.addItem(noteStatus.getDescription());
+        }
+        noteStatusField.setSelectedIndex(selectedNote.getNoteStatus().ordinal());
+        notePanel.add(noteStatusField, c);
+
+        c.gridx = 0;
+        c.gridy = 4;
+        c.insets = new Insets(5, 5, 5, 5);
+        notePanel.add(new JLabel("Tags"), c);
+
+        c.gridx = 1;
+        c.gridy = 4;
         c.insets = new Insets(5, 5, 0, 5);
         StringBuilder tagStrBuilder = new StringBuilder();
         if (!selectedNote.getTagIds().isEmpty()) {
@@ -219,7 +233,7 @@ public class EditWorksheetNoteDialog extends JDialog {
         notePanel.add(new JScrollPane(tagsField), c);
 
         c.gridx = 1;
-        c.gridy = 4;
+        c.gridy = 5;
         c.insets = new Insets(0, 5, 5, 5);
         JLabel suggestionLabel = new JLabel(
                 "Use capitalized words and separate tags by \",\". E.g. \"Design Pattern,Algorithm\"");

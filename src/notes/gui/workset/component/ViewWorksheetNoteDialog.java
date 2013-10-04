@@ -48,8 +48,9 @@ public class ViewWorksheetNoteDialog extends JDialog {
     private final JLabel noteIdField = new JLabel();
     private final JTextArea documentField = new JTextArea(2, 50);
     private final JTextArea worksheetField = new JTextArea(2, 50);
-    private final JTextArea tagsField = new JTextArea(2, 50);
     private final JTextArea noteTextField = new JTextArea(10, 50);
+    private final JLabel noteStatusField = new JLabel();
+    private final JTextArea tagsField = new JTextArea(2, 50);
     private final JLabel createdTimeField = new JLabel();
 
     /**
@@ -80,7 +81,6 @@ public class ViewWorksheetNoteDialog extends JDialog {
         c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
         notePanel.add(new JLabel("Note ID"), c);
 
-        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
@@ -128,11 +128,22 @@ public class ViewWorksheetNoteDialog extends JDialog {
 
         c.gridx = 0;
         c.gridy = 4;
+        c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
+        notePanel.add(new JLabel("Note Status"), c);
+
+        c.gridx = 1;
+        c.gridy = 4;
+        c.insets = new Insets(5, 5, 5, 5);
+        noteStatusField.setText(selectedNote.getNoteStatus().getDescription());
+        notePanel.add(noteStatusField, c);
+
+        c.gridx = 0;
+        c.gridy = 5;
         c.insets = new Insets(5, 5, 5, 5);
         notePanel.add(new JLabel("Tags"), c);
 
         c.gridx = 1;
-        c.gridy = 4;
+        c.gridy = 5;
         c.insets = new Insets(5, 5, 5, 5);
         StringBuilder tagStrBuilder = new StringBuilder();
         if (!selectedNote.getTagIds().isEmpty()) {
@@ -147,12 +158,12 @@ public class ViewWorksheetNoteDialog extends JDialog {
         notePanel.add(new JScrollPane(tagsField), c);
 
         c.gridx = 0;
-        c.gridy = 5;
+        c.gridy = 6;
         c.insets = new Insets(5, 5, 5, 5);
         notePanel.add(new JLabel("Created Time"), c);
 
         c.gridx = 1;
-        c.gridy = 5;
+        c.gridy = 6;
         c.insets = new Insets(5, 5, 5, 5);
         createdTimeField.setText(selectedNote.getCreatedTime().toString());
         notePanel.add(createdTimeField, c);

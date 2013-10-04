@@ -15,10 +15,17 @@ import java.awt.*;
  */
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum NoteStatus {
-    NO_ACTION(null),
-    NEED_ACTION(Color.YELLOW),
-    ALERT(Color.RED),
-    DONE(Color.GREEN);
+    NO_ACTION("No Action", null),
+    NEED_ACTION("Need Action", Color.YELLOW),
+    WORKING("Working", Color.BLUE),
+    ALERT("Blocked", Color.RED),
+    DONE("Done", Color.GREEN);
+
+    /**
+     * The description of the note status that is shown in the UI.
+     */
+    @Getter
+    private final String description;
 
     /**
      * The color of the note under current status.
