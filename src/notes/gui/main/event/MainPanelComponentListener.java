@@ -1,5 +1,7 @@
 package notes.gui.main.event;
 
+import notes.bean.BookHome;
+import notes.bean.WorksetHome;
 import notes.entity.SystemMode;
 import notes.gui.main.component.MainPanel;
 
@@ -24,9 +26,9 @@ public class MainPanelComponentListener implements ComponentListener {
         }
 
         if (currentMode.equals(SystemMode.WORKSET)) {
-            mainPanel.updateWorksheetNotePanel(null);
+            mainPanel.updateWorksheetNotePanel(WorksetHome.get().getCurrentWorksheet());
         } else if (currentMode.equals(SystemMode.BOOK)) {
-            mainPanel.updateBookNotePanel(null);
+            mainPanel.updateBookNotePanel(BookHome.get().getCurrentChapter());
         } else if (currentMode.equals(SystemMode.ARTICLE)) {
             mainPanel.updateArticleNotePanel();
         }
