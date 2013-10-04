@@ -74,10 +74,7 @@ public class WorksheetNote extends AbstractNote {
         worksheetNoteElement.addAttribute("DocumentId", documentId.toString());
         worksheetNoteElement.addAttribute("WorksheetId", worksheetId.toString());
         worksheetNoteElement.addAttribute("TagIds", EntityHelper.buildEntityStrFromList(tagIds));
-        // TODO: remove this null check after adding note status in the GUI, should have a default value.
-        if (noteStatus != null) {
-            worksheetNoteElement.addAttribute("NoteStatus", String.valueOf(noteStatus.ordinal()));
-        }
+        worksheetNoteElement.addAttribute("NoteStatus", String.valueOf(noteStatus.ordinal()));
         worksheetNoteElement.addAttribute("CreatedTime", String.valueOf(createdTime.getTime()));
         worksheetNoteElement.addText(noteText);
 
@@ -94,10 +91,7 @@ public class WorksheetNote extends AbstractNote {
         worksheetId = Long.parseLong(element.attributeValue("WorksheetId"));
         tagIds = EntityHelper.buildIDsList(element.attributeValue("TagIds"));
         noteText = element.getText();
-        // TODO: remove this null check after adding note status in the GUI, should have a default value.
-        if (element.attributeValue("NoteStatus") != null) {
-            noteStatus = NoteStatus.values()[Integer.parseInt(element.attributeValue("NoteStatus"))];
-        }
+        noteStatus = NoteStatus.values()[Integer.parseInt(element.attributeValue("NoteStatus"))];
         createdTime = new Date(Long.parseLong(element.attributeValue("CreatedTime")));
 
         return this;

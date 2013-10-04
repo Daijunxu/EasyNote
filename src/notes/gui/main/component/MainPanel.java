@@ -53,6 +53,7 @@ import notes.gui.main.event.OpenPreferencesActionListener;
 import notes.gui.main.event.SaveAllActoinListener;
 import notes.gui.main.event.SearchNoteActionListener;
 import notes.gui.workset.component.WorksheetListCellRenderer;
+import notes.gui.workset.component.WorksheetNoteListCellRenderer;
 import notes.gui.workset.event.DeleteWorksetActionListener;
 import notes.gui.workset.event.DeleteWorksheetActionListener;
 import notes.gui.workset.event.DeleteWorksheetNoteActionListener;
@@ -857,7 +858,7 @@ public class MainPanel extends JFrame {
 
         // Create note scroll pane for each worksheet.
         int notesListWidth = getWidth() - WORKSHEET_NOTE_LIST_PANEL_WIDTH_INDENTATION;
-        notesList.setCellRenderer(new NoteListCellRenderer(notesListWidth - 7));
+        notesList.setCellRenderer(new WorksheetNoteListCellRenderer(notesListWidth - 7));
         notesList.setFixedCellWidth(notesListWidth);
         notesList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         notesList.addListSelectionListener(new NoteListSelectionListener());

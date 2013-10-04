@@ -1,12 +1,20 @@
 package notes.gui.workset.component;
 
 import notes.bean.WorksetHome;
+import notes.data.cache.Property;
+import notes.entity.NoteStatus;
+import notes.entity.workset.WorksheetNote;
+import notes.gui.main.component.MainPanel;
 import notes.gui.workset.event.DeleteWorksheetNoteActionListener;
 import notes.gui.workset.event.EditWorksheetNoteActionListener;
 import notes.gui.workset.event.NewWorksheetNoteActionListener;
 import notes.gui.workset.event.ViewWorksheetNoteActionListener;
+import notes.utils.SoundFactory;
+import notes.utils.SoundTheme;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Pops up when right clicking a note in the worksheet note panel.
@@ -18,6 +26,7 @@ public class WorksheetNotePopupMenu extends JPopupMenu {
     private final JMenuItem newItem;
     private final JMenuItem viewItem;
     private final JMenuItem editItem;
+    private final JMenu setNoteStatusItem;
     private final JMenuItem deleteItem;
 
     /**
@@ -30,6 +39,14 @@ public class WorksheetNotePopupMenu extends JPopupMenu {
         viewItem.addActionListener(new ViewWorksheetNoteActionListener());
         editItem = new JMenuItem("Edit");
         editItem.addActionListener(new EditWorksheetNoteActionListener());
+
+        setNoteStatusItem = new JMenu("Set status to");
+        for (NoteStatus noteStatus : NoteStatus.values()) {
+            JMenuItem noteStatusItem = new JMenuItem(noteStatus.getDescription());
+            noteStatusItem.addActionListener(new SetWorksheetNoteStatusActionListener());
+            setNoteStatusItem.add(noteStatusItem);
+        }
+
         deleteItem = new JMenuItem("Delete");
         deleteItem.addActionListener(new DeleteWorksheetNoteActionListener());
         if (WorksetHome.get().getCurrentWorksheetNote() == null) {
@@ -43,7 +60,44 @@ public class WorksheetNotePopupMenu extends JPopupMenu {
         add(newItem);
         add(viewItem);
         add(editItem);
+        add(setNoteStatusItem);
         add(deleteItem);
+    }
+
+    /**
+     * Defines event listener of setting the worksheet note status.
+     */
+    private class SetWorksheetNoteStatusActionListener implements ActionListener {
+
+        /**
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            try {
+                WorksheetNote currentWorksheetNote = WorksetHome.get().getCurrentWorksheetNote();
+                if (currentWorksheetNote == null) {
+                    if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+                        SoundFactory.playError();
+                    }
+                    JOptionPane.showMessageDialog(null, "No note is selected!", "Input error",
+                            JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JMenuItem source = (JMenuItem) event.getSource();
+                    NoteStatus statusToSet = NoteStatus.getNoteStatusFromDescription(source.getText());
+                    currentWorksheetNote.setNoteStatus(statusToSet);
+
+                    // Update the note panel.
+                    MainPanel.get().updateWorksheetNotePanel(WorksetHome.get().getCurrentWorksheet());
+
+                    if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
+                        SoundFactory.playUpdate();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

@@ -24,6 +24,25 @@ public class NoteListCellRenderer extends DefaultListCellRenderer {
     }
 
     /**
+     * Gets the color for the note that is displayed in the note cell.
+     *
+     * @param note The note.
+     * @return {@code Color} The color for the note.
+     */
+    protected Color getNoteColorOverride(Note note) {
+        return null;
+    }
+
+    /**
+     * Setup the appearance when the renderer is selected.
+     *
+     * @param renderer The renderer of the note.
+     */
+    protected void setupWhenSelected(JLabel renderer) {
+        renderer.setFont(new Font("Times", Font.PLAIN, 14));
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -45,6 +64,17 @@ public class NoteListCellRenderer extends DefaultListCellRenderer {
         JLabel renderer = (JLabel) super.getListCellRendererComponent(list, text, index,
                 isSelected, cellHasFocus);
         renderer.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 5));
+
+        if (!isSelected) {
+            renderer.setFont(new Font("Times", Font.PLAIN, 14));
+        } else {
+            setupWhenSelected(renderer);
+        }
+
+        Color noteColorOverride = getNoteColorOverride(note);
+        if (noteColorOverride != null) {
+            renderer.setBackground(noteColorOverride);
+        }
 
         JPanel tagPanel = new JPanel();
         tagPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -76,12 +106,6 @@ public class NoteListCellRenderer extends DefaultListCellRenderer {
         outPanel.setLayout(new BoxLayout(outPanel, BoxLayout.PAGE_AXIS));
         outPanel.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.WHITE));
         outPanel.add(innerPanel);
-
-        if (!isSelected) {
-            renderer.setFont(new Font("Times", Font.PLAIN, 14));
-        } else {
-            renderer.setFont(new Font("Times", Font.PLAIN, 14));
-        }
 
         return outPanel;
     }
