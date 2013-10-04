@@ -35,13 +35,18 @@ public class NoteListSelectionListener implements ListSelectionListener {
             int selected = list.getSelectedIndex();
             MainPanel frame = MainPanel.get();
             if (frame.getCurrentMode().equals(SystemMode.WORKSET)) {
-                WorksheetNote worksheetNote = WorksetHome.get().getCurrentWorksheetNotesList().get(selected);
+                Long worksheetNoteId = WorksetHome.get().getCurrentWorksheet().getNotesList().get(selected);
+                WorksheetNote worksheetNote = (WorksheetNote) WorksetHome.get().getWorksheetNoteDAO()
+                        .findNoteById(worksheetNoteId);
                 WorksetHome.get().setCurrentWorksheetNote(worksheetNote);
             } else if (frame.getCurrentMode().equals(SystemMode.ARTICLE)) {
-                ArticleNote articleNote = ArticleHome.get().getCurrentArticleNotesList().get(selected);
+                Long articleNoteId = ArticleHome.get().getCurrentArticle().getNotesList().get(selected);
+                ArticleNote articleNote = (ArticleNote) ArticleHome.get().getArticleNoteDAO().
+                        findNoteById(articleNoteId);
                 ArticleHome.get().setCurrentArticleNote(articleNote);
             } else if (frame.getCurrentMode().equals(SystemMode.BOOK)) {
-                BookNote bookNote = BookHome.get().getCurrentBookNotesList().get(selected);
+                Long bookNoteId = BookHome.get().getCurrentChapter().getNotesList().get(selected);
+                BookNote bookNote = (BookNote) BookHome.get().getBookNoteDAO().findNoteById(bookNoteId);
                 BookHome.get().setCurrentBookNote(bookNote);
             }
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {

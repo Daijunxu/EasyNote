@@ -746,15 +746,15 @@ public class MainPanel extends JFrame {
         if (notesPanel != null) {
             remove(notesPanel);
         }
-        // createEmptyNoteScrollPane();
 
         // Get current notes data.
-        Object[] notesObject = new ArticleNote[articleHome.getCurrentArticleNotesList().size()];
-        for (int i = 0; i < articleHome.getCurrentArticleNotesList().size(); i++) {
-            notesObject[i] = articleHome.getCurrentArticleNotesList().get(i);
+        List<ArticleNote> notesDataList = articleHome.getAllNotesForCurrentArticle();
+        Object[] notesObject = new ArticleNote[notesDataList.size()];
+        for (int i = 0; i < notesDataList.size(); i++) {
+            notesObject[i] = notesDataList.get(i);
         }
 
-        // Create note scroll pane for each chapter.
+        // Create note scroll pane for the article.
         JList notesList = new JList(notesObject);
         int notesListWidth = getWidth() - ARTICLE_NOTE_LIST_PANEL_WIDTH_INDENTATION;
         notesList.setCellRenderer(new NoteListCellRenderer(notesListWidth - 7));
@@ -790,22 +790,22 @@ public class MainPanel extends JFrame {
     public void updateBookNotePanel(Chapter currentChapter) {
         remove(notesPanel);
 
+        JList notesList = new JList();
+
         // Set the notes panel for current chapter.
         if (currentChapter != null) {
             bookHome.setCurrentChapter(currentChapter);
-            List<BookNote> notesDataList = bookHome.getCurrentChapterNotesMap().get(
-                    currentChapter.getChapterId());
-            bookHome.setCurrentBookNotesList(notesDataList);
+            List<BookNote> notesDataList = bookHome.getAllNotesForCurrentChapter();
+
+            // Get current notes data.
+            Object[] notesObject = new BookNote[notesDataList.size()];
+            for (int i = 0; i < notesDataList.size(); i++) {
+                notesObject[i] = notesDataList.get(i);
+            }
+            notesList.setListData(notesObject);
         }
 
-        // Get current notes data.
-        Object[] notesObject = new BookNote[bookHome.getCurrentBookNotesList().size()];
-        for (int i = 0; i < bookHome.getCurrentBookNotesList().size(); i++) {
-            notesObject[i] = bookHome.getCurrentBookNotesList().get(i);
-        }
-
-        // Create note scroll pane for each chapter.
-        JList notesList = new JList(notesObject);
+        // Create note scroll pane for all chapters in the book.
         int notesListWidth = getWidth() - BOOK_NOTE_LIST_PANEL_WIDTH_INDENTATION;
         notesList.setCellRenderer(new NoteListCellRenderer(notesListWidth - 7));
         notesList.setFixedCellWidth(notesListWidth);
@@ -840,22 +840,22 @@ public class MainPanel extends JFrame {
     public void updateWorksheetNotePanel(Worksheet currentWorksheet) {
         remove(notesPanel);
 
+        JList notesList = new JList();
+
         // Set the notes panel for current chapter.
         if (currentWorksheet != null) {
             worksetHome.setCurrentWorksheet(currentWorksheet);
-            List<WorksheetNote> notesDataList = worksetHome.getCurrentWorksheetNotesMap().get(
-                    currentWorksheet.getWorksheetId());
-            worksetHome.setCurrentWorksheetNotesList(notesDataList);
-        }
+            List<WorksheetNote> notesDataList = worksetHome.getAllNotesForCurrentWorksheet();
 
-        // Get current notes data.
-        Object[] notesObject = new WorksheetNote[worksetHome.getCurrentWorksheetNotesList().size()];
-        for (int i = 0; i < worksetHome.getCurrentWorksheetNotesList().size(); i++) {
-            notesObject[i] = worksetHome.getCurrentWorksheetNotesList().get(i);
+            // Get current notes data.
+            Object[] notesObject = new WorksheetNote[notesDataList.size()];
+            for (int i = 0; i < notesDataList.size(); i++) {
+                notesObject[i] = notesDataList.get(i);
+            }
+            notesList.setListData(notesObject);
         }
 
         // Create note scroll pane for each worksheet.
-        JList notesList = new JList(notesObject);
         int notesListWidth = getWidth() - WORKSHEET_NOTE_LIST_PANEL_WIDTH_INDENTATION;
         notesList.setCellRenderer(new NoteListCellRenderer(notesListWidth - 7));
         notesList.setFixedCellWidth(notesListWidth);

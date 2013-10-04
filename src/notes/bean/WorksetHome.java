@@ -3,6 +3,7 @@ package notes.bean;
 import lombok.Getter;
 import lombok.Setter;
 import notes.dao.impl.WorksheetNoteDAO;
+import notes.data.cache.Cache;
 import notes.entity.Document;
 import notes.entity.workset.Workset;
 import notes.entity.workset.Worksheet;
@@ -10,9 +11,7 @@ import notes.entity.workset.WorksheetNote;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The object that stores temporary data for the front end and provides access to DAO component.
@@ -56,18 +55,6 @@ public class WorksetHome implements Serializable {
     @Getter
     @Setter
     private WorksheetNote currentWorksheetNote;
-    /**
-     * The map from worksheet IDs to notes in current selected workset.
-     */
-    @Getter
-    @Setter
-    private Map<Long, List<WorksheetNote>> currentWorksheetNotesMap;
-    /**
-     * The list of workset notes in current selected worksheet.
-     */
-    @Getter
-    @Setter
-    private List<WorksheetNote> currentWorksheetNotesList;
 
     /**
      * Constructs an instance of {@code WorksetHome}.
@@ -75,8 +62,6 @@ public class WorksetHome implements Serializable {
     private WorksetHome() {
         worksheetNoteDAO = new WorksheetNoteDAO();
         documentList = worksheetNoteDAO.findAllDocuments();
-        currentWorksheetNotesMap = new HashMap<Long, List<WorksheetNote>>();
-        currentWorksheetNotesList = new ArrayList<WorksheetNote>();
     }
 
     /**
@@ -96,8 +81,6 @@ public class WorksetHome implements Serializable {
         currentWorkset = null;
         currentWorksheet = null;
         currentWorksheetNote = null;
-        currentWorksheetNotesMap.clear();
-        currentWorksheetNotesList.clear();
     }
 
     /**
@@ -125,24 +108,30 @@ public class WorksetHome implements Serializable {
         if (documentId != null) {
             // Update currentWorkset.
             currentWorkset = ((Workset) worksheetNoteDAO.findDocumentById(documentId));
-
-            // Update notesMap.
-            currentWorksheetNotesMap = WorksetHome.get().getWorksheetNoteDAO()
-                    .findAllNotesByWorksheets(documentId);
         }
 
         if (worksheetId != null) {
             // Update currentWorksheet.
             currentWorksheet = currentWorkset.getWorksheetsMap().get(worksheetId);
-
-            // Update currentNotesList.
-            currentWorksheetNotesList = currentWorksheetNotesMap.get(worksheetId);
         }
 
         if (noteId != null) {
             // Update currentWorksheetNote.
             currentWorksheetNote = (WorksheetNote) (worksheetNoteDAO.findNoteById(noteId));
         }
+    }
 
+    /**
+     * Gets the list of notes for the current worksheet.
+     *
+     * @return {@code List} The list of notes for the current worksheet.
+     */
+    public List<WorksheetNote> getAllNotesForCurrentWorksheet() {
+        Cache cache = Cache.get();
+        List<WorksheetNote> worksheetNoteList = new ArrayList<WorksheetNote>();
+        for (Long worksheetNoteId : currentWorksheet.getNotesList()) {
+            worksheetNoteList.add((WorksheetNote) cache.getNoteCache().getNoteMap().get(worksheetNoteId));
+        }
+        return worksheetNoteList;
     }
 }

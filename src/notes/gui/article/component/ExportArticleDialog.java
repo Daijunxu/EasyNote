@@ -16,6 +16,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Defines the dialog and event listener for exporting current article.
@@ -184,8 +185,9 @@ public class ExportArticleDialog extends JDialog {
 
             output.append("<br><hr>");
 
-            // Output all notes in the chapter.
-            for (ArticleNote note : home.getCurrentArticleNotesList()) {
+            // Output all notes in the article.
+            List<ArticleNote> noteList = home.getAllNotesForCurrentArticle();
+            for (ArticleNote note : noteList) {
                 output.append("<p>");
 
                 // Output note text.

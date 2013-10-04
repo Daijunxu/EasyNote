@@ -195,7 +195,7 @@ public class ExportWorksetDialog extends JDialog {
                 output.append("<a href='#title'>Back to Top</a>");
 
                 // Output all notes in the worksheet.
-                List<WorksheetNote> noteList = home.getCurrentWorksheetNotesMap().get(worksheetId);
+                List<WorksheetNote> noteList = home.getAllNotesForCurrentWorksheet();
                 for (WorksheetNote note : noteList) {
                     output.append("<p>");
 

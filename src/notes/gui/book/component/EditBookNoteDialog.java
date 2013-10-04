@@ -74,10 +74,13 @@ public class EditBookNoteDialog extends JDialog {
             MainPanel frame = MainPanel.get();
             BookHome home = BookHome.get();
             BookNoteDAO dao = home.getBookNoteDAO();
+            BookNote newNote = new BookNote();
+            newNote.setNoteId(selectedNote.getNoteId());
+            newNote.setDocumentId(selectedNote.getDocumentId());
 
             String chapterStr = (String) chapterField.getSelectedItem();
             Long selectedChapterId = Long.parseLong(chapterStr.substring(0, chapterStr.indexOf(".")));
-            selectedNote.setChapterId(selectedChapterId);
+            newNote.setChapterId(selectedChapterId);
 
             List<Long> updatedTagsList = new ArrayList<Long>();
             for (String tagStr : tagsStrList) {
@@ -92,17 +95,20 @@ public class EditBookNoteDialog extends JDialog {
                     updatedTagsList.add(savedTag.getTagId());
                 }
             }
-            selectedNote.setTagIds(updatedTagsList);
-            selectedNote.setNoteText(noteTextField.getText());
+            newNote.setTagIds(updatedTagsList);
+            newNote.setNoteText(noteTextField.getText());
 
             // Save the updated book note.
-            dao.updateNote(selectedNote);
+            BookNote updatedNote = (BookNote) dao.updateNote(newNote);
+
+            // Update current note.
+            home.setCurrentBookNote(updatedNote);
 
             // Update the note panel.
             if (frame.isSearchMode()) {
                 SearchNoteDialog.get().updateResultPanel();
             } else {
-                frame.updateBookNotePanel(null);
+                frame.updateBookNotePanel(home.getCurrentChapter());
             }
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {

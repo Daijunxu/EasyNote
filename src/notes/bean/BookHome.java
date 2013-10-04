@@ -3,13 +3,13 @@ package notes.bean;
 import lombok.Getter;
 import lombok.Setter;
 import notes.dao.impl.BookNoteDAO;
+import notes.data.cache.Cache;
 import notes.entity.Document;
 import notes.entity.book.Book;
 import notes.entity.book.BookNote;
 import notes.entity.book.Chapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,27 +60,12 @@ public class BookHome {
     @Setter
     private List<Chapter> currentChapterList;
     /**
-     * The map from chapter IDs to notes in current selected book.
-     */
-    @Getter
-    @Setter
-    private Map<Long, List<BookNote>> currentChapterNotesMap;
-    /**
-     * The list of book notes in current selected chapter.
-     */
-    @Getter
-    @Setter
-    private List<BookNote> currentBookNotesList;
-
-    /**
      * Constructs an instance of {@code BookHome}.
      */
     private BookHome() {
         bookNoteDAO = new BookNoteDAO();
         documentList = bookNoteDAO.findAllDocuments();
         currentChapterList = new ArrayList<Chapter>();
-        currentChapterNotesMap = new HashMap<Long, List<BookNote>>();
-        currentBookNotesList = new ArrayList<BookNote>();
     }
 
     /**
@@ -101,8 +86,6 @@ public class BookHome {
         currentChapter = null;
         currentBookNote = null;
         currentChapterList.clear();
-        currentChapterNotesMap.clear();
-        currentBookNotesList.clear();
     }
 
     /**
@@ -135,18 +118,11 @@ public class BookHome {
             for (Map.Entry<Long, Chapter> entry : currentBook.getChaptersMap().entrySet()) {
                 currentChapterList.add(entry.getValue());
             }
-
-            // Update notesMap.
-            currentChapterNotesMap = BookHome.get().getBookNoteDAO()
-                    .findAllNotesByChapters(documentId);
         }
 
         if (chapterId != null) {
             // Update currentChapter.
             currentChapter = currentBook.getChaptersMap().get(chapterId);
-
-            // Update currentNotesList.
-            currentBookNotesList = currentChapterNotesMap.get(chapterId);
         }
 
         if (noteId != null) {
@@ -154,5 +130,19 @@ public class BookHome {
             currentBookNote = (BookNote) (bookNoteDAO.findNoteById(noteId));
         }
 
+    }
+
+    /**
+     * Gets the list of notes for the current chapter.
+     *
+     * @return {@code List} The list of notes for the current chapter.
+     */
+    public List<BookNote> getAllNotesForCurrentChapter() {
+        Cache cache = Cache.get();
+        List<BookNote> bookNoteList = new ArrayList<BookNote>();
+        for (Long bookNoteId : currentChapter.getNotesList()) {
+            bookNoteList.add((BookNote) cache.getNoteCache().getNoteMap().get(bookNoteId));
+        }
+        return bookNoteList;
     }
 }

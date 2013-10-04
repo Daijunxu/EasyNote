@@ -103,7 +103,7 @@ public class NewWorksheetNoteDialog extends JDialog {
                     .getCurrentWorksheet().getWorksheetId(), cachedWorksheetNote.getNoteId());
 
             // Update the note panel.
-            frame.updateWorksheetNotePanel(null);
+            frame.updateWorksheetNotePanel(home.getCurrentWorksheet());
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playUpdate();

@@ -3,6 +3,7 @@ package notes.bean;
 import lombok.Getter;
 import lombok.Setter;
 import notes.dao.impl.ArticleNoteDAO;
+import notes.data.cache.Cache;
 import notes.entity.Document;
 import notes.entity.article.Article;
 import notes.entity.article.ArticleNote;
@@ -44,12 +45,6 @@ public class ArticleHome {
     @Getter
     @Setter
     private ArticleNote currentArticleNote;
-    /**
-     * The list of article notes in current selected article.
-     */
-    @Getter
-    @Setter
-    private List<ArticleNote> currentArticleNotesList;
 
     /**
      * Constructs an instance of {@code ArticleHome}.
@@ -57,7 +52,6 @@ public class ArticleHome {
     private ArticleHome() {
         articleNoteDAO = new ArticleNoteDAO();
         documentList = articleNoteDAO.findAllDocuments();
-        currentArticleNotesList = new ArrayList<ArticleNote>();
     }
 
     /**
@@ -76,7 +70,6 @@ public class ArticleHome {
         documentList.clear();
         currentArticle = null;
         currentArticleNote = null;
-        currentArticleNotesList.clear();
     }
 
     /**
@@ -95,19 +88,25 @@ public class ArticleHome {
         if (documentId != null) {
             // Update currentArticle.
             currentArticle = ((Article) articleNoteDAO.findDocumentById(documentId));
-
-            // Update currentNotesList.
-            currentArticleNotesList = new ArrayList<ArticleNote>();
-            for (Long articleNoteId : currentArticle.getNotesList()) {
-                currentArticleNotesList.add((ArticleNote) articleNoteDAO
-                        .findNoteById(articleNoteId));
-            }
         }
 
         if (noteId != null) {
             // Update currentArticleNote.
             currentArticleNote = (ArticleNote) (articleNoteDAO.findNoteById(noteId));
         }
+    }
 
+    /**
+     * Gets the list of notes for the current article.
+     *
+     * @return {@code List} The list of notes for the current article.
+     */
+    public List<ArticleNote> getAllNotesForCurrentArticle() {
+        Cache cache = Cache.get();
+        List<ArticleNote> articleNoteList = new ArrayList<ArticleNote>();
+        for (Long articleNoteId : currentArticle.getNotesList()) {
+            articleNoteList.add((ArticleNote) cache.getNoteCache().getNoteMap().get(articleNoteId));
+        }
+        return articleNoteList;
     }
 }

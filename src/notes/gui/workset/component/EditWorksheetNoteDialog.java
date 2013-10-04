@@ -74,10 +74,13 @@ public class EditWorksheetNoteDialog extends JDialog {
             MainPanel frame = MainPanel.get();
             WorksetHome home = WorksetHome.get();
             WorksheetNoteDAO dao = home.getWorksheetNoteDAO();
+            WorksheetNote newNote = new WorksheetNote();
+            newNote.setNoteId(selectedNote.getNoteId());
+            newNote.setDocumentId(selectedNote.getDocumentId());
 
             String worksheetStr = (String) worksheetField.getSelectedItem();
             Long selectedWorksheetId = Long.parseLong(worksheetStr.substring(0, worksheetStr.indexOf(".")));
-            selectedNote.setWorksheetId(selectedWorksheetId);
+            newNote.setWorksheetId(selectedWorksheetId);
 
             List<Long> updatedTagsList = new ArrayList<Long>();
             for (String tagStr : tagsStrList) {
@@ -92,17 +95,20 @@ public class EditWorksheetNoteDialog extends JDialog {
                     updatedTagsList.add(savedTag.getTagId());
                 }
             }
-            selectedNote.setTagIds(updatedTagsList);
-            selectedNote.setNoteText(noteTextField.getText());
+            newNote.setTagIds(updatedTagsList);
+            newNote.setNoteText(noteTextField.getText());
 
             // Save the updated workset note.
-            dao.updateNote(selectedNote);
+            WorksheetNote updatedNote = (WorksheetNote) dao.updateNote(newNote);
+
+            // Update current note.
+            home.setCurrentWorksheetNote(updatedNote);
 
             // Update the note panel.
             if (frame.isSearchMode()) {
                 SearchNoteDialog.get().updateResultPanel();
             } else {
-                frame.updateWorksheetNotePanel(null);
+                frame.updateWorksheetNotePanel(home.getCurrentWorksheet());
             }
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
