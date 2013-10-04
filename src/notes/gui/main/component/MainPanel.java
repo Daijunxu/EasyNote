@@ -548,6 +548,9 @@ public class MainPanel extends JFrame {
         openDocumentItem.addActionListener(new OpenDocumentActionListener());
         JMenu newDocumentMenu = new JMenu("New Document");
         newDocumentMenu.setMnemonic(KeyEvent.VK_N);
+        JMenuItem newWorksetItem = new JMenuItem("Workset", KeyEvent.VK_W);
+        newWorksetItem.addActionListener(new NewWorksetActionListener());
+        newDocumentMenu.add(newWorksetItem);
         JMenuItem newArticleItem = new JMenuItem("Article", KeyEvent.VK_A);
         newArticleItem.addActionListener(new NewArticleActionListener());
         newDocumentMenu.add(newArticleItem);
