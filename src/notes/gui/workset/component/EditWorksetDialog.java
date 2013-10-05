@@ -77,6 +77,7 @@ public class EditWorksetDialog extends JDialog {
             if (commentField.getText() != null && !commentField.getText().trim().equals("")) {
                 updatedWorkset.setComment(commentField.getText().trim());
             }
+            updatedWorkset.setWorksheetIdsList(home.getCurrentWorkset().getWorksheetIdsList());
             updatedWorkset.setWorksheetsMap(home.getCurrentWorkset().getWorksheetsMap());
             updatedWorkset.setCreatedTime(home.getCurrentWorkset().getCreatedTime());
             updatedWorkset.setLastUpdatedTime(new Date(System.currentTimeMillis()));
