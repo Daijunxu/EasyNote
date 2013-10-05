@@ -13,7 +13,7 @@ import notes.entity.book.Chapter;
 import notes.entity.workset.Workset;
 import notes.entity.workset.Worksheet;
 import notes.entity.workset.WorksheetNote;
-import notes.gui.article.component.ViewArticleNoteDialog;
+import notes.gui.article.component.EditArticleNoteDialog;
 import notes.gui.book.component.ViewBookNoteDialog;
 import notes.gui.main.component.SearchNoteDialog;
 import notes.gui.workset.component.ViewWorksheetNoteDialog;
@@ -50,7 +50,7 @@ public class ViewNoteActionListener implements ActionListener {
             } else if (selectedNote instanceof ArticleNote) {
                 Article selectedArticle = (Article) ArticleHome.get().getArticleNoteDAO()
                         .findDocumentById(selectedNote.getDocumentId());
-                new ViewArticleNoteDialog(selectedArticle, (ArticleNote) selectedNote);
+                new EditArticleNoteDialog(selectedArticle, (ArticleNote) selectedNote);
             } else if (selectedNote instanceof BookNote) {
                 Book selectedBook = (Book) BookHome.get().getBookNoteDAO()
                         .findDocumentById(selectedNote.getDocumentId());

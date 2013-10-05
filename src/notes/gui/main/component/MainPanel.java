@@ -26,7 +26,6 @@ import notes.gui.article.event.ExportArticleEventListener;
 import notes.gui.article.event.NewArticleActionListener;
 import notes.gui.article.event.NewArticleNoteActionListener;
 import notes.gui.article.event.ViewArticleActionListener;
-import notes.gui.article.event.ViewArticleNoteActionListener;
 import notes.gui.book.component.ChapterListCellRenderer;
 import notes.gui.book.event.BookNoteListMouseListener;
 import notes.gui.book.event.ChapterListMouseListener;
@@ -272,14 +271,11 @@ public class MainPanel extends JFrame {
         noteMenu.setMnemonic(KeyEvent.VK_N);
         JMenuItem newNoteItem = new JMenuItem("New Note", KeyEvent.VK_N);
         newNoteItem.addActionListener(new NewArticleNoteActionListener());
-        JMenuItem viewNoteItem = new JMenuItem("View This Note", KeyEvent.VK_V);
-        viewNoteItem.addActionListener(new ViewArticleNoteActionListener());
         JMenuItem editNoteItem = new JMenuItem("Edit This Note", KeyEvent.VK_E);
         editNoteItem.addActionListener(new EditArticleNoteActionListener());
         JMenuItem deleteNoteItem = new JMenuItem("Delete This Note", KeyEvent.VK_D);
         deleteNoteItem.addActionListener(new DeleteArticleNoteActionListener());
         noteMenu.add(newNoteItem);
-        noteMenu.add(viewNoteItem);
         noteMenu.add(editNoteItem);
         noteMenu.add(deleteNoteItem);
 

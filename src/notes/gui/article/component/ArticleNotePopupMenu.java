@@ -4,7 +4,6 @@ import notes.bean.ArticleHome;
 import notes.gui.article.event.DeleteArticleNoteActionListener;
 import notes.gui.article.event.EditArticleNoteActionListener;
 import notes.gui.article.event.NewArticleNoteActionListener;
-import notes.gui.article.event.ViewArticleNoteActionListener;
 
 import javax.swing.*;
 
@@ -19,25 +18,20 @@ public class ArticleNotePopupMenu extends JPopupMenu {
      */
     public ArticleNotePopupMenu() {
         final JMenuItem newItem;
-        final JMenuItem viewItem;
         final JMenuItem editItem;
         final JMenuItem deleteItem;
 
         newItem = new JMenuItem("New");
         newItem.addActionListener(new NewArticleNoteActionListener());
-        viewItem = new JMenuItem("View");
-        viewItem.addActionListener(new ViewArticleNoteActionListener());
         editItem = new JMenuItem("Edit");
         editItem.addActionListener(new EditArticleNoteActionListener());
         deleteItem = new JMenuItem("Delete");
         deleteItem.addActionListener(new DeleteArticleNoteActionListener());
         if (ArticleHome.get().getCurrentArticleNote() == null) {
-            viewItem.setEnabled(false);
             editItem.setEnabled(false);
             deleteItem.setEnabled(false);
         }
         add(newItem);
-        add(viewItem);
         add(editItem);
         add(deleteItem);
     }

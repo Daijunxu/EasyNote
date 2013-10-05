@@ -3,7 +3,7 @@ package notes.gui.article.event;
 import notes.bean.ArticleHome;
 import notes.data.cache.Property;
 import notes.gui.article.component.ArticleNotePopupMenu;
-import notes.gui.article.component.ViewArticleNoteDialog;
+import notes.gui.article.component.EditArticleNoteDialog;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 
@@ -34,7 +34,7 @@ public class ArticleNoteListMouseListener extends MouseAdapter {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playPopup();
             }
-            new ViewArticleNoteDialog(home.getCurrentArticle(), home.getCurrentArticleNote());
+            new EditArticleNoteDialog(home.getCurrentArticle(), home.getCurrentArticleNote());
         }
     }
 

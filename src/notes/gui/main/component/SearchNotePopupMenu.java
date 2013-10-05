@@ -8,7 +8,6 @@ import notes.entity.article.Article;
 import notes.entity.article.ArticleNote;
 import notes.entity.book.Book;
 import notes.entity.book.BookNote;
-import notes.gui.main.event.EditNoteActionListener;
 import notes.gui.main.event.ViewNoteActionListener;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
@@ -25,7 +24,6 @@ import java.awt.event.ActionListener;
 public class SearchNotePopupMenu extends JPopupMenu {
 
     private final JMenuItem viewItem;
-    private final JMenuItem editItem;
     private final JMenuItem openDocumentItem;
 
     /**
@@ -36,9 +34,6 @@ public class SearchNotePopupMenu extends JPopupMenu {
     public SearchNotePopupMenu(final Note selectedNote) {
         viewItem = new JMenuItem("View");
         viewItem.addActionListener(new ViewNoteActionListener());
-
-        editItem = new JMenuItem("Edit");
-        editItem.addActionListener(new EditNoteActionListener());
 
         openDocumentItem = new JMenuItem("Open This Document");
         openDocumentItem.addActionListener(new ActionListener() {
@@ -64,7 +59,6 @@ public class SearchNotePopupMenu extends JPopupMenu {
         });
 
         add(viewItem);
-        add(editItem);
         add(openDocumentItem);
     }
 }
