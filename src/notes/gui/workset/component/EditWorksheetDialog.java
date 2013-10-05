@@ -12,6 +12,7 @@ import org.apache.commons.lang3.text.WordUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Date;
 
 /**
  * Defines the dialog and event listener for editing a worksheet in a workset.
@@ -43,9 +44,10 @@ public class EditWorksheetDialog extends JDialog {
             updateWorksheet.setWorksheetId(home.getCurrentWorksheet().getWorksheetId());
             updateWorksheet.setWorksheetTitle(WordUtils.capitalize(worksheetTitleField.getText().trim()));
             updateWorksheet.setNotesList(home.getCurrentWorksheet().getNotesList());
+            updateWorksheet.setLastUpdatedTime(new Date());
 
             // Save the updated worksheet.
-            Worksheet cachedWorksheet = dao.mergeWorksheet(updateWorksheet, home.getCurrentWorkset().getDocumentId(),
+            Worksheet cachedWorksheet = dao.updateWorksheet(updateWorksheet, home.getCurrentWorkset().getDocumentId(),
                     home.getCurrentWorksheet().getWorksheetId());
 
             if (cachedWorksheet != null) {

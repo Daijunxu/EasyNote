@@ -247,7 +247,7 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
      * Test method for {@link notes.dao.impl.AbstractNoteDAO#updateTag(notes.entity.Tag)}.
      */
     @Test
-    public void testMergeTag() {
+    public void testUpdateTag() {
         UnitTestData testData = new UnitTestData();
         Tag newTag = new Tag(1L, "Method");
         Tag testTag = testData.tagIdMap.get(newTag.getTagId());

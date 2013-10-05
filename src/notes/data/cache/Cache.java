@@ -136,4 +136,14 @@ public class Cache implements XMLSerializable<Cache> {
         return this;
     }
 
+    /**
+     * Gets the String to write to disk when a new data file is created.
+     *
+     * @return {@code String} The default content in the file.
+     */
+    public static String getDefaultContentToWrite() {
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<Data><Documents></Documents><Tags></Tags><Notes></Notes></Data>";
+    }
+
 }

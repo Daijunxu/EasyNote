@@ -151,13 +151,13 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
     }
 
     /**
-     * Merges a worksheet.
+     * Updates a worksheet.
      *
-     * @param worksheet  The worksheet to merge.
+     * @param worksheet  The worksheet to update.
      * @param documentId The document ID of the workset that the worksheet belongs to.
-     * @return {@code Worksheet} The merged worksheet object.
+     * @return {@code Worksheet} The updated worksheet object.
      */
-    public Worksheet mergeWorksheet(Worksheet worksheet, Long documentId, Long oldWorksheetId) {
+    public Worksheet updateWorksheet(Worksheet worksheet, Long documentId, Long oldWorksheetId) {
         try {
             Workset cachedWorkset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(documentId));
             Map<Long, Worksheet> worksheetsMap = cachedWorkset.getWorksheetsMap();
@@ -183,7 +183,11 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
             }
 
             // Update workset's last updated time.
-            cachedWorkset.setLastUpdatedTime(new Date());
+            if (worksheet.getLastUpdatedTime() != null) {
+                cachedWorkset.setLastUpdatedTime(worksheet.getLastUpdatedTime());
+            } else {
+                cachedWorkset.setLastUpdatedTime(new Date());
+            }
 
             return cachedWorksheet;
         } catch (Exception e) {
@@ -268,6 +272,7 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
      * @param documentId The document ID of the workset that the new worksheet belongs to.
      * @return {@code Worksheet} The saved worksheet, NULL if exception occurred.
      */
+
     public Worksheet saveWorksheet(Worksheet worksheet, Long documentId) {
         try {
             Workset cachedWorkset = (Workset) Cache.get().getDocumentCache().getDocumentMap()
@@ -284,8 +289,17 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
             // Add the new worksheet to the bottom of the worksheet list.
             cachedWorkset.getWorksheetIdsList().add(worksheet.getWorksheetId());
 
-            // Update workset's last updated time.
-            cachedWorkset.setLastUpdatedTime(new Date());
+            // Update workset's created time and last updated time.
+            if (worksheet.getCreatedTime() != null) {
+                cachedWorkset.setCreatedTime(worksheet.getCreatedTime());
+            } else {
+                cachedWorkset.setCreatedTime(new Date());
+            }
+            if (worksheet.getLastUpdatedTime() != null) {
+                cachedWorkset.setLastUpdatedTime(worksheet.getLastUpdatedTime());
+            } else {
+                cachedWorkset.setLastUpdatedTime(new Date());
+            }
 
             return worksheet;
         } catch (Exception e) {

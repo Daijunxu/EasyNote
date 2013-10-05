@@ -117,10 +117,10 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.BookNoteDAO#mergeChapter(notes.entity.book.Chapter, java.lang.Long)}.
+     * {@link notes.dao.impl.BookNoteDAO#updateChapter(notes.entity.book.Chapter, java.lang.Long)}.
      */
     @Test
-    public void testMergeChapter() {
+    public void testUpdateChapter() {
         UnitTestData testData = new UnitTestData();
         Book testBook = (Book) testData.documentMap.get(1L);
         Chapter testChapter = testBook.getChaptersMap().get(1L);
@@ -128,21 +128,21 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         updateChapter.setChapterId(testChapter.getChapterId());
         updateChapter.setChapterTitle("Another chapter title");
         updateChapter.setNotesList(testChapter.getNotesList());
-        Chapter mergedChapter = dao.mergeChapter(updateChapter, testBook.getDocumentId());
+        Chapter updatedChapter = dao.updateChapter(updateChapter, testBook.getDocumentId());
 
-        assertNotNull(mergedChapter);
+        assertNotNull(updatedChapter);
         Book cachedBook = (Book) Cache.get().getDocumentCache().getDocumentMap()
                 .get(testBook.getDocumentId());
-        assertEquals(mergedChapter, cachedBook.getChaptersMap().get(mergedChapter.getChapterId()));
-        assertFalse(mergedChapter.equals(testChapter));
-        assertEquals(mergedChapter.getChapterId(), updateChapter.getChapterId());
+        assertEquals(updatedChapter, cachedBook.getChaptersMap().get(updatedChapter.getChapterId()));
+        assertFalse(updatedChapter.equals(testChapter));
+        assertEquals(updatedChapter.getChapterId(), updateChapter.getChapterId());
     }
 
     /**
      * Test method for {@link notes.dao.impl.BookNoteDAO#updateDocument(notes.entity.Document)}.
      */
     @Test
-    public void testMergeDocument() {
+    public void testUpdateDocument() {
         UnitTestData testData = new UnitTestData();
         Book testBook = (Book) testData.documentMap.get(1L);
         Book newBook = new Book();
@@ -171,7 +171,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
      * Test method for {@link notes.dao.impl.BookNoteDAO#updateNote(notes.entity.Note)}.
      */
     @Test
-    public void testMergeNote() {
+    public void testUpdateNote() {
         UnitTestData testData = new UnitTestData();
         BookNote testBookNote = (BookNote) testData.noteMap.get(1L);
         BookNote newBookNote = new BookNote();

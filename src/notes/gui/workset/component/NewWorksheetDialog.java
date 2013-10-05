@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Defines the dialog and event listener for creating a worksheet.
@@ -44,6 +45,8 @@ public class NewWorksheetDialog extends JDialog {
             createdWorksheet.setWorksheetId(home.getCurrentWorkset().generateNewWorksheetId());
             createdWorksheet.setWorksheetTitle(WordUtils.capitalize(worksheetField.getText().trim()));
             createdWorksheet.setNotesList(new ArrayList<Long>());
+            createdWorksheet.setCreatedTime(new Date());
+            createdWorksheet.setLastUpdatedTime(new Date());
 
             // Save the created worksheet.
             Worksheet cachedWorksheet = dao.saveWorksheet(createdWorksheet, home.getCurrentWorkset()

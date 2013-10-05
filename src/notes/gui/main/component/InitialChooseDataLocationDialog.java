@@ -99,7 +99,7 @@ public class InitialChooseDataLocationDialog extends JDialog {
                                 String path = selectedFile.getAbsolutePath()
                                         + "/reading_notes.xml";
                                 BufferedWriter output = new BufferedWriter(new FileWriter(path));
-                                output.append("#DOCUMENTS\n#END_DOCUMENTS\n#TAGS\n#END_TAGS\n#NOTES\n#END_NOTES");
+                                output.append(Cache.getDefaultContentToWrite());
                                 output.close();
 
                                 Property.get().setXmlDataLocation(path);

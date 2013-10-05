@@ -84,7 +84,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
      * .
      */
     @Test
-    public void testMergeDocument() {
+    public void testUpdateDocument() {
         UnitTestData testData = new UnitTestData();
         Article testArticle = (Article) testData.documentMap.get(2L);
         Article newArticle = new Article();
@@ -109,7 +109,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
      * Test method for {@link notes.dao.impl.ArticleNoteDAO#updateNote(notes.entity.Note)}.
      */
     @Test
-    public void testMergeNote() {
+    public void testUpdateNote() {
         UnitTestData testData = new UnitTestData();
         ArticleNote testArticleNote = (ArticleNote) testData.noteMap.get(2L);
         ArticleNote newArticleNote = new ArticleNote();

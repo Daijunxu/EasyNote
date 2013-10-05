@@ -14,8 +14,9 @@ import org.apache.commons.lang3.text.WordUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 /**
  * Defines the dialog and event listener for creating a new workset.
@@ -77,7 +78,8 @@ public class NewWorksetDialog extends JDialog {
             if (commentField.getText() != null && !commentField.getText().trim().equals("")) {
                 updatedWorkset.setComment(commentField.getText().trim());
             }
-            updatedWorkset.setWorksheetsMap(new TreeMap<Long, Worksheet>());
+            updatedWorkset.setWorksheetIdsList(new ArrayList<Long>());
+            updatedWorkset.setWorksheetsMap(new HashMap<Long, Worksheet>());
             updatedWorkset.setCreatedTime(new Date(System.currentTimeMillis()));
             updatedWorkset.setLastUpdatedTime(new Date(System.currentTimeMillis()));
 

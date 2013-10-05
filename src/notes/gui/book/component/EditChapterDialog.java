@@ -63,7 +63,7 @@ public class EditChapterDialog extends JDialog {
             updateChapter.setNotesList(home.getCurrentChapter().getNotesList());
 
             // Save the updated chapter.
-            Chapter cachedChapter = dao.mergeChapter(updateChapter, home.getCurrentBook().getDocumentId());
+            Chapter cachedChapter = dao.updateChapter(updateChapter, home.getCurrentBook().getDocumentId());
 
             if (cachedChapter != null) {
                 // Update temporary data in the BookHome.

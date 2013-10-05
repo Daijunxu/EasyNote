@@ -131,13 +131,13 @@ public class BookNoteDAO extends AbstractNoteDAO {
     }
 
     /**
-     * Merges a chapter.
+     * Updates a chapter.
      *
-     * @param chapter    The chapter to merge.
+     * @param chapter    The chapter to update.
      * @param documentId The document ID of the book that the chapter belongs to.
-     * @return {@code Chapter} The merged chapter object.
+     * @return {@code Chapter} The updated chapter object.
      */
-    public Chapter mergeChapter(Chapter chapter, Long documentId) {
+    public Chapter updateChapter(Chapter chapter, Long documentId) {
         try {
             Book cachedBook = (Book) (Cache.get().getDocumentCache().getDocumentMap().get(documentId));
             TreeMap<Long, Chapter> chaptersMap = cachedBook.getChaptersMap();

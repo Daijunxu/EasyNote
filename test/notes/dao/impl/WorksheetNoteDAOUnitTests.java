@@ -11,9 +11,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -124,10 +124,10 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.WorksheetNoteDAO#mergeWorksheet(notes.entity.workset.Worksheet, Long, Long)}.
+     * {@link notes.dao.impl.WorksheetNoteDAO#updateWorksheet(notes.entity.workset.Worksheet, Long, Long)}.
      */
     @Test
-    public void testMergeWorksheet() {
+    public void testUpdateWorksheet() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
         Workset testWorkset = (Workset) testData.documentMap.get(3L);
         Worksheet testWorksheet = testWorkset.getWorksheetsMap().get(1L);
@@ -136,22 +136,22 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         updateWorksheet.setWorksheetTitle("Another worksheet title");
         updateWorksheet.setNotesList(testWorksheet.getNotesList());
 
-        Worksheet mergedWorksheet = dao.mergeWorksheet(updateWorksheet, testWorkset.getDocumentId(),
+        Worksheet updatedWorksheet = dao.updateWorksheet(updateWorksheet, testWorkset.getDocumentId(),
                 testWorksheet.getWorksheetId());
 
-        assertNotNull(mergedWorksheet);
+        assertNotNull(updatedWorksheet);
         Workset cachedWorkset = (Workset) Cache.get().getDocumentCache().getDocumentMap()
                 .get(testWorkset.getDocumentId());
-        assertEquals(mergedWorksheet, cachedWorkset.getWorksheetsMap().get(mergedWorksheet.getWorksheetId()));
-        assertFalse(mergedWorksheet.equals(testWorksheet));
-        assertEquals(mergedWorksheet.getWorksheetId(), updateWorksheet.getWorksheetId());
+        assertEquals(updatedWorksheet, cachedWorkset.getWorksheetsMap().get(updatedWorksheet.getWorksheetId()));
+        assertFalse(updatedWorksheet.equals(testWorksheet));
+        assertEquals(updatedWorksheet.getWorksheetId(), updateWorksheet.getWorksheetId());
     }
 
     /**
      * Test method for {@link notes.dao.impl.WorksheetNoteDAO#updateDocument(notes.entity.Document)}.
      */
     @Test
-    public void testMergeDocument() {
+    public void testUpdateDocument() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
         Workset testWorkset = (Workset) testData.documentMap.get(3L);
         Workset newWorkset = new Workset();
@@ -178,7 +178,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
      * Test method for {@link notes.dao.impl.WorksheetNoteDAO#updateNote(notes.entity.Note)}.
      */
     @Test
-    public void testMergeNote() {
+    public void testUpdateNote() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
         WorksheetNote testWorksheetNote = (WorksheetNote) testData.noteMap.get(3L);
         WorksheetNote newWorksheetNote = new WorksheetNote();
@@ -226,11 +226,14 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         newWorkset.setDocumentTitle("Data Mining");
         newWorkset.setAuthorsList(new ArrayList<String>(Arrays.asList("Author")));
         newWorkset.setComment("Good workset.");
-        TreeMap<Long, Worksheet> worksheetsMap = new TreeMap<Long, Worksheet>();
         Worksheet worksheet1 = new Worksheet(1L, "Worksheet 1", "Some comments", new ArrayList<Long>(), new Date(1341429512312L),
                 new Date(1341429512312L));
         worksheet1.getNotesList().add(1L);
+        List<Long> worksheetIdsList = new ArrayList<Long>();
+        HashMap<Long, Worksheet> worksheetsMap = new HashMap<Long, Worksheet>();
+        worksheetIdsList.add(1L);
         worksheetsMap.put(1L, worksheet1);
+        newWorkset.setWorksheetIdsList(worksheetIdsList);
         newWorkset.setWorksheetsMap(worksheetsMap);
         Workset savedWorkset = (Workset) dao.saveDocument(newWorkset);
 

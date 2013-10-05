@@ -52,6 +52,7 @@ public class WorksheetNotePopupMenu extends JPopupMenu {
         if (WorksetHome.get().getCurrentWorksheetNote() == null) {
             viewItem.setEnabled(false);
             editItem.setEnabled(false);
+            setNoteStatusItem.setEnabled(false);
             deleteItem.setEnabled(false);
         }
         if (WorksetHome.get().getCurrentWorksheet() == null) {

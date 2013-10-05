@@ -28,7 +28,7 @@ public class WorksheetPopupMenu extends JPopupMenu {
         editItem.addActionListener(new EditWorksheetActionListener());
         deleteItem = new JMenuItem("Delete");
         deleteItem.addActionListener(new DeleteWorksheetActionListener());
-        if (WorksetHome.get().getCurrentWorkset() == null) {
+        if (WorksetHome.get().getCurrentWorksheet() == null) {
             editItem.setEnabled(false);
             deleteItem.setEnabled(false);
         }
