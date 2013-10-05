@@ -8,7 +8,6 @@ import notes.gui.main.component.MainPanel;
 import notes.gui.workset.event.DeleteWorksheetNoteActionListener;
 import notes.gui.workset.event.EditWorksheetNoteActionListener;
 import notes.gui.workset.event.NewWorksheetNoteActionListener;
-import notes.gui.workset.event.ViewWorksheetNoteActionListener;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 
@@ -24,7 +23,6 @@ import java.awt.event.ActionListener;
 public class WorksheetNotePopupMenu extends JPopupMenu {
 
     private final JMenuItem newItem;
-    private final JMenuItem viewItem;
     private final JMenuItem editItem;
     private final JMenu setNoteStatusItem;
     private final JMenuItem deleteItem;
@@ -35,8 +33,6 @@ public class WorksheetNotePopupMenu extends JPopupMenu {
     public WorksheetNotePopupMenu() {
         newItem = new JMenuItem("New");
         newItem.addActionListener(new NewWorksheetNoteActionListener());
-        viewItem = new JMenuItem("View");
-        viewItem.addActionListener(new ViewWorksheetNoteActionListener());
         editItem = new JMenuItem("Edit");
         editItem.addActionListener(new EditWorksheetNoteActionListener());
 
@@ -50,7 +46,6 @@ public class WorksheetNotePopupMenu extends JPopupMenu {
         deleteItem = new JMenuItem("Delete");
         deleteItem.addActionListener(new DeleteWorksheetNoteActionListener());
         if (WorksetHome.get().getCurrentWorksheetNote() == null) {
-            viewItem.setEnabled(false);
             editItem.setEnabled(false);
             setNoteStatusItem.setEnabled(false);
             deleteItem.setEnabled(false);
@@ -59,7 +54,6 @@ public class WorksheetNotePopupMenu extends JPopupMenu {
             newItem.setEnabled(false);
         }
         add(newItem);
-        add(viewItem);
         add(editItem);
         add(setNoteStatusItem);
         add(deleteItem);

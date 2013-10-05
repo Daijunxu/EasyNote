@@ -16,7 +16,7 @@ import notes.entity.workset.WorksheetNote;
 import notes.gui.article.component.EditArticleNoteDialog;
 import notes.gui.book.component.EditBookNoteDialog;
 import notes.gui.main.component.SearchNoteDialog;
-import notes.gui.workset.component.ViewWorksheetNoteDialog;
+import notes.gui.workset.component.EditWorksheetNoteDialog;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 
@@ -46,7 +46,7 @@ public class ViewNoteActionListener implements ActionListener {
                 Workset selectedWorkset = (Workset) WorksetHome.get().getWorksheetNoteDAO()
                         .findDocumentById(selectedNote.getDocumentId());
                 Worksheet selectedWorksheet = selectedWorkset.getWorksheetsMap().get(((WorksheetNote) selectedNote).getWorksheetId());
-                new ViewWorksheetNoteDialog(selectedWorkset, selectedWorksheet, (WorksheetNote) selectedNote);
+                new EditWorksheetNoteDialog(selectedWorkset, selectedWorksheet, (WorksheetNote) selectedNote);
             } else if (selectedNote instanceof ArticleNote) {
                 Article selectedArticle = (Article) ArticleHome.get().getArticleNoteDAO()
                         .findDocumentById(selectedNote.getDocumentId());

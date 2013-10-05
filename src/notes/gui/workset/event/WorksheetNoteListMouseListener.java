@@ -2,7 +2,7 @@ package notes.gui.workset.event;
 
 import notes.bean.WorksetHome;
 import notes.data.cache.Property;
-import notes.gui.workset.component.ViewWorksheetNoteDialog;
+import notes.gui.workset.component.EditWorksheetNoteDialog;
 import notes.gui.workset.component.WorksheetNotePopupMenu;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
@@ -35,7 +35,7 @@ public class WorksheetNoteListMouseListener extends MouseAdapter {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playPopup();
             }
-            new ViewWorksheetNoteDialog(home.getCurrentWorkset(), home.getCurrentWorksheet(),
+            new EditWorksheetNoteDialog(home.getCurrentWorkset(), home.getCurrentWorksheet(),
                     home.getCurrentWorksheetNote());
         }
     }

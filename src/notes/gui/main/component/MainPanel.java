@@ -63,7 +63,6 @@ import notes.gui.workset.event.NewWorksetActionListener;
 import notes.gui.workset.event.NewWorksheetActionListener;
 import notes.gui.workset.event.NewWorksheetNoteActionListener;
 import notes.gui.workset.event.ViewWorksetActionListener;
-import notes.gui.workset.event.ViewWorksheetNoteActionListener;
 import notes.gui.workset.event.WorksheetListMouseListener;
 import notes.gui.workset.event.WorksheetListSelectionListener;
 import notes.gui.workset.event.WorksheetNoteListMouseListener;
@@ -439,14 +438,11 @@ public class MainPanel extends JFrame {
         noteMenu.setMnemonic(KeyEvent.VK_N);
         JMenuItem newNoteItem = new JMenuItem("New Note", KeyEvent.VK_N);
         newNoteItem.addActionListener(new NewWorksheetNoteActionListener());
-        JMenuItem viewNoteItem = new JMenuItem("View This Note", KeyEvent.VK_V);
-        viewNoteItem.addActionListener(new ViewWorksheetNoteActionListener());
         JMenuItem editNoteItem = new JMenuItem("Edit This Note", KeyEvent.VK_E);
         editNoteItem.addActionListener(new EditWorksheetNoteActionListener());
         JMenuItem deleteNoteItem = new JMenuItem("Delete This Note", KeyEvent.VK_D);
         deleteNoteItem.addActionListener(new DeleteWorksheetNoteActionListener());
         noteMenu.add(newNoteItem);
-        noteMenu.add(viewNoteItem);
         noteMenu.add(editNoteItem);
         noteMenu.add(deleteNoteItem);
 
