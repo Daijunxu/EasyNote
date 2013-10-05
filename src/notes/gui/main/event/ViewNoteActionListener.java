@@ -14,7 +14,7 @@ import notes.entity.workset.Workset;
 import notes.entity.workset.Worksheet;
 import notes.entity.workset.WorksheetNote;
 import notes.gui.article.component.EditArticleNoteDialog;
-import notes.gui.book.component.ViewBookNoteDialog;
+import notes.gui.book.component.EditBookNoteDialog;
 import notes.gui.main.component.SearchNoteDialog;
 import notes.gui.workset.component.ViewWorksheetNoteDialog;
 import notes.utils.SoundFactory;
@@ -55,7 +55,7 @@ public class ViewNoteActionListener implements ActionListener {
                 Book selectedBook = (Book) BookHome.get().getBookNoteDAO()
                         .findDocumentById(selectedNote.getDocumentId());
                 Chapter selectedChapter = selectedBook.getChaptersMap().get(((BookNote) selectedNote).getChapterId());
-                new ViewBookNoteDialog(selectedBook, selectedChapter, (BookNote) selectedNote);
+                new EditBookNoteDialog(selectedBook, selectedChapter, (BookNote) selectedNote);
             }
         } catch (Exception e) {
             e.printStackTrace();

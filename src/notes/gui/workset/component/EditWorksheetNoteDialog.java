@@ -236,7 +236,7 @@ public class EditWorksheetNoteDialog extends JDialog {
         c.gridy = 5;
         c.insets = new Insets(0, 5, 5, 5);
         JLabel suggestionLabel = new JLabel(
-                "Use capitalized words and separate tags by \",\". E.g. \"Design Pattern,Algorithm\"");
+                "Use capitalized words and separate tags by \",\". E.g. \"Design Pattern, Algorithm\"");
         suggestionLabel.setForeground(Color.GRAY);
         notePanel.add(suggestionLabel, c);
 

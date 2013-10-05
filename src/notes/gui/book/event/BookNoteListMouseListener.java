@@ -3,7 +3,7 @@ package notes.gui.book.event;
 import notes.bean.BookHome;
 import notes.data.cache.Property;
 import notes.gui.book.component.BookNotePopupMenu;
-import notes.gui.book.component.ViewBookNoteDialog;
+import notes.gui.book.component.EditBookNoteDialog;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 
@@ -35,7 +35,7 @@ public class BookNoteListMouseListener extends MouseAdapter {
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playPopup();
             }
-            new ViewBookNoteDialog(home.getCurrentBook(), home.getCurrentChapter(), home.getCurrentBookNote());
+            new EditBookNoteDialog(home.getCurrentBook(), home.getCurrentChapter(), home.getCurrentBookNote());
         }
     }
 

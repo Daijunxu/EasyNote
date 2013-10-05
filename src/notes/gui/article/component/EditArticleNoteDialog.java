@@ -106,7 +106,6 @@ public class EditArticleNoteDialog extends JDialog {
         }
     });
     private final JLabel noteIdField = new JLabel();
-    private final JLabel documentField = new JLabel();
     private final JTextField tagsField = new JTextField();
     private final JTextArea noteTextField = new JTextArea(10, 50);
     private final JLabel createdTimeField = new JLabel();
@@ -115,7 +114,7 @@ public class EditArticleNoteDialog extends JDialog {
      * Creates an instance of {@code EditArticleNoteDialog}.
      */
     public EditArticleNoteDialog(Article selectedArticle, ArticleNote selectedNote) {
-        super(MainPanel.get(), "Edit Article Note", true);
+        super(MainPanel.get(), selectedArticle.getDocumentTitle(), true);
 
         this.selectedNote = selectedNote;
 
@@ -148,33 +147,22 @@ public class EditArticleNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Document:"), c);
-
-        c.gridx = 1;
-        c.gridy = 1;
-        c.insets = new Insets(5, 5, 5, 5);
-        documentField.setText(selectedArticle.getDocumentTitle());
-        notePanel.add(documentField, c);
-
-        c.gridx = 0;
-        c.gridy = 2;
-        c.insets = new Insets(5, 5, 5, 5);
         notePanel.add(new JLabel("Note Text:"), c);
 
         noteTextField.setLineWrap(true);
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         noteTextField.setText(selectedNote.getNoteText());
         notePanel.add(new JScrollPane(noteTextField), c);
 
         c.gridx = 0;
-        c.gridy = 3;
+        c.gridy = 2;
         c.insets = new Insets(5, 5, 5, 5);
         notePanel.add(new JLabel("Tags:"), c);
 
         c.gridx = 1;
-        c.gridy = 3;
+        c.gridy = 2;
         c.insets = new Insets(5, 5, 0, 5);
         StringBuilder tagStrBuilder = new StringBuilder();
         if (!selectedNote.getTagIds().isEmpty()) {
@@ -190,7 +178,7 @@ public class EditArticleNoteDialog extends JDialog {
         c.gridy = 3;
         c.insets = new Insets(0, 5, 5, 5);
         JLabel suggestionLabel = new JLabel(
-                "Use capitalized words and separate tags by \",\". E.g. \"Design Pattern,Algorithm\"");
+                "Use capitalized words and separate tags by \",\". E.g. \"Design Pattern, Algorithm\"");
         suggestionLabel.setForeground(Color.GRAY);
         notePanel.add(suggestionLabel, c);
 

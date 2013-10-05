@@ -126,16 +126,17 @@ public class EditBookNoteDialog extends JDialog {
             setVisible(false);
         }
     });
-    private final JTextArea documentField = new JTextArea(2, 50);
+    private final JLabel noteIdField = new JLabel();
     private final JComboBox chapterField = new JComboBox();
     private final JTextArea tagsField = new JTextArea(2, 50);
     private final JTextArea noteTextField = new JTextArea(10, 50);
+    private final JLabel createdTimeField = new JLabel();
 
     /**
      * Creates an instance of {@code EditBookNoteDialog}.
      */
     public EditBookNoteDialog(Book selectedBook, Chapter selectedChapter, BookNote selectedNote) {
-        super(MainPanel.get(), "Edit Book Note", true);
+        super(MainPanel.get(), selectedBook.getDocumentTitle(), true);
 
         this.selectedNote = selectedNote;
 
@@ -156,20 +157,19 @@ public class EditBookNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
-        notePanel.add(new JLabel("Document *"), c);
+        notePanel.add(new JLabel("Note ID:"), c);
 
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
-        documentField.setLineWrap(true);
-        documentField.setText(selectedBook.getDocumentTitle());
-        documentField.setEditable(false);
-        notePanel.add(new JScrollPane(documentField), c);
+        noteIdField.setText(selectedNote.getNoteId().toString());
+        notePanel.add(noteIdField, c);
 
         c.gridx = 0;
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Chapter *"), c);
+        notePanel.add(new JLabel("Chapter:"), c);
 
         c.gridx = 1;
         c.gridy = 1;
@@ -190,7 +190,7 @@ public class EditBookNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 2;
         c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Note Text *"), c);
+        notePanel.add(new JLabel("Note Text:"), c);
 
         noteTextField.setLineWrap(true);
         c.gridx = 1;
@@ -202,7 +202,7 @@ public class EditBookNoteDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
-        notePanel.add(new JLabel("Tags"), c);
+        notePanel.add(new JLabel("Tags:"), c);
 
         c.gridx = 1;
         c.gridy = 3;
@@ -222,9 +222,20 @@ public class EditBookNoteDialog extends JDialog {
         c.gridy = 4;
         c.insets = new Insets(0, 5, 5, 5);
         JLabel suggestionLabel = new JLabel(
-                "Use capitalized words and separate tags by \",\". E.g. \"Design Pattern,Algorithm\"");
+                "Use capitalized words and separate tags by \",\". E.g. \"Design Pattern, Algorithm\"");
         suggestionLabel.setForeground(Color.GRAY);
         notePanel.add(suggestionLabel, c);
+
+        c.gridx = 0;
+        c.gridy = 5;
+        c.insets = new Insets(5, 5, 5, 5);
+        notePanel.add(new JLabel("Created Time:"), c);
+
+        c.gridx = 1;
+        c.gridy = 5;
+        c.insets = new Insets(5, 5, 5, 5);
+        createdTimeField.setText(selectedNote.getCreatedTime().toString());
+        notePanel.add(createdTimeField, c);
 
         dialogPanel.add(notePanel);
 
