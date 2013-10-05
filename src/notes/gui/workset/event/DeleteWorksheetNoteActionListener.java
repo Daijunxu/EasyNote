@@ -48,7 +48,7 @@ public class DeleteWorksheetNoteActionListener implements ActionListener {
                 home.updateTemporaryData(home.getCurrentWorkset().getDocumentId(), home
                         .getCurrentWorksheet().getWorksheetId(), null);
                 // Update the note panel.
-                frame.updateWorksheetNotePanel(null);
+                frame.updateWorksheetNotePanel(home.getCurrentWorksheet());
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playDelete();
                 }
