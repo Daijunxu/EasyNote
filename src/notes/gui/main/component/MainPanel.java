@@ -277,12 +277,12 @@ public class MainPanel extends JFrame {
         searchMenu.add(searchNoteItem);
 
         helpMenu.setMnemonic(KeyEvent.VK_H);
-        JMenuItem aboutItem = new JMenuItem("About EasyNote", KeyEvent.VK_A);
-        aboutItem.addActionListener(new AboutActionListener());
         JMenuItem preferencesItem = new JMenuItem("Preferences", KeyEvent.VK_P);
         preferencesItem.addActionListener(new OpenPreferencesActionListener());
-        helpMenu.add(aboutItem);
+        JMenuItem aboutItem = new JMenuItem("About EasyNote", KeyEvent.VK_A);
+        aboutItem.addActionListener(new AboutActionListener());
         helpMenu.add(preferencesItem);
+        helpMenu.add(aboutItem);
 
         menuBar.add(articleMenu);
         menuBar.add(noteMenu);
@@ -358,12 +358,12 @@ public class MainPanel extends JFrame {
         searchMenu.add(searchNoteItem);
 
         helpMenu.setMnemonic(KeyEvent.VK_H);
-        JMenuItem aboutItem = new JMenuItem("About EasyNote", KeyEvent.VK_A);
-        aboutItem.addActionListener(new AboutActionListener());
         JMenuItem preferencesItem = new JMenuItem("Preferences", KeyEvent.VK_P);
         preferencesItem.addActionListener(new OpenPreferencesActionListener());
-        helpMenu.add(aboutItem);
+        JMenuItem aboutItem = new JMenuItem("About EasyNote", KeyEvent.VK_A);
+        aboutItem.addActionListener(new AboutActionListener());
         helpMenu.add(preferencesItem);
+        helpMenu.add(aboutItem);
 
         menuBar.add(bookMenu);
         menuBar.add(chapterMenu);
@@ -440,12 +440,12 @@ public class MainPanel extends JFrame {
         searchMenu.add(searchNoteItem);
 
         helpMenu.setMnemonic(KeyEvent.VK_H);
-        JMenuItem aboutItem = new JMenuItem("About EasyNote", KeyEvent.VK_A);
-        aboutItem.addActionListener(new AboutActionListener());
         JMenuItem preferencesItem = new JMenuItem("Preferences", KeyEvent.VK_P);
         preferencesItem.addActionListener(new OpenPreferencesActionListener());
-        helpMenu.add(aboutItem);
+        JMenuItem aboutItem = new JMenuItem("About EasyNote", KeyEvent.VK_A);
+        aboutItem.addActionListener(new AboutActionListener());
         helpMenu.add(preferencesItem);
+        helpMenu.add(aboutItem);
 
         menuBar.add(worksetMenu);
         menuBar.add(worksheetMenu);
@@ -545,12 +545,12 @@ public class MainPanel extends JFrame {
         searchMenu.add(searchNoteItem);
 
         helpMenu.setMnemonic(KeyEvent.VK_H);
-        JMenuItem aboutItem = new JMenuItem("About EasyNote", KeyEvent.VK_A);
-        aboutItem.addActionListener(new AboutActionListener());
         JMenuItem preferencesItem = new JMenuItem("Preferences", KeyEvent.VK_P);
         preferencesItem.addActionListener(new OpenPreferencesActionListener());
-        helpMenu.add(aboutItem);
+        JMenuItem aboutItem = new JMenuItem("About EasyNote", KeyEvent.VK_A);
+        aboutItem.addActionListener(new AboutActionListener());
         helpMenu.add(preferencesItem);
+        helpMenu.add(aboutItem);
 
         menuBar.add(documentMenu);
         menuBar.add(searchMenu);

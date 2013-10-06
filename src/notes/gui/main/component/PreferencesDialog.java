@@ -65,7 +65,7 @@ public class PreferencesDialog extends JDialog {
     private final JCheckBox showLastDocumentOnOpeningCheckBox = new JCheckBox("Open last viewed document when program starts");
 
     private PreferencesDialog() {
-        super(MainPanel.get(), "Edit Preferences", true);
+        super(MainPanel.get(), "Preferences", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
 
         JPanel dialogPanel = new JPanel();
