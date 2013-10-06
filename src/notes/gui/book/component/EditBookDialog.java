@@ -144,15 +144,15 @@ public class EditBookDialog extends JDialog {
             setVisible(false);
         }
     });
-    private final JTextField documentIdField = new JTextField();
+    private final JLabel documentIdField = new JLabel();
     private final JTextArea documentTitleField = new JTextArea(2, 50);
     private final JTextArea authorField = new JTextArea(2, 50);
     private final JTextField editionField = new JTextField();
     private final JTextField publishedYearField = new JTextField();
     private final JTextField ISBNField = new JTextField();
     private final JTextArea commentField = new JTextArea(10, 50);
-    private final JTextField createdTimeField = new JTextField();
-    private final JTextField lastUpdatedTimeField = new JTextField();
+    private final JLabel createdTimeField = new JLabel();
+    private final JLabel lastUpdatedTimeField = new JLabel();
 
     /**
      * Creates an instance of {@code EditBookDialog}.
@@ -182,7 +182,6 @@ public class EditBookDialog extends JDialog {
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         documentIdField.setText(home.getCurrentBook().getDocumentId().toString());
-        documentIdField.setEditable(false);
         bookPanel.add(documentIdField, c);
 
         c.gridx = 0;
@@ -293,7 +292,6 @@ public class EditBookDialog extends JDialog {
         c.gridy = 9;
         c.insets = new Insets(5, 5, 5, 5);
         createdTimeField.setText(home.getCurrentBook().getCreatedTime().toString());
-        createdTimeField.setEditable(false);
         bookPanel.add(createdTimeField, c);
 
         c.gridx = 0;
@@ -305,7 +303,6 @@ public class EditBookDialog extends JDialog {
         c.gridy = 10;
         c.insets = new Insets(5, 5, 5, 5);
         lastUpdatedTimeField.setText(home.getCurrentBook().getLastUpdatedTime().toString());
-        lastUpdatedTimeField.setEditable(false);
         bookPanel.add(lastUpdatedTimeField, c);
 
         dialogPanel.add(bookPanel);

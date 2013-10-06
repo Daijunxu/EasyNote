@@ -106,12 +106,12 @@ public class EditWorksetDialog extends JDialog {
             setVisible(false);
         }
     });
-    private final JTextField documentIdField = new JTextField();
+    private final JLabel documentIdField = new JLabel();
     private final JTextArea documentTitleField = new JTextArea(2, 50);
     private final JTextArea authorField = new JTextArea(2, 50);
     private final JTextArea commentField = new JTextArea(10, 50);
-    private final JTextField createdTimeField = new JTextField();
-    private final JTextField lastUpdatedTimeField = new JTextField();
+    private final JLabel createdTimeField = new JLabel();
+    private final JLabel lastUpdatedTimeField = new JLabel();
 
     /**
      * Creates an instance of {@code EditWorksetDialog}.
@@ -141,7 +141,6 @@ public class EditWorksetDialog extends JDialog {
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         documentIdField.setText(home.getCurrentWorkset().getDocumentId().toString());
-        documentIdField.setEditable(false);
         worksetPanel.add(documentIdField, c);
 
         c.gridx = 0;
@@ -205,7 +204,6 @@ public class EditWorksetDialog extends JDialog {
         c.gridy = 5;
         c.insets = new Insets(5, 5, 5, 5);
         createdTimeField.setText(home.getCurrentWorkset().getCreatedTime().toString());
-        createdTimeField.setEditable(false);
         worksetPanel.add(createdTimeField, c);
 
         c.gridx = 0;
@@ -217,7 +215,6 @@ public class EditWorksetDialog extends JDialog {
         c.gridy = 6;
         c.insets = new Insets(5, 5, 5, 5);
         lastUpdatedTimeField.setText(home.getCurrentWorkset().getLastUpdatedTime().toString());
-        lastUpdatedTimeField.setEditable(false);
         worksetPanel.add(lastUpdatedTimeField, c);
 
         dialogPanel.add(worksetPanel);

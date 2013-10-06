@@ -115,13 +115,13 @@ public class EditArticleDialog extends JDialog {
             setVisible(false);
         }
     });
-    private final JTextField documentIdField = new JTextField();
+    private final JLabel documentIdField = new JLabel();
     private final JTextArea documentTitleField = new JTextArea(2, 50);
     private final JTextArea authorField = new JTextArea(2, 50);
     private final JTextArea sourceField = new JTextArea(2, 50);
     private final JTextArea commentField = new JTextArea(10, 50);
-    private final JTextField createdTimeField = new JTextField();
-    private final JTextField lastUpdatedTimeField = new JTextField();
+    private final JLabel createdTimeField = new JLabel();
+    private final JLabel lastUpdatedTimeField = new JLabel();
 
     /**
      * Creates an instance of {@code EditArticleDialog}.
@@ -151,7 +151,6 @@ public class EditArticleDialog extends JDialog {
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         documentIdField.setText(home.getCurrentArticle().getDocumentId().toString());
-        documentIdField.setEditable(false);
         articlePanel.add(documentIdField, c);
 
         c.gridx = 0;
@@ -227,7 +226,6 @@ public class EditArticleDialog extends JDialog {
         c.gridy = 6;
         c.insets = new Insets(5, 5, 5, 5);
         createdTimeField.setText(home.getCurrentArticle().getCreatedTime().toString());
-        createdTimeField.setEditable(false);
         articlePanel.add(createdTimeField, c);
 
         c.gridx = 0;
@@ -239,7 +237,6 @@ public class EditArticleDialog extends JDialog {
         c.gridy = 7;
         c.insets = new Insets(5, 5, 5, 5);
         lastUpdatedTimeField.setText(home.getCurrentArticle().getLastUpdatedTime().toString());
-        lastUpdatedTimeField.setEditable(false);
         articlePanel.add(lastUpdatedTimeField, c);
 
         dialogPanel.add(articlePanel);
