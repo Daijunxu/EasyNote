@@ -154,6 +154,7 @@ public class EditArticleNoteDialog extends JDialog {
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         noteTextField.setText(selectedNote.getNoteText());
+        noteTextField.select(0, 0);
         notePanel.add(new JScrollPane(noteTextField), c);
 
         c.gridx = 0;

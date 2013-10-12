@@ -197,6 +197,7 @@ public class EditBookNoteDialog extends JDialog {
         c.gridy = 2;
         c.insets = new Insets(5, 5, 5, 5);
         noteTextField.setText(selectedNote.getNoteText());
+        noteTextField.select(0, 0);
         notePanel.add(new JScrollPane(noteTextField), c);
 
         c.gridx = 0;
@@ -216,6 +217,7 @@ public class EditBookNoteDialog extends JDialog {
         }
         tagsField.setLineWrap(true);
         tagsField.setText(tagStrBuilder.toString());
+        tagsField.select(0, 0);
         notePanel.add(new JScrollPane(tagsField), c);
 
         c.gridx = 1;

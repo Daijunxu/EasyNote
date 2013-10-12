@@ -163,6 +163,7 @@ public class EditArticleDialog extends JDialog {
         c.insets = new Insets(5, 5, 5, 5);
         documentTitleField.setLineWrap(true);
         documentTitleField.setText(home.getCurrentArticle().getDocumentTitle());
+        documentTitleField.select(0, 0);
         articlePanel.add(new JScrollPane(documentTitleField), c);
 
         c.gridx = 0;
@@ -184,6 +185,7 @@ public class EditArticleDialog extends JDialog {
             sb.delete(sb.length() - 2, sb.length());
         }
         authorField.setText(sb.toString());
+        authorField.select(0, 0);
         articlePanel.add(new JScrollPane(authorField), c);
 
         c.gridx = 1;
@@ -203,6 +205,7 @@ public class EditArticleDialog extends JDialog {
         c.insets = new Insets(5, 5, 5, 5);
         commentField.setLineWrap(true);
         commentField.setText(home.getCurrentArticle().getComment());
+        commentField.select(0, 0);
         articlePanel.add(new JScrollPane(commentField), c);
 
         c.gridx = 0;
@@ -215,6 +218,7 @@ public class EditArticleDialog extends JDialog {
         c.insets = new Insets(5, 5, 5, 5);
         sourceField.setLineWrap(true);
         sourceField.setText(home.getCurrentArticle().getSource());
+        sourceField.select(0, 0);
         articlePanel.add(new JScrollPane(sourceField), c);
 
         c.gridx = 0;

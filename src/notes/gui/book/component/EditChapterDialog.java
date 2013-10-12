@@ -153,6 +153,7 @@ public class EditChapterDialog extends JDialog {
         c.insets = new Insets(5, 5, 5, 5);
         chapterField.setLineWrap(true);
         chapterField.setText(home.getCurrentChapter().getChapterTitle());
+        chapterField.select(0, 0);
         chapterPanel.add(new JScrollPane(chapterField), c);
 
         dialogPanel.add(chapterPanel);

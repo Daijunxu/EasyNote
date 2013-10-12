@@ -182,6 +182,7 @@ public class EditBookDialog extends JDialog {
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         documentIdField.setText(home.getCurrentBook().getDocumentId().toString());
+        documentTitleField.select(0, 0);
         bookPanel.add(documentIdField, c);
 
         c.gridx = 0;
@@ -215,6 +216,7 @@ public class EditBookDialog extends JDialog {
             sb.delete(sb.length() - 2, sb.length());
         }
         authorField.setText(sb.toString());
+        authorField.select(0, 0);
         bookPanel.add(new JScrollPane(authorField), c);
 
         c.gridx = 1;
@@ -281,6 +283,7 @@ public class EditBookDialog extends JDialog {
         c.insets = new Insets(5, 5, 5, 5);
         commentField.setLineWrap(true);
         commentField.setText(home.getCurrentBook().getComment());
+        commentField.select(0, 0);
         bookPanel.add(new JScrollPane(commentField), c);
 
         c.gridx = 0;

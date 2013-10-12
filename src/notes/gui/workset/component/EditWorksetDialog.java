@@ -153,6 +153,7 @@ public class EditWorksetDialog extends JDialog {
         c.insets = new Insets(5, 5, 5, 5);
         documentTitleField.setLineWrap(true);
         documentTitleField.setText(home.getCurrentWorkset().getDocumentTitle());
+        documentTitleField.select(0, 0);
         worksetPanel.add(new JScrollPane(documentTitleField), c);
 
         c.gridx = 0;
@@ -174,6 +175,7 @@ public class EditWorksetDialog extends JDialog {
             sb.delete(sb.length() - 2, sb.length());
         }
         authorField.setText(sb.toString());
+        authorField.select(0, 0);
         worksetPanel.add(new JScrollPane(authorField), c);
 
         c.gridx = 1;
@@ -193,6 +195,7 @@ public class EditWorksetDialog extends JDialog {
         c.insets = new Insets(5, 5, 5, 5);
         commentField.setLineWrap(true);
         commentField.setText(home.getCurrentWorkset().getComment());
+        commentField.select(0, 0);
         worksetPanel.add(new JScrollPane(commentField), c);
 
         c.gridx = 0;
