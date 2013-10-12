@@ -107,7 +107,7 @@ public class EditArticleNoteDialog extends JDialog {
     });
     private final JLabel noteIdField = new JLabel();
     private final JTextField tagsField = new JTextField();
-    private final JTextArea noteTextField = new JTextArea(10, 50);
+    private final JTextArea noteTextField = new JTextArea(20, 50);
     private final JLabel createdTimeField = new JLabel();
 
     /**

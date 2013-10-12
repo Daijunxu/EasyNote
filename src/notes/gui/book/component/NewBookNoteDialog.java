@@ -123,7 +123,7 @@ public class NewBookNoteDialog extends JDialog {
     private final JTextArea documentField = new JTextArea(2, 50);
     private final JComboBox chapterField = new JComboBox();
     private final JTextArea tagsField = new JTextArea(2, 50);
-    private final JTextArea noteTextField = new JTextArea(10, 50);
+    private final JTextArea noteTextField = new JTextArea(20, 50);
 
     /**
      * Creates an instance of {@code NewBookNoteDialog}.

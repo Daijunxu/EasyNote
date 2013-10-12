@@ -125,7 +125,7 @@ public class NewWorksheetNoteDialog extends JDialog {
     });
     private final JTextArea documentField = new JTextArea(2, 50);
     private final JComboBox worksheetField = new JComboBox();
-    private final JTextArea noteTextField = new JTextArea(10, 50);
+    private final JTextArea noteTextField = new JTextArea(20, 50);
     private final JComboBox noteStatusField = new JComboBox();
     private final JTextArea tagsField = new JTextArea(2, 50);
 

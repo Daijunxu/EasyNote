@@ -129,7 +129,7 @@ public class EditBookNoteDialog extends JDialog {
     private final JLabel noteIdField = new JLabel();
     private final JComboBox chapterField = new JComboBox();
     private final JTextArea tagsField = new JTextArea(2, 50);
-    private final JTextArea noteTextField = new JTextArea(10, 50);
+    private final JTextArea noteTextField = new JTextArea(20, 50);
     private final JLabel createdTimeField = new JLabel();
 
     /**
