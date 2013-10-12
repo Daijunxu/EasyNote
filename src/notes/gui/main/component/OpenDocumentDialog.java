@@ -38,9 +38,9 @@ public class OpenDocumentDialog extends JDialog {
             Document document = BookHome.get().getBookNoteDAO()
                     .findDocumentByTitle(selectedDocumentTitle);
             if (document instanceof Workset) {
-                MainPanel.get().setWorksetPanel((Workset) document);
+                MainPanel.get().setWorksetPanel((Workset) document, null);
             } else if (document instanceof Book) {
-                MainPanel.get().setBookPanel((Book) document);
+                MainPanel.get().setBookPanel((Book) document, null);
             } else if (document instanceof Article) {
                 MainPanel.get().setArticlePanel((Article) document);
             }

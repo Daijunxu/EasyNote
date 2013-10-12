@@ -131,11 +131,8 @@ public class NewBookDialog extends JDialog {
                         JOptionPane.ERROR_MESSAGE);
                 documentTitleField.requestFocus();
             } else {
-                // Update temporary data in the BookHome.
-                home.updateTemporaryData(savedBook.getDocumentId(), null, null);
-
                 // Reset the book panel.
-                frame.setBookPanel(home.getCurrentBook());
+                frame.setBookPanel(home.getCurrentBook(), null);
 
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playUpdate();

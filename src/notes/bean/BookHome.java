@@ -132,4 +132,22 @@ public class BookHome {
         }
         return notesList;
     }
+
+    /**
+     * Gets the index of the given chapter in the current book.
+     *
+     * @param chapterIdToFind The ID of the chapter ID to find.
+     * @return int The index of the chapter.
+     */
+    public int getIndexForChapter(Long chapterIdToFind) {
+        int index = 0;
+        for (Long chapterId : currentBook.getChaptersMap().keySet()) {
+            if (!chapterId.equals(chapterIdToFind)) {
+                index++;
+            } else {
+                break;
+            }
+        }
+        return index;
+    }
 }

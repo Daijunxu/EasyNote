@@ -94,11 +94,8 @@ public class NewWorksetDialog extends JDialog {
                         JOptionPane.ERROR_MESSAGE);
                 documentTitleField.requestFocus();
             } else {
-                // Update temporary data in the WorksetHome.
-                home.updateTemporaryData(savedWorkset.getDocumentId(), null, null);
-
                 // Reset the workset panel.
-                frame.setWorksetPanel(home.getCurrentWorkset());
+                frame.setWorksetPanel(home.getCurrentWorkset(), null);
 
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playUpdate();

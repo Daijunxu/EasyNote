@@ -85,11 +85,8 @@ public class EditWorksetDialog extends JDialog {
             // Save the updated Workset.
             dao.updateDocument(updatedWorkset);
 
-            // Update temporary data in the WorksetHome.
-            home.updateTemporaryData(home.getCurrentWorkset().getDocumentId(), null, null);
-
             // Reset the Workset panel.
-            frame.setWorksetPanel(home.getCurrentWorkset());
+            frame.setWorksetPanel(home.getCurrentWorkset(), null);
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playUpdate();

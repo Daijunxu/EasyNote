@@ -120,4 +120,22 @@ public class WorksetHome implements Serializable {
         }
         return worksheetNotesList;
     }
+
+    /**
+     * Gets the index of the given worksheet in the current workset.
+     *
+     * @param worksheetIdToFind The ID of the worksheet ID to find.
+     * @return int The index of the worksheet.
+     */
+    public int getIndexForWorksheet(Long worksheetIdToFind) {
+        int index = 0;
+        for (Long worksheetId : currentWorkset.getWorksheetIdsList()) {
+            if (!worksheetId.equals(worksheetIdToFind)) {
+                index++;
+            } else {
+                break;
+            }
+        }
+        return index;
+    }
 }
