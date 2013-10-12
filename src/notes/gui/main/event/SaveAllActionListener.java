@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
  *
  * @author Rui Du
  */
-public class SaveAllActoinListener implements ActionListener {
+public class SaveAllActionListener implements ActionListener {
 
     /**
      * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)

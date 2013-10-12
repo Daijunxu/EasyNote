@@ -89,3 +89,4 @@
 [10/02/2013] 17887(159): Initial commit of the GUI for Workset.
 [10/05/2013] 17616(163): Add more features to Workset, including note status; refactor on home objects; add aware interfaces; some bug fixes.
 [10/11/2013] 16363(151): Bug fixes. Merge view/edit dialogues together.
+[10/12/2013] 16407(152): UI improvements; refactor home objects; add close document menu item.
