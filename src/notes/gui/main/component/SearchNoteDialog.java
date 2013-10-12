@@ -202,8 +202,9 @@ public class SearchNoteDialog extends JDialog {
         searchScopeField.addItem("All Articles");
         searchScopeField.addItem("All Books");
         searchScopeField.addItem("All Worksets");
+        List<Document> documentsList = BookHome.get().getBookNoteDAO().findAllDocuments();
         List<String> documentTitleList = new ArrayList<String>();
-        for (Document document : home.getDocumentList()) {
+        for (Document document : documentsList) {
             documentTitleList.add(document.getDocumentTitle());
         }
         Collections.sort(documentTitleList);

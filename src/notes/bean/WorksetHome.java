@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import notes.dao.impl.WorksheetNoteDAO;
 import notes.data.cache.Cache;
-import notes.entity.Document;
 import notes.entity.workset.Workset;
 import notes.entity.workset.Worksheet;
 import notes.entity.workset.WorksheetNote;
@@ -32,12 +31,6 @@ public class WorksetHome implements Serializable {
     @Getter
     private WorksheetNoteDAO worksheetNoteDAO;
     /**
-     * The list of documents.
-     */
-    @Getter
-    @Setter
-    private List<Document> documentList;
-    /**
      * The current selected workset.
      */
     @Getter
@@ -61,7 +54,6 @@ public class WorksetHome implements Serializable {
      */
     private WorksetHome() {
         worksheetNoteDAO = new WorksheetNoteDAO();
-        documentList = worksheetNoteDAO.findAllDocuments();
     }
 
     /**
@@ -77,7 +69,6 @@ public class WorksetHome implements Serializable {
      * Clears all temporary data stored in WorksetHome.
      */
     public void clearAllTemporaryData() {
-        documentList.clear();
         currentWorkset = null;
         currentWorksheet = null;
         currentWorksheetNote = null;
@@ -101,9 +92,6 @@ public class WorksetHome implements Serializable {
     public void updateTemporaryData(Long documentId, Long worksheetId, Long noteId) {
         // Clear temporary data.
         clearAllTemporaryData();
-
-        // Update documentList.
-        documentList = worksheetNoteDAO.findAllDocuments();
 
         if (documentId != null) {
             // Update currentWorkset.

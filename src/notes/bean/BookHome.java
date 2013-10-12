@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import notes.dao.impl.BookNoteDAO;
 import notes.data.cache.Cache;
-import notes.entity.Document;
 import notes.entity.book.Book;
 import notes.entity.book.BookNote;
 import notes.entity.book.Chapter;
@@ -29,12 +28,6 @@ public class BookHome {
      */
     @Getter
     private BookNoteDAO bookNoteDAO;
-    /**
-     * The list of documents.
-     */
-    @Getter
-    @Setter
-    private List<Document> documentList;
     /**
      * The current selected book.
      */
@@ -64,7 +57,6 @@ public class BookHome {
      */
     private BookHome() {
         bookNoteDAO = new BookNoteDAO();
-        documentList = bookNoteDAO.findAllDocuments();
         currentChapterList = new ArrayList<Chapter>();
     }
 
@@ -81,7 +73,6 @@ public class BookHome {
      * Clears all temporary data stored in BookHome.
      */
     public void clearAllTemporaryData() {
-        documentList.clear();
         currentBook = null;
         currentChapter = null;
         currentBookNote = null;
@@ -106,9 +97,6 @@ public class BookHome {
     public void updateTemporaryData(Long documentId, Long chapterId, Long noteId) {
         // Clear temporary data.
         clearAllTemporaryData();
-
-        // Update documentList.
-        documentList = bookNoteDAO.findAllDocuments();
 
         if (documentId != null) {
             // Update currentBook.

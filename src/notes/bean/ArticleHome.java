@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import notes.dao.impl.ArticleNoteDAO;
 import notes.data.cache.Cache;
-import notes.entity.Document;
 import notes.entity.article.Article;
 import notes.entity.article.ArticleNote;
 
@@ -28,12 +27,6 @@ public class ArticleHome {
     @Getter
     private ArticleNoteDAO articleNoteDAO;
     /**
-     * The list of documents.
-     */
-    @Getter
-    @Setter
-    private List<Document> documentList;
-    /**
      * The current selected article.
      */
     @Getter
@@ -51,7 +44,6 @@ public class ArticleHome {
      */
     private ArticleHome() {
         articleNoteDAO = new ArticleNoteDAO();
-        documentList = articleNoteDAO.findAllDocuments();
     }
 
     /**
@@ -67,7 +59,6 @@ public class ArticleHome {
      * Clears all temporary data stored in ArticleHome.
      */
     public void clearAllTemporaryData() {
-        documentList.clear();
         currentArticle = null;
         currentArticleNote = null;
     }
@@ -81,9 +72,6 @@ public class ArticleHome {
     public void updateTemporaryData(Long documentId, Long noteId) {
         // Clear temporary data.
         clearAllTemporaryData();
-
-        // Update documentList.
-        documentList = articleNoteDAO.findAllDocuments();
 
         if (documentId != null) {
             // Update currentArticle.
