@@ -36,7 +36,7 @@ public class ChapterListSelectionListener implements ListSelectionListener {
             int selected = list.getSelectedIndex();
 
             // Get the chapter's note data.
-            Chapter chapter = BookHome.get().getCurrentChapterList().get(selected);
+            Chapter chapter = BookHome.get().getChaptersListForCurrentBook().get(selected);
             frame.updateBookNotePanel(chapter);
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {

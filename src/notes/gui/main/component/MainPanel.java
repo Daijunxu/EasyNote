@@ -461,9 +461,7 @@ public class MainPanel extends JFrame {
         int chaptersNumber = bookHome.getCurrentBook().getChaptersMap().size();
         int counter = 0;
         String[] chaptersTitle = new String[chaptersNumber];
-        for (Map.Entry<Long, Chapter> entry : bookHome.getCurrentBook().getChaptersMap()
-                .entrySet()) {
-            bookHome.getCurrentChapterList().add(entry.getValue());
+        for (Map.Entry<Long, Chapter> entry : bookHome.getCurrentBook().getChaptersMap().entrySet()) {
             chaptersTitle[counter] = entry.getKey() + ". " + entry.getValue().getChapterTitle();
             counter++;
         }
@@ -775,7 +773,7 @@ public class MainPanel extends JFrame {
         // Set the notes panel for current chapter.
         if (currentChapter != null) {
             bookHome.setCurrentChapter(currentChapter);
-            List<BookNote> notesDataList = bookHome.getAllNotesForCurrentChapter();
+            List<BookNote> notesDataList = bookHome.getNotesListForCurrentChapter();
 
             // Get current notes data.
             Object[] notesObject = new BookNote[notesDataList.size()];
@@ -825,7 +823,7 @@ public class MainPanel extends JFrame {
         // Set the notes panel for current chapter.
         if (currentWorksheet != null) {
             worksetHome.setCurrentWorksheet(currentWorksheet);
-            List<WorksheetNote> notesDataList = worksetHome.getAllNotesForCurrentWorksheet();
+            List<WorksheetNote> notesDataList = worksetHome.getNotesListForCurrentWorksheet();
 
             // Get current notes data.
             Object[] notesObject = new WorksheetNote[notesDataList.size()];

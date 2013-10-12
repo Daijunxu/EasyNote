@@ -3,7 +3,6 @@ package notes.bean;
 import lombok.Getter;
 import lombok.Setter;
 import notes.dao.impl.WorksheetNoteDAO;
-import notes.data.cache.Cache;
 import notes.entity.workset.Workset;
 import notes.entity.workset.Worksheet;
 import notes.entity.workset.WorksheetNote;
@@ -114,12 +113,11 @@ public class WorksetHome implements Serializable {
      *
      * @return {@code List} The list of notes for the current worksheet.
      */
-    public List<WorksheetNote> getAllNotesForCurrentWorksheet() {
-        Cache cache = Cache.get();
-        List<WorksheetNote> worksheetNoteList = new ArrayList<WorksheetNote>();
+    public List<WorksheetNote> getNotesListForCurrentWorksheet() {
+        List<WorksheetNote> worksheetNotesList = new ArrayList<WorksheetNote>();
         for (Long worksheetNoteId : currentWorksheet.getNotesList()) {
-            worksheetNoteList.add((WorksheetNote) cache.getNoteCache().getNoteMap().get(worksheetNoteId));
+            worksheetNotesList.add((WorksheetNote) worksheetNoteDAO.findNoteById(worksheetNoteId));
         }
-        return worksheetNoteList;
+        return worksheetNotesList;
     }
 }

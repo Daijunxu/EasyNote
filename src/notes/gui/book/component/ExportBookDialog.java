@@ -210,7 +210,7 @@ public class ExportBookDialog extends JDialog {
                 output.append("<a href='#title'>Back to Top</a>");
 
                 // Output all notes in the chapter.
-                List<BookNote> noteList = home.getAllNotesForCurrentChapter();
+                List<BookNote> noteList = home.getNotesListForCurrentChapter();
                 for (BookNote note : noteList) {
                     output.append("<p>");
 
