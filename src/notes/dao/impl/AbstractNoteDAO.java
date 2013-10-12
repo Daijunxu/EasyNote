@@ -9,6 +9,8 @@ import notes.entity.Tag;
 import notes.entity.article.Article;
 import notes.entity.book.Book;
 import notes.entity.book.Chapter;
+import notes.entity.workset.Workset;
+import notes.entity.workset.Worksheet;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -98,7 +100,13 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
 
         // Get all note IDs in the document.
         Document document = Cache.get().getDocumentCache().getDocumentMap().get(documentId);
-        if (document instanceof Article) {
+        if (document instanceof Workset) {
+            for (Worksheet worksheet : ((Workset) document).getWorksheetsMap().values()) {
+                for (Long noteId : worksheet.getNotesList()) {
+                    candidateList.add(noteId);
+                }
+            }
+        } else if (document instanceof Article) {
             for (Long noteId : ((Article) document).getNotesList()) {
                 candidateList.add(noteId);
             }

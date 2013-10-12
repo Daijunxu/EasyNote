@@ -3,6 +3,7 @@ package notes.gui.main.component;
 import notes.bean.BookHome;
 import notes.entity.Document;
 import notes.entity.Note;
+import notes.entity.article.ArticleNote;
 import notes.entity.book.BookNote;
 import notes.entity.workset.Workset;
 import notes.entity.workset.Worksheet;
@@ -47,10 +48,9 @@ public class SearchResultNoteListCellRenderer extends DefaultListCellRenderer {
         if (note instanceof WorksheetNote) {
             Worksheet worksheet = ((Workset) document).getWorksheetsMap().get(((WorksheetNote) note).getWorksheetId());
             documentLabel.setText(documentTitle + " - " + worksheet.getWorksheetTitle());
-        }
-        if (note instanceof BookNote) {
+        } else if (note instanceof BookNote) {
             documentLabel.setText(documentTitle + " - Chapter " + ((BookNote) note).getChapterId());
-        } else {
+        } else if (note instanceof ArticleNote) {
             documentLabel.setText(documentTitle);
         }
         documentLabel.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 2));
