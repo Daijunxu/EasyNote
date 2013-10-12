@@ -2,6 +2,7 @@ package notes.gui.article.component;
 
 import notes.bean.ArticleHome;
 import notes.gui.article.event.DeleteArticleNoteActionListener;
+import notes.gui.article.event.EditArticleActionListener;
 import notes.gui.article.event.EditArticleNoteActionListener;
 import notes.gui.article.event.NewArticleNoteActionListener;
 
@@ -17,16 +18,14 @@ public class ArticleNotePopupMenu extends JPopupMenu {
      * Creates an instance of {@code ArticleNotePopupMenu}.
      */
     public ArticleNotePopupMenu() {
-        final JMenuItem newItem;
-        final JMenuItem editItem;
-        final JMenuItem deleteItem;
-
-        newItem = new JMenuItem("New");
+        JMenuItem newItem = new JMenuItem("New");
         newItem.addActionListener(new NewArticleNoteActionListener());
-        editItem = new JMenuItem("Edit");
+        JMenuItem editItem = new JMenuItem("Edit");
         editItem.addActionListener(new EditArticleNoteActionListener());
-        deleteItem = new JMenuItem("Delete");
+        JMenuItem deleteItem = new JMenuItem("Delete");
         deleteItem.addActionListener(new DeleteArticleNoteActionListener());
+        JMenuItem viewArticleInfoItem = new JMenuItem("Article Info");
+        viewArticleInfoItem.addActionListener(new EditArticleActionListener());
         if (ArticleHome.get().getCurrentArticleNote() == null) {
             editItem.setEnabled(false);
             deleteItem.setEnabled(false);
@@ -34,6 +33,7 @@ public class ArticleNotePopupMenu extends JPopupMenu {
         add(newItem);
         add(editItem);
         add(deleteItem);
+        add(viewArticleInfoItem);
     }
 
 }
