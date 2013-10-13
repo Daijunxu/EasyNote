@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Data access object for workset notes.
@@ -93,6 +95,21 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
 
         // Update workset's last updated time.
         workset.setLastUpdatedTime(new Date());
+    }
+
+    /**
+     * Finds all worksets.
+     *
+     * @return {@code Set<Long>} The set of document IDs.
+     */
+    public Set<Long> findAllWorksets() {
+        Set<Long> resultSet = new HashSet<Long>();
+        for (Document document : Cache.get().getDocumentCache().getDocumentMap().values()) {
+            if (document instanceof Workset) {
+                resultSet.add(document.getDocumentId());
+            }
+        }
+        return resultSet;
     }
 
     /**

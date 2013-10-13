@@ -10,8 +10,10 @@ import notes.entity.article.ArticleNote;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Data access object for article notes.
@@ -57,6 +59,21 @@ public class ArticleNoteDAO extends AbstractNoteDAO {
 
         // Update article's last updated time.
         article.setLastUpdatedTime(new Date());
+    }
+
+    /**
+     * Finds all articles.
+     *
+     * @return {@code Set<Long>} The set of document IDs.
+     */
+    public Set<Long> findAllArticles() {
+        Set<Long> resultSet = new HashSet<Long>();
+        for (Document document : Cache.get().getDocumentCache().getDocumentMap().values()) {
+            if (document instanceof Article) {
+                resultSet.add(document.getDocumentId());
+            }
+        }
+        return resultSet;
     }
 
     /**

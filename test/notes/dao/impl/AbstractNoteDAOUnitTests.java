@@ -8,7 +8,9 @@ import notes.entity.Note;
 import notes.entity.Tag;
 import org.junit.Test;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -91,43 +93,39 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.AbstractNoteDAO#findAllNotesContainingText(java.lang.String, boolean, boolean)}
+     * {@link notes.dao.impl.AbstractNoteDAO#findAllNotesContainingText(java.util.Set, String, boolean, boolean)}
      * .
      */
     @Test
-    public void testFindAllNotesContainingText() {
+    public void testFindAllNotesContainingTextInAllDocuments() {
         UnitTestData testData = new UnitTestData();
 
         // Test not case sensitive, not exact search.
-        List<Note> noteList = dao.findAllNotesContainingText("fmm collaborative filtering", false,
-                false);
+        List<Note> noteList = dao.findAllNotesContainingText(null, "fmm collaborative filtering", false, false);
         assertNotNull(noteList);
         assertTrue(noteList.size() == 1);
         assertEquals(testData.noteMap.get(noteList.get(0).getNoteId()), noteList.get(0));
 
         // Test not case sensitive, exact search.
-        List<Note> noteList2 = dao.findAllNotesContainingText("fmm collaborative filtering", false,
-                true);
+        List<Note> noteList2 = dao.findAllNotesContainingText(null, "fmm collaborative filtering", false, true);
         assertNotNull(noteList2);
         assertTrue(noteList2.isEmpty());
-        List<Note> noteList3 = dao.findAllNotesContainingText("fmm extends existing", false, true);
+        List<Note> noteList3 = dao.findAllNotesContainingText(null, "fmm extends existing", false, true);
         assertNotNull(noteList3);
         assertTrue(noteList3.size() == 1);
         assertEquals(testData.noteMap.get(noteList3.get(0).getNoteId()), noteList3.get(0));
 
         // Test case sensitive, not exact search.
-        List<Note> noteList4 = dao.findAllNotesContainingText("collaborative fitering fmm", true,
-                false);
+        List<Note> noteList4 = dao.findAllNotesContainingText(null, "collaborative fitering fmm", true, false);
         assertNotNull(noteList4);
         assertTrue(noteList4.isEmpty());
-        List<Note> noteList5 = dao.findAllNotesContainingText("collaborative filtering FMM", true,
-                false);
+        List<Note> noteList5 = dao.findAllNotesContainingText(null, "collaborative filtering FMM", true, false);
         assertNotNull(noteList5);
         assertTrue(noteList5.size() == 1);
         assertEquals(testData.noteMap.get(noteList5.get(0).getNoteId()), noteList5.get(0));
 
         // Test case sensitive, exact search.
-        List<Note> noteList6 = dao.findAllNotesContainingText("FMM extends existing", true, true);
+        List<Note> noteList6 = dao.findAllNotesContainingText(null, "FMM extends existing", true, true);
         assertNotNull(noteList6);
         assertTrue(noteList6.size() == 1);
         assertEquals(testData.noteMap.get(noteList6.get(0).getNoteId()), noteList6.get(0));
@@ -135,51 +133,49 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.AbstractNoteDAO#findAllNotesContainingText(java.lang.Long, java.lang.String, boolean, boolean)}
+     * {@link notes.dao.impl.AbstractNoteDAO#findAllNotesContainingText(java.util.Set, String, boolean, boolean)}
      * .
      */
     @Test
-    public void testFindAllNotesContainingText2() {
+    public void testFindAllNotesContainingTextWithCandidateDocuments() {
         UnitTestData testData = new UnitTestData();
+        Set<Long> candidates = new HashSet<Long>();
+        candidates.add(2L);
 
         // Test not case sensitive, not exact search.
-        List<Note> noteList = dao.findAllNotesContainingText(2L, "fmm collaborative filtering",
-                false, false);
+        List<Note> noteList = dao.findAllNotesContainingText(candidates, "fmm collaborative filtering", false, false);
         assertNotNull(noteList);
         assertTrue(noteList.size() == 1);
         assertEquals(testData.noteMap.get(noteList.get(0).getNoteId()), noteList.get(0));
 
         // Test not case sensitive, exact search.
-        List<Note> noteList2 = dao.findAllNotesContainingText(2L, "fmm collaborative filtering",
-                false, true);
+        List<Note> noteList2 = dao.findAllNotesContainingText(candidates, "fmm collaborative filtering", false, true);
         assertNotNull(noteList2);
         assertTrue(noteList2.isEmpty());
-        List<Note> noteList3 = dao.findAllNotesContainingText(2L, "fmm extends existing", false,
-                true);
+        List<Note> noteList3 = dao.findAllNotesContainingText(candidates, "fmm extends existing", false, true);
         assertNotNull(noteList3);
         assertTrue(noteList3.size() == 1);
         assertEquals(testData.noteMap.get(noteList3.get(0).getNoteId()), noteList3.get(0));
 
         // Test case sensitive, not exact search.
-        List<Note> noteList4 = dao.findAllNotesContainingText(2L, "collaborative fitering fmm",
-                true, false);
+        List<Note> noteList4 = dao.findAllNotesContainingText(candidates, "collaborative fitering fmm", true, false);
         assertNotNull(noteList4);
         assertTrue(noteList4.isEmpty());
-        List<Note> noteList5 = dao.findAllNotesContainingText(2L, "collaborative filtering FMM",
-                true, false);
+        List<Note> noteList5 = dao.findAllNotesContainingText(candidates, "collaborative filtering FMM", true, false);
         assertNotNull(noteList5);
         assertTrue(noteList5.size() == 1);
         assertEquals(testData.noteMap.get(noteList5.get(0).getNoteId()), noteList5.get(0));
 
         // Test case sensitive, exact search.
-        List<Note> noteList6 = dao.findAllNotesContainingText(2L, "FMM extends existing", true,
-                true);
+        List<Note> noteList6 = dao.findAllNotesContainingText(candidates, "FMM extends existing", true, true);
         assertNotNull(noteList6);
         assertTrue(noteList6.size() == 1);
         assertEquals(testData.noteMap.get(noteList6.get(0).getNoteId()), noteList6.get(0));
 
         // Test no result.
-        List<Note> noteList7 = dao.findAllNotesContainingText(1L, "fmm", false, false);
+        candidates.clear();
+        candidates.add(1L);
+        List<Note> noteList7 = dao.findAllNotesContainingText(candidates, "fmm", false, false);
         assertNotNull(noteList7);
         assertTrue(noteList7.isEmpty());
     }

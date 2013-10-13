@@ -6,11 +6,6 @@ import notes.data.cache.Cache;
 import notes.entity.Document;
 import notes.entity.Note;
 import notes.entity.Tag;
-import notes.entity.article.Article;
-import notes.entity.book.Book;
-import notes.entity.book.Chapter;
-import notes.entity.workset.Workset;
-import notes.entity.workset.Worksheet;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -92,121 +87,10 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
      * {@inheritDoc}
      */
     @Override
-    public List<Note> findAllNotesContainingText(Long documentId, String text,
-                                                 boolean caseSensitive, boolean exactSearch) {
-        Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
-        List<Long> candidateList = new ArrayList<Long>();
-        List<Note> noteList = new ArrayList<Note>();
-
-        // Get all note IDs in the document.
-        Document document = Cache.get().getDocumentCache().getDocumentMap().get(documentId);
-        if (document instanceof Workset) {
-            for (Worksheet worksheet : ((Workset) document).getWorksheetsMap().values()) {
-                for (Long noteId : worksheet.getNotesList()) {
-                    candidateList.add(noteId);
-                }
-            }
-        } else if (document instanceof Article) {
-            for (Long noteId : ((Article) document).getNotesList()) {
-                candidateList.add(noteId);
-            }
-        } else if (document instanceof Book) {
-            for (Chapter chapter : ((Book) document).getChaptersMap().values()) {
-                for (Long noteId : chapter.getNotesList()) {
-                    candidateList.add(noteId);
-                }
-            }
-        }
-
-        if (!caseSensitive) {
-            if (!exactSearch) {
-                // Not case sensitive, not exact search.
-                String[] tokens = text.trim().toLowerCase().split("\\s+");
-                for (int i = 0; i < tokens.length; i++) {
-                    tokens[i] = tokens[i].replaceAll("[^0-9A-Za-z\\-']", "");
-                }
-
-                boolean isResult;
-                for (Long noteId : candidateList) {
-                    Note note = noteMap.get(noteId);
-                    isResult = true;
-                    String[] noteTokens = note.getNoteText().toLowerCase().split("\\s+");
-                    Set<String> tokensSet = new HashSet<String>();
-                    for (String noteToken : noteTokens) {
-                        tokensSet.add(noteToken.replaceAll("[^0-9A-Za-z\\-']", ""));
-                    }
-                    for (String token : tokens) {
-                        if (!tokensSet.contains(token)) {
-                            isResult = false;
-                            break;
-                        }
-                    }
-                    if (isResult) {
-                        noteList.add(note);
-                    }
-                }
-            } else {
-                // not case sensitive, exact search.
-                for (Long noteId : candidateList) {
-                    Note note = noteMap.get(noteId);
-                    if (note.getNoteText().toLowerCase().contains(text.toLowerCase())) {
-                        noteList.add(note);
-                    }
-                }
-            }
-
-        } else {
-            if (!exactSearch) {
-                // Case sensitive, not exact search.
-                String[] tokens = text.trim().split("\\s+");
-                for (int i = 0; i < tokens.length; i++) {
-                    tokens[i] = tokens[i].replaceAll("[^0-9A-Za-z\\-']", "");
-                }
-
-                boolean isResult;
-                for (Long noteId : candidateList) {
-                    Note note = noteMap.get(noteId);
-                    isResult = true;
-                    String[] noteTokens = note.getNoteText().split("\\s+");
-                    Set<String> tokensSet = new HashSet<String>();
-                    for (String noteToken : noteTokens) {
-                        tokensSet.add(noteToken.replaceAll("[^0-9A-Za-z\\-']", ""));
-                    }
-                    for (String token : tokens) {
-                        if (!tokensSet.contains(token)) {
-                            isResult = false;
-                            break;
-                        }
-                    }
-                    if (isResult) {
-                        noteList.add(note);
-                    }
-                }
-            } else {
-                // Case sensitive, exact search.
-                for (Long noteId : candidateList) {
-                    Note note = noteMap.get(noteId);
-                    if (note.getNoteText().contains(text)) {
-                        noteList.add(note);
-                    }
-                }
-            }
-        }
-
-        candidateList.clear();
-
-        Collections.sort(noteList);
-        return noteList;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Note> findAllNotesContainingText(String text, boolean caseSensitive,
+    public List<Note> findAllNotesContainingText(Set<Long> candidateDocuments, String text, boolean caseSensitive,
                                                  boolean exactSearch) {
         Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
-        List<Note> noteList = new ArrayList<Note>();
+        List<Note> resultList = new ArrayList<Note>();
 
         if (!caseSensitive) {
             if (!exactSearch) {
@@ -218,6 +102,9 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
 
                 boolean isResult;
                 for (Note note : noteMap.values()) {
+                    if (candidateDocuments != null && !candidateDocuments.contains(note.getDocumentId())) {
+                        continue;
+                    }
                     isResult = true;
                     String[] noteTokens = note.getNoteText().toLowerCase().split("\\s+");
                     Set<String> tokensSet = new HashSet<String>();
@@ -231,14 +118,17 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
                         }
                     }
                     if (isResult) {
-                        noteList.add(note);
+                        resultList.add(note);
                     }
                 }
             } else {
                 // not case sensitive, exact search.
                 for (Note note : noteMap.values()) {
+                    if (candidateDocuments != null && !candidateDocuments.contains(note.getDocumentId())) {
+                        continue;
+                    }
                     if (note.getNoteText().toLowerCase().contains(text.toLowerCase())) {
-                        noteList.add(note);
+                        resultList.add(note);
                     }
                 }
             }
@@ -253,6 +143,9 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
 
                 boolean isResult;
                 for (Note note : noteMap.values()) {
+                    if (candidateDocuments != null && !candidateDocuments.contains(note.getDocumentId())) {
+                        continue;
+                    }
                     isResult = true;
                     String[] noteTokens = note.getNoteText().split("\\s+");
                     Set<String> tokensSet = new HashSet<String>();
@@ -266,21 +159,24 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
                         }
                     }
                     if (isResult) {
-                        noteList.add(note);
+                        resultList.add(note);
                     }
                 }
             } else {
                 // Case sensitive, exact search.
                 for (Note note : noteMap.values()) {
+                    if (candidateDocuments != null && !candidateDocuments.contains(note.getDocumentId())) {
+                        continue;
+                    }
                     if (note.getNoteText().contains(text)) {
-                        noteList.add(note);
+                        resultList.add(note);
                     }
                 }
             }
         }
 
-        Collections.sort(noteList);
-        return noteList;
+        Collections.sort(resultList);
+        return resultList;
     }
 
     /**

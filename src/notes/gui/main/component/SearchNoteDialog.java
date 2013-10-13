@@ -1,13 +1,12 @@
 package notes.gui.main.component;
 
+import notes.bean.ArticleHome;
 import notes.bean.BookHome;
+import notes.bean.WorksetHome;
 import notes.dao.impl.BookNoteDAO;
 import notes.data.cache.Property;
 import notes.entity.Document;
 import notes.entity.Note;
-import notes.entity.article.Article;
-import notes.entity.book.Book;
-import notes.entity.workset.Workset;
 import notes.gui.main.event.SearchNoteDialogWindowListener;
 import notes.gui.main.event.SearchNoteListMouseListener;
 import notes.utils.EntityHelper;
@@ -35,24 +34,24 @@ public class SearchNoteDialog extends JDialog {
     private static final int RESULT_LIST_WIDTH = 800;
     private static final int RESULT_LIST_SCROLL_WIDTH = 835;
     private static final int RESULT_LIST_HEIGHT = 500;
-
     private static SearchNoteDialog instance;
     private final JButton searchButton = new JButton(new AbstractAction("Search") {
         public void actionPerformed(ActionEvent e) {
-            int selectedIndex = searchScopeField.getSelectedIndex();
-            if (selectedIndex <= 3) {
-                // Search notes in all documents.
-                searchNotesInAllDocuments();
-                if (selectedIndex == 1 || selectedIndex == 2 || selectedIndex == 3) {
-                    // Filter notes in current scope.
-                    filterNotesByScope(searchScopeField.getSelectedItem().toString());
-                }
+            String selectedValue = searchScopeField.getSelectedItem().toString();
+            if (selectedValue.equals("All Documents")) {
+                searchNotes(null);
+            } else if (selectedValue.equals("All Articles")) {
+                searchNotes(ArticleHome.get().getArticleNoteDAO().findAllArticles());
+            } else if (selectedValue.equals("All Books")) {
+                searchNotes(BookHome.get().getBookNoteDAO().findAllBooks());
+            } else if (selectedValue.equals("All Worksets")) {
+                searchNotes(WorksetHome.get().getWorksheetNoteDAO().findAllWorksets());
             } else {
                 // Search notes in a particular document.
-                String documentTitle = searchScopeField.getSelectedItem().toString();
-                Long documentId = BookHome.get().getBookNoteDAO()
-                        .findDocumentByTitle(documentTitle).getDocumentId();
-                searchNotesInOneDocument(documentId);
+                Long documentId = BookHome.get().getBookNoteDAO().findDocumentByTitle(selectedValue).getDocumentId();
+                Set<Long> candidateDocuments = new HashSet<Long>();
+                candidateDocuments.add(documentId);
+                searchNotes(candidateDocuments);
             }
 
             // Filter the note list by tags.
@@ -87,7 +86,7 @@ public class SearchNoteDialog extends JDialog {
     private final JLabel resultSummaryField = new JLabel();
     private JScrollPane resultScrollPane = new JScrollPane();
     private JList resultList;
-    private List<Note> noteList;
+    private List<Note> resultNoteList;
 
     private SearchNoteDialog() {
         super(MainPanel.get(), "Search Notes", true);
@@ -279,32 +278,6 @@ public class SearchNoteDialog extends JDialog {
         return instance;
     }
 
-    private void filterNotesByScope(String scope) {
-        BookNoteDAO dao = BookHome.get().getBookNoteDAO();
-        List<Note> newNoteList = new ArrayList<Note>();
-        if (scope.equals("All Articles")) {
-            for (Note note : noteList) {
-                if (dao.findDocumentById(note.getDocumentId()) instanceof Article) {
-                    newNoteList.add(note);
-                }
-            }
-        } else if (scope.equals("All Books")) {
-            for (Note note : noteList) {
-                if (dao.findDocumentById(note.getDocumentId()) instanceof Book) {
-                    newNoteList.add(note);
-                }
-            }
-        } else if (scope.equals("All Worksets")) {
-            for (Note note : noteList) {
-                if (dao.findDocumentById(note.getDocumentId()) instanceof Workset) {
-                    newNoteList.add(note);
-                }
-            }
-        }
-        noteList.clear();
-        noteList = newNoteList;
-    }
-
     private void filterNotesByTagsAND() {
         BookNoteDAO dao = BookHome.get().getBookNoteDAO();
         List<String> tagsList = EntityHelper.buildTagsStrList(tagsField.getText());
@@ -313,7 +286,7 @@ public class SearchNoteDialog extends JDialog {
         }
         List<Note> newNoteList = new ArrayList<Note>();
         boolean isResult;
-        for (Note note : noteList) {
+        for (Note note : resultNoteList) {
             Set<String> noteTagsSet = new HashSet<String>();
             for (Long tagId : note.getTagIds()) {
                 noteTagsSet.add(dao.findTagById(tagId).getTagText());
@@ -329,8 +302,8 @@ public class SearchNoteDialog extends JDialog {
                 newNoteList.add(note);
             }
         }
-        noteList.clear();
-        noteList = newNoteList;
+        resultNoteList.clear();
+        resultNoteList = newNoteList;
     }
 
     /**
@@ -345,26 +318,19 @@ public class SearchNoteDialog extends JDialog {
         return (Note) resultList.getSelectedValue();
     }
 
-    private void searchNotesInAllDocuments() {
+    private void searchNotes(Set<Long> candidateDocuments) {
         BookNoteDAO dao = BookHome.get().getBookNoteDAO();
         boolean caseSensitive = (caseSensitiveField.isSelected());
         boolean exactSearch = (exactSearchField.isSelected());
-        noteList = dao.findAllNotesContainingText(noteTextField.getText().trim(), caseSensitive, exactSearch);
-    }
-
-    private void searchNotesInOneDocument(Long documentId) {
-        BookNoteDAO dao = BookHome.get().getBookNoteDAO();
-        boolean caseSensitive = (caseSensitiveField.isSelected());
-        boolean exactSearch = (exactSearchField.isSelected());
-        noteList = dao.findAllNotesContainingText(documentId, noteTextField.getText().trim(), caseSensitive, exactSearch);
+        resultNoteList = dao.findAllNotesContainingText(candidateDocuments, noteTextField.getText().trim(), caseSensitive, exactSearch);
     }
 
     public void updateResultPanel() {
         searchPanel.remove(resultScrollPane);
 
-        resultSummaryField.setText("Found " + noteList.size() + " note(s).");
+        resultSummaryField.setText("Found " + resultNoteList.size() + " note(s).");
 
-        Note[] noteArray = noteList.toArray(new Note[noteList.size()]);
+        Note[] noteArray = resultNoteList.toArray(new Note[resultNoteList.size()]);
         resultList = new JList(noteArray);
         resultList.setCellRenderer(new SearchResultNoteListCellRenderer(RESULT_LIST_WIDTH));
         resultList.setFixedCellWidth(RESULT_LIST_WIDTH);

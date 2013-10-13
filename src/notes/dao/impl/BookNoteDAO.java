@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -88,6 +90,21 @@ public class BookNoteDAO extends AbstractNoteDAO {
 
         // Update book's last updated time.
         book.setLastUpdatedTime(new Date());
+    }
+
+    /**
+     * Finds all books.
+     *
+     * @return {@code Set<Long>} The set of document IDs.
+     */
+    public Set<Long> findAllBooks() {
+        Set<Long> resultSet = new HashSet<Long>();
+        for (Document document : Cache.get().getDocumentCache().getDocumentMap().values()) {
+            if (document instanceof Book) {
+                resultSet.add(document.getDocumentId());
+            }
+        }
+        return resultSet;
     }
 
     /**

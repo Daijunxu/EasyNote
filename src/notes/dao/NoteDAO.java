@@ -5,6 +5,7 @@ import notes.entity.Note;
 import notes.entity.Tag;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * An interface to describe the data access object for notes.
@@ -65,27 +66,15 @@ public interface NoteDAO<N extends Note, D extends Document> {
     List<N> findAllNotesByTagId(Long tagId);
 
     /**
-     * Finds all notes containing a particular text in a particular document.
-     *
-     * @param documentId    The document ID.
-     * @param text          The search text.
-     * @param caseSensitive True if the search requires case sensitive; false otherwise.
-     * @param exactSearch   True if the search requires exact search; false otherwise.
-     * @return {@code List<N>} All notes containing the text in a particular document. Empty if no
-     *         notes are found.
-     */
-    List<N> findAllNotesContainingText(Long documentId, String text, boolean caseSensitive,
-                                       boolean exactSearch);
-
-    /**
      * Finds all notes containing a particular text.
      *
-     * @param text          The search text.
-     * @param caseSensitive True if the search requires case sensitive; false otherwise.
-     * @param exactSearch   True if the search requires exact search; false otherwise.
+     * @param candidateDocuments The candidate documents. If this para is null, will search in all documents.
+     * @param text               The search text.
+     * @param caseSensitive      True if the search requires case sensitive; false otherwise.
+     * @param exactSearch        True if the search requires exact search; false otherwise.
      * @return {@code List<N>} All notes containing the text. Empty if no notes are found.
      */
-    List<N> findAllNotesContainingText(String text, boolean caseSensitive, boolean exactSearch);
+    List<N> findAllNotesContainingText(Set<Long> candidateDocuments, String text, boolean caseSensitive, boolean exactSearch);
 
     /**
      * Finds all tags ordered by tag ID.
