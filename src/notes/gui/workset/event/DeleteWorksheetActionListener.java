@@ -46,7 +46,7 @@ public class DeleteWorksheetActionListener implements ActionListener {
                 // Delete the selected worksheet.
                 home.getWorksheetNoteDAO().deleteWorksheet(worksheet, home.getCurrentWorkset().getDocumentId());
                 // Update the worksheet and note panel.
-                frame.updateIndexPanel(home.getCurrentWorkset().getDocumentId(), null, null);
+                frame.updateWorksetPanel(home.getCurrentWorkset().getDocumentId(), null, null);
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playDelete();
                 }

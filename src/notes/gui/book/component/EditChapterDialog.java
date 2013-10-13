@@ -68,10 +68,10 @@ public class EditChapterDialog extends JDialog {
             if (cachedChapter != null) {
                 // Update the chapter and note panel.
                 if (home.getCurrentBookNote() != null) {
-                    frame.updateIndexPanel(home.getCurrentBook().getDocumentId(), cachedChapter.getChapterId(),
+                    frame.updateBookPanel(home.getCurrentBook().getDocumentId(), cachedChapter.getChapterId(),
                             home.getCurrentBookNote().getNoteId());
                 } else {
-                    frame.updateIndexPanel(home.getCurrentBook().getDocumentId(), cachedChapter.getChapterId(), null);
+                    frame.updateBookPanel(home.getCurrentBook().getDocumentId(), cachedChapter.getChapterId(), null);
                 }
 
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {

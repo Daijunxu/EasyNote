@@ -892,28 +892,17 @@ public class MainPanel extends JFrame {
     }
 
     /**
-     * Updates the index panel with the current temporary data, and creates a new empty note
-     * panel. No item in the index panel or note in the note panel is selected.
+     * Updates the book panel (index panel and note panel) with the current data.
      */
-    public void updateIndexPanel(Long documentId, Long indexId, Long noteId) {
+    public void updateBookPanel(Long documentId, Long chapterId, Long noteId) {
         remove(indexPanel);
         remove(notesPanel);
-        if (currentMode.equals(SystemMode.WORKSET)) {
-            worksetHome.updateTemporaryData(documentId, indexId, noteId);
-            createWorksheetScrollPanel(WORKSET_WORKSHEET_LIST_WIDTH, indexId);
-            if (indexId == null) {
-                createEmptyNoteScrollPane(WORKSHEET_NOTE_LIST_WIDTH);
-            } else {
-                updateWorksheetNotePanel(worksetHome.getCurrentWorksheet(), noteId);
-            }
-        } else if (currentMode.equals(SystemMode.BOOK)) {
-            bookHome.updateTemporaryData(documentId, indexId, noteId);
-            createChapterScrollPane(BOOK_CHAPTER_LIST_WIDTH, indexId);
-            if (indexId == null) {
-                createEmptyNoteScrollPane(BOOK_NOTE_LIST_WIDTH);
-            } else {
-                updateBookNotePanel(bookHome.getCurrentChapter(), noteId);
-            }
+        bookHome.updateTemporaryData(documentId, chapterId, noteId);
+        createChapterScrollPane(BOOK_CHAPTER_LIST_WIDTH, chapterId);
+        if (chapterId == null) {
+            createEmptyNoteScrollPane(BOOK_NOTE_LIST_WIDTH);
+        } else {
+            updateBookNotePanel(bookHome.getCurrentChapter(), noteId);
         }
         add(indexPanel, BorderLayout.WEST);
         add(notesPanel, BorderLayout.CENTER);
@@ -921,4 +910,22 @@ public class MainPanel extends JFrame {
         repaint();
     }
 
+    /**
+     * Updates the workset panel (index panel and note panel) with the current data.
+     */
+    public void updateWorksetPanel(Long documentId, Long worksheetId, Long noteId) {
+        remove(indexPanel);
+        remove(notesPanel);
+        worksetHome.updateTemporaryData(documentId, worksheetId, noteId);
+        createWorksheetScrollPanel(WORKSET_WORKSHEET_LIST_WIDTH, worksheetId);
+        if (worksheetId == null) {
+            createEmptyNoteScrollPane(WORKSHEET_NOTE_LIST_WIDTH);
+        } else {
+            updateWorksheetNotePanel(worksetHome.getCurrentWorksheet(), noteId);
+        }
+        add(indexPanel, BorderLayout.WEST);
+        add(notesPanel, BorderLayout.CENTER);
+        validate();
+        repaint();
+    }
 }

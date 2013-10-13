@@ -53,10 +53,10 @@ public class EditWorksheetDialog extends JDialog {
             if (cachedWorksheet != null) {
                 // Update the worksheet and note panel.
                 if (home.getCurrentWorksheetNote() != null) {
-                    frame.updateIndexPanel(home.getCurrentWorkset().getDocumentId(), cachedWorksheet.getWorksheetId(),
+                    frame.updateWorksetPanel(home.getCurrentWorkset().getDocumentId(), cachedWorksheet.getWorksheetId(),
                             home.getCurrentWorksheetNote().getNoteId());
                 } else {
-                    frame.updateIndexPanel(home.getCurrentWorkset().getDocumentId(), cachedWorksheet.getWorksheetId(),
+                    frame.updateWorksetPanel(home.getCurrentWorkset().getDocumentId(), cachedWorksheet.getWorksheetId(),
                             null);
                 }
 

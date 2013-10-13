@@ -69,7 +69,7 @@ public class NewChapterDialog extends JDialog {
                     .getDocumentId());
             if (cachedChapter != null) {
                 // Update the chapter and note panel.
-                frame.updateIndexPanel(home.getCurrentBook().getDocumentId(), cachedChapter.getChapterId(), null);
+                frame.updateBookPanel(home.getCurrentBook().getDocumentId(), cachedChapter.getChapterId(), null);
 
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playUpdate();
