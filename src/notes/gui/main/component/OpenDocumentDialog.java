@@ -42,7 +42,7 @@ public class OpenDocumentDialog extends JDialog {
             } else if (document instanceof Book) {
                 MainPanel.get().setBookPanel((Book) document, null);
             } else if (document instanceof Article) {
-                MainPanel.get().setArticlePanel((Article) document);
+                MainPanel.get().setArticlePanel((Article) document, null);
             }
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {

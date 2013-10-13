@@ -98,7 +98,7 @@ public class EditArticleDialog extends JDialog {
             home.updateTemporaryData(home.getCurrentArticle().getDocumentId(), null);
 
             // Update the note panel.
-            frame.setArticlePanel(home.getCurrentArticle());
+            frame.setArticlePanel(home.getCurrentArticle(), null);
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playUpdate();

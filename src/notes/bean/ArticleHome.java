@@ -97,4 +97,14 @@ public class ArticleHome {
         }
         return articleNoteList;
     }
+
+    /**
+     * Gets the index of the given note in the current article.
+     *
+     * @param noteIdToFind The ID of the note to find.
+     * @return int The index of the note.
+     */
+    public int getIndexForNote(Long noteIdToFind) {
+        return currentArticle.getNotesList().indexOf(noteIdToFind);
+    }
 }

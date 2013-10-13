@@ -209,7 +209,7 @@ public class MainPanel extends JFrame {
         } else if (document instanceof Book) {
             MainPanel.get().setBookPanel((Book) document, null);
         } else if (document instanceof Article) {
-            MainPanel.get().setArticlePanel((Article) document);
+            MainPanel.get().setArticlePanel((Article) document, null);
         }
     }
 
@@ -599,7 +599,7 @@ public class MainPanel extends JFrame {
      *
      * @param article The article that is being opened.
      */
-    public void setArticlePanel(Article article) {
+    public void setArticlePanel(Article article, Long selectedNoteId) {
         clearAllTemporaryData();
 
         // Set current mode to "Article".
@@ -615,13 +615,13 @@ public class MainPanel extends JFrame {
         }
 
         // Update temporary data in article home.
-        articleHome.updateTemporaryData(article.getDocumentId(), null);
+        articleHome.updateTemporaryData(article.getDocumentId(), selectedNoteId);
 
         // Set up the menu bar
         createArticleMenuBar();
 
         // Set up the note scroll pane.
-        updateArticleNotePanel();
+        updateArticleNotePanel(selectedNoteId);
 
         // Put everything together, using the content pane's BorderLayout.
         add(menuBar, BorderLayout.NORTH);
@@ -737,10 +737,12 @@ public class MainPanel extends JFrame {
     /**
      * Updates the article note panel with the current temporary data. No note is selected.
      */
-    public void updateArticleNotePanel() {
+    public void updateArticleNotePanel(Long selectedNoteId) {
         if (notesPanel != null) {
             remove(notesPanel);
         }
+
+        articleHome.updateTemporaryData(articleHome.getCurrentArticle().getDocumentId(), selectedNoteId);
 
         // Get current notes data.
         List<ArticleNote> notesDataList = articleHome.getAllNotesForCurrentArticle();
@@ -751,6 +753,11 @@ public class MainPanel extends JFrame {
 
         // Create note scroll pane for the article.
         JList notesList = new JList(notesObject);
+
+        if (selectedNoteId != null) {
+            notesList.setSelectedIndex(articleHome.getIndexForNote(selectedNoteId));
+        }
+
         int notesListWidth = getWidth() - ARTICLE_NOTE_LIST_PANEL_WIDTH_INDENTATION;
         notesList.setCellRenderer(new NoteListCellRenderer(notesListWidth - 7));
         notesList.setFixedCellWidth(notesListWidth);
@@ -814,10 +821,6 @@ public class MainPanel extends JFrame {
         notesList.addListSelectionListener(new NoteListSelectionListener());
         notesList.addMouseListener(new BookNoteListMouseListener());
 
-        if (bookHome.getCurrentBookNote() != null) {
-            notesList.setSelectedValue(bookHome.getCurrentBookNote(), false);
-        }
-
         JScrollPane notesScrollPane = new JScrollPane(notesList);
         notesScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
 
@@ -869,10 +872,6 @@ public class MainPanel extends JFrame {
         notesList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         notesList.addListSelectionListener(new NoteListSelectionListener());
         notesList.addMouseListener(new WorksheetNoteListMouseListener());
-
-        if (worksetHome.getCurrentWorksheetNote() != null) {
-            notesList.setSelectedValue(worksetHome.getCurrentWorksheetNote(), false);
-        }
 
         JScrollPane notesScrollPane = new JScrollPane(notesList);
         notesScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));

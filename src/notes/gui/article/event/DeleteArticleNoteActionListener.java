@@ -47,10 +47,8 @@ public class DeleteArticleNoteActionListener implements ActionListener {
                 }
                 // Delete the selected article note.
                 home.getArticleNoteDAO().deleteNote(articleNote);
-                // Update temporary data in the ArticleHome.
-                home.updateTemporaryData(home.getCurrentArticle().getDocumentId(), null);
                 // Update the note panel.
-                frame.updateArticleNotePanel();
+                frame.updateArticleNotePanel(null);
             } else {
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playNavigation();

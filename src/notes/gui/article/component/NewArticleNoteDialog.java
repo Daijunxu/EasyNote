@@ -88,7 +88,7 @@ public class NewArticleNoteDialog extends JDialog {
                     cachedArticleNote.getNoteId());
 
             // Update the note panel.
-            frame.updateArticleNotePanel();
+            frame.updateArticleNotePanel(cachedArticleNote.getNoteId());
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playUpdate();

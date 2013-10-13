@@ -3,6 +3,7 @@ package notes.gui.article.component;
 import notes.bean.ArticleHome;
 import notes.dao.impl.ArticleNoteDAO;
 import notes.data.cache.Property;
+import notes.entity.Note;
 import notes.entity.Tag;
 import notes.entity.article.Article;
 import notes.entity.article.ArticleNote;
@@ -81,13 +82,13 @@ public class EditArticleNoteDialog extends JDialog {
             selectedNote.setNoteText(noteTextField.getText());
 
             // Save the updated article note.
-            dao.updateNote(selectedNote);
+            Note updatedNote = dao.updateNote(selectedNote);
 
             // Update the note panel.
             if (frame.isSearchMode()) {
                 SearchNoteDialog.get().updateResultPanel();
             } else {
-                frame.updateArticleNotePanel();
+                frame.updateArticleNotePanel(updatedNote.getNoteId());
             }
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
