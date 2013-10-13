@@ -26,7 +26,13 @@ public class MainPanelComponentListener implements ComponentListener {
         }
 
         if (currentMode.equals(SystemMode.WORKSET)) {
-            mainPanel.updateWorksheetNotePanel(WorksetHome.get().getCurrentWorksheet());
+            WorksetHome worksetHome = WorksetHome.get();
+            if (worksetHome.getCurrentWorksheetNote() != null) {
+                mainPanel.updateWorksheetNotePanel(worksetHome.getCurrentWorksheet(),
+                        worksetHome.getCurrentWorksheetNote().getNoteId());
+            } else {
+                mainPanel.updateWorksheetNotePanel(worksetHome.getCurrentWorksheet(), null);
+            }
         } else if (currentMode.equals(SystemMode.BOOK)) {
             BookHome bookHome = BookHome.get();
             if (bookHome.getCurrentBookNote() != null) {

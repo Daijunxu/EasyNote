@@ -138,4 +138,14 @@ public class WorksetHome implements Serializable {
         }
         return index;
     }
+
+    /**
+     * Gets the index of the given note in the current worksheet.
+     *
+     * @param noteIdToFind The ID of the note to find.
+     * @return int The index of the note.
+     */
+    public int getIndexForNote(Long noteIdToFind) {
+        return currentWorksheet.getNotesList().indexOf(noteIdToFind);
+    }
 }

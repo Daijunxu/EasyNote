@@ -838,14 +838,16 @@ public class MainPanel extends JFrame {
      *
      * @param currentWorksheet The worksheet that the update is based on.
      */
-    public void updateWorksheetNotePanel(Worksheet currentWorksheet) {
+    public void updateWorksheetNotePanel(Worksheet currentWorksheet, Long selectedNoteId) {
         remove(notesPanel);
 
         JList notesList = new JList();
 
-        // Set the notes panel for current chapter.
+        // Set the notes panel for current worksheet.
         if (currentWorksheet != null) {
-            worksetHome.setCurrentWorksheet(currentWorksheet);
+            // Update temporary data in the WorksetHome.
+            worksetHome.updateTemporaryData(worksetHome.getCurrentWorkset().getDocumentId(),
+                    currentWorksheet.getWorksheetId(), selectedNoteId);
             List<WorksheetNote> notesDataList = worksetHome.getNotesListForCurrentWorksheet();
 
             // Get current notes data.
@@ -854,6 +856,10 @@ public class MainPanel extends JFrame {
                 notesObject[i] = notesDataList.get(i);
             }
             notesList.setListData(notesObject);
+
+            if (selectedNoteId != null) {
+                notesList.setSelectedIndex(worksetHome.getIndexForNote(selectedNoteId));
+            }
         }
 
         // Create note scroll pane for each worksheet.

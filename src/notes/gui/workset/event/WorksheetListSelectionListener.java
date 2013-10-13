@@ -38,7 +38,7 @@ public class WorksheetListSelectionListener implements ListSelectionListener {
             // Get the worksheet's note data.
             Long worksheetId = WorksetHome.get().getCurrentWorkset().getWorksheetIdsList().get(selected);
             Worksheet worksheet = WorksetHome.get().getCurrentWorkset().getWorksheetsMap().get(worksheetId);
-            frame.updateWorksheetNotePanel(worksheet);
+            frame.updateWorksheetNotePanel(worksheet, null);
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();

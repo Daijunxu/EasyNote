@@ -112,7 +112,7 @@ public class EditWorksheetNoteDialog extends JDialog {
             if (frame.isSearchMode()) {
                 SearchNoteDialog.get().updateResultPanel();
             } else {
-                frame.updateWorksheetNotePanel(home.getCurrentWorksheet());
+                frame.updateWorksheetNotePanel(home.getCurrentWorksheet(), updatedNote.getNoteId());
             }
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {

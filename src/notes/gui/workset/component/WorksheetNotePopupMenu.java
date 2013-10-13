@@ -83,7 +83,7 @@ public class WorksheetNotePopupMenu extends JPopupMenu {
                     currentWorksheetNote.setNoteStatus(statusToSet);
 
                     // Update the note panel.
-                    MainPanel.get().updateWorksheetNotePanel(WorksetHome.get().getCurrentWorksheet());
+                    MainPanel.get().updateWorksheetNotePanel(WorksetHome.get().getCurrentWorksheet(), null);
 
                     if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                         SoundFactory.playUpdate();

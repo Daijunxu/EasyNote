@@ -64,7 +64,7 @@ public class SearchNotePopupMenu extends JPopupMenu {
                     Long worksheetId = ((WorksheetNote) selectedNote).getWorksheetId();
                     mainPanel.setWorksetPanel(workset, worksheetId);
                     Worksheet worksheet = workset.getWorksheetsMap().get(worksheetId);
-                    mainPanel.updateWorksheetNotePanel(worksheet);
+                    mainPanel.updateWorksheetNotePanel(worksheet, selectedNote.getNoteId());
                 }
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playUpdate();

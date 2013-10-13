@@ -101,12 +101,8 @@ public class NewWorksheetNoteDialog extends JDialog {
             // Save the created workset note.
             WorksheetNote cachedWorksheetNote = (WorksheetNote) (dao.saveNote(createdWorksheetNote));
 
-            // Update temporary data in the WorksetHome.
-            home.updateTemporaryData(home.getCurrentWorkset().getDocumentId(), home
-                    .getCurrentWorksheet().getWorksheetId(), cachedWorksheetNote.getNoteId());
-
             // Update the note panel.
-            frame.updateWorksheetNotePanel(home.getCurrentWorksheet());
+            frame.updateWorksheetNotePanel(home.getCurrentWorksheet(), cachedWorksheetNote.getNoteId());
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playUpdate();
