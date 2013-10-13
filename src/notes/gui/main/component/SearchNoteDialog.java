@@ -32,6 +32,10 @@ import java.util.Set;
  */
 public class SearchNoteDialog extends JDialog {
 
+    private static final int RESULT_LIST_WIDTH = 800;
+    private static final int RESULT_LIST_SCROLL_WIDTH = 835;
+    private static final int RESULT_LIST_HEIGHT = 500;
+
     private static SearchNoteDialog instance;
     private final JButton searchButton = new JButton(new AbstractAction("Search") {
         public void actionPerformed(ActionEvent e) {
@@ -249,11 +253,10 @@ public class SearchNoteDialog extends JDialog {
         c.gridwidth = 6;
         c.insets = new Insets(5, 5, 5, 5);
         resultList = new JList();
-        int resultListWidth = 800;
-        resultList.setFixedCellWidth(resultListWidth);
+        resultList.setFixedCellWidth(RESULT_LIST_WIDTH);
         resultList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         resultScrollPane = new JScrollPane(resultList);
-        resultScrollPane.setPreferredSize(new Dimension(resultListWidth + 14, 500));
+        resultScrollPane.setPreferredSize(new Dimension(RESULT_LIST_SCROLL_WIDTH, RESULT_LIST_HEIGHT));
         resultScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
         searchPanel.add(resultScrollPane, c);
 
@@ -346,52 +349,14 @@ public class SearchNoteDialog extends JDialog {
         BookNoteDAO dao = BookHome.get().getBookNoteDAO();
         boolean caseSensitive = (caseSensitiveField.isSelected());
         boolean exactSearch = (exactSearchField.isSelected());
-
-        if (!caseSensitive) {
-            if (!exactSearch) {
-                // Not case sensitive, not exact search.
-                noteList = dao.findAllNotesContainingText(noteTextField.getText().trim(), false,
-                        false);
-            } else {
-                // Not case sensitive, exact search.
-                noteList = dao.findAllNotesContainingText(noteTextField.getText().trim(), false,
-                        true);
-            }
-        } else {
-            if (!exactSearch) {
-                // Case sensitive, not exact search.
-                noteList = dao.findAllNotesContainingText(noteTextField.getText().trim(), true,
-                        false);
-            } else {
-                // Case sensitive, exact search.
-                noteList = dao.findAllNotesContainingText(noteTextField.getText().trim(), true,
-                        true);
-            }
-        }
+        noteList = dao.findAllNotesContainingText(noteTextField.getText().trim(), caseSensitive, exactSearch);
     }
 
     private void searchNotesInOneDocument(Long documentId) {
         BookNoteDAO dao = BookHome.get().getBookNoteDAO();
         boolean caseSensitive = (caseSensitiveField.isSelected());
         boolean exactSearch = (exactSearchField.isSelected());
-
-        if (!caseSensitive) {
-            if (!exactSearch) {
-                // Not case sensitive, not exact search.
-                noteList = dao.findAllNotesContainingText(documentId, noteTextField.getText().trim(), false, false);
-            } else {
-                // Not case sensitive, exact search.
-                noteList = dao.findAllNotesContainingText(documentId, noteTextField.getText().trim(), false, true);
-            }
-        } else {
-            if (!exactSearch) {
-                // Case sensitive, not exact search.
-                noteList = dao.findAllNotesContainingText(documentId, noteTextField.getText().trim(), true, false);
-            } else {
-                // Case sensitive, exact search.
-                noteList = dao.findAllNotesContainingText(documentId, noteTextField.getText().trim(), true, true);
-            }
-        }
+        noteList = dao.findAllNotesContainingText(documentId, noteTextField.getText().trim(), caseSensitive, exactSearch);
     }
 
     public void updateResultPanel() {
@@ -401,13 +366,12 @@ public class SearchNoteDialog extends JDialog {
 
         Note[] noteArray = noteList.toArray(new Note[noteList.size()]);
         resultList = new JList(noteArray);
-        int resultListWidth = 800;
-        resultList.setCellRenderer(new SearchResultNoteListCellRenderer(resultListWidth));
-        resultList.setFixedCellWidth(resultListWidth);
+        resultList.setCellRenderer(new SearchResultNoteListCellRenderer(RESULT_LIST_WIDTH));
+        resultList.setFixedCellWidth(RESULT_LIST_WIDTH);
         resultList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         resultList.addMouseListener(new SearchNoteListMouseListener());
         resultScrollPane = new JScrollPane(resultList);
-        resultScrollPane.setPreferredSize(new Dimension(resultListWidth + 14, 500));
+        resultScrollPane.setPreferredSize(new Dimension(RESULT_LIST_SCROLL_WIDTH, RESULT_LIST_HEIGHT));
         resultScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
 
         GridBagConstraints c = new GridBagConstraints();
