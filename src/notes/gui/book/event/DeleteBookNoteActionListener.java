@@ -44,11 +44,8 @@ public class DeleteBookNoteActionListener implements ActionListener {
             if (result == 0) {
                 // Delete the selected book note.
                 home.getBookNoteDAO().deleteNote(bookNote);
-                // Update temporary data in the BookHome.
-                home.updateTemporaryData(home.getCurrentBook().getDocumentId(), home
-                        .getCurrentChapter().getChapterId(), null);
                 // Update the note panel.
-                frame.updateBookNotePanel(home.getCurrentChapter());
+                frame.updateBookNotePanel(home.getCurrentChapter(), null);
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playDelete();
                 }

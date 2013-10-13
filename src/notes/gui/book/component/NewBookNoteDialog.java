@@ -98,12 +98,8 @@ public class NewBookNoteDialog extends JDialog {
             // Save the created book note.
             BookNote cachedBookNote = (BookNote) (dao.saveNote(createdBookNote));
 
-            // Update temporary data in the BookHome.
-            home.updateTemporaryData(home.getCurrentBook().getDocumentId(), home
-                    .getCurrentChapter().getChapterId(), cachedBookNote.getNoteId());
-
             // Update the note panel.
-            frame.updateBookNotePanel(home.getCurrentChapter());
+            frame.updateBookNotePanel(home.getCurrentChapter(), cachedBookNote.getNoteId());
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playUpdate();

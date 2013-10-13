@@ -136,7 +136,7 @@ public class BookHome {
     /**
      * Gets the index of the given chapter in the current book.
      *
-     * @param chapterIdToFind The ID of the chapter ID to find.
+     * @param chapterIdToFind The ID of the chapter to find.
      * @return int The index of the chapter.
      */
     public int getIndexForChapter(Long chapterIdToFind) {
@@ -149,5 +149,15 @@ public class BookHome {
             }
         }
         return index;
+    }
+
+    /**
+     * Gets the index of the given note in the current chapter.
+     *
+     * @param noteIdToFind The ID of the note to find.
+     * @return int The index of the note.
+     */
+    public int getIndexForNote(Long noteIdToFind) {
+        return currentChapter.getNotesList().indexOf(noteIdToFind);
     }
 }

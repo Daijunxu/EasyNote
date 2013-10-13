@@ -57,7 +57,7 @@ public class SearchNotePopupMenu extends JPopupMenu {
                     Long chapterId = ((BookNote) selectedNote).getChapterId();
                     mainPanel.setBookPanel(book, chapterId);
                     Chapter chapter = book.getChaptersMap().get(chapterId);
-                    mainPanel.updateBookNotePanel(chapter);
+                    mainPanel.updateBookNotePanel(chapter, selectedNote.getNoteId());
                 } else if (selectedNote instanceof WorksheetNote) {
                     WorksetHome worksetHome = WorksetHome.get();
                     Workset workset = (Workset) worksetHome.getWorksheetNoteDAO().findDocumentById(selectedNote.getDocumentId());

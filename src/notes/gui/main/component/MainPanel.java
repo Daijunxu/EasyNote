@@ -477,8 +477,7 @@ public class MainPanel extends JFrame {
         }
         JList chaptersList = new JList(chaptersTitle);
         if (selectedChapterId != null) {
-            int chapterIndex = bookHome.getIndexForChapter(selectedChapterId);
-            chaptersList.setSelectedIndex(chapterIndex);
+            chaptersList.setSelectedIndex(bookHome.getIndexForChapter(selectedChapterId));
         }
         chaptersList.setCellRenderer(new ChapterListCellRenderer(width));
         chaptersList.setFixedCellWidth(width);
@@ -783,14 +782,16 @@ public class MainPanel extends JFrame {
      *
      * @param currentChapter The chapter that the update is based on.
      */
-    public void updateBookNotePanel(Chapter currentChapter) {
+    public void updateBookNotePanel(Chapter currentChapter, Long selectedNoteId) {
         remove(notesPanel);
 
         JList notesList = new JList();
 
         // Set the notes panel for current chapter.
         if (currentChapter != null) {
-            bookHome.setCurrentChapter(currentChapter);
+            // Update temporary data in the BookHome.
+            bookHome.updateTemporaryData(bookHome.getCurrentBook().getDocumentId(), currentChapter.getChapterId(),
+                    selectedNoteId);
             List<BookNote> notesDataList = bookHome.getNotesListForCurrentChapter();
 
             // Get current notes data.
@@ -799,6 +800,10 @@ public class MainPanel extends JFrame {
                 notesObject[i] = notesDataList.get(i);
             }
             notesList.setListData(notesObject);
+
+            if (selectedNoteId != null) {
+                notesList.setSelectedIndex(bookHome.getIndexForNote(selectedNoteId));
+            }
         }
 
         // Create note scroll pane for all chapters in the book.

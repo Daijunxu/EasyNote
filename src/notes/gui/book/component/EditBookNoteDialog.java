@@ -108,7 +108,7 @@ public class EditBookNoteDialog extends JDialog {
             if (frame.isSearchMode()) {
                 SearchNoteDialog.get().updateResultPanel();
             } else {
-                frame.updateBookNotePanel(home.getCurrentChapter());
+                frame.updateBookNotePanel(home.getCurrentChapter(), updatedNote.getNoteId());
             }
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {

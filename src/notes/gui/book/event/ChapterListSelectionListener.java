@@ -37,7 +37,7 @@ public class ChapterListSelectionListener implements ListSelectionListener {
 
             // Get the chapter's note data.
             Chapter chapter = BookHome.get().getChaptersListForCurrentBook().get(selected);
-            frame.updateBookNotePanel(chapter);
+            frame.updateBookNotePanel(chapter, null);
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playNavigation();
