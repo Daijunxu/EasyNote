@@ -68,11 +68,8 @@ public class NewChapterDialog extends JDialog {
             Chapter cachedChapter = dao.saveChapter(createdChapter, home.getCurrentBook()
                     .getDocumentId());
             if (cachedChapter != null) {
-                // Update temporary data in the BookHome.
-                home.updateTemporaryData(home.getCurrentBook().getDocumentId(), null, null);
-
                 // Update the chapter and note panel.
-                frame.updateIndexPanel();
+                frame.updateIndexPanel(home.getCurrentBook().getDocumentId(), cachedChapter.getChapterId(), null);
 
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playUpdate();

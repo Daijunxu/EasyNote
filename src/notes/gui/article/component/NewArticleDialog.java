@@ -101,9 +101,6 @@ public class NewArticleDialog extends JDialog {
                         JOptionPane.ERROR_MESSAGE);
                 documentTitleField.requestFocus();
             } else {
-                // Update temporary data in the ArticleHome.
-                home.updateTemporaryData(savedArticle.getDocumentId(), null);
-
                 // Update the note panel.
                 frame.setArticlePanel(home.getCurrentArticle(), null);
 

@@ -52,11 +52,8 @@ public class NewWorksheetDialog extends JDialog {
             Worksheet cachedWorksheet = dao.saveWorksheet(createdWorksheet, home.getCurrentWorkset()
                     .getDocumentId());
             if (cachedWorksheet != null) {
-                // Update temporary data in the WorksetHome.
-                home.updateTemporaryData(home.getCurrentWorkset().getDocumentId(), null, null);
-
                 // Update the worksheet and note panel.
-                frame.updateIndexPanel();
+                frame.updateIndexPanel(home.getCurrentWorkset().getDocumentId(), cachedWorksheet.getWorksheetId(), null);
 
                 if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                     SoundFactory.playUpdate();

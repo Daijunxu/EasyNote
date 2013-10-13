@@ -600,7 +600,8 @@ public class MainPanel extends JFrame {
      * @param article The article that is being opened.
      */
     public void setArticlePanel(Article article, Long selectedNoteId) {
-        clearAllTemporaryData();
+        // Update temporary data in article home.
+        articleHome.updateTemporaryData(article.getDocumentId(), selectedNoteId);
 
         // Set current mode to "Article".
         setCurrentMode(SystemMode.ARTICLE);
@@ -613,9 +614,6 @@ public class MainPanel extends JFrame {
         for (Component com : components) {
             remove(com);
         }
-
-        // Update temporary data in article home.
-        articleHome.updateTemporaryData(article.getDocumentId(), selectedNoteId);
 
         // Set up the menu bar
         createArticleMenuBar();
@@ -717,6 +715,12 @@ public class MainPanel extends JFrame {
      * Sets up the default panel when no document is opened.
      */
     public void setDefaultPanel() {
+        // Clear all temporary data in home objects.
+        // TODO: create a super class for home objects.
+        ArticleHome.get().clearAllTemporaryData();
+        BookHome.get().clearAllTemporaryData();
+        WorksetHome.get().clearAllTemporaryData();
+
         // Clear deprecated components.
         Component[] components = getContentPane().getComponents();
         for (Component com : components) {
@@ -891,15 +895,25 @@ public class MainPanel extends JFrame {
      * Updates the index panel with the current temporary data, and creates a new empty note
      * panel. No item in the index panel or note in the note panel is selected.
      */
-    public void updateIndexPanel() {
+    public void updateIndexPanel(Long documentId, Long indexId, Long noteId) {
         remove(indexPanel);
         remove(notesPanel);
         if (currentMode.equals(SystemMode.WORKSET)) {
-            createWorksheetScrollPanel(WORKSET_WORKSHEET_LIST_WIDTH, null);
-            createEmptyNoteScrollPane(WORKSHEET_NOTE_LIST_WIDTH);
+            worksetHome.updateTemporaryData(documentId, indexId, noteId);
+            createWorksheetScrollPanel(WORKSET_WORKSHEET_LIST_WIDTH, indexId);
+            if (indexId == null) {
+                createEmptyNoteScrollPane(WORKSHEET_NOTE_LIST_WIDTH);
+            } else {
+                updateWorksheetNotePanel(worksetHome.getCurrentWorksheet(), noteId);
+            }
         } else if (currentMode.equals(SystemMode.BOOK)) {
-            createChapterScrollPane(BOOK_CHAPTER_LIST_WIDTH, null);
-            createEmptyNoteScrollPane(BOOK_NOTE_LIST_WIDTH);
+            bookHome.updateTemporaryData(documentId, indexId, noteId);
+            createChapterScrollPane(BOOK_CHAPTER_LIST_WIDTH, indexId);
+            if (indexId == null) {
+                createEmptyNoteScrollPane(BOOK_NOTE_LIST_WIDTH);
+            } else {
+                updateBookNotePanel(bookHome.getCurrentChapter(), noteId);
+            }
         }
         add(indexPanel, BorderLayout.WEST);
         add(notesPanel, BorderLayout.CENTER);

@@ -48,8 +48,6 @@ public class DeleteArticleActionListener implements ActionListener {
                 }
                 // Delete the selected article.
                 home.getArticleNoteDAO().deleteDocument(article);
-                // Clear all temporary data.
-                home.clearAllTemporaryData();
                 // Set up the default panel.
                 frame.setDefaultPanel();
             } else {

@@ -94,11 +94,8 @@ public class EditArticleDialog extends JDialog {
             // Save the updated article.
             dao.updateDocument(updatedArticle);
 
-            // Update temporary data in the ArticleHome.
-            home.updateTemporaryData(home.getCurrentArticle().getDocumentId(), null);
-
             // Update the note panel.
-            frame.setArticlePanel(home.getCurrentArticle(), null);
+            frame.setArticlePanel(home.getCurrentArticle(), home.getCurrentArticleNote().getNoteId());
 
             if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
                 SoundFactory.playUpdate();
