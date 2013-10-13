@@ -141,7 +141,6 @@ public class EditBookDialog extends JDialog {
             setVisible(false);
         }
     });
-    private final JLabel documentIdField = new JLabel();
     private final JTextArea documentTitleField = new JTextArea(2, 50);
     private final JTextArea authorField = new JTextArea(2, 50);
     private final JTextField editionField = new JTextField();
@@ -173,34 +172,22 @@ public class EditBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
-        bookPanel.add(new JLabel("Document ID:"), c);
-
-        c.gridx = 1;
-        c.gridy = 0;
-        c.insets = new Insets(5, 5, 5, 5);
-        documentIdField.setText(home.getCurrentBook().getDocumentId().toString());
-        documentTitleField.select(0, 0);
-        bookPanel.add(documentIdField, c);
-
-        c.gridx = 0;
-        c.gridy = 1;
-        c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
         bookPanel.add(new JLabel("Title:"), c);
 
         c.gridx = 1;
-        c.gridy = 1;
+        c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         documentTitleField.setLineWrap(true);
         documentTitleField.setText(home.getCurrentBook().getDocumentTitle());
         bookPanel.add(new JScrollPane(documentTitleField), c);
 
         c.gridx = 0;
-        c.gridy = 2;
+        c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         bookPanel.add(new JLabel("Authors:"), c);
 
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 1;
         c.insets = new Insets(5, 5, 0, 5);
         authorField.setLineWrap(true);
         StringBuilder sb = new StringBuilder();
@@ -217,19 +204,19 @@ public class EditBookDialog extends JDialog {
         bookPanel.add(new JScrollPane(authorField), c);
 
         c.gridx = 1;
-        c.gridy = 3;
+        c.gridy = 2;
         c.insets = new Insets(0, 5, 5, 5);
         JLabel authorSuggestionLabel = new JLabel("Separate authors by \",\".");
         authorSuggestionLabel.setForeground(Color.GRAY);
         bookPanel.add(authorSuggestionLabel, c);
 
         c.gridx = 0;
-        c.gridy = 4;
+        c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
         bookPanel.add(new JLabel("Edition:"), c);
 
         c.gridx = 1;
-        c.gridy = 4;
+        c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
         editionField.setInputVerifier(new EditionInputVerifier());
         if (home.getCurrentBook().getEdition() != null) {
@@ -238,12 +225,12 @@ public class EditBookDialog extends JDialog {
         bookPanel.add(editionField, c);
 
         c.gridx = 0;
-        c.gridy = 5;
+        c.gridy = 4;
         c.insets = new Insets(5, 5, 5, 5);
         bookPanel.add(new JLabel("Published Year:"), c);
 
         c.gridx = 1;
-        c.gridy = 5;
+        c.gridy = 4;
         c.insets = new Insets(5, 5, 5, 5);
         publishedYearField.setInputVerifier(new PublishedYearInputVerifier());
         if (home.getCurrentBook().getPublishedYear() != null) {
@@ -252,31 +239,31 @@ public class EditBookDialog extends JDialog {
         bookPanel.add(publishedYearField, c);
 
         c.gridx = 0;
-        c.gridy = 6;
+        c.gridy = 5;
         c.insets = new Insets(5, 5, 5, 5);
         bookPanel.add(new JLabel("ISBN:"), c);
 
         c.gridx = 1;
-        c.gridy = 6;
+        c.gridy = 5;
         c.insets = new Insets(5, 5, 0, 5);
         ISBNField.setInputVerifier(new ISBNInputVerifier());
         ISBNField.setText(home.getCurrentBook().getIsbn());
         bookPanel.add(ISBNField, c);
 
         c.gridx = 1;
-        c.gridy = 7;
+        c.gridy = 6;
         c.insets = new Insets(0, 5, 5, 5);
         JLabel ISBNSuggestionLabel = new JLabel("Either 10 digits or 13 digits.");
         ISBNSuggestionLabel.setForeground(Color.GRAY);
         bookPanel.add(ISBNSuggestionLabel, c);
 
         c.gridx = 0;
-        c.gridy = 8;
+        c.gridy = 7;
         c.insets = new Insets(5, 5, 5, 5);
         bookPanel.add(new JLabel("Comment:"), c);
 
         c.gridx = 1;
-        c.gridy = 8;
+        c.gridy = 7;
         c.insets = new Insets(5, 5, 5, 5);
         commentField.setLineWrap(true);
         commentField.setText(home.getCurrentBook().getComment());
@@ -284,23 +271,23 @@ public class EditBookDialog extends JDialog {
         bookPanel.add(new JScrollPane(commentField), c);
 
         c.gridx = 0;
-        c.gridy = 9;
+        c.gridy = 8;
         c.insets = new Insets(5, 5, 5, 5);
         bookPanel.add(new JLabel("Created Time:"), c);
 
         c.gridx = 1;
-        c.gridy = 9;
+        c.gridy = 8;
         c.insets = new Insets(5, 5, 5, 5);
         createdTimeField.setText(home.getCurrentBook().getCreatedTime().toString());
         bookPanel.add(createdTimeField, c);
 
         c.gridx = 0;
-        c.gridy = 10;
+        c.gridy = 9;
         c.insets = new Insets(5, 5, 5, 5);
         bookPanel.add(new JLabel("Last Updated Time:"), c);
 
         c.gridx = 1;
-        c.gridy = 10;
+        c.gridy = 9;
         c.insets = new Insets(5, 5, 5, 5);
         lastUpdatedTimeField.setText(home.getCurrentBook().getLastUpdatedTime().toString());
         bookPanel.add(lastUpdatedTimeField, c);

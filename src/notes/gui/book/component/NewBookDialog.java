@@ -178,7 +178,7 @@ public class NewBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
-        bookPanel.add(new JLabel("Book Title *"), c);
+        bookPanel.add(new JLabel("Book Title:"), c);
 
         c.gridx = 1;
         c.gridy = 0;
@@ -189,7 +189,7 @@ public class NewBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
-        bookPanel.add(new JLabel("Authors"), c);
+        bookPanel.add(new JLabel("Authors:"), c);
 
         c.gridx = 1;
         c.gridy = 1;
@@ -207,7 +207,7 @@ public class NewBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
-        bookPanel.add(new JLabel("Edition"), c);
+        bookPanel.add(new JLabel("Edition:"), c);
 
         c.gridx = 1;
         c.gridy = 3;
@@ -218,7 +218,7 @@ public class NewBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 4;
         c.insets = new Insets(5, 5, 5, 5);
-        bookPanel.add(new JLabel("Published Year"), c);
+        bookPanel.add(new JLabel("Published Year:"), c);
 
         c.gridx = 1;
         c.gridy = 4;
@@ -229,7 +229,7 @@ public class NewBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 5;
         c.insets = new Insets(5, 5, 5, 5);
-        bookPanel.add(new JLabel("ISBN"), c);
+        bookPanel.add(new JLabel("ISBN:"), c);
 
         c.gridx = 1;
         c.gridy = 5;
@@ -247,7 +247,7 @@ public class NewBookDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 7;
         c.insets = new Insets(5, 5, 5, 5);
-        bookPanel.add(new JLabel("Comment"), c);
+        bookPanel.add(new JLabel("Comment:"), c);
 
         c.gridx = 1;
         c.gridy = 7;

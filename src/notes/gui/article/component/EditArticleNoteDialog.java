@@ -106,7 +106,6 @@ public class EditArticleNoteDialog extends JDialog {
             setVisible(false);
         }
     });
-    private final JLabel noteIdField = new JLabel();
     private final JTextField tagsField = new JTextField();
     private final JTextArea noteTextField = new JTextArea(20, 50);
     private final JLabel createdTimeField = new JLabel();
@@ -135,36 +134,24 @@ public class EditArticleNoteDialog extends JDialog {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
-        c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
-        notePanel.add(new JLabel("Note ID:"), c);
-
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 1;
-        c.gridy = 0;
-        c.insets = new Insets(5, 5, 5, 5);
-        noteIdField.setText(selectedNote.getNoteId().toString());
-        notePanel.add(noteIdField, c);
-
-        c.gridx = 0;
-        c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         notePanel.add(new JLabel("Note Text:"), c);
 
         noteTextField.setLineWrap(true);
         c.gridx = 1;
-        c.gridy = 1;
+        c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         noteTextField.setText(selectedNote.getNoteText());
         noteTextField.select(0, 0);
         notePanel.add(new JScrollPane(noteTextField), c);
 
         c.gridx = 0;
-        c.gridy = 2;
+        c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         notePanel.add(new JLabel("Tags:"), c);
 
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 1;
         c.insets = new Insets(5, 5, 0, 5);
         StringBuilder tagStrBuilder = new StringBuilder();
         if (!selectedNote.getTagIds().isEmpty()) {
@@ -177,7 +164,7 @@ public class EditArticleNoteDialog extends JDialog {
         notePanel.add(tagsField, c);
 
         c.gridx = 1;
-        c.gridy = 3;
+        c.gridy = 2;
         c.insets = new Insets(0, 5, 5, 5);
         JLabel suggestionLabel = new JLabel(
                 "Use capitalized words and separate tags by \",\". E.g. \"Design Pattern, Algorithm\"");
@@ -185,12 +172,12 @@ public class EditArticleNoteDialog extends JDialog {
         notePanel.add(suggestionLabel, c);
 
         c.gridx = 0;
-        c.gridy = 4;
+        c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
         notePanel.add(new JLabel("Created Time:"), c);
 
         c.gridx = 1;
-        c.gridy = 4;
+        c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
         createdTimeField.setText(selectedNote.getCreatedTime().toString());
         notePanel.add(createdTimeField, c);

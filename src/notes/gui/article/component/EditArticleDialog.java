@@ -112,7 +112,6 @@ public class EditArticleDialog extends JDialog {
             setVisible(false);
         }
     });
-    private final JLabel documentIdField = new JLabel();
     private final JTextArea documentTitleField = new JTextArea(2, 50);
     private final JTextArea authorField = new JTextArea(2, 50);
     private final JTextArea sourceField = new JTextArea(2, 50);
@@ -142,21 +141,10 @@ public class EditArticleDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
-        articlePanel.add(new JLabel("Document ID:"), c);
-
-        c.gridx = 1;
-        c.gridy = 0;
-        c.insets = new Insets(5, 5, 5, 5);
-        documentIdField.setText(home.getCurrentArticle().getDocumentId().toString());
-        articlePanel.add(documentIdField, c);
-
-        c.gridx = 0;
-        c.gridy = 1;
-        c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
         articlePanel.add(new JLabel("Title:"), c);
 
         c.gridx = 1;
-        c.gridy = 1;
+        c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         documentTitleField.setLineWrap(true);
         documentTitleField.setText(home.getCurrentArticle().getDocumentTitle());
@@ -164,12 +152,12 @@ public class EditArticleDialog extends JDialog {
         articlePanel.add(new JScrollPane(documentTitleField), c);
 
         c.gridx = 0;
-        c.gridy = 2;
+        c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         articlePanel.add(new JLabel("Authors:"), c);
 
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 1;
         c.insets = new Insets(5, 5, 0, 5);
         authorField.setLineWrap(true);
         StringBuilder sb = new StringBuilder();
@@ -186,19 +174,19 @@ public class EditArticleDialog extends JDialog {
         articlePanel.add(new JScrollPane(authorField), c);
 
         c.gridx = 1;
-        c.gridy = 3;
+        c.gridy = 2;
         c.insets = new Insets(0, 5, 5, 5);
         JLabel authorSuggestionLabel = new JLabel("Separate authors by \",\".");
         authorSuggestionLabel.setForeground(Color.GRAY);
         articlePanel.add(authorSuggestionLabel, c);
 
         c.gridx = 0;
-        c.gridy = 4;
+        c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
         articlePanel.add(new JLabel("Comment:"), c);
 
         c.gridx = 1;
-        c.gridy = 4;
+        c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
         commentField.setLineWrap(true);
         commentField.setText(home.getCurrentArticle().getComment());
@@ -206,12 +194,12 @@ public class EditArticleDialog extends JDialog {
         articlePanel.add(new JScrollPane(commentField), c);
 
         c.gridx = 0;
-        c.gridy = 5;
+        c.gridy = 4;
         c.insets = new Insets(5, 5, 5, 5);
         articlePanel.add(new JLabel("Source:"), c);
 
         c.gridx = 1;
-        c.gridy = 5;
+        c.gridy = 4;
         c.insets = new Insets(5, 5, 5, 5);
         sourceField.setLineWrap(true);
         sourceField.setText(home.getCurrentArticle().getSource());
@@ -219,23 +207,23 @@ public class EditArticleDialog extends JDialog {
         articlePanel.add(new JScrollPane(sourceField), c);
 
         c.gridx = 0;
-        c.gridy = 6;
+        c.gridy = 5;
         c.insets = new Insets(5, 5, 5, 5);
         articlePanel.add(new JLabel("Created Time:"), c);
 
         c.gridx = 1;
-        c.gridy = 6;
+        c.gridy = 5;
         c.insets = new Insets(5, 5, 5, 5);
         createdTimeField.setText(home.getCurrentArticle().getCreatedTime().toString());
         articlePanel.add(createdTimeField, c);
 
         c.gridx = 0;
-        c.gridy = 7;
+        c.gridy = 6;
         c.insets = new Insets(5, 5, 5, 5);
         articlePanel.add(new JLabel("Last Updated Time:"), c);
 
         c.gridx = 1;
-        c.gridy = 7;
+        c.gridy = 6;
         c.insets = new Insets(5, 5, 5, 5);
         lastUpdatedTimeField.setText(home.getCurrentArticle().getLastUpdatedTime().toString());
         articlePanel.add(lastUpdatedTimeField, c);

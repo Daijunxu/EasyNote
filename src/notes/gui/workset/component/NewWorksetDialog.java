@@ -138,7 +138,7 @@ public class NewWorksetDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
-        worksetPanel.add(new JLabel("Workset Title *"), c);
+        worksetPanel.add(new JLabel("Workset Title:"), c);
 
         c.gridx = 1;
         c.gridy = 0;
@@ -149,7 +149,7 @@ public class NewWorksetDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
-        worksetPanel.add(new JLabel("Authors"), c);
+        worksetPanel.add(new JLabel("Authors:"), c);
 
         c.gridx = 1;
         c.gridy = 1;
@@ -167,7 +167,7 @@ public class NewWorksetDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
-        worksetPanel.add(new JLabel("Comment"), c);
+        worksetPanel.add(new JLabel("Comment:"), c);
 
         c.gridx = 1;
         c.gridy = 3;
