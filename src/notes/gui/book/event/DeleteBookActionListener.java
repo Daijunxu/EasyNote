@@ -1,11 +1,9 @@
 package notes.gui.book.event;
 
 import notes.bean.BookHome;
-import notes.data.cache.Property;
 import notes.entity.book.Book;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,16 +26,12 @@ public class DeleteBookActionListener implements ActionListener {
         try {
             Book book = home.getCurrentBook();
             if (book == null) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No book is selected!", "Input error",
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNotify();
-            }
+            SoundFactory.playNotify();
             int result = JOptionPane.showConfirmDialog(null,
                     "Delete this book and all the notes in it?", "Confirm Dialog",
                     JOptionPane.YES_NO_OPTION);
@@ -49,13 +43,9 @@ public class DeleteBookActionListener implements ActionListener {
                 home.clearAllTemporaryData();
                 // Set up the default panel.
                 frame.setDefaultPanel();
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playDelete();
-                }
+                SoundFactory.playDelete();
             } else {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playNavigation();
-                }
+                SoundFactory.playNavigation();
             }
         } catch (Exception e) {
             e.printStackTrace();

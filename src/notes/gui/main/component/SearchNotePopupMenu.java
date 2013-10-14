@@ -3,7 +3,6 @@ package notes.gui.main.component;
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
 import notes.bean.WorksetHome;
-import notes.data.cache.Property;
 import notes.entity.Note;
 import notes.entity.article.Article;
 import notes.entity.article.ArticleNote;
@@ -15,7 +14,6 @@ import notes.entity.workset.Worksheet;
 import notes.entity.workset.WorksheetNote;
 import notes.gui.main.event.ViewNoteActionListener;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -66,9 +64,7 @@ public class SearchNotePopupMenu extends JPopupMenu {
                     Worksheet worksheet = workset.getWorksheetsMap().get(worksheetId);
                     mainPanel.updateWorksheetNotePanel(worksheet, selectedNote.getNoteId());
                 }
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playUpdate();
-                }
+                SoundFactory.playUpdate();
             }
         });
 

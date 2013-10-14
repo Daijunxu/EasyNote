@@ -43,18 +43,14 @@ public class PreferencesDialog extends JDialog {
             // Check setting for option of whether to open the last document when program starts.
             Property.get().setShowLastDocumentOnOpening(showLastDocumentOnOpeningCheckBox.isSelected());
 
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playUpdate();
-            }
+            SoundFactory.playUpdate();
 
             setVisible(false);
         }
     });
     private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         public void actionPerformed(ActionEvent e) {
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
             setVisible(false);
         }
     });
@@ -97,9 +93,7 @@ public class PreferencesDialog extends JDialog {
         chooseDataLocationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playNavigation();
-                }
+                SoundFactory.playNavigation();
                 new ChooseDataLocationDialog();
             }
         });

@@ -65,7 +65,6 @@ import notes.gui.workset.event.WorksheetListMouseListener;
 import notes.gui.workset.event.WorksheetListSelectionListener;
 import notes.gui.workset.event.WorksheetNoteListMouseListener;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.*;
@@ -169,17 +168,13 @@ public class MainPanel extends JFrame {
 
         if (Cache.get() == null || Cache.hasProblem) {
             System.out.println("Cache is having problem!");
-            if (!property.getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNotify();
-            }
+            SoundFactory.playNotify();
             int result = JOptionPane.showConfirmDialog(null,
                     "Missing data file or having invalid data file. Choose a new data file?",
                     "Confirm Dialog", JOptionPane.YES_NO_OPTION);
             // 0 for yes and 1 for no.
             if (result == 0) {
-                if (!property.getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playPopup();
-                }
+                SoundFactory.playPopup();
                 new InitialChooseDataLocationDialog();
             } else {
                 System.exit(0);
@@ -187,9 +182,7 @@ public class MainPanel extends JFrame {
         } else {
             // Data has loaded successfully.
 
-            if (!property.getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playOn();
-            }
+            SoundFactory.playOn();
 
             if (property.isShowLastDocumentOnOpening() && property.getLastOpenedDocumentId() != null) {
                 MainPanel.get().openLastDocument(property.getLastOpenedDocumentId());

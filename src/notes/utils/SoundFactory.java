@@ -51,9 +51,11 @@ public class SoundFactory {
      */
     public static void playDelete() {
         try {
-            AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                    Property.get().getSoundTheme()).get("delete")));
-            player.start(stream);
+            if (isSoundEffectEnabled()) {
+                AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
+                        Property.get().getSoundTheme()).get("delete")));
+                player.start(stream);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,9 +66,11 @@ public class SoundFactory {
      */
     public static void playError() {
         try {
-            AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                    Property.get().getSoundTheme()).get("error")));
-            player.start(stream);
+            if (isSoundEffectEnabled()) {
+                AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
+                        Property.get().getSoundTheme()).get("error")));
+                player.start(stream);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,9 +81,11 @@ public class SoundFactory {
      */
     public static void playExport() {
         try {
-            AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                    Property.get().getSoundTheme()).get("export")));
-            player.start(stream);
+            if (isSoundEffectEnabled()) {
+                AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
+                        Property.get().getSoundTheme()).get("export")));
+                player.start(stream);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,9 +96,11 @@ public class SoundFactory {
      */
     public static void playNavigation() {
         try {
-            AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                    Property.get().getSoundTheme()).get("navigation")));
-            player.start(stream);
+            if (isSoundEffectEnabled()) {
+                AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
+                        Property.get().getSoundTheme()).get("navigation")));
+                player.start(stream);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,9 +111,11 @@ public class SoundFactory {
      */
     public static void playNotify() {
         try {
-            AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                    Property.get().getSoundTheme()).get("notify")));
-            player.start(stream);
+            if (isSoundEffectEnabled()) {
+                AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
+                        Property.get().getSoundTheme()).get("notify")));
+                player.start(stream);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -116,9 +126,11 @@ public class SoundFactory {
      */
     public static void playOff() {
         try {
-            AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                    Property.get().getSoundTheme()).get("off")));
-            player.start(stream);
+            if (isSoundEffectEnabled()) {
+                AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
+                        Property.get().getSoundTheme()).get("off")));
+                player.start(stream);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -129,9 +141,11 @@ public class SoundFactory {
      */
     public static void playOn() {
         try {
-            AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                    Property.get().getSoundTheme()).get("on")));
-            player.start(stream);
+            if (isSoundEffectEnabled()) {
+                AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
+                        Property.get().getSoundTheme()).get("on")));
+                player.start(stream);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -142,9 +156,11 @@ public class SoundFactory {
      */
     public static void playPopup() {
         try {
-            AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                    Property.get().getSoundTheme()).get("popup")));
-            player.start(stream);
+            if (isSoundEffectEnabled()) {
+                AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
+                        Property.get().getSoundTheme()).get("popup")));
+                player.start(stream);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -155,12 +171,18 @@ public class SoundFactory {
      */
     public static void playUpdate() {
         try {
-            AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                    Property.get().getSoundTheme()).get("update")));
-            player.start(stream);
+            if (isSoundEffectEnabled()) {
+                AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
+                        Property.get().getSoundTheme()).get("update")));
+                player.start(stream);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean isSoundEffectEnabled() {
+        return Property.get().getSoundTheme() != null;
     }
 
 }

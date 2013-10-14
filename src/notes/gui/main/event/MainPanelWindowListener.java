@@ -8,7 +8,6 @@ import notes.data.cache.Property;
 import notes.entity.SystemMode;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -39,9 +38,7 @@ public class MainPanelWindowListener implements WindowListener {
      */
     @Override
     public void windowClosing(WindowEvent arg0) {
-        if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-            SoundFactory.playOff();
-        }
+        SoundFactory.playOff();
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {

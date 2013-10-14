@@ -2,12 +2,10 @@ package notes.gui.book.component;
 
 import notes.bean.BookHome;
 import notes.dao.impl.BookNoteDAO;
-import notes.data.cache.Property;
 import notes.entity.book.Chapter;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.verifier.IdInputVerifier;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 import org.apache.commons.lang3.text.WordUtils;
 
 import javax.swing.*;
@@ -27,26 +25,20 @@ public class NewChapterDialog extends JDialog {
 
             // Input validation.
             if (!chapterIdField.getInputVerifier().verify(chapterIdField)) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null,
                         "Please enter a valid chapter ID!\n(A non-negative integer)",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 chapterIdField.requestFocus();
                 return;
             } else if (chapterField.getText() == null || chapterField.getText().trim().equals("")) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "Chapter title cannot be empty!",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 chapterField.requestFocus();
                 return;
             } else if (chapterField.getText().trim().split("\n").length > 1) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "Chapter title can only have one line!",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 chapterField.requestFocus();
@@ -71,15 +63,11 @@ public class NewChapterDialog extends JDialog {
                 // Update the chapter and note panel.
                 frame.updateBookPanel(home.getCurrentBook().getDocumentId(), cachedChapter.getChapterId(), null);
 
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playUpdate();
-                }
+                SoundFactory.playUpdate();
 
                 setVisible(false);
             } else {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null,
                         "Duplicate chapter ID!",
                         "Error Message", JOptionPane.ERROR_MESSAGE);
@@ -89,9 +77,7 @@ public class NewChapterDialog extends JDialog {
     });
     private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         public void actionPerformed(ActionEvent e) {
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
             setVisible(false);
         }
     });

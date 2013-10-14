@@ -1,11 +1,9 @@
 package notes.gui.workset.event;
 
 import notes.bean.WorksetHome;
-import notes.data.cache.Property;
 import notes.entity.workset.Worksheet;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -40,9 +38,7 @@ public class WorksheetListSelectionListener implements ListSelectionListener {
             Worksheet worksheet = WorksetHome.get().getCurrentWorkset().getWorksheetsMap().get(worksheetId);
             frame.updateWorksheetNotePanel(worksheet, null);
 
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
         }
     }
 }

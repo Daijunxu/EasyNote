@@ -4,14 +4,12 @@ import notes.bean.ArticleHome;
 import notes.bean.BookHome;
 import notes.bean.WorksetHome;
 import notes.dao.impl.BookNoteDAO;
-import notes.data.cache.Property;
 import notes.entity.Document;
 import notes.entity.Note;
 import notes.gui.main.event.SearchNoteDialogWindowListener;
 import notes.gui.main.event.SearchNoteListMouseListener;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,9 +58,7 @@ public class SearchNoteDialog extends JDialog {
             // Update the result list in the result panel.
             updateResultPanel();
 
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
 
         }
     });
@@ -71,9 +67,7 @@ public class SearchNoteDialog extends JDialog {
             searchScopeField.setSelectedIndex(0);
             noteTextField.setText(null);
             tagsField.setText(null);
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
         }
     });
     private final JPanel dialogPanel = new JPanel();

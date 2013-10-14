@@ -3,7 +3,6 @@ package notes.gui.main.event;
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
 import notes.bean.WorksetHome;
-import notes.data.cache.Property;
 import notes.entity.Note;
 import notes.entity.article.Article;
 import notes.entity.article.ArticleNote;
@@ -18,7 +17,6 @@ import notes.gui.book.component.EditBookNoteDialog;
 import notes.gui.main.component.SearchNotePopupMenu;
 import notes.gui.workset.component.EditWorksheetNoteDialog;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -45,9 +43,7 @@ public class SearchNoteListMouseListener extends MouseAdapter {
         Note selectedNote = (Note) noteList.getSelectedValue();
 
         if (event.getClickCount() == 2) {
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playPopup();
-            }
+            SoundFactory.playPopup();
             if (selectedNote instanceof WorksheetNote) {
                 Workset selectedWorkset = (Workset) WorksetHome.get().getWorksheetNoteDAO()
                         .findDocumentById(selectedNote.getDocumentId());
@@ -76,9 +72,7 @@ public class SearchNoteListMouseListener extends MouseAdapter {
             int row = noteList.locationToIndex(event.getPoint());
             noteList.setSelectedIndex(row);
             Note selectedNote = (Note) noteList.getSelectedValue();
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
             doPop(event, selectedNote);
         }
     }

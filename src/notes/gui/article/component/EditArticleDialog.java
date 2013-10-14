@@ -2,12 +2,10 @@ package notes.gui.article.component;
 
 import notes.bean.ArticleHome;
 import notes.dao.impl.ArticleNoteDAO;
-import notes.data.cache.Property;
 import notes.entity.article.Article;
 import notes.gui.main.component.MainPanel;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 import org.apache.commons.lang3.text.WordUtils;
 
 import javax.swing.*;
@@ -28,17 +26,13 @@ public class EditArticleDialog extends JDialog {
             // Input validation.
             if (documentTitleField.getText() == null
                     || documentTitleField.getText().trim().equals("")) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "Document title cannot be empty!",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 documentTitleField.requestFocus();
                 return;
             } else if (documentTitleField.getText().trim().split("\n").length > 1) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "Document title can only have one line!",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 documentTitleField.requestFocus();
@@ -46,25 +40,19 @@ public class EditArticleDialog extends JDialog {
             } else if (authorField.getText() != null
                     && !authorField.getText().trim().equals("")
                     && authorField.getText().trim().split("\n").length > 1) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "Author list can only have one line!",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 authorField.requestFocus();
                 return;
             } else if (commentField.getText().trim().split("\n").length > 1) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "Comment can only have one line!",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 commentField.requestFocus();
                 return;
             } else if (sourceField.getText().trim().split("\n").length > 1) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "Source can only have one line!",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 sourceField.requestFocus();
@@ -97,18 +85,14 @@ public class EditArticleDialog extends JDialog {
             // Update the note panel.
             frame.setArticlePanel(home.getCurrentArticle(), home.getCurrentArticleNote().getNoteId());
 
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playUpdate();
-            }
+            SoundFactory.playUpdate();
 
             setVisible(false);
         }
     });
     private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         public void actionPerformed(ActionEvent e) {
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
             setVisible(false);
         }
     });

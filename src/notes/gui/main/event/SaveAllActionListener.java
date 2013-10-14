@@ -3,7 +3,6 @@ package notes.gui.main.event;
 import notes.data.cache.Cache;
 import notes.data.cache.Property;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,9 +19,7 @@ public class SaveAllActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-        if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-            SoundFactory.playUpdate();
-        }
+        SoundFactory.playUpdate();
         Cache.get().saveAllCachesToXML();
         Property.get().saveProperty();
     }

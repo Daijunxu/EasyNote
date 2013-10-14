@@ -1,11 +1,9 @@
 package notes.gui.workset.event;
 
 import notes.bean.WorksetHome;
-import notes.data.cache.Property;
 import notes.gui.workset.component.EditWorksheetNoteDialog;
 import notes.gui.workset.component.WorksheetNotePopupMenu;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -32,9 +30,7 @@ public class WorksheetNoteListMouseListener extends MouseAdapter {
         if (event.getClickCount() == 2 && home.getCurrentWorkset() != null
                 && home.getCurrentWorksheet() != null
                 && home.getCurrentWorksheetNote() != null) {
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playPopup();
-            }
+            SoundFactory.playPopup();
             new EditWorksheetNoteDialog(home.getCurrentWorkset(), home.getCurrentWorksheet(),
                     home.getCurrentWorksheetNote());
         }
@@ -49,9 +45,7 @@ public class WorksheetNoteListMouseListener extends MouseAdapter {
             JList noteList = (JList) event.getSource();
             int row = noteList.locationToIndex(event.getPoint());
             noteList.setSelectedIndex(row);
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
             doPop(event);
         }
     }

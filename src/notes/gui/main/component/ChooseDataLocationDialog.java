@@ -3,7 +3,6 @@ package notes.gui.main.component;
 import notes.data.cache.Cache;
 import notes.data.cache.Property;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,51 +54,35 @@ public class ChooseDataLocationDialog extends JDialog {
                     File selectedFile = chooser.getSelectedFile();
                     if (selectedFile.isFile()) {
                         // Selected another data file.
-                        PreferencesDialog.get().getDataLocationField()
-                                .setText(selectedFile.getAbsolutePath());
-                        if (!Property.get().getSoundTheme()
-                                .equals(SoundTheme.NONE.getDescription())) {
-                            SoundFactory.playNavigation();
-                        }
+                        PreferencesDialog.get().getDataLocationField().setText(selectedFile.getAbsolutePath());
+                        SoundFactory.playNavigation();
                         setVisible(false);
                     } else {
                         // Selected a directory.
-                        if (!Property.get().getSoundTheme()
-                                .equals(SoundTheme.NONE.getDescription())) {
-                            SoundFactory.playNotify();
-                        }
+                        SoundFactory.playNotify();
                         int result = JOptionPane.showConfirmDialog(null,
                                 "Create a data file under this folder?", "Confirm Dialog",
                                 JOptionPane.YES_NO_OPTION);
                         // 0 for yes and 1 for no.
                         if (result == 0) {
                             try {
-                                String path = selectedFile.getAbsolutePath()
-                                        + "/reading_notes.xml";
+                                String path = selectedFile.getAbsolutePath() + "/reading_notes.xml";
                                 BufferedWriter output = new BufferedWriter(new FileWriter(path));
                                 output.append(Cache.getDefaultContentToWrite());
                                 output.close();
                                 PreferencesDialog.get().getDataLocationField().setText(path);
-                                if (!Property.get().getSoundTheme()
-                                        .equals(SoundTheme.NONE.getDescription())) {
-                                    SoundFactory.playNavigation();
-                                }
+                                SoundFactory.playNavigation();
                                 setVisible(false);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         } else {
-                            if (!Property.get().getSoundTheme()
-                                    .equals(SoundTheme.NONE.getDescription())) {
-                                SoundFactory.playNavigation();
-                            }
+                            SoundFactory.playNavigation();
                         }
                     }
                 } else if (JFileChooser.CANCEL_SELECTION.equals(event.getActionCommand())) {
                     // Cancel was clicked.
-                    if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                        SoundFactory.playNavigation();
-                    }
+                    SoundFactory.playNavigation();
                     setVisible(false);
                 }
             }

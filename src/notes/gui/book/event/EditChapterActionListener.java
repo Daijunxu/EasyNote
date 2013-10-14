@@ -1,10 +1,8 @@
 package notes.gui.book.event;
 
 import notes.bean.BookHome;
-import notes.data.cache.Property;
 import notes.gui.book.component.EditChapterDialog;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -24,21 +22,13 @@ public class EditChapterActionListener implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         try {
             if (BookHome.get().getCurrentBook() == null) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
-                JOptionPane.showMessageDialog(null, "No book is selected!", "Input error",
-                        JOptionPane.ERROR_MESSAGE);
+                SoundFactory.playError();
+                JOptionPane.showMessageDialog(null, "No book is selected!", "Input error", JOptionPane.ERROR_MESSAGE);
             } else if (BookHome.get().getCurrentChapter() == null) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
-                JOptionPane.showMessageDialog(null, "No chapter is selected!", "Input error",
-                        JOptionPane.ERROR_MESSAGE);
+                SoundFactory.playError();
+                JOptionPane.showMessageDialog(null, "No chapter is selected!", "Input error", JOptionPane.ERROR_MESSAGE);
             } else {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playPopup();
-                }
+                SoundFactory.playPopup();
                 new EditChapterDialog();
             }
         } catch (Exception e) {

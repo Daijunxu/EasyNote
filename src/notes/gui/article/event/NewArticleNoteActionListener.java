@@ -1,10 +1,8 @@
 package notes.gui.article.event;
 
 import notes.bean.ArticleHome;
-import notes.data.cache.Property;
 import notes.gui.article.component.NewArticleNoteDialog;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -24,15 +22,11 @@ public class NewArticleNoteActionListener implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         try {
             if (ArticleHome.get().getCurrentArticle() == null) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No article is selected!", "Input error",
                         JOptionPane.ERROR_MESSAGE);
             } else {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playPopup();
-                }
+                SoundFactory.playPopup();
                 new NewArticleNoteDialog();
             }
         } catch (Exception e) {

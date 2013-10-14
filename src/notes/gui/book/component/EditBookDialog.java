@@ -2,7 +2,6 @@ package notes.gui.book.component;
 
 import notes.bean.BookHome;
 import notes.dao.impl.BookNoteDAO;
-import notes.data.cache.Property;
 import notes.entity.book.Book;
 import notes.gui.book.verifier.EditionInputVerifier;
 import notes.gui.book.verifier.ISBNInputVerifier;
@@ -10,7 +9,6 @@ import notes.gui.book.verifier.PublishedYearInputVerifier;
 import notes.gui.main.component.MainPanel;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 import org.apache.commons.lang3.text.WordUtils;
 
 import javax.swing.*;
@@ -32,17 +30,13 @@ public class EditBookDialog extends JDialog {
             // Input validation.
             if (documentTitleField.getText() == null
                     || documentTitleField.getText().trim().equals("")) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "Document title cannot be empty!",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 documentTitleField.requestFocus();
                 return;
             } else if (documentTitleField.getText().trim().split("\n").length > 1) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "Document title can only have one line!",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 documentTitleField.requestFocus();
@@ -50,43 +44,33 @@ public class EditBookDialog extends JDialog {
             } else if (authorField.getText() != null
                     && !authorField.getText().trim().equals("")
                     && authorField.getText().trim().split("\n").length > 1) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "Author list can only have one line!",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 authorField.requestFocus();
                 return;
             } else if (!editionField.getInputVerifier().verify(editionField)) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null,
                         "Please enter a valid edition number!\n(A non-negative integer)",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 editionField.requestFocus();
                 return;
             } else if (!publishedYearField.getInputVerifier().verify(publishedYearField)) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null,
                         "Please enter a valid published year!\n(1800 - 2100)", "Input error",
                         JOptionPane.ERROR_MESSAGE);
                 publishedYearField.requestFocus();
                 return;
             } else if (!ISBNField.getInputVerifier().verify(ISBNField)) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "Please enter a valid ISBN!", "Input error",
                         JOptionPane.ERROR_MESSAGE);
                 ISBNField.requestFocus();
                 return;
             } else if (commentField.getText().trim().split("\n").length > 1) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "Comment can only have one line!",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 commentField.requestFocus();
@@ -126,18 +110,14 @@ public class EditBookDialog extends JDialog {
             // Reset the book panel.
             frame.setBookPanel(home.getCurrentBook(), null);
 
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playUpdate();
-            }
+            SoundFactory.playUpdate();
 
             setVisible(false);
         }
     });
     private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         public void actionPerformed(ActionEvent e) {
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
             setVisible(false);
         }
     });

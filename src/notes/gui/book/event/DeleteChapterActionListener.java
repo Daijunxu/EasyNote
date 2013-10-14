@@ -1,11 +1,9 @@
 package notes.gui.book.event;
 
 import notes.bean.BookHome;
-import notes.data.cache.Property;
 import notes.entity.book.Chapter;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,16 +26,11 @@ public class DeleteChapterActionListener implements ActionListener {
         try {
             Chapter chapter = home.getCurrentChapter();
             if (chapter == null) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
-                JOptionPane.showMessageDialog(null, "No chapter is selected!", "Input error",
-                        JOptionPane.ERROR_MESSAGE);
+                SoundFactory.playError();
+                JOptionPane.showMessageDialog(null, "No chapter is selected!", "Input error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNotify();
-            }
+            SoundFactory.playNotify();
             int result = JOptionPane.showConfirmDialog(null,
                     "Delete this chapter and all the notes in it?", "Confirm Dialog",
                     JOptionPane.YES_NO_OPTION);
@@ -47,13 +40,9 @@ public class DeleteChapterActionListener implements ActionListener {
                 home.getBookNoteDAO().deleteChapter(chapter, home.getCurrentBook().getDocumentId());
                 // Update the chapter and note panel.
                 frame.updateBookPanel(home.getCurrentBook().getDocumentId(), null, null);
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playDelete();
-                }
+                SoundFactory.playDelete();
             } else {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playNavigation();
-                }
+                SoundFactory.playNavigation();
             }
         } catch (Exception e) {
             e.printStackTrace();

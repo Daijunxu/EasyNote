@@ -3,7 +3,6 @@ package notes.gui.main.event;
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
 import notes.bean.WorksetHome;
-import notes.data.cache.Property;
 import notes.entity.Note;
 import notes.entity.article.Article;
 import notes.entity.article.ArticleNote;
@@ -18,7 +17,6 @@ import notes.gui.book.component.EditBookNoteDialog;
 import notes.gui.main.component.SearchNoteDialog;
 import notes.gui.workset.component.EditWorksheetNoteDialog;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,9 +34,7 @@ public class ViewNoteActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playPopup();
-            }
+            SoundFactory.playPopup();
 
             Note selectedNote = SearchNoteDialog.get().getSelectedResultNote();
 

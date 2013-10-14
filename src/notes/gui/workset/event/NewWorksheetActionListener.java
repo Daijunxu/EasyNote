@@ -1,10 +1,8 @@
 package notes.gui.workset.event;
 
 import notes.bean.WorksetHome;
-import notes.data.cache.Property;
 import notes.gui.workset.component.NewWorksheetDialog;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -24,15 +22,11 @@ public class NewWorksheetActionListener implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         try {
             if (WorksetHome.get().getCurrentWorkset() == null) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No workset is selected!", "Input error",
                         JOptionPane.ERROR_MESSAGE);
             } else {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playPopup();
-                }
+                SoundFactory.playPopup();
                 new NewWorksheetDialog();
             }
         } catch (Exception e) {

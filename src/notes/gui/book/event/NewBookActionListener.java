@@ -1,9 +1,7 @@
 package notes.gui.book.event;
 
-import notes.data.cache.Property;
 import notes.gui.book.component.NewBookDialog;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,9 +19,7 @@ public class NewBookActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playPopup();
-            }
+            SoundFactory.playPopup();
             new NewBookDialog();
         } catch (Exception e) {
             e.printStackTrace();

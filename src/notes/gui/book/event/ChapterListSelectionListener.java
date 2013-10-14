@@ -1,11 +1,9 @@
 package notes.gui.book.event;
 
 import notes.bean.BookHome;
-import notes.data.cache.Property;
 import notes.entity.book.Chapter;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -39,9 +37,7 @@ public class ChapterListSelectionListener implements ListSelectionListener {
             Chapter chapter = BookHome.get().getChaptersListForCurrentBook().get(selected);
             frame.updateBookNotePanel(chapter, null);
 
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
         }
     }
 }

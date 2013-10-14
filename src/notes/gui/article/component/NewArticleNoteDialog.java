@@ -2,13 +2,11 @@ package notes.gui.article.component;
 
 import notes.bean.ArticleHome;
 import notes.dao.impl.ArticleNoteDAO;
-import notes.data.cache.Property;
 import notes.entity.Tag;
 import notes.entity.article.ArticleNote;
 import notes.gui.main.component.MainPanel;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,9 +26,7 @@ public class NewArticleNoteDialog extends JDialog {
             // Input validation.
             List<String> tagsStrList = EntityHelper.buildTagsStrList(tagsField.getText());
             if (tagsStrList.size() > 5) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "A note can have at most 5 tags!",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 tagsField.requestFocus();
@@ -38,9 +34,7 @@ public class NewArticleNoteDialog extends JDialog {
             }
             for (String tagStr : tagsStrList) {
                 if (tagStr.length() > 30) {
-                    if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                        SoundFactory.playError();
-                    }
+                    SoundFactory.playError();
                     JOptionPane.showMessageDialog(null, "A tag can have at most 30 characters!",
                             "Input error", JOptionPane.ERROR_MESSAGE);
                     tagsField.requestFocus();
@@ -48,9 +42,7 @@ public class NewArticleNoteDialog extends JDialog {
                 }
             }
             if (noteTextField.getText() == null || noteTextField.getText().trim().equals("")) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "Note text cannot be empty!", "Input error",
                         JOptionPane.ERROR_MESSAGE);
                 noteTextField.requestFocus();
@@ -90,18 +82,14 @@ public class NewArticleNoteDialog extends JDialog {
             // Update the note panel.
             frame.updateArticleNotePanel(cachedArticleNote.getNoteId());
 
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playUpdate();
-            }
+            SoundFactory.playUpdate();
 
             setVisible(false);
         }
     });
     private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         public void actionPerformed(ActionEvent e) {
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
             setVisible(false);
         }
     });

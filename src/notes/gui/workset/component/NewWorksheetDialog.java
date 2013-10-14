@@ -2,11 +2,9 @@ package notes.gui.workset.component;
 
 import notes.bean.WorksetHome;
 import notes.dao.impl.WorksheetNoteDAO;
-import notes.data.cache.Property;
 import notes.entity.workset.Worksheet;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 import org.apache.commons.lang3.text.WordUtils;
 
 import javax.swing.*;
@@ -27,9 +25,7 @@ public class NewWorksheetDialog extends JDialog {
 
             // Input validation.
             if (worksheetField.getText() == null || worksheetField.getText().trim().equals("")) {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "Worksheet title cannot be empty!",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 worksheetField.requestFocus();
@@ -56,15 +52,10 @@ public class NewWorksheetDialog extends JDialog {
                 frame.updateWorksetPanel(home.getCurrentWorkset().getDocumentId(),
                         cachedWorksheet.getWorksheetId(), null);
 
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playUpdate();
-                }
-
+                SoundFactory.playUpdate();
                 setVisible(false);
             } else {
-                if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                    SoundFactory.playError();
-                }
+                SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "Duplicate worksheet ID!",
                         "Error Message", JOptionPane.ERROR_MESSAGE);
             }
@@ -73,9 +64,7 @@ public class NewWorksheetDialog extends JDialog {
     });
     private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         public void actionPerformed(ActionEvent e) {
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
             setVisible(false);
         }
     });

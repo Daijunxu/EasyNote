@@ -7,7 +7,6 @@ import notes.data.cache.Property;
 import notes.entity.SystemMode;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,9 +25,7 @@ public class CloseDocumentEventListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-        if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-            SoundFactory.playUpdate();
-        }
+        SoundFactory.playUpdate();
         MainPanel mainPanel = MainPanel.get();
 
         // Clear temporary data in home objects.

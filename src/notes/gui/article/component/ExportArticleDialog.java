@@ -7,7 +7,6 @@ import notes.entity.article.ArticleNote;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.PreferencesDialog;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,10 +61,7 @@ public class ExportArticleDialog extends JDialog {
                     File selectedFile = chooser.getSelectedFile();
                     if (selectedFile.isDirectory()) {
                         // Selected file is a directory.
-                        if (!Property.get().getSoundTheme()
-                                .equals(SoundTheme.NONE.getDescription())) {
-                            SoundFactory.playNotify();
-                        }
+                        SoundFactory.playNotify();
                         int result = JOptionPane.showConfirmDialog(null,
                                 "Export the current document under this folder?", "Confirm Dialog",
                                 JOptionPane.YES_NO_OPTION);
@@ -75,10 +71,7 @@ public class ExportArticleDialog extends JDialog {
                                 File newFile = new File(selectedFile.getAbsolutePath() + "/[Notes]"
                                         + article.getDocumentTitle() + ".html");
                                 if (newFile.exists()) {
-                                    if (!Property.get().getSoundTheme()
-                                            .equals(SoundTheme.NONE.getDescription())) {
-                                        SoundFactory.playError();
-                                    }
+                                    SoundFactory.playError();
                                     JOptionPane.showMessageDialog(null, "File already exists!",
                                             "Error", JOptionPane.ERROR_MESSAGE);
                                     return;
@@ -86,10 +79,7 @@ public class ExportArticleDialog extends JDialog {
                                 BufferedWriter output = new BufferedWriter(new FileWriter(newFile));
                                 exportArticle(article, output);
                                 output.close();
-                                if (!Property.get().getSoundTheme()
-                                        .equals(SoundTheme.NONE.getDescription())) {
-                                    SoundFactory.playExport();
-                                }
+                                SoundFactory.playExport();
                                 setVisible(false);
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -98,10 +88,7 @@ public class ExportArticleDialog extends JDialog {
                     } else {
                         // Selected file is a file.
                         if (selectedFile.exists()) {
-                            if (!Property.get().getSoundTheme()
-                                    .equals(SoundTheme.NONE.getDescription())) {
-                                SoundFactory.playError();
-                            }
+                            SoundFactory.playError();
                             JOptionPane.showMessageDialog(null, "File already exists!", "Error",
                                     JOptionPane.ERROR_MESSAGE);
                             return;
@@ -110,10 +97,7 @@ public class ExportArticleDialog extends JDialog {
                             BufferedWriter output = new BufferedWriter(new FileWriter(selectedFile));
                             exportArticle(article, output);
                             output.close();
-                            if (!Property.get().getSoundTheme()
-                                    .equals(SoundTheme.NONE.getDescription())) {
-                                SoundFactory.playExport();
-                            }
+                            SoundFactory.playExport();
                             setVisible(false);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -121,9 +105,7 @@ public class ExportArticleDialog extends JDialog {
                     }
                 } else if (JFileChooser.CANCEL_SELECTION.equals(event.getActionCommand())) {
                     // Cancel was clicked.
-                    if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                        SoundFactory.playNavigation();
-                    }
+                    SoundFactory.playNavigation();
                     setVisible(false);
                 }
             }

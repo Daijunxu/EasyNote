@@ -7,7 +7,6 @@ import notes.entity.article.Article;
 import notes.entity.book.Book;
 import notes.entity.workset.Workset;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,18 +44,13 @@ public class OpenDocumentDialog extends JDialog {
                 MainPanel.get().setArticlePanel((Article) document, null);
             }
 
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playUpdate();
-            }
-
+            SoundFactory.playUpdate();
             setVisible(false);
         }
     });
     private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {
         public void actionPerformed(ActionEvent e) {
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
             setVisible(false);
         }
     });

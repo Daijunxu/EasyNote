@@ -3,7 +3,6 @@ package notes.gui.main.component;
 import notes.data.cache.Cache;
 import notes.data.cache.Property;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,39 +56,26 @@ public class InitialChooseDataLocationDialog extends JDialog {
                         Cache.hasProblem = false;
                         Cache.get().loadAllCachesFromXML();
                         if (Cache.hasProblem) {
-                            if (!Property.get().getSoundTheme()
-                                    .equals(SoundTheme.NONE.getDescription())) {
-                                SoundFactory.playNotify();
-                            }
-                            int result = JOptionPane
-                                    .showConfirmDialog(
-                                            null,
-                                            "Missing data file or having invalid data file. Choose a new data file?",
-                                            "Confirm Dialog", JOptionPane.YES_NO_OPTION);
+                            SoundFactory.playNotify();
+                            int result = JOptionPane.showConfirmDialog(
+                                    null,
+                                    "Missing data file or having invalid data file. Choose a new data file?",
+                                    "Confirm Dialog", JOptionPane.YES_NO_OPTION);
                             // 0 for yes and 1 for no.
                             if (result == 0) {
-                                if (!Property.get().getSoundTheme()
-                                        .equals(SoundTheme.NONE.getDescription())) {
-                                    SoundFactory.playPopup();
-                                }
+                                SoundFactory.playPopup();
                                 new InitialChooseDataLocationDialog();
                             } else {
                                 System.exit(0);
                             }
                         } else {
-                            if (!Property.get().getSoundTheme()
-                                    .equals(SoundTheme.NONE.getDescription())) {
-                                SoundFactory.playOn();
-                            }
+                            SoundFactory.playOn();
                             MainPanel.get().setVisible(true);
                             MainPanel.get().setLocation(MainPanel.get().getLocationOnScreen());
                         }
                     } else {
                         // Selected a directory.
-                        if (!Property.get().getSoundTheme()
-                                .equals(SoundTheme.NONE.getDescription())) {
-                            SoundFactory.playNotify();
-                        }
+                        SoundFactory.playNotify();
                         int result = JOptionPane.showConfirmDialog(null,
                                 "Create a data file under this folder?", "Confirm Dialog",
                                 JOptionPane.YES_NO_OPTION);
@@ -106,10 +92,7 @@ public class InitialChooseDataLocationDialog extends JDialog {
                                 Cache.hasProblem = false;
                                 Cache.get().loadAllCachesFromXML();
 
-                                if (!Property.get().getSoundTheme()
-                                        .equals(SoundTheme.NONE.getDescription())) {
-                                    SoundFactory.playOn();
-                                }
+                                SoundFactory.playOn();
 
                                 MainPanel.get().setVisible(true);
                                 MainPanel.get().setLocation(MainPanel.get().getLocationOnScreen());

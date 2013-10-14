@@ -1,7 +1,6 @@
 package notes.gui.workset.component;
 
 import notes.bean.WorksetHome;
-import notes.data.cache.Property;
 import notes.entity.NoteStatus;
 import notes.entity.workset.WorksheetNote;
 import notes.gui.main.component.MainPanel;
@@ -9,7 +8,6 @@ import notes.gui.workset.event.DeleteWorksheetNoteActionListener;
 import notes.gui.workset.event.EditWorksheetNoteActionListener;
 import notes.gui.workset.event.NewWorksheetNoteActionListener;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -72,9 +70,7 @@ public class WorksheetNotePopupMenu extends JPopupMenu {
             try {
                 WorksheetNote currentWorksheetNote = WorksetHome.get().getCurrentWorksheetNote();
                 if (currentWorksheetNote == null) {
-                    if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                        SoundFactory.playError();
-                    }
+                    SoundFactory.playError();
                     JOptionPane.showMessageDialog(null, "No note is selected!", "Input error",
                             JOptionPane.ERROR_MESSAGE);
                 } else {
@@ -84,10 +80,7 @@ public class WorksheetNotePopupMenu extends JPopupMenu {
 
                     // Update the note panel.
                     MainPanel.get().updateWorksheetNotePanel(WorksetHome.get().getCurrentWorksheet(), null);
-
-                    if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                        SoundFactory.playUpdate();
-                    }
+                    SoundFactory.playUpdate();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -1,8 +1,6 @@
 package notes.gui.main.component;
 
-import notes.data.cache.Property;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
@@ -22,9 +20,7 @@ public class AboutDialog extends JDialog {
 
     private final JButton okButton = new JButton(new AbstractAction("OK") {
         public void actionPerformed(ActionEvent e) {
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
             setVisible(false);
         }
     });

@@ -3,14 +3,12 @@ package notes.gui.main.event;
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
 import notes.bean.WorksetHome;
-import notes.data.cache.Property;
 import notes.entity.SystemMode;
 import notes.entity.article.ArticleNote;
 import notes.entity.book.BookNote;
 import notes.entity.workset.WorksheetNote;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -49,9 +47,7 @@ public class NoteListSelectionListener implements ListSelectionListener {
                 BookNote bookNote = (BookNote) BookHome.get().getBookNoteDAO().findNoteById(bookNoteId);
                 BookHome.get().setCurrentBookNote(bookNote);
             }
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
         }
     }
 

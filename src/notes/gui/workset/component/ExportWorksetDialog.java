@@ -3,12 +3,11 @@ package notes.gui.workset.component;
 import notes.bean.WorksetHome;
 import notes.data.cache.Property;
 import notes.entity.workset.Workset;
-import notes.entity.workset.WorksheetNote;
 import notes.entity.workset.Worksheet;
+import notes.entity.workset.WorksheetNote;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.PreferencesDialog;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.*;
@@ -72,10 +71,7 @@ public class ExportWorksetDialog extends JDialog {
                                 File newFile = new File(selectedFile.getAbsolutePath() + "/[Notes]"
                                         + workset.getDocumentTitle() + ".html");
                                 if (newFile.exists()) {
-                                    if (!Property.get().getSoundTheme()
-                                            .equals(SoundTheme.NONE.getDescription())) {
-                                        SoundFactory.playError();
-                                    }
+                                    SoundFactory.playError();
                                     JOptionPane.showMessageDialog(null, "File already exists!",
                                             "Error", JOptionPane.ERROR_MESSAGE);
                                     return;
@@ -83,10 +79,7 @@ public class ExportWorksetDialog extends JDialog {
                                 BufferedWriter output = new BufferedWriter(new FileWriter(newFile));
                                 exportWorkset(workset, output);
                                 output.close();
-                                if (!Property.get().getSoundTheme()
-                                        .equals(SoundTheme.NONE.getDescription())) {
-                                    SoundFactory.playExport();
-                                }
+                                SoundFactory.playExport();
                                 setVisible(false);
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -95,10 +88,7 @@ public class ExportWorksetDialog extends JDialog {
                     } else {
                         // Selected file is a file.
                         if (selectedFile.exists()) {
-                            if (!Property.get().getSoundTheme()
-                                    .equals(SoundTheme.NONE.getDescription())) {
-                                SoundFactory.playError();
-                            }
+                            SoundFactory.playError();
                             JOptionPane.showMessageDialog(null, "File already exists!", "Error",
                                     JOptionPane.ERROR_MESSAGE);
                             return;
@@ -107,10 +97,7 @@ public class ExportWorksetDialog extends JDialog {
                             BufferedWriter output = new BufferedWriter(new FileWriter(selectedFile));
                             exportWorkset(workset, output);
                             output.close();
-                            if (!Property.get().getSoundTheme()
-                                    .equals(SoundTheme.NONE.getDescription())) {
-                                SoundFactory.playExport();
-                            }
+                            SoundFactory.playExport();
                             setVisible(false);
                         } catch (IOException e) {
                             e.printStackTrace();

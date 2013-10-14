@@ -1,11 +1,9 @@
 package notes.gui.book.event;
 
 import notes.bean.BookHome;
-import notes.data.cache.Property;
 import notes.gui.book.component.BookNotePopupMenu;
 import notes.gui.book.component.EditBookNoteDialog;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -32,9 +30,7 @@ public class BookNoteListMouseListener extends MouseAdapter {
         if (event.getClickCount() == 2 && home.getCurrentBook() != null
                 && home.getCurrentChapter() != null
                 && home.getCurrentBookNote() != null) {
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playPopup();
-            }
+            SoundFactory.playPopup();
             new EditBookNoteDialog(home.getCurrentBook(), home.getCurrentChapter(), home.getCurrentBookNote());
         }
     }
@@ -48,9 +44,7 @@ public class BookNoteListMouseListener extends MouseAdapter {
             JList noteList = (JList) event.getSource();
             int row = noteList.locationToIndex(event.getPoint());
             noteList.setSelectedIndex(row);
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
             doPop(event);
         }
     }

@@ -1,10 +1,8 @@
 package notes.gui.book.event;
 
 import notes.bean.BookHome;
-import notes.data.cache.Property;
 import notes.gui.book.component.ExportBookDialog;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -23,15 +21,10 @@ public class ExportBookActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         if (BookHome.get().getCurrentBook() == null) {
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playError();
-            }
-            JOptionPane.showMessageDialog(null, "No book is selected!", "Input error",
-                    JOptionPane.ERROR_MESSAGE);
+            SoundFactory.playError();
+            JOptionPane.showMessageDialog(null, "No book is selected!", "Input error", JOptionPane.ERROR_MESSAGE);
         } else {
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playPopup();
-            }
+            SoundFactory.playPopup();
             new ExportBookDialog();
         }
     }

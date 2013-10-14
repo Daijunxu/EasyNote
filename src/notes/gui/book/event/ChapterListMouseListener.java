@@ -1,9 +1,7 @@
 package notes.gui.book.event;
 
-import notes.data.cache.Property;
 import notes.gui.book.component.ChapterPopupMenu;
 import notes.utils.SoundFactory;
-import notes.utils.SoundTheme;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -30,9 +28,7 @@ public class ChapterListMouseListener extends MouseAdapter {
             JList noteList = (JList) event.getSource();
             int row = noteList.locationToIndex(event.getPoint());
             noteList.setSelectedIndex(row);
-            if (!Property.get().getSoundTheme().equals(SoundTheme.NONE.getDescription())) {
-                SoundFactory.playNavigation();
-            }
+            SoundFactory.playNavigation();
             doPop(event);
         }
     }
