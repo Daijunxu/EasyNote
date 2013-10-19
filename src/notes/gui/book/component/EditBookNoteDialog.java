@@ -8,6 +8,7 @@ import notes.entity.book.BookNote;
 import notes.entity.book.Chapter;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.SearchNoteDialog;
+import notes.gui.main.verifier.NoteTextValidator;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
 import notes.utils.TextHelper;
@@ -54,10 +55,10 @@ public class EditBookNoteDialog extends JDialog {
                     return;
                 }
             }
-            if (noteTextField.getText() == null || noteTextField.getText().trim().equals("")) {
+            String errorMessage = NoteTextValidator.hasError(noteTextField.getText());
+            if (errorMessage != null) {
                 SoundFactory.playError();
-                JOptionPane.showMessageDialog(null, "Note text cannot be empty!", "Input error",
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, errorMessage, "Input error", JOptionPane.ERROR_MESSAGE);
                 noteTextField.requestFocus();
                 return;
             }
