@@ -69,6 +69,10 @@ import notes.utils.SoundFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.BindException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.util.List;
 import java.util.Map;
 
@@ -92,6 +96,9 @@ public class MainPanel extends JFrame {
     private static final WorksetHome worksetHome = WorksetHome.get();
     private static final BookHome bookHome = BookHome.get();
     private static final ArticleHome articleHome = ArticleHome.get();
+
+    private static final int PORT = 9999;
+    private static ServerSocket socket;
 
     /**
      * The single instance of {@code MainPanel}.
@@ -164,6 +171,19 @@ public class MainPanel extends JFrame {
      * @param args The array of arguments when starting the program.
      */
     public static void main(String[] args) {
+
+        // Bind the port so that only one application is running at a time.
+        try {
+            socket = new ServerSocket(PORT, 0, InetAddress.getByAddress(new byte[]{127, 0, 0, 1}));
+        } catch (BindException e) {
+            System.err.println("Already running.");
+            System.exit(1);
+        } catch (IOException e) {
+            System.err.println("Unexpected error.");
+            e.printStackTrace();
+            System.exit(2);
+        }
+
         Property property = Property.get();
 
         if (Cache.get() == null || Cache.hasProblem) {
