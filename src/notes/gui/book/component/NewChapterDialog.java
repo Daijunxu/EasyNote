@@ -4,7 +4,7 @@ import notes.bean.BookHome;
 import notes.dao.impl.BookNoteDAO;
 import notes.entity.book.Chapter;
 import notes.gui.main.component.MainPanel;
-import notes.gui.main.verifier.IdInputVerifier;
+import notes.gui.main.validation.IdInputVerifier;
 import notes.utils.SoundFactory;
 import org.apache.commons.lang3.text.WordUtils;
 

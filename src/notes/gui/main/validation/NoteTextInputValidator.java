@@ -1,16 +1,16 @@
-package notes.gui.main.verifier;
+package notes.gui.main.validation;
 
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 
 /**
- * Verifies that the input text in {@link javax.swing.JTextField} is valid.
+ * Validates that the input note text is valid.
  * <p/>
  * User: rui
  * Date: 10/19/13
  * Time: 10:30 AM
  */
-public class NoteTextValidator {
+public class NoteTextInputValidator {
     private static final CharsetEncoder asciiEncoder = Charset.forName("US-ASCII").newEncoder();
 
     private static boolean isPureAscii(String text) {

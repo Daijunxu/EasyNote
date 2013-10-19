@@ -91,3 +91,4 @@
 [10/11/2013] 16363(151): Bug fixes. Merge view/edit dialogues together.
 [10/12/2013] 16407(152): UI improvements; refactor home objects; add close document menu item.
 [10/12/2013] 15659(152): Refactor searching, main panel and sound effect; hide ID from GUI.
+[10/19/2013] 15690(155): Refactor note input validation; UI improvement.

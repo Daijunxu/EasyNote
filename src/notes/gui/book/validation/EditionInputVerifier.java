@@ -1,4 +1,4 @@
-package notes.gui.book.verifier;
+package notes.gui.book.validation;
 
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;

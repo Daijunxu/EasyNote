@@ -6,7 +6,8 @@ import notes.entity.NoteStatus;
 import notes.entity.Tag;
 import notes.entity.workset.WorksheetNote;
 import notes.gui.main.component.MainPanel;
-import notes.gui.main.verifier.NoteTextValidator;
+import notes.gui.main.validation.NoteTextInputValidator;
+import notes.gui.main.validation.TagsInputValidator;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
 import notes.utils.TextHelper;
@@ -28,32 +29,17 @@ public class NewWorksheetNoteDialog extends JDialog {
         public void actionPerformed(ActionEvent e) {
 
             // Input validation.
-            if (tagsField.getText() != null && !tagsField.getText().trim().equals("")
-                    && tagsField.getText().trim().split("\n").length > 1) {
-                SoundFactory.playError();
-                JOptionPane.showMessageDialog(null, "Tag list can only have one line!",
-                        "Input error", JOptionPane.ERROR_MESSAGE);
-                tagsField.requestFocus();
-                return;
-            }
+            String errorMessage;
+
             List<String> tagsStrList = EntityHelper.buildTagsStrList(tagsField.getText());
-            if (tagsStrList.size() > 5) {
+            errorMessage = TagsInputValidator.hasError(tagsStrList);
+            if (errorMessage != null) {
                 SoundFactory.playError();
-                JOptionPane.showMessageDialog(null, "A note can have at most 5 tags!",
-                        "Input error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, errorMessage, "Input error", JOptionPane.ERROR_MESSAGE);
                 tagsField.requestFocus();
                 return;
             }
-            for (String tagStr : tagsStrList) {
-                if (tagStr.length() > 30) {
-                    SoundFactory.playError();
-                    JOptionPane.showMessageDialog(null, "A tag can have at most 30 characters!",
-                            "Input error", JOptionPane.ERROR_MESSAGE);
-                    tagsField.requestFocus();
-                    return;
-                }
-            }
-            String errorMessage = NoteTextValidator.hasError(noteTextField.getText());
+            errorMessage = NoteTextInputValidator.hasError(noteTextField.getText());
             if (errorMessage != null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, errorMessage, "Input error", JOptionPane.ERROR_MESSAGE);
@@ -110,7 +96,7 @@ public class NewWorksheetNoteDialog extends JDialog {
     private final JComboBox worksheetField = new JComboBox();
     private final JTextArea noteTextField = new JTextArea(20, 50);
     private final JComboBox noteStatusField = new JComboBox();
-    private final JTextArea tagsField = new JTextArea(2, 50);
+    private final JTextField tagsField = new JTextField();
 
     /**
      * Creates an instance of {@code NewWorksheetNoteDialog}.
@@ -192,8 +178,7 @@ public class NewWorksheetNoteDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 4;
         c.insets = new Insets(5, 5, 0, 5);
-        tagsField.setLineWrap(true);
-        notePanel.add(new JScrollPane(tagsField), c);
+        notePanel.add(tagsField, c);
 
         c.gridx = 1;
         c.gridy = 5;
