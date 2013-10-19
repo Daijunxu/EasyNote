@@ -7,6 +7,7 @@ import notes.entity.article.ArticleNote;
 import notes.gui.main.component.MainPanel;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
+import notes.utils.TextHelper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,7 +71,7 @@ public class NewArticleNoteDialog extends JDialog {
                 }
             }
             createdArticleNote.setTagIds(tagsList);
-            createdArticleNote.setNoteText(noteTextField.getText());
+            createdArticleNote.setNoteText(TextHelper.processInputText(noteTextField.getText()));
 
             // Save the created article note.
             ArticleNote cachedArticleNote = (ArticleNote) (dao.saveNote(createdArticleNote));

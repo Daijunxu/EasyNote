@@ -10,6 +10,7 @@ import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.SearchNoteDialog;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
+import notes.utils.TextHelper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -86,7 +87,7 @@ public class EditBookNoteDialog extends JDialog {
                 }
             }
             newNote.setTagIds(updatedTagsList);
-            newNote.setNoteText(noteTextField.getText());
+            newNote.setNoteText(TextHelper.processInputText(noteTextField.getText()));
 
             // Save the updated book note.
             BookNote updatedNote = (BookNote) dao.updateNote(newNote);

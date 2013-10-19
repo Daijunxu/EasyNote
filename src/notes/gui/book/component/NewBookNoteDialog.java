@@ -8,6 +8,7 @@ import notes.entity.book.Chapter;
 import notes.gui.main.component.MainPanel;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
+import notes.utils.TextHelper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -83,7 +84,7 @@ public class NewBookNoteDialog extends JDialog {
                 }
             }
             createdBookNote.setTagIds(tagsList);
-            createdBookNote.setNoteText(noteTextField.getText());
+            createdBookNote.setNoteText(TextHelper.processInputText(noteTextField.getText()));
 
             // Save the created book note.
             BookNote cachedBookNote = (BookNote) (dao.saveNote(createdBookNote));

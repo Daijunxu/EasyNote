@@ -49,6 +49,7 @@ public class EntityHelper {
         }
         String[] tagStrs = input.split(",");
         for (String tagStr : tagStrs) {
+            tagStr = tagStr.replaceAll("\t+", " ");
             tagStr = WordUtils.capitalize(tagStr.trim());
             if (!tagStr.equals("")) {
                 tagsStrList.add(tagStr);

@@ -10,6 +10,7 @@ import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.SearchNoteDialog;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
+import notes.utils.TextHelper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -71,7 +72,7 @@ public class EditArticleNoteDialog extends JDialog {
                 }
             }
             selectedNote.setTagIds(updatedTagsList);
-            selectedNote.setNoteText(noteTextField.getText());
+            selectedNote.setNoteText(TextHelper.processInputText(noteTextField.getText()));
 
             // Save the updated article note.
             Note updatedNote = dao.updateNote(selectedNote);

@@ -8,6 +8,7 @@ import notes.entity.workset.WorksheetNote;
 import notes.gui.main.component.MainPanel;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
+import notes.utils.TextHelper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -69,7 +70,7 @@ public class NewWorksheetNoteDialog extends JDialog {
             Long selectedWorksheetId = home.getCurrentWorkset().getWorksheetIdsList()
                     .get(worksheetField.getSelectedIndex());
             createdWorksheetNote.setWorksheetId(selectedWorksheetId);
-            createdWorksheetNote.setNoteText(noteTextField.getText());
+            createdWorksheetNote.setNoteText(TextHelper.processInputText(noteTextField.getText()));
 
             List<Long> tagsList = new ArrayList<Long>();
             for (String tagStr : tagsStrList) {
