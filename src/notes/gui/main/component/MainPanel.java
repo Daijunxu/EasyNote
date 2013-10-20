@@ -5,6 +5,7 @@ import lombok.Setter;
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
 import notes.bean.WorksetHome;
+import notes.dao.impl.DocumentNoteDAO;
 import notes.data.cache.Cache;
 import notes.data.cache.Property;
 import notes.entity.Document;
@@ -215,8 +216,7 @@ public class MainPanel extends JFrame {
     }
 
     private void openLastDocument(Long documentId) {
-        // TODO fix this.
-        Document document = bookHome.getBookNoteDAO().findDocumentById(documentId);
+        Document document = DocumentNoteDAO.get().findDocumentById(documentId);
         if (document instanceof Workset) {
             MainPanel.get().setWorksetPanel((Workset) document, null);
         } else if (document instanceof Book) {
@@ -729,7 +729,6 @@ public class MainPanel extends JFrame {
      */
     public void setDefaultPanel() {
         // Clear all temporary data in home objects.
-        // TODO: create a super class for home objects.
         ArticleHome.get().clearAllTemporaryData();
         BookHome.get().clearAllTemporaryData();
         WorksetHome.get().clearAllTemporaryData();

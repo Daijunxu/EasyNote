@@ -1,8 +1,7 @@
 package notes.gui.main.event;
 
-import notes.bean.ArticleHome;
-import notes.bean.BookHome;
-import notes.bean.WorksetHome;
+import notes.dao.impl.DocumentNoteDAO;
+import notes.entity.Document;
 import notes.entity.Note;
 import notes.entity.article.Article;
 import notes.entity.article.ArticleNote;
@@ -44,20 +43,15 @@ public class SearchNoteListMouseListener extends MouseAdapter {
 
         if (event.getClickCount() == 2) {
             SoundFactory.playPopup();
+            Document document = DocumentNoteDAO.get().findDocumentById(selectedNote.getDocumentId());
             if (selectedNote instanceof WorksheetNote) {
-                Workset selectedWorkset = (Workset) WorksetHome.get().getWorksheetNoteDAO()
-                        .findDocumentById(selectedNote.getDocumentId());
-                Worksheet selectedWorksheet = selectedWorkset.getWorksheetsMap().get(((WorksheetNote) selectedNote).getWorksheetId());
-                new EditWorksheetNoteDialog(selectedWorkset, selectedWorksheet, (WorksheetNote) selectedNote);
+                Worksheet selectedWorksheet = ((Workset) document).getWorksheetsMap().get(((WorksheetNote) selectedNote).getWorksheetId());
+                new EditWorksheetNoteDialog((Workset) document, selectedWorksheet, (WorksheetNote) selectedNote);
             } else if (selectedNote instanceof ArticleNote) {
-                Article selectedArticle = (Article) ArticleHome.get().getArticleNoteDAO()
-                        .findDocumentById(selectedNote.getDocumentId());
-                new EditArticleNoteDialog(selectedArticle, (ArticleNote) selectedNote);
+                new EditArticleNoteDialog((Article) document, (ArticleNote) selectedNote);
             } else if (selectedNote instanceof BookNote) {
-                Book selectedBook = (Book) BookHome.get().getBookNoteDAO()
-                        .findDocumentById(selectedNote.getDocumentId());
-                Chapter selectedChapter = selectedBook.getChaptersMap().get(((BookNote) selectedNote).getChapterId());
-                new EditBookNoteDialog(selectedBook, selectedChapter, (BookNote) selectedNote);
+                Chapter selectedChapter = ((Book) document).getChaptersMap().get(((BookNote) selectedNote).getChapterId());
+                new EditBookNoteDialog((Book) document, selectedChapter, (BookNote) selectedNote);
             }
         }
     }

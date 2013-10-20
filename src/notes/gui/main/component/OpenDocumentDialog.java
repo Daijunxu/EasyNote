@@ -1,6 +1,6 @@
 package notes.gui.main.component;
 
-import notes.bean.BookHome;
+import notes.dao.impl.DocumentNoteDAO;
 import notes.data.cache.Property;
 import notes.entity.Document;
 import notes.entity.article.Article;
@@ -33,9 +33,7 @@ public class OpenDocumentDialog extends JDialog {
             }
 
             String selectedDocumentTitle = documentTitleField.getSelectedValue().toString();
-            // TODO fix this.
-            Document document = BookHome.get().getBookNoteDAO()
-                    .findDocumentByTitle(selectedDocumentTitle);
+            Document document = DocumentNoteDAO.get().findDocumentByTitle(selectedDocumentTitle);
             if (document instanceof Workset) {
                 MainPanel.get().setWorksetPanel((Workset) document, null);
             } else if (document instanceof Book) {
@@ -139,7 +137,7 @@ public class OpenDocumentDialog extends JDialog {
                 throw new Exception(
                         "Class not found exception: no class is matched with current document type.");
             }
-            for (Document document : BookHome.get().getBookNoteDAO().findAllDocuments()) {
+            for (Document document : DocumentNoteDAO.get().findAllDocuments()) {
                 if (document.getClass() == documentClass) {
                     documentsTitleList.add(document.getDocumentTitle());
                 }

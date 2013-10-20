@@ -101,8 +101,8 @@ public class EditBookNoteDialog extends JDialog {
         }
     });
     private final JComboBox chapterField = new JComboBox();
-    private final JTextArea tagsField = new JTextArea(2, 50);
-    private final JTextField noteTextField = new JTextField();
+    private final JTextArea noteTextField = new JTextArea(20, 50);
+    private final JTextField tagsField = new JTextField();
     private final JLabel createdTimeField = new JLabel();
 
     /**
@@ -157,8 +157,9 @@ public class EditBookNoteDialog extends JDialog {
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         noteTextField.setText(selectedNote.getNoteText());
+        noteTextField.setLineWrap(true);
         noteTextField.select(0, 0);
-        notePanel.add(noteTextField, c);
+        notePanel.add(new JScrollPane(noteTextField), c);
 
         c.gridx = 0;
         c.gridy = 2;
@@ -175,10 +176,9 @@ public class EditBookNoteDialog extends JDialog {
             }
             tagStrBuilder.delete(tagStrBuilder.length() - 2, tagStrBuilder.length());
         }
-        tagsField.setLineWrap(true);
         tagsField.setText(tagStrBuilder.toString());
         tagsField.select(0, 0);
-        notePanel.add(new JScrollPane(tagsField), c);
+        notePanel.add(tagsField, c);
 
         c.gridx = 1;
         c.gridy = 3;

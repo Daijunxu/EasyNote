@@ -1,18 +1,16 @@
 package notes.gui.main.component;
 
-import notes.bean.ArticleHome;
-import notes.bean.BookHome;
-import notes.bean.WorksetHome;
+import notes.dao.impl.DocumentNoteDAO;
+import notes.entity.Document;
 import notes.entity.Note;
 import notes.entity.article.Article;
-import notes.entity.article.ArticleNote;
 import notes.entity.book.Book;
 import notes.entity.book.BookNote;
 import notes.entity.book.Chapter;
 import notes.entity.workset.Workset;
 import notes.entity.workset.Worksheet;
 import notes.entity.workset.WorksheetNote;
-import notes.gui.main.event.ViewNoteActionListener;
+import notes.gui.main.event.EditNoteActionListener;
 import notes.utils.SoundFactory;
 
 import javax.swing.*;
@@ -36,7 +34,7 @@ public class SearchNotePopupMenu extends JPopupMenu {
      */
     public SearchNotePopupMenu(final Note selectedNote) {
         viewItem = new JMenuItem("View");
-        viewItem.addActionListener(new ViewNoteActionListener());
+        viewItem.addActionListener(new EditNoteActionListener());
 
         openDocumentItem = new JMenuItem("Open This Document");
         openDocumentItem.addActionListener(new ActionListener() {
@@ -45,23 +43,18 @@ public class SearchNotePopupMenu extends JPopupMenu {
                 MainPanel mainPanel = MainPanel.get();
                 mainPanel.setSearchMode(false);
                 SearchNoteDialog.get().setVisible(false);
-                if (selectedNote instanceof ArticleNote) {
-                    Article article = (Article) ArticleHome.get().getArticleNoteDAO()
-                            .findDocumentById(selectedNote.getDocumentId());
-                    mainPanel.setArticlePanel(article, selectedNote.getNoteId());
-                } else if (selectedNote instanceof BookNote) {
-                    BookHome bookHome = BookHome.get();
-                    Book book = (Book) bookHome.getBookNoteDAO().findDocumentById(selectedNote.getDocumentId());
+                Document document = DocumentNoteDAO.get().findDocumentById(selectedNote.getDocumentId());
+                if (document instanceof Article) {
+                    mainPanel.setArticlePanel((Article) document, selectedNote.getNoteId());
+                } else if (document instanceof Book) {
                     Long chapterId = ((BookNote) selectedNote).getChapterId();
-                    mainPanel.setBookPanel(book, chapterId);
-                    Chapter chapter = book.getChaptersMap().get(chapterId);
+                    mainPanel.setBookPanel((Book) document, chapterId);
+                    Chapter chapter = ((Book) document).getChaptersMap().get(chapterId);
                     mainPanel.updateBookNotePanel(chapter, selectedNote.getNoteId());
                 } else if (selectedNote instanceof WorksheetNote) {
-                    WorksetHome worksetHome = WorksetHome.get();
-                    Workset workset = (Workset) worksetHome.getWorksheetNoteDAO().findDocumentById(selectedNote.getDocumentId());
                     Long worksheetId = ((WorksheetNote) selectedNote).getWorksheetId();
-                    mainPanel.setWorksetPanel(workset, worksheetId);
-                    Worksheet worksheet = workset.getWorksheetsMap().get(worksheetId);
+                    mainPanel.setWorksetPanel((Workset) document, worksheetId);
+                    Worksheet worksheet = ((Workset) document).getWorksheetsMap().get(worksheetId);
                     mainPanel.updateWorksheetNotePanel(worksheet, selectedNote.getNoteId());
                 }
                 SoundFactory.playUpdate();

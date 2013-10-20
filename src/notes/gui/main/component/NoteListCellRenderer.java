@@ -1,6 +1,6 @@
 package notes.gui.main.component;
 
-import notes.bean.BookHome;
+import notes.dao.impl.DocumentNoteDAO;
 import notes.entity.Note;
 
 import javax.swing.*;
@@ -79,8 +79,7 @@ public class NoteListCellRenderer extends DefaultListCellRenderer {
         JPanel tagPanel = new JPanel();
         tagPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         for (Long tagId : note.getTagIds()) {
-            // TODO fix this.
-            String tagText = BookHome.get().getBookNoteDAO().findTagById(tagId).getTagText();
+            String tagText = DocumentNoteDAO.get().findTagById(tagId).getTagText();
             JLabel tagLabel = new JLabel(tagText);
             tagLabel.setFont(new Font("Helvetica", Font.PLAIN, 11));
             tagLabel.setForeground(Color.WHITE);

@@ -3,7 +3,7 @@ package notes.gui.main.component;
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
 import notes.bean.WorksetHome;
-import notes.dao.impl.BookNoteDAO;
+import notes.dao.impl.DocumentNoteDAO;
 import notes.entity.Document;
 import notes.entity.Note;
 import notes.gui.main.event.SearchNoteDialogWindowListener;
@@ -46,7 +46,7 @@ public class SearchNoteDialog extends JDialog {
                 searchNotes(WorksetHome.get().getWorksheetNoteDAO().findAllWorksets());
             } else {
                 // Search notes in a particular document.
-                Long documentId = BookHome.get().getBookNoteDAO().findDocumentByTitle(selectedValue).getDocumentId();
+                Long documentId = DocumentNoteDAO.get().findDocumentByTitle(selectedValue).getDocumentId();
                 Set<Long> candidateDocuments = new HashSet<Long>();
                 candidateDocuments.add(documentId);
                 searchNotes(candidateDocuments);
@@ -199,7 +199,7 @@ public class SearchNoteDialog extends JDialog {
         searchScopeField.addItem("All Articles");
         searchScopeField.addItem("All Books");
         searchScopeField.addItem("All Worksets");
-        List<Document> documentsList = BookHome.get().getBookNoteDAO().findAllDocuments();
+        List<Document> documentsList = DocumentNoteDAO.get().findAllDocuments();
         List<String> documentTitleList = new ArrayList<String>();
         for (Document document : documentsList) {
             documentTitleList.add(document.getDocumentTitle());
@@ -273,7 +273,6 @@ public class SearchNoteDialog extends JDialog {
     }
 
     private void filterNotesByTagsAND() {
-        BookNoteDAO dao = BookHome.get().getBookNoteDAO();
         List<String> tagsList = EntityHelper.buildTagsStrList(tagsField.getText());
         if (tagsList.isEmpty()) {
             return;
@@ -283,7 +282,7 @@ public class SearchNoteDialog extends JDialog {
         for (Note note : resultNoteList) {
             Set<String> noteTagsSet = new HashSet<String>();
             for (Long tagId : note.getTagIds()) {
-                noteTagsSet.add(dao.findTagById(tagId).getTagText());
+                noteTagsSet.add(DocumentNoteDAO.get().findTagById(tagId).getTagText());
             }
             isResult = true;
             for (String tag : tagsList) {
@@ -313,10 +312,10 @@ public class SearchNoteDialog extends JDialog {
     }
 
     private void searchNotes(Set<Long> candidateDocuments) {
-        BookNoteDAO dao = BookHome.get().getBookNoteDAO();
         boolean caseSensitive = (caseSensitiveField.isSelected());
         boolean exactSearch = (exactSearchField.isSelected());
-        resultNoteList = dao.findAllNotesContainingText(candidateDocuments, noteTextField.getText().trim(), caseSensitive, exactSearch);
+        resultNoteList = DocumentNoteDAO.get().findAllNotesContainingText(candidateDocuments,
+                noteTextField.getText().trim(), caseSensitive, exactSearch);
     }
 
     public void updateResultPanel() {

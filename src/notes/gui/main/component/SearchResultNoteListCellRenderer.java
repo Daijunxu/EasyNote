@@ -1,6 +1,6 @@
 package notes.gui.main.component;
 
-import notes.bean.BookHome;
+import notes.dao.impl.DocumentNoteDAO;
 import notes.entity.Document;
 import notes.entity.Note;
 import notes.entity.article.ArticleNote;
@@ -42,7 +42,7 @@ public class SearchResultNoteListCellRenderer extends DefaultListCellRenderer {
 
         JPanel documentPanel = new JPanel();
         documentPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        Document document = BookHome.get().getBookNoteDAO().findDocumentById(note.getDocumentId());
+        Document document = DocumentNoteDAO.get().findDocumentById(note.getDocumentId());
         String documentTitle = document.getDocumentTitle();
         JLabel documentLabel = new JLabel();
         if (note instanceof WorksheetNote) {
@@ -75,7 +75,7 @@ public class SearchResultNoteListCellRenderer extends DefaultListCellRenderer {
         JPanel tagPanel = new JPanel();
         tagPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         for (Long tagId : note.getTagIds()) {
-            String tagText = BookHome.get().getBookNoteDAO().findTagById(tagId).getTagText();
+            String tagText = DocumentNoteDAO.get().findTagById(tagId).getTagText();
             JLabel tagLabel = new JLabel(tagText);
             tagLabel.setFont(new Font("Helvetica", Font.PLAIN, 11));
             tagLabel.setForeground(Color.WHITE);
