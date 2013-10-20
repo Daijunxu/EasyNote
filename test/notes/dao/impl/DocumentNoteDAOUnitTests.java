@@ -1,7 +1,6 @@
 package notes.dao.impl;
 
 import core.EasyNoteUnitTestCase;
-import notes.dao.NoteDAO;
 import notes.data.cache.Cache;
 import notes.entity.Document;
 import notes.entity.Note;
@@ -28,7 +27,7 @@ public class DocumentNoteDAOUnitTests extends EasyNoteUnitTestCase {
     /**
      * The data access object for the {@code NoteDAO}.
      */
-    private NoteDAO<Note, Document> dao = new BookNoteDAO();
+    private DocumentNoteDAO dao = DocumentNoteDAO.get();
 
     /**
      * Test method for {@link DocumentNoteDAO#deleteTag(notes.entity.Tag)}.

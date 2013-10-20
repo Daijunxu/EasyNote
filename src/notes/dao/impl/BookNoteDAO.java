@@ -26,6 +26,15 @@ import java.util.TreeMap;
  */
 public class BookNoteDAO extends DocumentNoteDAO {
 
+    private static final BookNoteDAO instance = new BookNoteDAO();
+
+    private BookNoteDAO() {
+    }
+
+    public static BookNoteDAO get() {
+        return instance;
+    }
+
     /**
      * Deletes a chapter and all its notes.
      *

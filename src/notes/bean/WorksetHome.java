@@ -52,7 +52,7 @@ public class WorksetHome implements Serializable {
      * Constructs an instance of {@code WorksetHome}.
      */
     private WorksetHome() {
-        worksheetNoteDAO = new WorksheetNoteDAO();
+        worksheetNoteDAO = WorksheetNoteDAO.get();
     }
 
     /**

@@ -33,7 +33,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
     /**
      * The data access object for the {@code WorksheetNoteDAO}.
      */
-    private WorksheetNoteDAO dao = new WorksheetNoteDAO();
+    private WorksheetNoteDAO dao = WorksheetNoteDAO.get();
 
     /**
      * Test method for

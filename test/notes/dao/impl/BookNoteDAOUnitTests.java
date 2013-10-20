@@ -30,7 +30,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
     /**
      * The data access object for the {@code BookNoteDAO}.
      */
-    private BookNoteDAO dao = new BookNoteDAO();
+    private BookNoteDAO dao = BookNoteDAO.get();
 
     /**
      * Test method for

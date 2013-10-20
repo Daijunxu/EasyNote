@@ -43,7 +43,7 @@ public class ArticleHome {
      * Constructs an instance of {@code ArticleHome}.
      */
     private ArticleHome() {
-        articleNoteDAO = new ArticleNoteDAO();
+        articleNoteDAO = ArticleNoteDAO.get();
     }
 
     /**

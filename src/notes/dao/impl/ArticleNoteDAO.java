@@ -22,6 +22,15 @@ import java.util.Set;
  */
 public class ArticleNoteDAO extends DocumentNoteDAO {
 
+    private static final ArticleNoteDAO instance = new ArticleNoteDAO();
+
+    private ArticleNoteDAO() {
+    }
+
+    public static ArticleNoteDAO get() {
+        return instance;
+    }
+
     /**
      * {@inheritDoc}
      */

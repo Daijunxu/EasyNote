@@ -50,7 +50,7 @@ public class BookHome {
      * Constructs an instance of {@code BookHome}.
      */
     private BookHome() {
-        bookNoteDAO = new BookNoteDAO();
+        bookNoteDAO = BookNoteDAO.get();
     }
 
     /**

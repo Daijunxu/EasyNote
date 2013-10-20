@@ -27,6 +27,15 @@ import java.util.Set;
  */
 public class WorksheetNoteDAO extends DocumentNoteDAO {
 
+    private static final WorksheetNoteDAO instance = new WorksheetNoteDAO();
+
+    private WorksheetNoteDAO() {
+    }
+
+    public static WorksheetNoteDAO get() {
+        return instance;
+    }
+
     /**
      * Deletes a worksheet and all its notes.
      *

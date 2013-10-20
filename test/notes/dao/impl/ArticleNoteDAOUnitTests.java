@@ -27,7 +27,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
     /**
      * The data access object for the {@code ArticleNoteDAO}.
      */
-    private ArticleNoteDAO dao = new ArticleNoteDAO();
+    private ArticleNoteDAO dao = ArticleNoteDAO.get();
 
     /**
      * Test method for

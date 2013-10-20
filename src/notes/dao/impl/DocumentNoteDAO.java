@@ -21,6 +21,15 @@ import java.util.Set;
  */
 public class DocumentNoteDAO implements NoteDAO<Note, Document> {
 
+    private static final DocumentNoteDAO instance = new DocumentNoteDAO();
+
+    protected DocumentNoteDAO() {
+    }
+
+    public static DocumentNoteDAO get() {
+        return instance;
+    }
+
     @Override
     public void deleteDocument(Document document) {
         throw new UnsupportedOperationException("This method should not be called here.");
