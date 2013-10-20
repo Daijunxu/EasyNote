@@ -19,7 +19,17 @@ import java.util.Set;
  *
  * @author Rui Du
  */
-public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
+public class DocumentNoteDAO implements NoteDAO<Note, Document> {
+
+    @Override
+    public void deleteDocument(Document document) {
+        throw new UnsupportedOperationException("This method should not be called here.");
+    }
+
+    @Override
+    public void deleteNote(Note note) {
+        throw new UnsupportedOperationException("This method should not be called here.");
+    }
 
     /**
      * {@inheritDoc}
@@ -65,6 +75,11 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
         }
         Collections.sort(noteList);
         return noteList;
+    }
+
+    @Override
+    public List<Note> findAllNotesByDocumentId(Long documentId) {
+        throw new UnsupportedOperationException("This method should not be called here.");
     }
 
     /**
@@ -234,6 +249,16 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
         return Cache.get().getTagCache().getTagTextMap().get(tagText);
     }
 
+    @Override
+    public Document updateDocument(Document document) {
+        throw new UnsupportedOperationException("This method should not be called here.");
+    }
+
+    @Override
+    public Note updateNote(Note note) {
+        throw new UnsupportedOperationException("This method should not be called here.");
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -247,6 +272,16 @@ public abstract class AbstractNoteDAO implements NoteDAO<Note, Document> {
             return updateTag;
         }
         return null;
+    }
+
+    @Override
+    public Document saveDocument(Document document) {
+        throw new UnsupportedOperationException("This method should not be called here.");
+    }
+
+    @Override
+    public Note saveNote(Note note) {
+        throw new UnsupportedOperationException("This method should not be called here.");
     }
 
     /**

@@ -25,7 +25,7 @@ import java.util.Set;
  * Date: 10/1/13
  * Time: 12:22 AM
  */
-public class WorksheetNoteDAO extends AbstractNoteDAO {
+public class WorksheetNoteDAO extends DocumentNoteDAO {
 
     /**
      * Deletes a worksheet and all its notes.
@@ -150,21 +150,6 @@ public class WorksheetNoteDAO extends AbstractNoteDAO {
         }
         Collections.sort(noteList);
         return noteList;
-    }
-
-    /**
-     * Updates the worksheetIds list of a workset.
-     *
-     * @param documentId       The document ID of the workset.
-     * @param worksheetIdsList The updated list of worksheetIds.
-     * @return {@code Workset} The updated workset object.
-     */
-    // TODO: do we need this?
-    public Workset updateWorksheetsOrder(Long documentId, List<Long> worksheetIdsList) {
-        Workset cachedWorkset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(documentId));
-        cachedWorkset.setWorksheetIdsList(worksheetIdsList);
-
-        return cachedWorkset;
     }
 
     /**

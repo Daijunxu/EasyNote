@@ -20,7 +20,7 @@ import java.util.Set;
  *
  * @author Rui Du
  */
-public class ArticleNoteDAO extends AbstractNoteDAO {
+public class ArticleNoteDAO extends DocumentNoteDAO {
 
     /**
      * {@inheritDoc}

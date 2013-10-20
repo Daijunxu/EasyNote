@@ -24,7 +24,7 @@ import java.util.TreeMap;
  *
  * @author Rui Du
  */
-public class BookNoteDAO extends AbstractNoteDAO {
+public class BookNoteDAO extends DocumentNoteDAO {
 
     /**
      * Deletes a chapter and all its notes.

@@ -19,11 +19,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Unit tests for the {@code AbstractNoteDAO}.
+ * Unit tests for the {@code DocumentNoteDAO}.
  *
  * @author Rui Du
  */
-public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
+public class DocumentNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * The data access object for the {@code NoteDAO}.
@@ -31,7 +31,7 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
     private NoteDAO<Note, Document> dao = new BookNoteDAO();
 
     /**
-     * Test method for {@link notes.dao.impl.AbstractNoteDAO#deleteTag(notes.entity.Tag)}.
+     * Test method for {@link DocumentNoteDAO#deleteTag(notes.entity.Tag)}.
      */
     @Test
     public void testDeleteTag() {
@@ -49,7 +49,7 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.AbstractNoteDAO#findAllDocuments()}.
+     * Test method for {@link DocumentNoteDAO#findAllDocuments()}.
      */
     @Test
     public void testFindAllDocuments() {
@@ -64,7 +64,7 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.AbstractNoteDAO#findAllNotes()}.
+     * Test method for {@link DocumentNoteDAO#findAllNotes()}.
      */
     @Test
     public void testFindAllNotes() {
@@ -79,7 +79,7 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.AbstractNoteDAO#findAllNotesByTagId(java.lang.Long)}.
+     * Test method for {@link DocumentNoteDAO#findAllNotesByTagId(java.lang.Long)}.
      */
     @Test
     public void testFindAllNotesByTagId() {
@@ -93,7 +93,7 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.AbstractNoteDAO#findAllNotesContainingText(java.util.Set, String, boolean, boolean)}
+     * {@link DocumentNoteDAO#findAllNotesContainingText(java.util.Set, String, boolean, boolean)}
      * .
      */
     @Test
@@ -133,7 +133,7 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.AbstractNoteDAO#findAllNotesContainingText(java.util.Set, String, boolean, boolean)}
+     * {@link DocumentNoteDAO#findAllNotesContainingText(java.util.Set, String, boolean, boolean)}
      * .
      */
     @Test
@@ -181,7 +181,7 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.AbstractNoteDAO#findAllTags()}.
+     * Test method for {@link DocumentNoteDAO#findAllTags()}.
      */
     @Test
     public void testFindAllTags() {
@@ -196,7 +196,7 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.AbstractNoteDAO#findDocumentById(java.lang.Long)}.
+     * Test method for {@link DocumentNoteDAO#findDocumentById(java.lang.Long)}.
      */
     @Test
     public void testFindDocumentById() {
@@ -207,7 +207,7 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.AbstractNoteDAO#findNoteById(java.lang.Long)}.
+     * Test method for {@link DocumentNoteDAO#findNoteById(java.lang.Long)}.
      */
     @Test
     public void testFindNoteById() {
@@ -218,7 +218,7 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.AbstractNoteDAO#findTagById(java.lang.Long)}.
+     * Test method for {@link DocumentNoteDAO#findTagById(java.lang.Long)}.
      */
     @Test
     public void testFindTagById() {
@@ -229,7 +229,7 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.AbstractNoteDAO#findTagByText(java.lang.String)}.
+     * Test method for {@link DocumentNoteDAO#findTagByText(java.lang.String)}.
      */
     @Test
     public void testFindTagByText() {
@@ -240,7 +240,7 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.AbstractNoteDAO#updateTag(notes.entity.Tag)}.
+     * Test method for {@link DocumentNoteDAO#updateTag(notes.entity.Tag)}.
      */
     @Test
     public void testUpdateTag() {
@@ -258,7 +258,7 @@ public class AbstractNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.AbstractNoteDAO#saveTag(notes.entity.Tag)}.
+     * Test method for {@link DocumentNoteDAO#saveTag(notes.entity.Tag)}.
      */
     @Test
     public void testSaveTag() {
