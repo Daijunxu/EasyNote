@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
  *
  * @author Rui Du
  */
+@Deprecated
 public class ArticleNoteListMouseListener extends MouseAdapter {
 
     private void doPop(MouseEvent event) {

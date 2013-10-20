@@ -18,7 +18,6 @@ import notes.entity.book.Chapter;
 import notes.entity.workset.Workset;
 import notes.entity.workset.Worksheet;
 import notes.entity.workset.WorksheetNote;
-import notes.gui.article.event.ArticleNoteListMouseListener;
 import notes.gui.article.event.DeleteArticleActionListener;
 import notes.gui.article.event.DeleteArticleNoteActionListener;
 import notes.gui.article.event.EditArticleActionListener;
@@ -27,8 +26,6 @@ import notes.gui.article.event.ExportArticleEventListener;
 import notes.gui.article.event.NewArticleActionListener;
 import notes.gui.article.event.NewArticleNoteActionListener;
 import notes.gui.book.component.ChapterListCellRenderer;
-import notes.gui.book.event.BookNoteListMouseListener;
-import notes.gui.book.event.ChapterListMouseListener;
 import notes.gui.book.event.ChapterListSelectionListener;
 import notes.gui.book.event.DeleteBookActionListener;
 import notes.gui.book.event.DeleteBookNoteActionListener;
@@ -42,9 +39,11 @@ import notes.gui.book.event.NewBookNoteActionListener;
 import notes.gui.book.event.NewChapterActionListener;
 import notes.gui.main.event.AboutActionListener;
 import notes.gui.main.event.CloseDocumentEventListener;
+import notes.gui.main.event.IndexListMouseListener;
 import notes.gui.main.event.MainPanelComponentListener;
 import notes.gui.main.event.MainPanelWindowListener;
 import notes.gui.main.event.MainPanelWindowStateListener;
+import notes.gui.main.event.NoteListMouseListener;
 import notes.gui.main.event.NoteListSelectionListener;
 import notes.gui.main.event.OpenDocumentActionListener;
 import notes.gui.main.event.OpenPreferencesActionListener;
@@ -62,9 +61,7 @@ import notes.gui.workset.event.ExportWorksetActionListener;
 import notes.gui.workset.event.NewWorksetActionListener;
 import notes.gui.workset.event.NewWorksheetActionListener;
 import notes.gui.workset.event.NewWorksheetNoteActionListener;
-import notes.gui.workset.event.WorksheetListMouseListener;
 import notes.gui.workset.event.WorksheetListSelectionListener;
-import notes.gui.workset.event.WorksheetNoteListMouseListener;
 import notes.utils.SoundFactory;
 
 import javax.swing.*;
@@ -497,7 +494,7 @@ public class MainPanel extends JFrame {
         chaptersList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         chaptersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         chaptersList.addListSelectionListener(new ChapterListSelectionListener());
-        chaptersList.addMouseListener(new ChapterListMouseListener());
+        chaptersList.addMouseListener(new IndexListMouseListener());
         JScrollPane chaptersScrollPane = new JScrollPane(chaptersList);
         chaptersScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
         indexPanel = new JPanel();
@@ -529,7 +526,7 @@ public class MainPanel extends JFrame {
         worksheetsList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         worksheetsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         worksheetsList.addListSelectionListener(new WorksheetListSelectionListener());
-        worksheetsList.addMouseListener(new WorksheetListMouseListener());
+        worksheetsList.addMouseListener(new IndexListMouseListener());
         JScrollPane worksheetsScrollPane = new JScrollPane(worksheetsList);
         worksheetsScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
         indexPanel = new JPanel();
@@ -594,11 +591,8 @@ public class MainPanel extends JFrame {
         notesList.setFixedCellWidth(notesListWidth);
         notesList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         notesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        if (currentMode.equals(SystemMode.WORKSET)) {
-            notesList.addMouseListener(new WorksheetNoteListMouseListener());
-        } else if (currentMode.equals(SystemMode.BOOK)) {
-            notesList.addMouseListener(new BookNoteListMouseListener());
-        }
+        notesList.addMouseListener(new NoteListMouseListener());
+
         JScrollPane notesScrollPane = new JScrollPane(notesList);
         notesScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
         notesPanel = new JPanel();
@@ -779,7 +773,7 @@ public class MainPanel extends JFrame {
         notesList.setFixedCellWidth(notesListWidth);
         notesList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         notesList.addListSelectionListener(new NoteListSelectionListener());
-        notesList.addMouseListener(new ArticleNoteListMouseListener());
+        notesList.addMouseListener(new NoteListMouseListener());
         if (articleHome.getCurrentArticleNote() != null) {
             notesList.setSelectedValue(articleHome.getCurrentArticleNote(), false);
         }
@@ -835,7 +829,7 @@ public class MainPanel extends JFrame {
         notesList.setFixedCellWidth(notesListWidth);
         notesList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         notesList.addListSelectionListener(new NoteListSelectionListener());
-        notesList.addMouseListener(new BookNoteListMouseListener());
+        notesList.addMouseListener(new NoteListMouseListener());
 
         JScrollPane notesScrollPane = new JScrollPane(notesList);
         notesScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
@@ -887,7 +881,7 @@ public class MainPanel extends JFrame {
         notesList.setFixedCellWidth(notesListWidth);
         notesList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         notesList.addListSelectionListener(new NoteListSelectionListener());
-        notesList.addMouseListener(new WorksheetNoteListMouseListener());
+        notesList.addMouseListener(new NoteListMouseListener());
 
         JScrollPane notesScrollPane = new JScrollPane(notesList);
         notesScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));

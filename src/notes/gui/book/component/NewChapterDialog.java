@@ -81,9 +81,8 @@ public class NewChapterDialog extends JDialog {
             setVisible(false);
         }
     });
-    private final JTextArea documentField = new JTextArea(2, 50);
     private final JTextField chapterIdField = new JTextField();
-    private final JTextArea chapterField = new JTextArea(2, 50);
+    private final JTextArea chapterField = new JTextArea(2, 30);
 
     /**
      * Creates an instance of {@code NewChapterDialog}.
@@ -92,7 +91,6 @@ public class NewChapterDialog extends JDialog {
         super(MainPanel.get(), "Create Chapter", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         MainPanel frame = MainPanel.get();
-        BookHome home = BookHome.get();
 
         JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
@@ -106,35 +104,22 @@ public class NewChapterDialog extends JDialog {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
-        c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
-        chapterPanel.add(new JLabel("Document:"), c);
-
-        c.gridx = 1;
-        c.gridy = 0;
-        c.insets = new Insets(5, 5, 5, 5);
-        documentField.setLineWrap(true);
-        documentField.setText(home.getCurrentBook().getDocumentTitle());
-        documentField.setEditable(false);
-        chapterPanel.add(new JScrollPane(documentField), c);
-
-        c.gridx = 0;
-        c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         chapterPanel.add(new JLabel("Chapter ID:"), c);
 
         c.gridx = 1;
-        c.gridy = 1;
+        c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         chapterIdField.setInputVerifier(new IdInputVerifier());
         chapterPanel.add(chapterIdField, c);
 
         c.gridx = 0;
-        c.gridy = 2;
+        c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         chapterPanel.add(new JLabel("Chapter Title:"), c);
 
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         chapterField.setLineWrap(true);
         chapterPanel.add(new JScrollPane(chapterField), c);

@@ -82,9 +82,8 @@ public class EditChapterDialog extends JDialog {
             setVisible(false);
         }
     });
-    private final JTextArea documentField = new JTextArea(2, 50);
     private final JTextField chapterIdField = new JTextField();
-    private final JTextArea chapterField = new JTextArea(2, 50);
+    private final JTextArea chapterField = new JTextArea(2, 30);
 
     /**
      * Creates an instance of {@code EditChapterDialog}.
@@ -107,36 +106,23 @@ public class EditChapterDialog extends JDialog {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
-        c.insets = new Insets(5, 5, 5, 5); // Top, left, bottom, right.
-        chapterPanel.add(new JLabel("Document:"), c);
-
-        c.gridx = 1;
-        c.gridy = 0;
-        c.insets = new Insets(5, 5, 5, 5);
-        documentField.setLineWrap(true);
-        documentField.setText(home.getCurrentBook().getDocumentTitle());
-        documentField.setEditable(false);
-        chapterPanel.add(new JScrollPane(documentField), c);
-
-        c.gridx = 0;
-        c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         chapterPanel.add(new JLabel("Chapter ID:"), c);
 
         c.gridx = 1;
-        c.gridy = 1;
+        c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         chapterIdField.setInputVerifier(new IdInputVerifier());
         chapterIdField.setText(home.getCurrentChapter().getChapterId().toString());
         chapterPanel.add(chapterIdField, c);
 
         c.gridx = 0;
-        c.gridy = 2;
+        c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         chapterPanel.add(new JLabel("Chapter:"), c);
 
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         chapterField.setLineWrap(true);
         chapterField.setText(home.getCurrentChapter().getChapterTitle());

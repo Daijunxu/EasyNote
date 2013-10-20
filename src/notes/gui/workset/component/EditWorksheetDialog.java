@@ -71,7 +71,7 @@ public class EditWorksheetDialog extends JDialog {
             setVisible(false);
         }
     });
-    private final JTextField worksheetTitleField = new JTextField(50);
+    private final JTextField worksheetTitleField = new JTextField(30);
 
     /**
      * Creates an instance of {@code EditWorksheetDialog}.

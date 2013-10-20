@@ -77,7 +77,6 @@ public class NewWorksheetDialog extends JDialog {
         super(MainPanel.get(), "Create Worksheet", true);
         setIconImage(new ImageIcon("./resources/images/workset.gif").getImage());
         MainPanel frame = MainPanel.get();
-        WorksetHome home = WorksetHome.get();
 
         JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
