@@ -88,7 +88,7 @@ public class NewArticleDialog extends JDialog {
                 documentTitleField.requestFocus();
             } else {
                 // Update the note panel.
-                frame.setArticlePanel(home.getCurrentArticle(), null);
+                frame.setArticlePanel(savedArticle, null);
 
                 SoundFactory.playUpdate();
 

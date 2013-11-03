@@ -114,7 +114,7 @@ public class NewBookDialog extends JDialog {
                 documentTitleField.requestFocus();
             } else {
                 // Reset the book panel.
-                frame.setBookPanel(home.getCurrentBook(), null);
+                frame.setBookPanel(savedBook, null);
 
                 SoundFactory.playUpdate();
 

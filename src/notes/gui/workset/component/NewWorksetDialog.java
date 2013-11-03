@@ -83,7 +83,7 @@ public class NewWorksetDialog extends JDialog {
                 documentTitleField.requestFocus();
             } else {
                 // Reset the workset panel.
-                frame.setWorksetPanel(home.getCurrentWorkset(), null);
+                frame.setWorksetPanel(savedWorkset, null);
 
                 SoundFactory.playUpdate();
                 setVisible(false);
