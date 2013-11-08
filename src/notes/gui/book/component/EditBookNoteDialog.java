@@ -101,7 +101,7 @@ public class EditBookNoteDialog extends JDialog {
         }
     });
     private final JComboBox chapterField = new JComboBox();
-    private final JTextArea noteTextField = new JTextArea(20, 50);
+    private final JTextArea noteTextField = new JTextArea(25, 80);
     private final JTextField tagsField = new JTextField();
     private final JLabel createdTimeField = new JLabel();
 
