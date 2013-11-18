@@ -90,7 +90,7 @@ public class NewArticleNoteDialog extends JDialog {
         }
     });
     private final JTextArea documentField = new JTextArea(2, 50);
-    private final JTextArea noteTextField = new JTextArea(20, 50);
+    private final JTextArea noteTextField = new JTextArea(25, 80);
     private final JTextField tagsField = new JTextField();
 
     /**
