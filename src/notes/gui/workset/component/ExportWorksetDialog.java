@@ -1,8 +1,8 @@
 package notes.gui.workset.component;
 
-import notes.bean.WorksetHome;
+import notes.businesslogic.WorksetBusinessLogic;
 import notes.data.persistence.Property;
-import notes.entity.workset.Workset;
+import notes.businessobjects.workset.Workset;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.PreferencesDialog;
 import notes.utils.SoundFactory;
@@ -19,7 +19,7 @@ import java.io.Writer;
 /**
  * Defines the dialog and event listener for exporting current workset.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class ExportWorksetDialog extends JDialog {
 
@@ -30,7 +30,7 @@ public class ExportWorksetDialog extends JDialog {
         super(MainPanel.get(), "Choose Location to Export Current Workset", true);
         setIconImage(new ImageIcon("./resources/images/workset.gif").getImage());
 
-        final Workset workset = WorksetHome.get().getCurrentWorkset();
+        final Workset workset = WorksetBusinessLogic.get().getCurrentWorkset();
 
         final JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));

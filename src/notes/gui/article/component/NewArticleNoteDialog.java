@@ -1,9 +1,9 @@
 package notes.gui.article.component;
 
-import notes.bean.ArticleHome;
+import notes.businesslogic.ArticleBusinessLogic;
 import notes.dao.impl.ArticleNoteDAO;
-import notes.entity.Tag;
-import notes.entity.article.ArticleNote;
+import notes.businessobjects.Tag;
+import notes.businessobjects.article.ArticleNote;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.validation.NoteTextInputValidator;
 import notes.gui.main.validation.TagsInputValidator;
@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Defines the dialog and event listener for creating a article note.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class NewArticleNoteDialog extends JDialog {
     private final JButton okButton = new JButton(new AbstractAction("OK") {
@@ -46,12 +46,12 @@ public class NewArticleNoteDialog extends JDialog {
             }
 
             MainPanel frame = MainPanel.get();
-            ArticleHome home = ArticleHome.get();
-            ArticleNoteDAO dao = home.getArticleNoteDAO();
+            ArticleBusinessLogic logic = ArticleBusinessLogic.get();
+            ArticleNoteDAO dao = logic.getArticleNoteDAO();
 
             // Create instance of the created article note.
             ArticleNote createdArticleNote = new ArticleNote();
-            createdArticleNote.setDocumentId(home.getCurrentArticle().getDocumentId());
+            createdArticleNote.setDocumentId(logic.getCurrentArticle().getDocumentId());
             List<Long> tagsList = new ArrayList<Long>();
             for (String tagStr : tagsStrList) {
                 // Set the new tag IDs, save tags if they are new.
@@ -71,8 +71,8 @@ public class NewArticleNoteDialog extends JDialog {
             // Save the created article note.
             ArticleNote cachedArticleNote = (ArticleNote) (dao.saveNote(createdArticleNote));
 
-            // Update temporary data in the ArticleHome.
-            home.updateTemporaryData(home.getCurrentArticle().getDocumentId(),
+            // Update temporary data in the ArticleBusinessLogic.
+            logic.updateTemporaryData(logic.getCurrentArticle().getDocumentId(),
                     cachedArticleNote.getNoteId());
 
             // Update the note panel.
@@ -100,7 +100,7 @@ public class NewArticleNoteDialog extends JDialog {
         super(MainPanel.get(), "Create Article Note", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         MainPanel frame = MainPanel.get();
-        ArticleHome home = ArticleHome.get();
+        ArticleBusinessLogic logic = ArticleBusinessLogic.get();
 
         JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
@@ -121,7 +121,7 @@ public class NewArticleNoteDialog extends JDialog {
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         documentField.setLineWrap(true);
-        documentField.setText(home.getCurrentArticle().getDocumentTitle());
+        documentField.setText(logic.getCurrentArticle().getDocumentTitle());
         documentField.setEditable(false);
         notePanel.add(new JScrollPane(documentField), c);
 

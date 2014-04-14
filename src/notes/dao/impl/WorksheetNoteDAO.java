@@ -2,11 +2,11 @@ package notes.dao.impl;
 
 import notes.dao.DuplicateRecordException;
 import notes.data.cache.Cache;
-import notes.entity.Document;
-import notes.entity.Note;
-import notes.entity.workset.Workset;
-import notes.entity.workset.Worksheet;
-import notes.entity.workset.WorksheetNote;
+import notes.businessobjects.Document;
+import notes.businessobjects.Note;
+import notes.businessobjects.workset.Workset;
+import notes.businessobjects.workset.Worksheet;
+import notes.businessobjects.workset.WorksheetNote;
 
 import java.security.InvalidKeyException;
 import java.util.ArrayList;

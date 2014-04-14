@@ -1,7 +1,7 @@
 package notes.data.cache;
 
 import core.EasyNoteUnitTestCase;
-import notes.entity.Note;
+import notes.businessobjects.Note;
 import org.dom4j.Element;
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Unit tests for the {@code NoteCache}.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class NoteCacheUnitTests extends EasyNoteUnitTestCase {
 

@@ -2,10 +2,10 @@ package notes.dao.impl;
 
 import core.EasyNoteUnitTestCase;
 import notes.data.cache.Cache;
-import notes.entity.Note;
-import notes.entity.workset.Workset;
-import notes.entity.workset.Worksheet;
-import notes.entity.workset.WorksheetNote;
+import notes.businessobjects.Note;
+import notes.businessobjects.workset.Workset;
+import notes.businessobjects.workset.Worksheet;
+import notes.businessobjects.workset.WorksheetNote;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.WorksheetNoteDAO#deleteWorksheet(notes.entity.workset.Worksheet, Long)}
+     * {@link notes.dao.impl.WorksheetNoteDAO#deleteWorksheet(notes.businessobjects.workset.Worksheet, Long)}
      */
     @Test
     public void testDeleteWorksheet() {
@@ -53,7 +53,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#deleteDocument(notes.entity.Document)}.
+     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#deleteDocument(notes.businessobjects.Document)}.
      */
     @Test
     public void testDeleteDocument() {
@@ -72,7 +72,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#deleteNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#deleteNote(notes.businessobjects.Note)}.
      */
     @Test
     public void testDeleteNote() {
@@ -124,7 +124,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.WorksheetNoteDAO#updateWorksheet(notes.entity.workset.Worksheet, Long, Long)}.
+     * {@link notes.dao.impl.WorksheetNoteDAO#updateWorksheet(notes.businessobjects.workset.Worksheet, Long, Long)}.
      */
     @Test
     public void testUpdateWorksheet() {
@@ -148,7 +148,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#updateDocument(notes.entity.Document)}.
+     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#updateDocument(notes.businessobjects.Document)}.
      */
     @Test
     public void testUpdateDocument() {
@@ -175,7 +175,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#updateNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#updateNote(notes.businessobjects.Note)}.
      */
     @Test
     public void testUpdateNote() {
@@ -201,7 +201,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.WorksheetNoteDAO#saveWorksheet(notes.entity.workset.Worksheet, java.lang.Long)}.
+     * {@link notes.dao.impl.WorksheetNoteDAO#saveWorksheet(notes.businessobjects.workset.Worksheet, java.lang.Long)}.
      */
     @Test
     public void testSaveWorksheet() {
@@ -217,7 +217,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#saveDocument(notes.entity.Document)}.
+     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#saveDocument(notes.businessobjects.Document)}.
      */
     @Test
     public void testSaveDocument() {
@@ -247,7 +247,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#saveNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#saveNote(notes.businessobjects.Note)}.
      */
     @Test
     public void testSaveNote() {

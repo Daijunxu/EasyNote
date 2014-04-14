@@ -1,11 +1,11 @@
 package notes.gui.article.component;
 
-import notes.bean.ArticleHome;
+import notes.businesslogic.ArticleBusinessLogic;
 import notes.dao.impl.ArticleNoteDAO;
-import notes.entity.Note;
-import notes.entity.Tag;
-import notes.entity.article.Article;
-import notes.entity.article.ArticleNote;
+import notes.businessobjects.Note;
+import notes.businessobjects.Tag;
+import notes.businessobjects.article.Article;
+import notes.businessobjects.article.ArticleNote;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.SearchNoteDialog;
 import notes.gui.main.validation.NoteTextInputValidator;
@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Defines the dialog and event listener for editing an article note.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class EditArticleNoteDialog extends JDialog {
     private final ArticleNote selectedNote;
@@ -50,8 +50,8 @@ public class EditArticleNoteDialog extends JDialog {
             }
 
             MainPanel frame = MainPanel.get();
-            ArticleHome home = ArticleHome.get();
-            ArticleNoteDAO dao = home.getArticleNoteDAO();
+            ArticleBusinessLogic logic = ArticleBusinessLogic.get();
+            ArticleNoteDAO dao = logic.getArticleNoteDAO();
 
             List<Long> updatedTagsList = new ArrayList<Long>();
             for (String tagStr : tagsStrList) {
@@ -104,7 +104,7 @@ public class EditArticleNoteDialog extends JDialog {
 
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         MainPanel frame = MainPanel.get();
-        ArticleHome home = ArticleHome.get();
+        ArticleBusinessLogic logic = ArticleBusinessLogic.get();
 
         JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
@@ -140,7 +140,7 @@ public class EditArticleNoteDialog extends JDialog {
         StringBuilder tagStrBuilder = new StringBuilder();
         if (!selectedNote.getTagIds().isEmpty()) {
             for (Long tagId : selectedNote.getTagIds()) {
-                tagStrBuilder.append(home.getArticleNoteDAO().findTagById(tagId).getTagText()).append(", ");
+                tagStrBuilder.append(logic.getArticleNoteDAO().findTagById(tagId).getTagText()).append(", ");
             }
             tagStrBuilder.delete(tagStrBuilder.length() - 2, tagStrBuilder.length());
         }

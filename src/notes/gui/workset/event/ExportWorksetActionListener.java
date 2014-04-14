@@ -1,6 +1,6 @@
 package notes.gui.workset.event;
 
-import notes.bean.WorksetHome;
+import notes.businesslogic.WorksetBusinessLogic;
 import notes.gui.workset.component.ExportWorksetDialog;
 import notes.utils.SoundFactory;
 
@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 /**
  * The event listener for exporting current workset.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class ExportWorksetActionListener implements ActionListener {
 
@@ -20,7 +20,7 @@ public class ExportWorksetActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-        if (WorksetHome.get().getCurrentWorkset() == null) {
+        if (WorksetBusinessLogic.get().getCurrentWorkset() == null) {
             SoundFactory.playError();
             JOptionPane.showMessageDialog(null, "No workset is selected!", "Input error",
                     JOptionPane.ERROR_MESSAGE);

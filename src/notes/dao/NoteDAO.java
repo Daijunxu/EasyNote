@@ -1,8 +1,8 @@
 package notes.dao;
 
-import notes.entity.Document;
-import notes.entity.Note;
-import notes.entity.Tag;
+import notes.businessobjects.Document;
+import notes.businessobjects.Note;
+import notes.businessobjects.Tag;
 
 import java.util.List;
 import java.util.Set;
@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * An interface to describe the data access object for notes.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public interface NoteDAO<N extends Note, D extends Document> {
 

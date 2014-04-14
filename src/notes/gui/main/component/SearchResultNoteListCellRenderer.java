@@ -1,13 +1,13 @@
 package notes.gui.main.component;
 
 import notes.dao.impl.DocumentNoteDAO;
-import notes.entity.Document;
-import notes.entity.Note;
-import notes.entity.article.ArticleNote;
-import notes.entity.book.BookNote;
-import notes.entity.workset.Workset;
-import notes.entity.workset.Worksheet;
-import notes.entity.workset.WorksheetNote;
+import notes.businessobjects.Document;
+import notes.businessobjects.Note;
+import notes.businessobjects.article.ArticleNote;
+import notes.businessobjects.book.BookNote;
+import notes.businessobjects.workset.Workset;
+import notes.businessobjects.workset.Worksheet;
+import notes.businessobjects.workset.WorksheetNote;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ import java.awt.*;
 /**
  * Defines the cell renderer for the notes' JList in note search dialog.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class SearchResultNoteListCellRenderer extends DefaultListCellRenderer {
     private final String HTML_1 = "<html><body style='width: ";

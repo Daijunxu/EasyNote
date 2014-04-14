@@ -1,6 +1,6 @@
 package notes.gui.workset.component;
 
-import notes.bean.WorksetHome;
+import notes.businesslogic.WorksetBusinessLogic;
 import notes.gui.workset.event.DeleteWorksheetActionListener;
 import notes.gui.workset.event.EditWorksheetActionListener;
 import notes.gui.workset.event.NewWorksheetActionListener;
@@ -10,7 +10,7 @@ import javax.swing.*;
 /**
  * Pops up when right clicking a Workset in the worksheet panel.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class WorksheetPopupMenu extends JPopupMenu {
 
@@ -28,7 +28,7 @@ public class WorksheetPopupMenu extends JPopupMenu {
         editItem.addActionListener(new EditWorksheetActionListener());
         deleteItem = new JMenuItem("Delete");
         deleteItem.addActionListener(new DeleteWorksheetActionListener());
-        if (WorksetHome.get().getCurrentWorksheet() == null) {
+        if (WorksetBusinessLogic.get().getCurrentWorksheet() == null) {
             editItem.setEnabled(false);
             deleteItem.setEnabled(false);
         }

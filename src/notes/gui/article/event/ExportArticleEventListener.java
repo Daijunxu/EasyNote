@@ -1,6 +1,6 @@
 package notes.gui.article.event;
 
-import notes.bean.ArticleHome;
+import notes.businesslogic.ArticleBusinessLogic;
 import notes.gui.article.component.ExportArticleDialog;
 import notes.utils.SoundFactory;
 
@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 /**
  * The event listener for exporting current article.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class ExportArticleEventListener implements ActionListener {
 
@@ -19,7 +19,7 @@ public class ExportArticleEventListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-        if (ArticleHome.get().getCurrentArticle() != null) {
+        if (ArticleBusinessLogic.get().getCurrentArticle() != null) {
             SoundFactory.playPopup();
             new ExportArticleDialog();
         }

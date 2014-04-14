@@ -1,6 +1,6 @@
 package notes.gui.main.event;
 
-import notes.entity.SystemMode;
+import notes.businessobjects.SystemMode;
 import notes.gui.book.component.ChapterPopupMenu;
 import notes.gui.main.component.MainPanel;
 import notes.gui.workset.component.WorksheetPopupMenu;

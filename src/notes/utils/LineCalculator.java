@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * Calculates how many lines of codes are there in current project.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class LineCalculator {
 

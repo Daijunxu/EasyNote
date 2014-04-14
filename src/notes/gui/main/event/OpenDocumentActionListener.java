@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 /**
  * The event listener for opening a document.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class OpenDocumentActionListener implements ActionListener {
 

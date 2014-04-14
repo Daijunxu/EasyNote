@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 /**
  * Defines the dialog and event listener for editing system preferences.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class PreferencesDialog extends JDialog {
 

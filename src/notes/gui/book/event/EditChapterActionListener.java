@@ -1,6 +1,6 @@
 package notes.gui.book.event;
 
-import notes.bean.BookHome;
+import notes.businesslogic.BookBusinessLogic;
 import notes.gui.book.component.EditChapterDialog;
 import notes.utils.SoundFactory;
 
@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 /**
  * Defines event listener of editing a chapter in a book.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class EditChapterActionListener implements ActionListener {
 
@@ -21,10 +21,10 @@ public class EditChapterActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
-            if (BookHome.get().getCurrentBook() == null) {
+            if (BookBusinessLogic.get().getCurrentBook() == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No book is selected!", "Input error", JOptionPane.ERROR_MESSAGE);
-            } else if (BookHome.get().getCurrentChapter() == null) {
+            } else if (BookBusinessLogic.get().getCurrentChapter() == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No chapter is selected!", "Input error", JOptionPane.ERROR_MESSAGE);
             } else {

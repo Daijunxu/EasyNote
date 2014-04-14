@@ -1,6 +1,6 @@
 package notes.gui.workset.event;
 
-import notes.bean.WorksetHome;
+import notes.businesslogic.WorksetBusinessLogic;
 import notes.gui.workset.component.NewWorksheetNoteDialog;
 import notes.utils.SoundFactory;
 
@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 /**
  * Defines event listener of creating a new worksheet note.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class NewWorksheetNoteActionListener implements ActionListener {
 
@@ -21,11 +21,11 @@ public class NewWorksheetNoteActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
-            if (WorksetHome.get().getCurrentWorkset() == null) {
+            if (WorksetBusinessLogic.get().getCurrentWorkset() == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No workset is selected!", "Input error",
                         JOptionPane.ERROR_MESSAGE);
-            } else if (WorksetHome.get().getCurrentWorksheet() == null) {
+            } else if (WorksetBusinessLogic.get().getCurrentWorksheet() == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No worksheet is selected!", "Input error",
                         JOptionPane.ERROR_MESSAGE);

@@ -1,7 +1,7 @@
 package notes.gui.article.event;
 
-import notes.bean.ArticleHome;
-import notes.entity.article.Article;
+import notes.businesslogic.ArticleBusinessLogic;
+import notes.businessobjects.article.Article;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 
@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 /**
  * Defines event listener of deleting an article.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class DeleteArticleActionListener implements ActionListener {
 
@@ -21,10 +21,10 @@ public class DeleteArticleActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-        ArticleHome home = ArticleHome.get();
+        ArticleBusinessLogic logic = ArticleBusinessLogic.get();
         MainPanel frame = MainPanel.get();
         try {
-            Article article = home.getCurrentArticle();
+            Article article = logic.getCurrentArticle();
             if (article == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No article is selected!", "Input error",
@@ -39,7 +39,7 @@ public class DeleteArticleActionListener implements ActionListener {
             if (result == 0) {
                 SoundFactory.playDelete();
                 // Delete the selected article.
-                home.getArticleNoteDAO().deleteDocument(article);
+                logic.getArticleNoteDAO().deleteDocument(article);
                 // Set up the default panel.
                 frame.setDefaultPanel();
             } else {

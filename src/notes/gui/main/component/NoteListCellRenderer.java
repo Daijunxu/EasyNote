@@ -1,7 +1,7 @@
 package notes.gui.main.component;
 
 import notes.dao.impl.DocumentNoteDAO;
-import notes.entity.Note;
+import notes.businessobjects.Note;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * Defines the cell renderer for the notes' JList.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class NoteListCellRenderer extends DefaultListCellRenderer {
     private int width;

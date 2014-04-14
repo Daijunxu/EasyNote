@@ -1,16 +1,16 @@
 package notes.gui.main.event;
 
 import notes.dao.impl.DocumentNoteDAO;
-import notes.entity.Document;
-import notes.entity.Note;
-import notes.entity.article.Article;
-import notes.entity.article.ArticleNote;
-import notes.entity.book.Book;
-import notes.entity.book.BookNote;
-import notes.entity.book.Chapter;
-import notes.entity.workset.Workset;
-import notes.entity.workset.Worksheet;
-import notes.entity.workset.WorksheetNote;
+import notes.businessobjects.Document;
+import notes.businessobjects.Note;
+import notes.businessobjects.article.Article;
+import notes.businessobjects.article.ArticleNote;
+import notes.businessobjects.book.Book;
+import notes.businessobjects.book.BookNote;
+import notes.businessobjects.book.Chapter;
+import notes.businessobjects.workset.Workset;
+import notes.businessobjects.workset.Worksheet;
+import notes.businessobjects.workset.WorksheetNote;
 import notes.gui.article.component.EditArticleNoteDialog;
 import notes.gui.book.component.EditBookNoteDialog;
 import notes.gui.main.component.SearchNotePopupMenu;
@@ -24,7 +24,7 @@ import java.awt.event.MouseEvent;
 /**
  * Mouse event listener for notes' JList in search note panel.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class SearchNoteListMouseListener extends MouseAdapter {
 

@@ -1,8 +1,8 @@
 package notes.gui.book.component;
 
-import notes.bean.BookHome;
+import notes.businesslogic.BookBusinessLogic;
 import notes.dao.impl.BookNoteDAO;
-import notes.entity.book.Chapter;
+import notes.businessobjects.book.Chapter;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.validation.IdInputVerifier;
 import notes.utils.SoundFactory;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Defines the dialog and event listener for creating a chapter.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class NewChapterDialog extends JDialog {
 
@@ -46,8 +46,8 @@ public class NewChapterDialog extends JDialog {
             }
 
             MainPanel frame = MainPanel.get();
-            BookHome home = BookHome.get();
-            BookNoteDAO dao = home.getBookNoteDAO();
+            BookBusinessLogic logic = BookBusinessLogic.get();
+            BookNoteDAO dao = logic.getBookNoteDAO();
 
             // Create instance of the created chapter.
             Chapter createdChapter = new Chapter();
@@ -57,11 +57,11 @@ public class NewChapterDialog extends JDialog {
             createdChapter.setNotesList(new ArrayList<Long>());
 
             // Save the created chapter.
-            Chapter cachedChapter = dao.saveChapter(createdChapter, home.getCurrentBook()
+            Chapter cachedChapter = dao.saveChapter(createdChapter, logic.getCurrentBook()
                     .getDocumentId());
             if (cachedChapter != null) {
                 // Update the chapter and note panel.
-                frame.updateBookPanel(home.getCurrentBook().getDocumentId(), cachedChapter.getChapterId(), null);
+                frame.updateBookPanel(logic.getCurrentBook().getDocumentId(), cachedChapter.getChapterId(), null);
 
                 SoundFactory.playUpdate();
 

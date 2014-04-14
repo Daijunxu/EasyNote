@@ -1,7 +1,7 @@
 package notes.gui.workset.component;
 
-import notes.entity.Note;
-import notes.entity.workset.WorksheetNote;
+import notes.businessobjects.Note;
+import notes.businessobjects.workset.WorksheetNote;
 import notes.gui.main.component.NoteListCellRenderer;
 
 import javax.swing.*;

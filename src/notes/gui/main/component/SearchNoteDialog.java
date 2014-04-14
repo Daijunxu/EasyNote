@@ -1,11 +1,11 @@
 package notes.gui.main.component;
 
-import notes.bean.ArticleHome;
-import notes.bean.BookHome;
-import notes.bean.WorksetHome;
+import notes.businesslogic.ArticleBusinessLogic;
+import notes.businesslogic.BookBusinessLogic;
+import notes.businesslogic.WorksetBusinessLogic;
 import notes.dao.impl.DocumentNoteDAO;
-import notes.entity.Document;
-import notes.entity.Note;
+import notes.businessobjects.Document;
+import notes.businessobjects.Note;
 import notes.gui.main.event.SearchNoteDialogWindowListener;
 import notes.gui.main.event.SearchNoteListMouseListener;
 import notes.utils.EntityHelper;
@@ -25,7 +25,7 @@ import java.util.Set;
 /**
  * Defines the dialog and event listener for searching notes.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class SearchNoteDialog extends JDialog {
 
@@ -39,11 +39,11 @@ public class SearchNoteDialog extends JDialog {
             if (selectedValue.equals("All Documents")) {
                 searchNotes(null);
             } else if (selectedValue.equals("All Articles")) {
-                searchNotes(ArticleHome.get().getArticleNoteDAO().findAllArticles());
+                searchNotes(ArticleBusinessLogic.get().getArticleNoteDAO().findAllArticles());
             } else if (selectedValue.equals("All Books")) {
-                searchNotes(BookHome.get().getBookNoteDAO().findAllBooks());
+                searchNotes(BookBusinessLogic.get().getBookNoteDAO().findAllBooks());
             } else if (selectedValue.equals("All Worksets")) {
-                searchNotes(WorksetHome.get().getWorksheetNoteDAO().findAllWorksets());
+                searchNotes(WorksetBusinessLogic.get().getWorksheetNoteDAO().findAllWorksets());
             } else {
                 // Search notes in a particular document.
                 Long documentId = DocumentNoteDAO.get().findDocumentByTitle(selectedValue).getDocumentId();
@@ -86,7 +86,7 @@ public class SearchNoteDialog extends JDialog {
         super(MainPanel.get(), "Search Notes", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         addWindowListener(new SearchNoteDialogWindowListener());
-        BookHome home = BookHome.get();
+        BookBusinessLogic logic = BookBusinessLogic.get();
 
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
         getContentPane().add(dialogPanel);

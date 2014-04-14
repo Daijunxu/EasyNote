@@ -1,7 +1,7 @@
 package notes.gui.book.event;
 
-import notes.bean.BookHome;
-import notes.entity.book.Chapter;
+import notes.businesslogic.BookBusinessLogic;
+import notes.businessobjects.book.Chapter;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 
@@ -12,7 +12,7 @@ import javax.swing.event.ListSelectionListener;
 /**
  * The event listener for chapter list. Triggers when selected item in the list changes.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class ChapterListSelectionListener implements ListSelectionListener {
 
@@ -28,13 +28,13 @@ public class ChapterListSelectionListener implements ListSelectionListener {
             frame.remove(frame.getNotesPanel());
 
             // Clears the temporary data.
-            BookHome.get().clearTemporaryDataWhenChapterChanged();
+            BookBusinessLogic.get().clearTemporaryDataWhenChapterChanged();
 
             JList list = (JList) event.getSource();
             int selected = list.getSelectedIndex();
 
             // Get the chapter's note data.
-            Chapter chapter = BookHome.get().getChaptersListForCurrentBook().get(selected);
+            Chapter chapter = BookBusinessLogic.get().getChaptersListForCurrentBook().get(selected);
             frame.updateBookNotePanel(chapter, null);
 
             SoundFactory.playNavigation();

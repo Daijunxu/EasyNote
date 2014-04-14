@@ -2,11 +2,11 @@ package notes.dao.impl;
 
 import notes.dao.DuplicateRecordException;
 import notes.data.cache.Cache;
-import notes.entity.Document;
-import notes.entity.Note;
-import notes.entity.book.Book;
-import notes.entity.book.BookNote;
-import notes.entity.book.Chapter;
+import notes.businessobjects.Document;
+import notes.businessobjects.Note;
+import notes.businessobjects.book.Book;
+import notes.businessobjects.book.BookNote;
+import notes.businessobjects.book.Chapter;
 
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.TreeMap;
 /**
  * Data access object for book notes.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class BookNoteDAO extends DocumentNoteDAO {
 

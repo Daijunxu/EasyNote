@@ -2,11 +2,11 @@ package notes.data.cache;
 
 import lombok.Getter;
 import lombok.Setter;
-import notes.entity.Document;
-import notes.entity.XMLSerializable;
-import notes.entity.article.Article;
-import notes.entity.book.Book;
-import notes.entity.workset.Workset;
+import notes.businessobjects.Document;
+import notes.businessobjects.XMLSerializable;
+import notes.businessobjects.article.Article;
+import notes.businessobjects.book.Book;
+import notes.businessobjects.workset.Workset;
 import org.dom4j.Element;
 import org.dom4j.tree.DefaultElement;
 
@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Stores all the documents.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class DocumentCache implements XMLSerializable {
 

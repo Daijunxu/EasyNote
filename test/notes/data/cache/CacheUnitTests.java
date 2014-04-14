@@ -10,7 +10,7 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Unit tests for the {@code Cache}.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class CacheUnitTests extends EasyNoteUnitTestCase {
 

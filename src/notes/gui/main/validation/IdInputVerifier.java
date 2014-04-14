@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 /**
  * Verifies that the input text in {@link JTextField} is a valid Long type ID.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class IdInputVerifier extends InputVerifier {
 

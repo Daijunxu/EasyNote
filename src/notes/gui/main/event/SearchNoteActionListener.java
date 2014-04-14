@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 /**
  * The event listener for note searching.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class SearchNoteActionListener implements ActionListener {
 

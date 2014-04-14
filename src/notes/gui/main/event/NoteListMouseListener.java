@@ -1,9 +1,9 @@
 package notes.gui.main.event;
 
-import notes.bean.ArticleHome;
-import notes.bean.BookHome;
-import notes.bean.WorksetHome;
-import notes.entity.SystemMode;
+import notes.businesslogic.ArticleBusinessLogic;
+import notes.businesslogic.BookBusinessLogic;
+import notes.businesslogic.WorksetBusinessLogic;
+import notes.businessobjects.SystemMode;
 import notes.gui.article.component.ArticleNotePopupMenu;
 import notes.gui.article.component.EditArticleNoteDialog;
 import notes.gui.book.component.BookNotePopupMenu;
@@ -49,17 +49,17 @@ public class NoteListMouseListener extends MouseAdapter {
         }
         SystemMode systemMode = MainPanel.get().getCurrentMode();
         SoundFactory.playPopup();
-        if (systemMode.equals(SystemMode.WORKSET) && WorksetHome.get().getCurrentWorkset() != null
-                && WorksetHome.get().getCurrentWorksheet() != null && WorksetHome.get().getWorksheetNoteDAO() != null) {
-            new EditWorksheetNoteDialog(WorksetHome.get().getCurrentWorkset(),
-                    WorksetHome.get().getCurrentWorksheet(), WorksetHome.get().getCurrentWorksheetNote());
-        } else if (systemMode.equals(SystemMode.BOOK) && BookHome.get().getCurrentBook() != null
-                && BookHome.get().getCurrentChapter() != null && BookHome.get().getCurrentBookNote() != null) {
-            new EditBookNoteDialog(BookHome.get().getCurrentBook(), BookHome.get().getCurrentChapter(),
-                    BookHome.get().getCurrentBookNote());
-        } else if (systemMode.equals(SystemMode.ARTICLE) && ArticleHome.get().getCurrentArticle() != null
-                && ArticleHome.get().getCurrentArticleNote() != null) {
-            new EditArticleNoteDialog(ArticleHome.get().getCurrentArticle(), ArticleHome.get().getCurrentArticleNote());
+        if (systemMode.equals(SystemMode.WORKSET) && WorksetBusinessLogic.get().getCurrentWorkset() != null
+                && WorksetBusinessLogic.get().getCurrentWorksheet() != null && WorksetBusinessLogic.get().getWorksheetNoteDAO() != null) {
+            new EditWorksheetNoteDialog(WorksetBusinessLogic.get().getCurrentWorkset(),
+                    WorksetBusinessLogic.get().getCurrentWorksheet(), WorksetBusinessLogic.get().getCurrentWorksheetNote());
+        } else if (systemMode.equals(SystemMode.BOOK) && BookBusinessLogic.get().getCurrentBook() != null
+                && BookBusinessLogic.get().getCurrentChapter() != null && BookBusinessLogic.get().getCurrentBookNote() != null) {
+            new EditBookNoteDialog(BookBusinessLogic.get().getCurrentBook(), BookBusinessLogic.get().getCurrentChapter(),
+                    BookBusinessLogic.get().getCurrentBookNote());
+        } else if (systemMode.equals(SystemMode.ARTICLE) && ArticleBusinessLogic.get().getCurrentArticle() != null
+                && ArticleBusinessLogic.get().getCurrentArticleNote() != null) {
+            new EditArticleNoteDialog(ArticleBusinessLogic.get().getCurrentArticle(), ArticleBusinessLogic.get().getCurrentArticleNote());
         }
     }
 

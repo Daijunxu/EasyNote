@@ -3,7 +3,7 @@ package notes.data.cache;
 import junit.framework.Assert;
 import lombok.Getter;
 import notes.data.persistence.Property;
-import notes.entity.XMLSerializable;
+import notes.businessobjects.XMLSerializable;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * The data cache composed of multiple caches.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class Cache implements XMLSerializable<Cache> {
 

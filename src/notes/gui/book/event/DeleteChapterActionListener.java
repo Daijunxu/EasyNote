@@ -1,7 +1,7 @@
 package notes.gui.book.event;
 
-import notes.bean.BookHome;
-import notes.entity.book.Chapter;
+import notes.businesslogic.BookBusinessLogic;
+import notes.businessobjects.book.Chapter;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 
@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 /**
  * Defines event listener of deleting a chapter.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class DeleteChapterActionListener implements ActionListener {
 
@@ -21,10 +21,10 @@ public class DeleteChapterActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-        BookHome home = BookHome.get();
+        BookBusinessLogic logic = BookBusinessLogic.get();
         MainPanel frame = MainPanel.get();
         try {
-            Chapter chapter = home.getCurrentChapter();
+            Chapter chapter = logic.getCurrentChapter();
             if (chapter == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No chapter is selected!", "Input error", JOptionPane.ERROR_MESSAGE);
@@ -37,9 +37,9 @@ public class DeleteChapterActionListener implements ActionListener {
             // 0 for yes and 1 for no.
             if (result == 0) {
                 // Delete the selected chapter.
-                home.getBookNoteDAO().deleteChapter(chapter, home.getCurrentBook().getDocumentId());
+                logic.getBookNoteDAO().deleteChapter(chapter, logic.getCurrentBook().getDocumentId());
                 // Update the chapter and note panel.
-                frame.updateBookPanel(home.getCurrentBook().getDocumentId(), null, null);
+                frame.updateBookPanel(logic.getCurrentBook().getDocumentId(), null, null);
                 SoundFactory.playDelete();
             } else {
                 SoundFactory.playNavigation();

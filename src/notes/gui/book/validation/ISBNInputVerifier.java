@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 /**
  * Verifies that the input text in {@link JTextField} is a valid ISBN number.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class ISBNInputVerifier extends InputVerifier {
 

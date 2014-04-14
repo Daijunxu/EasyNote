@@ -1,7 +1,7 @@
 package notes.data.cache;
 
 import core.EasyNoteUnitTestCase;
-import notes.entity.Tag;
+import notes.businessobjects.Tag;
 import org.dom4j.Element;
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Unit tests for the {@code TagCache}.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class TagCacheUnitTests extends EasyNoteUnitTestCase {
 

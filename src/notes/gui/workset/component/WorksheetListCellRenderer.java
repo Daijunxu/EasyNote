@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * Defines the cell renderer for the worksheets' JList.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 // TODO: Can we reuse the chapter list cell renderer?
 public class WorksheetListCellRenderer extends DefaultListCellRenderer {

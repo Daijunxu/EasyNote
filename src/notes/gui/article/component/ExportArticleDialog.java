@@ -1,8 +1,8 @@
 package notes.gui.article.component;
 
-import notes.bean.ArticleHome;
+import notes.businesslogic.ArticleBusinessLogic;
 import notes.data.persistence.Property;
-import notes.entity.article.Article;
+import notes.businessobjects.article.Article;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.PreferencesDialog;
 import notes.utils.SoundFactory;
@@ -19,7 +19,7 @@ import java.io.Writer;
 /**
  * Defines the dialog and event listener for exporting current article.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class ExportArticleDialog extends JDialog {
 
@@ -30,7 +30,7 @@ public class ExportArticleDialog extends JDialog {
         super(MainPanel.get(), "Choose Location to Export Current Article", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
 
-        final Article article = ArticleHome.get().getCurrentArticle();
+        final Article article = ArticleBusinessLogic.get().getCurrentArticle();
 
         final JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));

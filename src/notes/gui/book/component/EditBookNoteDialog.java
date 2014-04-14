@@ -1,11 +1,11 @@
 package notes.gui.book.component;
 
-import notes.bean.BookHome;
+import notes.businesslogic.BookBusinessLogic;
 import notes.dao.impl.BookNoteDAO;
-import notes.entity.Tag;
-import notes.entity.book.Book;
-import notes.entity.book.BookNote;
-import notes.entity.book.Chapter;
+import notes.businessobjects.Tag;
+import notes.businessobjects.book.Book;
+import notes.businessobjects.book.BookNote;
+import notes.businessobjects.book.Chapter;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.SearchNoteDialog;
 import notes.gui.main.validation.NoteTextInputValidator;
@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Defines the dialog and event listener for editing a book note.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class EditBookNoteDialog extends JDialog {
     private final BookNote selectedNote;
@@ -50,8 +50,8 @@ public class EditBookNoteDialog extends JDialog {
             }
 
             MainPanel frame = MainPanel.get();
-            BookHome home = BookHome.get();
-            BookNoteDAO dao = home.getBookNoteDAO();
+            BookBusinessLogic logic = BookBusinessLogic.get();
+            BookNoteDAO dao = logic.getBookNoteDAO();
             BookNote newNote = new BookNote();
             newNote.setNoteId(selectedNote.getNoteId());
             newNote.setDocumentId(selectedNote.getDocumentId());
@@ -80,13 +80,13 @@ public class EditBookNoteDialog extends JDialog {
             BookNote updatedNote = (BookNote) dao.updateNote(newNote);
 
             // Update current note.
-            home.setCurrentBookNote(updatedNote);
+            logic.setCurrentBookNote(updatedNote);
 
             // Update the note panel.
             if (frame.isSearchMode()) {
                 SearchNoteDialog.get().updateResultPanel();
             } else {
-                frame.updateBookNotePanel(home.getCurrentChapter(), updatedNote.getNoteId());
+                frame.updateBookNotePanel(logic.getCurrentChapter(), updatedNote.getNoteId());
             }
 
             SoundFactory.playUpdate();
@@ -115,7 +115,7 @@ public class EditBookNoteDialog extends JDialog {
 
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         MainPanel frame = MainPanel.get();
-        BookHome home = BookHome.get();
+        BookBusinessLogic logic = BookBusinessLogic.get();
 
         JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
@@ -172,7 +172,7 @@ public class EditBookNoteDialog extends JDialog {
         StringBuilder tagStrBuilder = new StringBuilder();
         if (!selectedNote.getTagIds().isEmpty()) {
             for (Long tagId : selectedNote.getTagIds()) {
-                tagStrBuilder.append(home.getBookNoteDAO().findTagById(tagId).getTagText()).append(", ");
+                tagStrBuilder.append(logic.getBookNoteDAO().findTagById(tagId).getTagText()).append(", ");
             }
             tagStrBuilder.delete(tagStrBuilder.length() - 2, tagStrBuilder.length());
         }

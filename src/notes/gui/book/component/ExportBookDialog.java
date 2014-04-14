@@ -1,8 +1,8 @@
 package notes.gui.book.component;
 
-import notes.bean.BookHome;
+import notes.businesslogic.BookBusinessLogic;
 import notes.data.persistence.Property;
-import notes.entity.book.Book;
+import notes.businessobjects.book.Book;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.PreferencesDialog;
 import notes.utils.SoundFactory;
@@ -19,7 +19,7 @@ import java.io.Writer;
 /**
  * Defines the dialog and event listener for exporting current book.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class ExportBookDialog extends JDialog {
 
@@ -30,7 +30,7 @@ public class ExportBookDialog extends JDialog {
         super(MainPanel.get(), "Choose Location to Export Current Book", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
 
-        final Book book = BookHome.get().getCurrentBook();
+        final Book book = BookBusinessLogic.get().getCurrentBook();
 
         final JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));

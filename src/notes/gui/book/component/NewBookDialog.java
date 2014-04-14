@@ -1,9 +1,9 @@
 package notes.gui.book.component;
 
-import notes.bean.BookHome;
+import notes.businesslogic.BookBusinessLogic;
 import notes.dao.impl.BookNoteDAO;
-import notes.entity.book.Book;
-import notes.entity.book.Chapter;
+import notes.businessobjects.book.Book;
+import notes.businessobjects.book.Chapter;
 import notes.gui.book.validation.EditionInputVerifier;
 import notes.gui.book.validation.ISBNInputVerifier;
 import notes.gui.book.validation.PublishedYearInputVerifier;
@@ -21,7 +21,7 @@ import java.util.TreeMap;
 /**
  * Defines the dialog and event listener for creating a new book.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class NewBookDialog extends JDialog {
 
@@ -79,8 +79,8 @@ public class NewBookDialog extends JDialog {
             }
 
             MainPanel frame = MainPanel.get();
-            BookHome home = BookHome.get();
-            BookNoteDAO dao = home.getBookNoteDAO();
+            BookBusinessLogic logic = BookBusinessLogic.get();
+            BookNoteDAO dao = logic.getBookNoteDAO();
 
             // Create instance of the new book.
             Book updatedBook = new Book();

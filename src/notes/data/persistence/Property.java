@@ -17,7 +17,7 @@ import java.util.Properties;
 /**
  * Stores the system's configuration information.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class Property {
     /**

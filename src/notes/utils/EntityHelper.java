@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * A helper class for entities classes.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class EntityHelper {
 

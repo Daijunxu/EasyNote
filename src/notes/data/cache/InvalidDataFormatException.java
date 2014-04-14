@@ -3,7 +3,7 @@ package notes.data.cache;
 /**
  * Thrown when the data file's format is invalid when loading caches.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class InvalidDataFormatException extends Exception {
 

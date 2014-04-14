@@ -1,7 +1,7 @@
 package notes.gui.workset.event;
 
-import notes.bean.WorksetHome;
-import notes.entity.workset.WorksheetNote;
+import notes.businesslogic.WorksetBusinessLogic;
+import notes.businessobjects.workset.WorksheetNote;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 
@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 /**
  * Defines event listener of deleting a worksheet note.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class DeleteWorksheetNoteActionListener implements ActionListener {
 
@@ -21,10 +21,10 @@ public class DeleteWorksheetNoteActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-        WorksetHome home = WorksetHome.get();
+        WorksetBusinessLogic logic = WorksetBusinessLogic.get();
         MainPanel frame = MainPanel.get();
         try {
-            WorksheetNote worksheetNote = home.getCurrentWorksheetNote();
+            WorksheetNote worksheetNote = logic.getCurrentWorksheetNote();
             if (worksheetNote == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No note is selected!", "Input error",
@@ -37,9 +37,9 @@ public class DeleteWorksheetNoteActionListener implements ActionListener {
             // 0 for yes and 1 for no.
             if (result == 0) {
                 // Delete the selected worksheet note.
-                home.getWorksheetNoteDAO().deleteNote(worksheetNote);
+                logic.getWorksheetNoteDAO().deleteNote(worksheetNote);
                 // Update the note panel.
-                frame.updateWorksheetNotePanel(home.getCurrentWorksheet(), null);
+                frame.updateWorksheetNotePanel(logic.getCurrentWorksheet(), null);
                 SoundFactory.playDelete();
             } else {
                 SoundFactory.playNavigation();

@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 /**
  * The event listener for showing system's information.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class AboutActionListener implements ActionListener {
 

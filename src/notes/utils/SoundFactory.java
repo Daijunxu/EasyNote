@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Factory class responsible for playing sound effects.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class SoundFactory {
 

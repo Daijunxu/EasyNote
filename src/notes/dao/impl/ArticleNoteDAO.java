@@ -2,10 +2,10 @@ package notes.dao.impl;
 
 import notes.dao.DuplicateRecordException;
 import notes.data.cache.Cache;
-import notes.entity.Document;
-import notes.entity.Note;
-import notes.entity.article.Article;
-import notes.entity.article.ArticleNote;
+import notes.businessobjects.Document;
+import notes.businessobjects.Note;
+import notes.businessobjects.article.Article;
+import notes.businessobjects.article.ArticleNote;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +18,7 @@ import java.util.Set;
 /**
  * Data access object for article notes.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class ArticleNoteDAO extends DocumentNoteDAO {
 

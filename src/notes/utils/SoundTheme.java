@@ -5,7 +5,7 @@ import lombok.Getter;
 /**
  * The enumeration of available sound themes.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public enum SoundTheme {
 

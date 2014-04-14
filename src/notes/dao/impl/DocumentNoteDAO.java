@@ -3,9 +3,9 @@ package notes.dao.impl;
 import notes.dao.DuplicateRecordException;
 import notes.dao.NoteDAO;
 import notes.data.cache.Cache;
-import notes.entity.Document;
-import notes.entity.Note;
-import notes.entity.Tag;
+import notes.businessobjects.Document;
+import notes.businessobjects.Note;
+import notes.businessobjects.Tag;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,7 +17,7 @@ import java.util.Set;
 /**
  * An abstract class implementing basic members and methods of a NoteDAO.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class DocumentNoteDAO implements NoteDAO<Note, Document> {
 

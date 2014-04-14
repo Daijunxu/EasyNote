@@ -3,7 +3,7 @@ package notes.dao;
 /**
  * Thrown when two records have the same ID.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class DuplicateRecordException extends Exception {
 

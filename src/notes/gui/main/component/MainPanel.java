@@ -2,22 +2,22 @@ package notes.gui.main.component;
 
 import lombok.Getter;
 import lombok.Setter;
-import notes.bean.ArticleHome;
-import notes.bean.BookHome;
-import notes.bean.WorksetHome;
+import notes.businesslogic.ArticleBusinessLogic;
+import notes.businesslogic.BookBusinessLogic;
+import notes.businesslogic.WorksetBusinessLogic;
 import notes.dao.impl.DocumentNoteDAO;
 import notes.data.cache.Cache;
 import notes.data.persistence.Property;
-import notes.entity.Document;
-import notes.entity.SystemMode;
-import notes.entity.article.Article;
-import notes.entity.article.ArticleNote;
-import notes.entity.book.Book;
-import notes.entity.book.BookNote;
-import notes.entity.book.Chapter;
-import notes.entity.workset.Workset;
-import notes.entity.workset.Worksheet;
-import notes.entity.workset.WorksheetNote;
+import notes.businessobjects.Document;
+import notes.businessobjects.SystemMode;
+import notes.businessobjects.article.Article;
+import notes.businessobjects.article.ArticleNote;
+import notes.businessobjects.book.Book;
+import notes.businessobjects.book.BookNote;
+import notes.businessobjects.book.Chapter;
+import notes.businessobjects.workset.Workset;
+import notes.businessobjects.workset.Worksheet;
+import notes.businessobjects.workset.WorksheetNote;
 import notes.gui.article.event.DeleteArticleActionListener;
 import notes.gui.article.event.DeleteArticleNoteActionListener;
 import notes.gui.article.event.EditArticleActionListener;
@@ -77,7 +77,7 @@ import java.util.Map;
 /**
  * The main panel.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class MainPanel extends JFrame {
 
@@ -91,9 +91,9 @@ public class MainPanel extends JFrame {
     private static final int BOOK_NOTE_LIST_WIDTH = 945;
     private static final int WORKSHEET_NOTE_LIST_WIDTH = 945;
 
-    private static final WorksetHome worksetHome = WorksetHome.get();
-    private static final BookHome bookHome = BookHome.get();
-    private static final ArticleHome articleHome = ArticleHome.get();
+    private static final WorksetBusinessLogic worksetHome = WorksetBusinessLogic.get();
+    private static final BookBusinessLogic bookHome = BookBusinessLogic.get();
+    private static final ArticleBusinessLogic articleHome = ArticleBusinessLogic.get();
 
     private static final int PORT = 9999;
     private static ServerSocket socket;
@@ -224,7 +224,7 @@ public class MainPanel extends JFrame {
     }
 
     /**
-     * Clears all temporary data in home beans.
+     * Clears all temporary data in logic beans.
      */
     public void clearAllTemporaryData() {
         articleHome.clearAllTemporaryData();
@@ -607,7 +607,7 @@ public class MainPanel extends JFrame {
      * @param article The article that is being opened.
      */
     public void setArticlePanel(Article article, Long selectedNoteId) {
-        // Update temporary data in article home.
+        // Update temporary data in article logic.
         articleHome.updateTemporaryData(article.getDocumentId(), selectedNoteId);
 
         // Set current mode to "Article".
@@ -656,7 +656,7 @@ public class MainPanel extends JFrame {
             remove(com);
         }
 
-        // Update temporary data in book home.
+        // Update temporary data in book logic.
         bookHome.updateTemporaryData(book.getDocumentId(), selectedChapterId, null);
 
         // Set up the menu bar
@@ -697,7 +697,7 @@ public class MainPanel extends JFrame {
             remove(com);
         }
 
-        // Update temporary data in workset home.
+        // Update temporary data in workset logic.
         worksetHome.updateTemporaryData(workset.getDocumentId(), selectedWorksheetId, null);
 
         // Set up the menu bar
@@ -722,10 +722,10 @@ public class MainPanel extends JFrame {
      * Sets up the default panel when no document is opened.
      */
     public void setDefaultPanel() {
-        // Clear all temporary data in home objects.
-        ArticleHome.get().clearAllTemporaryData();
-        BookHome.get().clearAllTemporaryData();
-        WorksetHome.get().clearAllTemporaryData();
+        // Clear all temporary data in logic objects.
+        ArticleBusinessLogic.get().clearAllTemporaryData();
+        BookBusinessLogic.get().clearAllTemporaryData();
+        WorksetBusinessLogic.get().clearAllTemporaryData();
 
         // Clear deprecated components.
         Component[] components = getContentPane().getComponents();
@@ -806,7 +806,7 @@ public class MainPanel extends JFrame {
 
         // Set the notes panel for current chapter.
         if (currentChapter != null) {
-            // Update temporary data in the BookHome.
+            // Update temporary data in the BookBusinessLogic.
             bookHome.updateTemporaryData(bookHome.getCurrentBook().getDocumentId(), currentChapter.getChapterId(),
                     selectedNoteId);
             List<BookNote> notesDataList = bookHome.getNotesListForCurrentChapter();
@@ -858,7 +858,7 @@ public class MainPanel extends JFrame {
 
         // Set the notes panel for current worksheet.
         if (currentWorksheet != null) {
-            // Update temporary data in the WorksetHome.
+            // Update temporary data in the WorksetBusinessLogic.
             worksetHome.updateTemporaryData(worksetHome.getCurrentWorkset().getDocumentId(),
                     currentWorksheet.getWorksheetId(), selectedNoteId);
             List<WorksheetNote> notesDataList = worksetHome.getNotesListForCurrentWorksheet();

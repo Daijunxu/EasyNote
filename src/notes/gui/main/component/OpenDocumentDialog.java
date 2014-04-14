@@ -2,10 +2,10 @@ package notes.gui.main.component;
 
 import notes.dao.impl.DocumentNoteDAO;
 import notes.data.persistence.Property;
-import notes.entity.Document;
-import notes.entity.article.Article;
-import notes.entity.book.Book;
-import notes.entity.workset.Workset;
+import notes.businessobjects.Document;
+import notes.businessobjects.article.Article;
+import notes.businessobjects.book.Book;
+import notes.businessobjects.workset.Workset;
 import notes.utils.SoundFactory;
 
 import javax.swing.*;
@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Defines the dialog and event listener for opening a document.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class OpenDocumentDialog extends JDialog {
     private final JButton okButton = new JButton(new AbstractAction("OK") {

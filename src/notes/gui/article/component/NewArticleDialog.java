@@ -1,8 +1,8 @@
 package notes.gui.article.component;
 
-import notes.bean.ArticleHome;
+import notes.businesslogic.ArticleBusinessLogic;
 import notes.dao.impl.ArticleNoteDAO;
-import notes.entity.article.Article;
+import notes.businessobjects.article.Article;
 import notes.gui.main.component.MainPanel;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
@@ -17,7 +17,7 @@ import java.util.Date;
 /**
  * Defines the dialog and event listener of creating a new article.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class NewArticleDialog extends JDialog {
     private final JButton okButton = new JButton(new AbstractAction("OK") {
@@ -60,8 +60,8 @@ public class NewArticleDialog extends JDialog {
             }
 
             MainPanel frame = MainPanel.get();
-            ArticleHome home = ArticleHome.get();
-            ArticleNoteDAO dao = home.getArticleNoteDAO();
+            ArticleBusinessLogic logic = ArticleBusinessLogic.get();
+            ArticleNoteDAO dao = logic.getArticleNoteDAO();
 
             // Create instance of the new article.
             Article newArticle = new Article();

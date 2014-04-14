@@ -1,7 +1,7 @@
 package notes.gui.workset.event;
 
-import notes.bean.WorksetHome;
-import notes.entity.workset.Worksheet;
+import notes.businesslogic.WorksetBusinessLogic;
+import notes.businessobjects.workset.Worksheet;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 
@@ -12,7 +12,7 @@ import javax.swing.event.ListSelectionListener;
 /**
  * The event listener for worksheet list. Triggers when selected item in the list changes.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class WorksheetListSelectionListener implements ListSelectionListener {
 
@@ -28,14 +28,14 @@ public class WorksheetListSelectionListener implements ListSelectionListener {
             frame.remove(frame.getNotesPanel());
 
             // Clears the temporary data.
-            WorksetHome.get().clearTemporaryDataWhenWorksheetChanged();
+            WorksetBusinessLogic.get().clearTemporaryDataWhenWorksheetChanged();
 
             JList list = (JList) event.getSource();
             int selected = list.getSelectedIndex();
 
             // Get the worksheet's note data.
-            Long worksheetId = WorksetHome.get().getCurrentWorkset().getWorksheetIdsList().get(selected);
-            Worksheet worksheet = WorksetHome.get().getCurrentWorkset().getWorksheetsMap().get(worksheetId);
+            Long worksheetId = WorksetBusinessLogic.get().getCurrentWorkset().getWorksheetIdsList().get(selected);
+            Worksheet worksheet = WorksetBusinessLogic.get().getCurrentWorkset().getWorksheetsMap().get(worksheetId);
             frame.updateWorksheetNotePanel(worksheet, null);
 
             SoundFactory.playNavigation();

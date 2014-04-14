@@ -1,9 +1,9 @@
 package notes.gui.workset.component;
 
-import notes.bean.WorksetHome;
+import notes.businesslogic.WorksetBusinessLogic;
 import notes.dao.impl.WorksheetNoteDAO;
-import notes.entity.workset.Workset;
-import notes.entity.workset.Worksheet;
+import notes.businessobjects.workset.Workset;
+import notes.businessobjects.workset.Worksheet;
 import notes.gui.main.component.MainPanel;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
@@ -19,7 +19,7 @@ import java.util.HashMap;
 /**
  * Defines the dialog and event listener for creating a new workset.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class NewWorksetDialog extends JDialog {
 
@@ -57,8 +57,8 @@ public class NewWorksetDialog extends JDialog {
             }
 
             MainPanel frame = MainPanel.get();
-            WorksetHome home = WorksetHome.get();
-            WorksheetNoteDAO dao = home.getWorksheetNoteDAO();
+            WorksetBusinessLogic logic = WorksetBusinessLogic.get();
+            WorksheetNoteDAO dao = logic.getWorksheetNoteDAO();
 
             // Create instance of the new workset.
             Workset updatedWorkset = new Workset();

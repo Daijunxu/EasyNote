@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 /**
  * Defines event listener of creating a new article.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class NewArticleActionListener implements ActionListener {
 

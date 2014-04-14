@@ -1,8 +1,8 @@
 package notes.gui.workset.component;
 
-import notes.bean.WorksetHome;
+import notes.businesslogic.WorksetBusinessLogic;
 import notes.dao.impl.WorksheetNoteDAO;
-import notes.entity.workset.Worksheet;
+import notes.businessobjects.workset.Worksheet;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 import org.apache.commons.lang3.text.WordUtils;
@@ -15,7 +15,7 @@ import java.util.Date;
 /**
  * Defines the dialog and event listener for editing a worksheet in a workset.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class EditWorksheetDialog extends JDialog {
 
@@ -32,27 +32,27 @@ public class EditWorksheetDialog extends JDialog {
             }
 
             MainPanel frame = MainPanel.get();
-            WorksetHome home = WorksetHome.get();
-            WorksheetNoteDAO dao = home.getWorksheetNoteDAO();
+            WorksetBusinessLogic logic = WorksetBusinessLogic.get();
+            WorksheetNoteDAO dao = logic.getWorksheetNoteDAO();
 
             // Create instance of the updated worksheet.
             Worksheet updateWorksheet = new Worksheet();
-            updateWorksheet.setWorksheetId(home.getCurrentWorksheet().getWorksheetId());
+            updateWorksheet.setWorksheetId(logic.getCurrentWorksheet().getWorksheetId());
             updateWorksheet.setWorksheetTitle(WordUtils.capitalize(worksheetTitleField.getText().trim()));
-            updateWorksheet.setNotesList(home.getCurrentWorksheet().getNotesList());
+            updateWorksheet.setNotesList(logic.getCurrentWorksheet().getNotesList());
             updateWorksheet.setLastUpdatedTime(new Date());
 
             // Save the updated worksheet.
-            Worksheet cachedWorksheet = dao.updateWorksheet(updateWorksheet, home.getCurrentWorkset().getDocumentId(),
-                    home.getCurrentWorksheet().getWorksheetId());
+            Worksheet cachedWorksheet = dao.updateWorksheet(updateWorksheet, logic.getCurrentWorkset().getDocumentId(),
+                    logic.getCurrentWorksheet().getWorksheetId());
 
             if (cachedWorksheet != null) {
                 // Update the worksheet and note panel.
-                if (home.getCurrentWorksheetNote() != null) {
-                    frame.updateWorksetPanel(home.getCurrentWorkset().getDocumentId(), cachedWorksheet.getWorksheetId(),
-                            home.getCurrentWorksheetNote().getNoteId());
+                if (logic.getCurrentWorksheetNote() != null) {
+                    frame.updateWorksetPanel(logic.getCurrentWorkset().getDocumentId(), cachedWorksheet.getWorksheetId(),
+                            logic.getCurrentWorksheetNote().getNoteId());
                 } else {
-                    frame.updateWorksetPanel(home.getCurrentWorkset().getDocumentId(), cachedWorksheet.getWorksheetId(),
+                    frame.updateWorksetPanel(logic.getCurrentWorkset().getDocumentId(), cachedWorksheet.getWorksheetId(),
                             null);
                 }
 
@@ -80,7 +80,7 @@ public class EditWorksheetDialog extends JDialog {
         super(MainPanel.get(), "Edit Worksheet", true);
         setIconImage(new ImageIcon("./resources/images/workset.gif").getImage());
         MainPanel frame = MainPanel.get();
-        WorksetHome home = WorksetHome.get();
+        WorksetBusinessLogic logic = WorksetBusinessLogic.get();
 
         JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
@@ -99,7 +99,7 @@ public class EditWorksheetDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
-        worksheetTitleField.setText(home.getCurrentWorksheet().getWorksheetTitle());
+        worksheetTitleField.setText(logic.getCurrentWorksheet().getWorksheetTitle());
         worksheetPanel.add(worksheetTitleField, c);
 
         dialogPanel.add(worksheetPanel);

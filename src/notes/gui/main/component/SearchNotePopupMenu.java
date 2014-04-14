@@ -1,15 +1,15 @@
 package notes.gui.main.component;
 
 import notes.dao.impl.DocumentNoteDAO;
-import notes.entity.Document;
-import notes.entity.Note;
-import notes.entity.article.Article;
-import notes.entity.book.Book;
-import notes.entity.book.BookNote;
-import notes.entity.book.Chapter;
-import notes.entity.workset.Workset;
-import notes.entity.workset.Worksheet;
-import notes.entity.workset.WorksheetNote;
+import notes.businessobjects.Document;
+import notes.businessobjects.Note;
+import notes.businessobjects.article.Article;
+import notes.businessobjects.book.Book;
+import notes.businessobjects.book.BookNote;
+import notes.businessobjects.book.Chapter;
+import notes.businessobjects.workset.Workset;
+import notes.businessobjects.workset.Worksheet;
+import notes.businessobjects.workset.WorksheetNote;
 import notes.gui.main.event.EditNoteActionListener;
 import notes.utils.SoundFactory;
 
@@ -20,7 +20,7 @@ import java.awt.event.ActionListener;
 /**
  * Pops up when right clicking a note in the result panel in search note dialog.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class SearchNotePopupMenu extends JPopupMenu {
 

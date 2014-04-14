@@ -1,7 +1,7 @@
 package notes.gui.book.event;
 
-import notes.bean.BookHome;
-import notes.entity.book.Book;
+import notes.businesslogic.BookBusinessLogic;
+import notes.businessobjects.book.Book;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 
@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 /**
  * Defines event listener of deleting a book.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class DeleteBookActionListener implements ActionListener {
 
@@ -21,10 +21,10 @@ public class DeleteBookActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-        BookHome home = BookHome.get();
+        BookBusinessLogic logic = BookBusinessLogic.get();
         MainPanel frame = MainPanel.get();
         try {
-            Book book = home.getCurrentBook();
+            Book book = logic.getCurrentBook();
             if (book == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No book is selected!", "Input error",
@@ -38,9 +38,9 @@ public class DeleteBookActionListener implements ActionListener {
             // 0 for yes and 1 for no.
             if (result == 0) {
                 // Delete the selected book.
-                home.getBookNoteDAO().deleteDocument(book);
+                logic.getBookNoteDAO().deleteDocument(book);
                 // Clear all temporary data.
-                home.clearAllTemporaryData();
+                logic.clearAllTemporaryData();
                 // Set up the default panel.
                 frame.setDefaultPanel();
                 SoundFactory.playDelete();

@@ -1,8 +1,8 @@
 package notes.gui.book.component;
 
-import notes.bean.BookHome;
+import notes.businesslogic.BookBusinessLogic;
 import notes.dao.impl.BookNoteDAO;
-import notes.entity.book.Chapter;
+import notes.businessobjects.book.Chapter;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.validation.IdInputVerifier;
 import notes.utils.SoundFactory;
@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 /**
  * Defines the dialog and event listener for editing a chapter in a book.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class EditChapterDialog extends JDialog {
 
@@ -45,25 +45,25 @@ public class EditChapterDialog extends JDialog {
             }
 
             MainPanel frame = MainPanel.get();
-            BookHome home = BookHome.get();
-            BookNoteDAO dao = home.getBookNoteDAO();
+            BookBusinessLogic logic = BookBusinessLogic.get();
+            BookNoteDAO dao = logic.getBookNoteDAO();
 
             // Create instance of the updated chapter.
             Chapter updateChapter = new Chapter();
             updateChapter.setChapterId(Long.parseLong(chapterIdField.getText()));
             updateChapter.setChapterTitle(WordUtils.capitalize(chapterField.getText().trim()));
-            updateChapter.setNotesList(home.getCurrentChapter().getNotesList());
+            updateChapter.setNotesList(logic.getCurrentChapter().getNotesList());
 
             // Save the updated chapter.
-            Chapter cachedChapter = dao.updateChapter(updateChapter, home.getCurrentBook().getDocumentId());
+            Chapter cachedChapter = dao.updateChapter(updateChapter, logic.getCurrentBook().getDocumentId());
 
             if (cachedChapter != null) {
                 // Update the chapter and note panel.
-                if (home.getCurrentBookNote() != null) {
-                    frame.updateBookPanel(home.getCurrentBook().getDocumentId(), cachedChapter.getChapterId(),
-                            home.getCurrentBookNote().getNoteId());
+                if (logic.getCurrentBookNote() != null) {
+                    frame.updateBookPanel(logic.getCurrentBook().getDocumentId(), cachedChapter.getChapterId(),
+                            logic.getCurrentBookNote().getNoteId());
                 } else {
-                    frame.updateBookPanel(home.getCurrentBook().getDocumentId(), cachedChapter.getChapterId(), null);
+                    frame.updateBookPanel(logic.getCurrentBook().getDocumentId(), cachedChapter.getChapterId(), null);
                 }
 
                 SoundFactory.playUpdate();
@@ -92,7 +92,7 @@ public class EditChapterDialog extends JDialog {
         super(MainPanel.get(), "Edit Chapter", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         MainPanel frame = MainPanel.get();
-        BookHome home = BookHome.get();
+        BookBusinessLogic logic = BookBusinessLogic.get();
 
         JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
@@ -113,7 +113,7 @@ public class EditChapterDialog extends JDialog {
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         chapterIdField.setInputVerifier(new IdInputVerifier());
-        chapterIdField.setText(home.getCurrentChapter().getChapterId().toString());
+        chapterIdField.setText(logic.getCurrentChapter().getChapterId().toString());
         chapterPanel.add(chapterIdField, c);
 
         c.gridx = 0;
@@ -125,7 +125,7 @@ public class EditChapterDialog extends JDialog {
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         chapterField.setLineWrap(true);
-        chapterField.setText(home.getCurrentChapter().getChapterTitle());
+        chapterField.setText(logic.getCurrentChapter().getChapterTitle());
         chapterField.select(0, 0);
         chapterPanel.add(new JScrollPane(chapterField), c);
 

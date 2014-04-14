@@ -1,6 +1,6 @@
 package notes.gui.book.event;
 
-import notes.bean.BookHome;
+import notes.businesslogic.BookBusinessLogic;
 import notes.gui.book.component.ExportBookDialog;
 import notes.utils.SoundFactory;
 
@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 /**
  * The event listener for exporting current book.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class ExportBookActionListener implements ActionListener {
 
@@ -20,7 +20,7 @@ public class ExportBookActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-        if (BookHome.get().getCurrentBook() == null) {
+        if (BookBusinessLogic.get().getCurrentBook() == null) {
             SoundFactory.playError();
             JOptionPane.showMessageDialog(null, "No book is selected!", "Input error", JOptionPane.ERROR_MESSAGE);
         } else {

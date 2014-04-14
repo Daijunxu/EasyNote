@@ -14,7 +14,7 @@ import java.net.URISyntaxException;
 /**
  * Defines the dialog and event listener for system's information.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class AboutDialog extends JDialog {
 

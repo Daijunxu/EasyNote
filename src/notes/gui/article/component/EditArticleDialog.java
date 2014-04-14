@@ -1,8 +1,8 @@
 package notes.gui.article.component;
 
-import notes.bean.ArticleHome;
+import notes.businesslogic.ArticleBusinessLogic;
 import notes.dao.impl.ArticleNoteDAO;
-import notes.entity.article.Article;
+import notes.businessobjects.article.Article;
 import notes.gui.main.component.MainPanel;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Defines the dialog and event listener for editing an article.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class EditArticleDialog extends JDialog {
 
@@ -60,12 +60,12 @@ public class EditArticleDialog extends JDialog {
             }
 
             MainPanel frame = MainPanel.get();
-            ArticleHome home = ArticleHome.get();
-            ArticleNoteDAO dao = home.getArticleNoteDAO();
+            ArticleBusinessLogic logic = ArticleBusinessLogic.get();
+            ArticleNoteDAO dao = logic.getArticleNoteDAO();
 
             // Create instance of the updated article.
             Article updatedArticle = new Article();
-            updatedArticle.setDocumentId(home.getCurrentArticle().getDocumentId());
+            updatedArticle.setDocumentId(logic.getCurrentArticle().getDocumentId());
             updatedArticle.setDocumentTitle(WordUtils.capitalize(documentTitleField.getText()
                     .trim()));
             updatedArticle.setAuthorsList(EntityHelper.buildAuthorsStrList(authorField
@@ -76,14 +76,14 @@ public class EditArticleDialog extends JDialog {
             if (sourceField.getText() != null && !sourceField.getText().trim().equals("")) {
                 updatedArticle.setSource(sourceField.getText().trim());
             }
-            updatedArticle.setCreatedTime(home.getCurrentArticle().getCreatedTime());
+            updatedArticle.setCreatedTime(logic.getCurrentArticle().getCreatedTime());
             updatedArticle.setLastUpdatedTime(new Date(System.currentTimeMillis()));
 
             // Save the updated article.
             dao.updateDocument(updatedArticle);
 
             // Update the note panel.
-            frame.setArticlePanel(home.getCurrentArticle(), home.getCurrentArticleNote().getNoteId());
+            frame.setArticlePanel(logic.getCurrentArticle(), logic.getCurrentArticleNote().getNoteId());
 
             SoundFactory.playUpdate();
 
@@ -110,7 +110,7 @@ public class EditArticleDialog extends JDialog {
         super(MainPanel.get(), "Article Information", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         MainPanel frame = MainPanel.get();
-        ArticleHome home = ArticleHome.get();
+        ArticleBusinessLogic logic = ArticleBusinessLogic.get();
 
         JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
@@ -131,7 +131,7 @@ public class EditArticleDialog extends JDialog {
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         documentTitleField.setLineWrap(true);
-        documentTitleField.setText(home.getCurrentArticle().getDocumentTitle());
+        documentTitleField.setText(logic.getCurrentArticle().getDocumentTitle());
         documentTitleField.select(0, 0);
         articlePanel.add(new JScrollPane(documentTitleField), c);
 
@@ -145,9 +145,9 @@ public class EditArticleDialog extends JDialog {
         c.insets = new Insets(5, 5, 0, 5);
         authorField.setLineWrap(true);
         StringBuilder sb = new StringBuilder();
-        List<String> authorsList = home.getCurrentArticle().getAuthorsList();
+        List<String> authorsList = logic.getCurrentArticle().getAuthorsList();
         if (!authorsList.isEmpty()) {
-            for (String author : home.getCurrentArticle().getAuthorsList()) {
+            for (String author : logic.getCurrentArticle().getAuthorsList()) {
                 sb.append(author);
                 sb.append(", ");
             }
@@ -173,7 +173,7 @@ public class EditArticleDialog extends JDialog {
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
         commentField.setLineWrap(true);
-        commentField.setText(home.getCurrentArticle().getComment());
+        commentField.setText(logic.getCurrentArticle().getComment());
         commentField.select(0, 0);
         articlePanel.add(new JScrollPane(commentField), c);
 
@@ -186,7 +186,7 @@ public class EditArticleDialog extends JDialog {
         c.gridy = 4;
         c.insets = new Insets(5, 5, 5, 5);
         sourceField.setLineWrap(true);
-        sourceField.setText(home.getCurrentArticle().getSource());
+        sourceField.setText(logic.getCurrentArticle().getSource());
         sourceField.select(0, 0);
         articlePanel.add(new JScrollPane(sourceField), c);
 
@@ -198,7 +198,7 @@ public class EditArticleDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 5;
         c.insets = new Insets(5, 5, 5, 5);
-        createdTimeField.setText(home.getCurrentArticle().getCreatedTime().toString());
+        createdTimeField.setText(logic.getCurrentArticle().getCreatedTime().toString());
         articlePanel.add(createdTimeField, c);
 
         c.gridx = 0;
@@ -209,7 +209,7 @@ public class EditArticleDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 6;
         c.insets = new Insets(5, 5, 5, 5);
-        lastUpdatedTimeField.setText(home.getCurrentArticle().getLastUpdatedTime().toString());
+        lastUpdatedTimeField.setText(logic.getCurrentArticle().getLastUpdatedTime().toString());
         articlePanel.add(lastUpdatedTimeField, c);
 
         dialogPanel.add(articlePanel);

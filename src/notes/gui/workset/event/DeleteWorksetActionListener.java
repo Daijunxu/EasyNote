@@ -1,7 +1,7 @@
 package notes.gui.workset.event;
 
-import notes.bean.WorksetHome;
-import notes.entity.workset.Workset;
+import notes.businesslogic.WorksetBusinessLogic;
+import notes.businessobjects.workset.Workset;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 
@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 /**
  * Defines event listener of deleting a workset.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class DeleteWorksetActionListener implements ActionListener {
 
@@ -21,10 +21,10 @@ public class DeleteWorksetActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-        WorksetHome home = WorksetHome.get();
+        WorksetBusinessLogic logic = WorksetBusinessLogic.get();
         MainPanel frame = MainPanel.get();
         try {
-            Workset workset = home.getCurrentWorkset();
+            Workset workset = logic.getCurrentWorkset();
             if (workset == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No workset is selected!", "Input error",
@@ -38,9 +38,9 @@ public class DeleteWorksetActionListener implements ActionListener {
             // 0 for yes and 1 for no.
             if (result == 0) {
                 // Delete the selected workset.
-                home.getWorksheetNoteDAO().deleteDocument(workset);
+                logic.getWorksheetNoteDAO().deleteDocument(workset);
                 // Clear all temporary data.
-                home.clearAllTemporaryData();
+                logic.clearAllTemporaryData();
                 // Set up the default panel.
                 frame.setDefaultPanel();
                 SoundFactory.playDelete();

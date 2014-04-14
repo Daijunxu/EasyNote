@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 /**
  * Defines event listener of creating a new book.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class NewBookActionListener implements ActionListener {
 

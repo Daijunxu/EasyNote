@@ -2,9 +2,9 @@ package notes.dao.impl;
 
 import core.EasyNoteUnitTestCase;
 import notes.data.cache.Cache;
-import notes.entity.Note;
-import notes.entity.article.Article;
-import notes.entity.article.ArticleNote;
+import notes.businessobjects.Note;
+import notes.businessobjects.article.Article;
+import notes.businessobjects.article.ArticleNote;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Unit tests for the {@code ArticleNoteDAO}.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
@@ -31,7 +31,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.ArticleNoteDAO#deleteDocument(notes.entity.Document)}.
+     * {@link notes.dao.impl.ArticleNoteDAO#deleteDocument(notes.businessobjects.Document)}.
      */
     @Test
     public void testDeleteDocument() {
@@ -50,7 +50,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.ArticleNoteDAO#deleteNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.ArticleNoteDAO#deleteNote(notes.businessobjects.Note)}.
      */
     @Test
     public void testDeleteNote() {
@@ -80,7 +80,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.ArticleNoteDAO#updateDocument(notes.entity.Document)}
+     * Test method for {@link notes.dao.impl.ArticleNoteDAO#updateDocument(notes.businessobjects.Document)}
      * .
      */
     @Test
@@ -106,7 +106,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.ArticleNoteDAO#updateNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.ArticleNoteDAO#updateNote(notes.businessobjects.Note)}.
      */
     @Test
     public void testUpdateNote() {
@@ -129,7 +129,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.ArticleNoteDAO#saveDocument(notes.entity.Document)}.
+     * Test method for {@link notes.dao.impl.ArticleNoteDAO#saveDocument(notes.businessobjects.Document)}.
      */
     @Test
     public void testSaveDocument() {
@@ -151,7 +151,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.ArticleNoteDAO#saveNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.ArticleNoteDAO#saveNote(notes.businessobjects.Note)}.
      */
     @Test
     public void testSaveNote() {

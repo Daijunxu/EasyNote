@@ -16,7 +16,7 @@ import java.io.Writer;
 /**
  * Defines the dialog and event listener for choosing data file location.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class ChooseDataLocationDialog extends JDialog {
 

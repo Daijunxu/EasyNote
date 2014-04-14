@@ -2,8 +2,8 @@ package notes.data.cache;
 
 import lombok.Getter;
 import lombok.Setter;
-import notes.entity.Tag;
-import notes.entity.XMLSerializable;
+import notes.businessobjects.Tag;
+import notes.businessobjects.XMLSerializable;
 import org.dom4j.Element;
 import org.dom4j.tree.DefaultElement;
 
@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * Stores all the tags.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class TagCache implements XMLSerializable<TagCache> {
 

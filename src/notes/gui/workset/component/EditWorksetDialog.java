@@ -1,8 +1,8 @@
 package notes.gui.workset.component;
 
-import notes.bean.WorksetHome;
+import notes.businesslogic.WorksetBusinessLogic;
 import notes.dao.impl.WorksheetNoteDAO;
-import notes.entity.workset.Workset;
+import notes.businessobjects.workset.Workset;
 import notes.gui.main.component.MainPanel;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Defines the dialog and event listener for editing a workset.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class EditWorksetDialog extends JDialog {
 
@@ -54,28 +54,28 @@ public class EditWorksetDialog extends JDialog {
             }
 
             MainPanel frame = MainPanel.get();
-            WorksetHome home = WorksetHome.get();
-            WorksheetNoteDAO dao = home.getWorksheetNoteDAO();
+            WorksetBusinessLogic logic = WorksetBusinessLogic.get();
+            WorksheetNoteDAO dao = logic.getWorksheetNoteDAO();
 
             // Create instance of the updated workset.
             Workset updatedWorkset = new Workset();
-            updatedWorkset.setDocumentId(home.getCurrentWorkset().getDocumentId());
+            updatedWorkset.setDocumentId(logic.getCurrentWorkset().getDocumentId());
             updatedWorkset.setDocumentTitle(WordUtils.capitalize(documentTitleField.getText().trim()));
             updatedWorkset.setAuthorsList(EntityHelper.buildAuthorsStrList(authorField
                     .getText()));
             if (commentField.getText() != null && !commentField.getText().trim().equals("")) {
                 updatedWorkset.setComment(commentField.getText().trim());
             }
-            updatedWorkset.setWorksheetIdsList(home.getCurrentWorkset().getWorksheetIdsList());
-            updatedWorkset.setWorksheetsMap(home.getCurrentWorkset().getWorksheetsMap());
-            updatedWorkset.setCreatedTime(home.getCurrentWorkset().getCreatedTime());
+            updatedWorkset.setWorksheetIdsList(logic.getCurrentWorkset().getWorksheetIdsList());
+            updatedWorkset.setWorksheetsMap(logic.getCurrentWorkset().getWorksheetsMap());
+            updatedWorkset.setCreatedTime(logic.getCurrentWorkset().getCreatedTime());
             updatedWorkset.setLastUpdatedTime(new Date(System.currentTimeMillis()));
 
             // Save the updated Workset.
             dao.updateDocument(updatedWorkset);
 
             // Reset the Workset panel.
-            frame.setWorksetPanel(home.getCurrentWorkset(), null);
+            frame.setWorksetPanel(logic.getCurrentWorkset(), null);
 
             SoundFactory.playUpdate();
             setVisible(false);
@@ -101,7 +101,7 @@ public class EditWorksetDialog extends JDialog {
         super(MainPanel.get(), "Workset Information", true);
         setIconImage(new ImageIcon("./resources/images/Workset.gif").getImage());
         MainPanel frame = MainPanel.get();
-        WorksetHome home = WorksetHome.get();
+        WorksetBusinessLogic logic = WorksetBusinessLogic.get();
 
         JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
@@ -121,7 +121,7 @@ public class EditWorksetDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
-        documentIdField.setText(home.getCurrentWorkset().getDocumentId().toString());
+        documentIdField.setText(logic.getCurrentWorkset().getDocumentId().toString());
         worksetPanel.add(documentIdField, c);
 
         c.gridx = 0;
@@ -133,7 +133,7 @@ public class EditWorksetDialog extends JDialog {
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
         documentTitleField.setLineWrap(true);
-        documentTitleField.setText(home.getCurrentWorkset().getDocumentTitle());
+        documentTitleField.setText(logic.getCurrentWorkset().getDocumentTitle());
         documentTitleField.select(0, 0);
         worksetPanel.add(new JScrollPane(documentTitleField), c);
 
@@ -147,7 +147,7 @@ public class EditWorksetDialog extends JDialog {
         c.insets = new Insets(5, 5, 0, 5);
         authorField.setLineWrap(true);
         StringBuilder sb = new StringBuilder();
-        List<String> authorsList = home.getCurrentWorkset().getAuthorsList();
+        List<String> authorsList = logic.getCurrentWorkset().getAuthorsList();
         if (!authorsList.isEmpty()) {
             for (String author : authorsList) {
                 sb.append(author);
@@ -175,7 +175,7 @@ public class EditWorksetDialog extends JDialog {
         c.gridy = 4;
         c.insets = new Insets(5, 5, 5, 5);
         commentField.setLineWrap(true);
-        commentField.setText(home.getCurrentWorkset().getComment());
+        commentField.setText(logic.getCurrentWorkset().getComment());
         commentField.select(0, 0);
         worksetPanel.add(new JScrollPane(commentField), c);
 
@@ -187,7 +187,7 @@ public class EditWorksetDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 5;
         c.insets = new Insets(5, 5, 5, 5);
-        createdTimeField.setText(home.getCurrentWorkset().getCreatedTime().toString());
+        createdTimeField.setText(logic.getCurrentWorkset().getCreatedTime().toString());
         worksetPanel.add(createdTimeField, c);
 
         c.gridx = 0;
@@ -198,7 +198,7 @@ public class EditWorksetDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 6;
         c.insets = new Insets(5, 5, 5, 5);
-        lastUpdatedTimeField.setText(home.getCurrentWorkset().getLastUpdatedTime().toString());
+        lastUpdatedTimeField.setText(logic.getCurrentWorkset().getLastUpdatedTime().toString());
         worksetPanel.add(lastUpdatedTimeField, c);
 
         dialogPanel.add(worksetPanel);

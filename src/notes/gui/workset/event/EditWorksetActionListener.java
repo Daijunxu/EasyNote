@@ -1,6 +1,6 @@
 package notes.gui.workset.event;
 
-import notes.bean.WorksetHome;
+import notes.businesslogic.WorksetBusinessLogic;
 import notes.gui.workset.component.EditWorksetDialog;
 import notes.utils.SoundFactory;
 
@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 /**
  * Defines event listener of editing a workset.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class EditWorksetActionListener implements ActionListener {
 
@@ -21,7 +21,7 @@ public class EditWorksetActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
-            if (WorksetHome.get().getCurrentWorkset() == null) {
+            if (WorksetBusinessLogic.get().getCurrentWorkset() == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No book is selected!", "Input error",
                         JOptionPane.ERROR_MESSAGE);

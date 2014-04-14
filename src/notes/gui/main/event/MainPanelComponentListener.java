@@ -1,9 +1,9 @@
 package notes.gui.main.event;
 
-import notes.bean.ArticleHome;
-import notes.bean.BookHome;
-import notes.bean.WorksetHome;
-import notes.entity.SystemMode;
+import notes.businesslogic.ArticleBusinessLogic;
+import notes.businesslogic.BookBusinessLogic;
+import notes.businesslogic.WorksetBusinessLogic;
+import notes.businessobjects.SystemMode;
 import notes.gui.main.component.MainPanel;
 
 import java.awt.event.ComponentEvent;
@@ -27,25 +27,25 @@ public class MainPanelComponentListener implements ComponentListener {
         }
 
         if (currentMode.equals(SystemMode.WORKSET)) {
-            WorksetHome worksetHome = WorksetHome.get();
-            if (worksetHome.getCurrentWorksheetNote() != null) {
-                mainPanel.updateWorksheetNotePanel(worksetHome.getCurrentWorksheet(),
-                        worksetHome.getCurrentWorksheetNote().getNoteId());
+            WorksetBusinessLogic worksetBusinessLogic = WorksetBusinessLogic.get();
+            if (worksetBusinessLogic.getCurrentWorksheetNote() != null) {
+                mainPanel.updateWorksheetNotePanel(worksetBusinessLogic.getCurrentWorksheet(),
+                        worksetBusinessLogic.getCurrentWorksheetNote().getNoteId());
             } else {
-                mainPanel.updateWorksheetNotePanel(worksetHome.getCurrentWorksheet(), null);
+                mainPanel.updateWorksheetNotePanel(worksetBusinessLogic.getCurrentWorksheet(), null);
             }
         } else if (currentMode.equals(SystemMode.BOOK)) {
-            BookHome bookHome = BookHome.get();
-            if (bookHome.getCurrentBookNote() != null) {
-                mainPanel.updateBookNotePanel(bookHome.getCurrentChapter(),
-                        bookHome.getCurrentBookNote().getNoteId());
+            BookBusinessLogic bookBusinessLogic = BookBusinessLogic.get();
+            if (bookBusinessLogic.getCurrentBookNote() != null) {
+                mainPanel.updateBookNotePanel(bookBusinessLogic.getCurrentChapter(),
+                        bookBusinessLogic.getCurrentBookNote().getNoteId());
             } else {
-                mainPanel.updateBookNotePanel(bookHome.getCurrentChapter(), null);
+                mainPanel.updateBookNotePanel(bookBusinessLogic.getCurrentChapter(), null);
             }
         } else if (currentMode.equals(SystemMode.ARTICLE)) {
-            ArticleHome articleHome = ArticleHome.get();
-            if (articleHome.getCurrentArticleNote() != null) {
-                mainPanel.updateArticleNotePanel(articleHome.getCurrentArticleNote().getNoteId());
+            ArticleBusinessLogic articleBusinessLogic = ArticleBusinessLogic.get();
+            if (articleBusinessLogic.getCurrentArticleNote() != null) {
+                mainPanel.updateArticleNotePanel(articleBusinessLogic.getCurrentArticleNote().getNoteId());
             } else {
                 mainPanel.updateArticleNotePanel(null);
             }

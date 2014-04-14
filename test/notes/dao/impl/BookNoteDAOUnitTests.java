@@ -2,10 +2,10 @@ package notes.dao.impl;
 
 import core.EasyNoteUnitTestCase;
 import notes.data.cache.Cache;
-import notes.entity.Note;
-import notes.entity.book.Book;
-import notes.entity.book.BookNote;
-import notes.entity.book.Chapter;
+import notes.businessobjects.Note;
+import notes.businessobjects.book.Book;
+import notes.businessobjects.book.BookNote;
+import notes.businessobjects.book.Chapter;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Unit tests for the {@code BookNoteDAO}.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
@@ -34,7 +34,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.BookNoteDAO#deleteChapter(notes.entity.book.Chapter, java.lang.Long)}.
+     * {@link notes.dao.impl.BookNoteDAO#deleteChapter(notes.businessobjects.book.Chapter, java.lang.Long)}.
      */
     @Test
     public void testDeleteChapter() {
@@ -50,7 +50,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.BookNoteDAO#deleteDocument(notes.entity.Document)}.
+     * Test method for {@link notes.dao.impl.BookNoteDAO#deleteDocument(notes.businessobjects.Document)}.
      */
     @Test
     public void testDeleteDocument() {
@@ -69,7 +69,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.BookNoteDAO#deleteNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.BookNoteDAO#deleteNote(notes.businessobjects.Note)}.
      */
     @Test
     public void testDeleteNote() {
@@ -117,7 +117,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.BookNoteDAO#updateChapter(notes.entity.book.Chapter, java.lang.Long)}.
+     * {@link notes.dao.impl.BookNoteDAO#updateChapter(notes.businessobjects.book.Chapter, java.lang.Long)}.
      */
     @Test
     public void testUpdateChapter() {
@@ -139,7 +139,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.BookNoteDAO#updateDocument(notes.entity.Document)}.
+     * Test method for {@link notes.dao.impl.BookNoteDAO#updateDocument(notes.businessobjects.Document)}.
      */
     @Test
     public void testUpdateDocument() {
@@ -168,7 +168,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.BookNoteDAO#updateNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.BookNoteDAO#updateNote(notes.businessobjects.Note)}.
      */
     @Test
     public void testUpdateNote() {
@@ -193,7 +193,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
     /**
      * Test method for
-     * {@link notes.dao.impl.BookNoteDAO#saveChapter(notes.entity.book.Chapter, java.lang.Long)}.
+     * {@link notes.dao.impl.BookNoteDAO#saveChapter(notes.businessobjects.book.Chapter, java.lang.Long)}.
      */
     @Test
     public void testSaveChapter() {
@@ -209,7 +209,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.BookNoteDAO#saveDocument(notes.entity.Document)}.
+     * Test method for {@link notes.dao.impl.BookNoteDAO#saveDocument(notes.businessobjects.Document)}.
      */
     @Test
     public void testSaveDocument() {
@@ -238,7 +238,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link notes.dao.impl.BookNoteDAO#saveNote(notes.entity.Note)}.
+     * Test method for {@link notes.dao.impl.BookNoteDAO#saveNote(notes.businessobjects.Note)}.
      */
     @Test
     public void testSaveNote() {

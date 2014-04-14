@@ -1,12 +1,12 @@
 package notes.gui.workset.component;
 
-import notes.bean.WorksetHome;
+import notes.businesslogic.WorksetBusinessLogic;
 import notes.dao.impl.WorksheetNoteDAO;
-import notes.entity.NoteStatus;
-import notes.entity.Tag;
-import notes.entity.workset.Workset;
-import notes.entity.workset.Worksheet;
-import notes.entity.workset.WorksheetNote;
+import notes.businessobjects.NoteStatus;
+import notes.businessobjects.Tag;
+import notes.businessobjects.workset.Workset;
+import notes.businessobjects.workset.Worksheet;
+import notes.businessobjects.workset.WorksheetNote;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.SearchNoteDialog;
 import notes.gui.main.validation.NoteTextInputValidator;
@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Defines the dialog and event listener for editing a worksheet note.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class EditWorksheetNoteDialog extends JDialog {
     private final WorksheetNote selectedNote;
@@ -51,13 +51,13 @@ public class EditWorksheetNoteDialog extends JDialog {
             }
 
             MainPanel frame = MainPanel.get();
-            WorksetHome home = WorksetHome.get();
-            WorksheetNoteDAO dao = home.getWorksheetNoteDAO();
+            WorksetBusinessLogic logic = WorksetBusinessLogic.get();
+            WorksheetNoteDAO dao = logic.getWorksheetNoteDAO();
             WorksheetNote newNote = new WorksheetNote();
             newNote.setNoteId(selectedNote.getNoteId());
             newNote.setDocumentId(selectedNote.getDocumentId());
 
-            Long selectedWorksheetId = home.getCurrentWorkset().getWorksheetIdsList()
+            Long selectedWorksheetId = logic.getCurrentWorkset().getWorksheetIdsList()
                     .get(worksheetField.getSelectedIndex());
             newNote.setWorksheetId(selectedWorksheetId);
 
@@ -84,13 +84,13 @@ public class EditWorksheetNoteDialog extends JDialog {
             WorksheetNote updatedNote = (WorksheetNote) dao.updateNote(newNote);
 
             // Update current note.
-            home.setCurrentWorksheetNote(updatedNote);
+            logic.setCurrentWorksheetNote(updatedNote);
 
             // Update the note panel.
             if (frame.isSearchMode()) {
                 SearchNoteDialog.get().updateResultPanel();
             } else {
-                frame.updateWorksheetNotePanel(home.getCurrentWorksheet(), updatedNote.getNoteId());
+                frame.updateWorksheetNotePanel(logic.getCurrentWorksheet(), updatedNote.getNoteId());
             }
 
             SoundFactory.playUpdate();
@@ -119,7 +119,7 @@ public class EditWorksheetNoteDialog extends JDialog {
 
         setIconImage(new ImageIcon("./resources/images/workset.gif").getImage());
         MainPanel frame = MainPanel.get();
-        WorksetHome home = WorksetHome.get();
+        WorksetBusinessLogic logic = WorksetBusinessLogic.get();
 
         JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
@@ -185,7 +185,7 @@ public class EditWorksheetNoteDialog extends JDialog {
         StringBuilder tagStrBuilder = new StringBuilder();
         if (!selectedNote.getTagIds().isEmpty()) {
             for (Long tagId : selectedNote.getTagIds()) {
-                tagStrBuilder.append(home.getWorksheetNoteDAO().findTagById(tagId).getTagText()).append(", ");
+                tagStrBuilder.append(logic.getWorksheetNoteDAO().findTagById(tagId).getTagText()).append(", ");
             }
             tagStrBuilder.delete(tagStrBuilder.length() - 2, tagStrBuilder.length());
         }

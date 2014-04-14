@@ -1,10 +1,10 @@
 package notes.gui.workset.component;
 
-import notes.bean.WorksetHome;
+import notes.businesslogic.WorksetBusinessLogic;
 import notes.dao.impl.WorksheetNoteDAO;
-import notes.entity.NoteStatus;
-import notes.entity.Tag;
-import notes.entity.workset.WorksheetNote;
+import notes.businessobjects.NoteStatus;
+import notes.businessobjects.Tag;
+import notes.businessobjects.workset.WorksheetNote;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.validation.NoteTextInputValidator;
 import notes.gui.main.validation.TagsInputValidator;
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Defines the dialog and event listener for creating a workset note.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class NewWorksheetNoteDialog extends JDialog {
 
@@ -48,13 +48,13 @@ public class NewWorksheetNoteDialog extends JDialog {
             }
 
             MainPanel frame = MainPanel.get();
-            WorksetHome home = WorksetHome.get();
-            WorksheetNoteDAO dao = home.getWorksheetNoteDAO();
+            WorksetBusinessLogic logic = WorksetBusinessLogic.get();
+            WorksheetNoteDAO dao = logic.getWorksheetNoteDAO();
 
             // Create instance of the created workset note.
             WorksheetNote createdWorksheetNote = new WorksheetNote();
-            createdWorksheetNote.setDocumentId(home.getCurrentWorkset().getDocumentId());
-            Long selectedWorksheetId = home.getCurrentWorkset().getWorksheetIdsList()
+            createdWorksheetNote.setDocumentId(logic.getCurrentWorkset().getDocumentId());
+            Long selectedWorksheetId = logic.getCurrentWorkset().getWorksheetIdsList()
                     .get(worksheetField.getSelectedIndex());
             createdWorksheetNote.setWorksheetId(selectedWorksheetId);
             createdWorksheetNote.setNoteText(TextHelper.processInputText(noteTextField.getText()));
@@ -80,7 +80,7 @@ public class NewWorksheetNoteDialog extends JDialog {
             WorksheetNote cachedWorksheetNote = (WorksheetNote) (dao.saveNote(createdWorksheetNote));
 
             // Update the note panel.
-            frame.updateWorksheetNotePanel(home.getCurrentWorksheet(), cachedWorksheetNote.getNoteId());
+            frame.updateWorksheetNotePanel(logic.getCurrentWorksheet(), cachedWorksheetNote.getNoteId());
 
             SoundFactory.playUpdate();
             setVisible(false);
@@ -105,7 +105,7 @@ public class NewWorksheetNoteDialog extends JDialog {
         super(MainPanel.get(), "Create Workset Note", true);
         setIconImage(new ImageIcon("./resources/images/workset.gif").getImage());
         MainPanel frame = MainPanel.get();
-        WorksetHome home = WorksetHome.get();
+        WorksetBusinessLogic logic = WorksetBusinessLogic.get();
 
         JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
@@ -126,7 +126,7 @@ public class NewWorksheetNoteDialog extends JDialog {
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         documentField.setLineWrap(true);
-        documentField.setText(home.getCurrentWorkset().getDocumentTitle());
+        documentField.setText(logic.getCurrentWorkset().getDocumentTitle());
         documentField.setEditable(false);
         notePanel.add(new JScrollPane(documentField), c);
 
@@ -138,11 +138,11 @@ public class NewWorksheetNoteDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 1;
         c.insets = new Insets(5, 5, 5, 5);
-        for (Long worksheetId : home.getCurrentWorkset().getWorksheetIdsList()) {
-            worksheetField.addItem(home.getCurrentWorkset().getWorksheetsMap().get(worksheetId).getWorksheetTitle());
+        for (Long worksheetId : logic.getCurrentWorkset().getWorksheetIdsList()) {
+            worksheetField.addItem(logic.getCurrentWorkset().getWorksheetsMap().get(worksheetId).getWorksheetTitle());
         }
-        Long currentWorksheetId = home.getCurrentWorksheet().getWorksheetId();
-        worksheetField.setSelectedIndex(home.getCurrentWorkset().getWorksheetIdsList().indexOf(currentWorksheetId));
+        Long currentWorksheetId = logic.getCurrentWorksheet().getWorksheetId();
+        worksheetField.setSelectedIndex(logic.getCurrentWorkset().getWorksheetIdsList().indexOf(currentWorksheetId));
         notePanel.add(worksheetField, c);
 
         c.gridx = 0;

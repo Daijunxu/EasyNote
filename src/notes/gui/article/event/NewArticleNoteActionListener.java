@@ -1,6 +1,6 @@
 package notes.gui.article.event;
 
-import notes.bean.ArticleHome;
+import notes.businesslogic.ArticleBusinessLogic;
 import notes.gui.article.component.NewArticleNoteDialog;
 import notes.utils.SoundFactory;
 
@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 /**
  * Defines event listener of creating a new article note.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class NewArticleNoteActionListener implements ActionListener {
 
@@ -21,7 +21,7 @@ public class NewArticleNoteActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
-            if (ArticleHome.get().getCurrentArticle() == null) {
+            if (ArticleBusinessLogic.get().getCurrentArticle() == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No article is selected!", "Input error",
                         JOptionPane.ERROR_MESSAGE);

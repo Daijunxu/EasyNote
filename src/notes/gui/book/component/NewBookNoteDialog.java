@@ -1,10 +1,10 @@
 package notes.gui.book.component;
 
-import notes.bean.BookHome;
+import notes.businesslogic.BookBusinessLogic;
 import notes.dao.impl.BookNoteDAO;
-import notes.entity.Tag;
-import notes.entity.book.BookNote;
-import notes.entity.book.Chapter;
+import notes.businessobjects.Tag;
+import notes.businessobjects.book.BookNote;
+import notes.businessobjects.book.Chapter;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.validation.NoteTextInputValidator;
 import notes.gui.main.validation.TagsInputValidator;
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Defines the dialog and event listener for creating a book note.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class NewBookNoteDialog extends JDialog {
 
@@ -48,12 +48,12 @@ public class NewBookNoteDialog extends JDialog {
             }
 
             MainPanel frame = MainPanel.get();
-            BookHome home = BookHome.get();
-            BookNoteDAO dao = home.getBookNoteDAO();
+            BookBusinessLogic logic = BookBusinessLogic.get();
+            BookNoteDAO dao = logic.getBookNoteDAO();
 
             // Create instance of the created book note.
             BookNote createdBookNote = new BookNote();
-            createdBookNote.setDocumentId(home.getCurrentBook().getDocumentId());
+            createdBookNote.setDocumentId(logic.getCurrentBook().getDocumentId());
             String chapterStr = (String) chapterField.getSelectedItem();
             Long selectedChapterId = Long.parseLong(chapterStr.substring(0, chapterStr.indexOf(".")));
             createdBookNote.setChapterId(selectedChapterId);
@@ -77,7 +77,7 @@ public class NewBookNoteDialog extends JDialog {
             BookNote cachedBookNote = (BookNote) (dao.saveNote(createdBookNote));
 
             // Update the note panel.
-            frame.updateBookNotePanel(home.getCurrentChapter(), cachedBookNote.getNoteId());
+            frame.updateBookNotePanel(logic.getCurrentChapter(), cachedBookNote.getNoteId());
 
             SoundFactory.playUpdate();
 
@@ -102,7 +102,7 @@ public class NewBookNoteDialog extends JDialog {
         super(MainPanel.get(), "Create Book Note", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         MainPanel frame = MainPanel.get();
-        BookHome home = BookHome.get();
+        BookBusinessLogic logic = BookBusinessLogic.get();
 
         JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
@@ -123,7 +123,7 @@ public class NewBookNoteDialog extends JDialog {
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         documentField.setLineWrap(true);
-        documentField.setText(home.getCurrentBook().getDocumentTitle());
+        documentField.setText(logic.getCurrentBook().getDocumentTitle());
         documentField.setEditable(false);
         notePanel.add(new JScrollPane(documentField), c);
 
@@ -137,12 +137,12 @@ public class NewBookNoteDialog extends JDialog {
         c.insets = new Insets(5, 5, 5, 5);
         int selected = -1;
         int counter = -1;
-        for (Long chapterId : home.getCurrentBook().getChaptersMap().keySet()) {
+        for (Long chapterId : logic.getCurrentBook().getChaptersMap().keySet()) {
             counter++;
-            if (home.getCurrentChapter().getChapterId().equals(chapterId)) {
+            if (logic.getCurrentChapter().getChapterId().equals(chapterId)) {
                 selected = counter;
             }
-            Chapter chapter = home.getCurrentBook().getChaptersMap().get(chapterId);
+            Chapter chapter = logic.getCurrentBook().getChaptersMap().get(chapterId);
             chapterField.addItem(chapterId + ". " + chapter.getChapterTitle());
         }
         chapterField.setSelectedIndex(selected);

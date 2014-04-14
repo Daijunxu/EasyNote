@@ -1,10 +1,10 @@
 package notes.gui.main.event;
 
-import notes.bean.ArticleHome;
-import notes.bean.BookHome;
-import notes.bean.WorksetHome;
+import notes.businesslogic.ArticleBusinessLogic;
+import notes.businesslogic.BookBusinessLogic;
+import notes.businesslogic.WorksetBusinessLogic;
 import notes.data.persistence.Property;
-import notes.entity.SystemMode;
+import notes.businessobjects.SystemMode;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 
@@ -28,14 +28,14 @@ public class CloseDocumentEventListener implements ActionListener {
         SoundFactory.playUpdate();
         MainPanel mainPanel = MainPanel.get();
 
-        // Clear temporary data in home objects.
+        // Clear temporary data in logic objects.
         SystemMode currentMode = mainPanel.getCurrentMode();
         if (currentMode.equals(SystemMode.WORKSET)) {
-            WorksetHome.get().clearAllTemporaryData();
+            WorksetBusinessLogic.get().clearAllTemporaryData();
         } else if (currentMode.equals(SystemMode.BOOK)) {
-            BookHome.get().clearAllTemporaryData();
+            BookBusinessLogic.get().clearAllTemporaryData();
         } else if (currentMode.equals(SystemMode.ARTICLE)) {
-            ArticleHome.get().clearAllTemporaryData();
+            ArticleBusinessLogic.get().clearAllTemporaryData();
         }
 
         // Set the last opened document to null.

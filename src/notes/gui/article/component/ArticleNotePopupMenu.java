@@ -1,6 +1,6 @@
 package notes.gui.article.component;
 
-import notes.bean.ArticleHome;
+import notes.businesslogic.ArticleBusinessLogic;
 import notes.gui.article.event.DeleteArticleNoteActionListener;
 import notes.gui.article.event.EditArticleActionListener;
 import notes.gui.article.event.EditArticleNoteActionListener;
@@ -11,7 +11,7 @@ import javax.swing.*;
 /**
  * Pops up when right clicking a note in the article note panel.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class ArticleNotePopupMenu extends JPopupMenu {
     /**
@@ -26,7 +26,7 @@ public class ArticleNotePopupMenu extends JPopupMenu {
         deleteItem.addActionListener(new DeleteArticleNoteActionListener());
         JMenuItem viewArticleInfoItem = new JMenuItem("Article Info");
         viewArticleInfoItem.addActionListener(new EditArticleActionListener());
-        if (ArticleHome.get().getCurrentArticleNote() == null) {
+        if (ArticleBusinessLogic.get().getCurrentArticleNote() == null) {
             editItem.setEnabled(false);
             deleteItem.setEnabled(false);
         }

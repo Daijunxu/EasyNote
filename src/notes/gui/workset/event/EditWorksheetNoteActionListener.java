@@ -1,6 +1,6 @@
 package notes.gui.workset.event;
 
-import notes.bean.WorksetHome;
+import notes.businesslogic.WorksetBusinessLogic;
 import notes.gui.workset.component.EditWorksheetNoteDialog;
 import notes.utils.SoundFactory;
 
@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 /**
  * Defines event listener of editing a worksheet note.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class EditWorksheetNoteActionListener implements ActionListener {
 
@@ -21,23 +21,23 @@ public class EditWorksheetNoteActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
-            WorksetHome home = WorksetHome.get();
-            if (home.getCurrentWorkset() == null) {
+            WorksetBusinessLogic logic = WorksetBusinessLogic.get();
+            if (logic.getCurrentWorkset() == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No workset is selected!", "Input error",
                         JOptionPane.ERROR_MESSAGE);
-            } else if (home.getCurrentWorksheet() == null) {
+            } else if (logic.getCurrentWorksheet() == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No worksheet is selected!", "Input error",
                         JOptionPane.ERROR_MESSAGE);
-            } else if (home.getCurrentWorksheetNote() == null) {
+            } else if (logic.getCurrentWorksheetNote() == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No note is selected!", "Input error",
                         JOptionPane.ERROR_MESSAGE);
             } else {
                 SoundFactory.playPopup();
-                new EditWorksheetNoteDialog(home.getCurrentWorkset(), home.getCurrentWorksheet(),
-                        home.getCurrentWorksheetNote());
+                new EditWorksheetNoteDialog(logic.getCurrentWorkset(), logic.getCurrentWorksheet(),
+                        logic.getCurrentWorksheetNote());
             }
         } catch (Exception e) {
             e.printStackTrace();

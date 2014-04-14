@@ -2,9 +2,9 @@ package notes.dao.impl;
 
 import core.EasyNoteUnitTestCase;
 import notes.data.cache.Cache;
-import notes.entity.Document;
-import notes.entity.Note;
-import notes.entity.Tag;
+import notes.businessobjects.Document;
+import notes.businessobjects.Note;
+import notes.businessobjects.Tag;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Unit tests for the {@code DocumentNoteDAO}.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class DocumentNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
@@ -30,7 +30,7 @@ public class DocumentNoteDAOUnitTests extends EasyNoteUnitTestCase {
     private DocumentNoteDAO dao = DocumentNoteDAO.get();
 
     /**
-     * Test method for {@link DocumentNoteDAO#deleteTag(notes.entity.Tag)}.
+     * Test method for {@link DocumentNoteDAO#deleteTag(notes.businessobjects.Tag)}.
      */
     @Test
     public void testDeleteTag() {
@@ -239,7 +239,7 @@ public class DocumentNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link DocumentNoteDAO#updateTag(notes.entity.Tag)}.
+     * Test method for {@link DocumentNoteDAO#updateTag(notes.businessobjects.Tag)}.
      */
     @Test
     public void testUpdateTag() {
@@ -257,7 +257,7 @@ public class DocumentNoteDAOUnitTests extends EasyNoteUnitTestCase {
     }
 
     /**
-     * Test method for {@link DocumentNoteDAO#saveTag(notes.entity.Tag)}.
+     * Test method for {@link DocumentNoteDAO#saveTag(notes.businessobjects.Tag)}.
      */
     @Test
     public void testSaveTag() {

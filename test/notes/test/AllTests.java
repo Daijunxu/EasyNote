@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 /**
  * Run all test cases.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 @RunWith(ClasspathSuite.class)
 public class AllTests {

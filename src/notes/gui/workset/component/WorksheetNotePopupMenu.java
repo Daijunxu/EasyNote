@@ -1,8 +1,8 @@
 package notes.gui.workset.component;
 
-import notes.bean.WorksetHome;
-import notes.entity.NoteStatus;
-import notes.entity.workset.WorksheetNote;
+import notes.businesslogic.WorksetBusinessLogic;
+import notes.businessobjects.NoteStatus;
+import notes.businessobjects.workset.WorksheetNote;
 import notes.gui.main.component.MainPanel;
 import notes.gui.workset.event.DeleteWorksheetNoteActionListener;
 import notes.gui.workset.event.EditWorksheetNoteActionListener;
@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 /**
  * Pops up when right clicking a note in the worksheet note panel.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class WorksheetNotePopupMenu extends JPopupMenu {
 
@@ -43,12 +43,12 @@ public class WorksheetNotePopupMenu extends JPopupMenu {
 
         deleteItem = new JMenuItem("Delete");
         deleteItem.addActionListener(new DeleteWorksheetNoteActionListener());
-        if (WorksetHome.get().getCurrentWorksheetNote() == null) {
+        if (WorksetBusinessLogic.get().getCurrentWorksheetNote() == null) {
             editItem.setEnabled(false);
             setNoteStatusItem.setEnabled(false);
             deleteItem.setEnabled(false);
         }
-        if (WorksetHome.get().getCurrentWorksheet() == null) {
+        if (WorksetBusinessLogic.get().getCurrentWorksheet() == null) {
             newItem.setEnabled(false);
         }
         add(newItem);
@@ -68,7 +68,7 @@ public class WorksheetNotePopupMenu extends JPopupMenu {
         @Override
         public void actionPerformed(ActionEvent event) {
             try {
-                WorksheetNote currentWorksheetNote = WorksetHome.get().getCurrentWorksheetNote();
+                WorksheetNote currentWorksheetNote = WorksetBusinessLogic.get().getCurrentWorksheetNote();
                 if (currentWorksheetNote == null) {
                     SoundFactory.playError();
                     JOptionPane.showMessageDialog(null, "No note is selected!", "Input error",
@@ -79,7 +79,7 @@ public class WorksheetNotePopupMenu extends JPopupMenu {
                     currentWorksheetNote.setNoteStatus(statusToSet);
 
                     // Update the note panel.
-                    MainPanel.get().updateWorksheetNotePanel(WorksetHome.get().getCurrentWorksheet(), null);
+                    MainPanel.get().updateWorksheetNotePanel(WorksetBusinessLogic.get().getCurrentWorksheet(), null);
                     SoundFactory.playUpdate();
                 }
             } catch (Exception e) {

@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 /**
  * The event listener for saving all changes.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class SaveAllActionListener implements ActionListener {
 

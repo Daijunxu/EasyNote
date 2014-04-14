@@ -1,8 +1,8 @@
 package notes.gui.workset.component;
 
-import notes.bean.WorksetHome;
+import notes.businesslogic.WorksetBusinessLogic;
 import notes.dao.impl.WorksheetNoteDAO;
-import notes.entity.workset.Worksheet;
+import notes.businessobjects.workset.Worksheet;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 import org.apache.commons.lang3.text.WordUtils;
@@ -16,7 +16,7 @@ import java.util.Date;
 /**
  * Defines the dialog and event listener for creating a worksheet.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class NewWorksheetDialog extends JDialog {
 
@@ -33,23 +33,23 @@ public class NewWorksheetDialog extends JDialog {
             }
 
             MainPanel frame = MainPanel.get();
-            WorksetHome home = WorksetHome.get();
-            WorksheetNoteDAO dao = home.getWorksheetNoteDAO();
+            WorksetBusinessLogic logic = WorksetBusinessLogic.get();
+            WorksheetNoteDAO dao = logic.getWorksheetNoteDAO();
 
             // Create instance of the created worksheet.
             Worksheet createdWorksheet = new Worksheet();
-            createdWorksheet.setWorksheetId(home.getCurrentWorkset().generateNewWorksheetId());
+            createdWorksheet.setWorksheetId(logic.getCurrentWorkset().generateNewWorksheetId());
             createdWorksheet.setWorksheetTitle(WordUtils.capitalize(worksheetField.getText().trim()));
             createdWorksheet.setNotesList(new ArrayList<Long>());
             createdWorksheet.setCreatedTime(new Date());
             createdWorksheet.setLastUpdatedTime(new Date());
 
             // Save the created worksheet.
-            Worksheet cachedWorksheet = dao.saveWorksheet(createdWorksheet, home.getCurrentWorkset()
+            Worksheet cachedWorksheet = dao.saveWorksheet(createdWorksheet, logic.getCurrentWorkset()
                     .getDocumentId());
             if (cachedWorksheet != null) {
                 // Update the worksheet and note panel.
-                frame.updateWorksetPanel(home.getCurrentWorkset().getDocumentId(),
+                frame.updateWorksetPanel(logic.getCurrentWorkset().getDocumentId(),
                         cachedWorksheet.getWorksheetId(), null);
 
                 SoundFactory.playUpdate();

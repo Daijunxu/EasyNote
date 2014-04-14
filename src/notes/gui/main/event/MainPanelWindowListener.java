@@ -1,11 +1,11 @@
 package notes.gui.main.event;
 
-import notes.bean.ArticleHome;
-import notes.bean.BookHome;
-import notes.bean.WorksetHome;
+import notes.businesslogic.ArticleBusinessLogic;
+import notes.businesslogic.BookBusinessLogic;
+import notes.businesslogic.WorksetBusinessLogic;
 import notes.data.cache.Cache;
 import notes.data.persistence.Property;
-import notes.entity.SystemMode;
+import notes.businessobjects.SystemMode;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 
@@ -15,7 +15,7 @@ import java.awt.event.WindowListener;
 /**
  * Window listener of the main panel.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class MainPanelWindowListener implements WindowListener {
 
@@ -50,14 +50,14 @@ public class MainPanelWindowListener implements WindowListener {
         SystemMode currentMode = MainPanel.get().getCurrentMode();
         if (currentMode != null) {
             if (currentMode.equals(SystemMode.WORKSET)
-                    && WorksetHome.get().getCurrentWorkset() != null) {
-                Property.get().setLastOpenedDocumentId(WorksetHome.get().getCurrentWorkset().getDocumentId());
+                    && WorksetBusinessLogic.get().getCurrentWorkset() != null) {
+                Property.get().setLastOpenedDocumentId(WorksetBusinessLogic.get().getCurrentWorkset().getDocumentId());
             } else if (currentMode.equals(SystemMode.ARTICLE)
-                    && ArticleHome.get().getCurrentArticle() != null) {
-                Property.get().setLastOpenedDocumentId(ArticleHome.get().getCurrentArticle().getDocumentId());
+                    && ArticleBusinessLogic.get().getCurrentArticle() != null) {
+                Property.get().setLastOpenedDocumentId(ArticleBusinessLogic.get().getCurrentArticle().getDocumentId());
             } else if (currentMode.equals(SystemMode.BOOK)
-                    && BookHome.get().getCurrentBook() != null) {
-                Property.get().setLastOpenedDocumentId(BookHome.get().getCurrentBook().getDocumentId());
+                    && BookBusinessLogic.get().getCurrentBook() != null) {
+                Property.get().setLastOpenedDocumentId(BookBusinessLogic.get().getCurrentBook().getDocumentId());
             }
         }
 

@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 /**
  * Defines event listener of creating a new workset.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class NewWorksetActionListener implements ActionListener {
 

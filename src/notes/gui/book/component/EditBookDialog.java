@@ -1,8 +1,8 @@
 package notes.gui.book.component;
 
-import notes.bean.BookHome;
+import notes.businesslogic.BookBusinessLogic;
 import notes.dao.impl.BookNoteDAO;
-import notes.entity.book.Book;
+import notes.businessobjects.book.Book;
 import notes.gui.book.validation.EditionInputVerifier;
 import notes.gui.book.validation.ISBNInputVerifier;
 import notes.gui.book.validation.PublishedYearInputVerifier;
@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Defines the dialog and event listener for editing a book.
  *
- * @author Rui Du
+ * Author: Rui Du
  */
 public class EditBookDialog extends JDialog {
 
@@ -78,12 +78,12 @@ public class EditBookDialog extends JDialog {
             }
 
             MainPanel frame = MainPanel.get();
-            BookHome home = BookHome.get();
-            BookNoteDAO dao = home.getBookNoteDAO();
+            BookBusinessLogic logic = BookBusinessLogic.get();
+            BookNoteDAO dao = logic.getBookNoteDAO();
 
             // Create instance of the updated book.
             Book updatedBook = new Book();
-            updatedBook.setDocumentId(home.getCurrentBook().getDocumentId());
+            updatedBook.setDocumentId(logic.getCurrentBook().getDocumentId());
             updatedBook.setDocumentTitle(WordUtils.capitalize(documentTitleField.getText().trim()));
             updatedBook.setAuthorsList(EntityHelper.buildAuthorsStrList(authorField
                     .getText()));
@@ -100,15 +100,15 @@ public class EditBookDialog extends JDialog {
             if (ISBNField.getText() != null && !ISBNField.getText().equals("")) {
                 updatedBook.setIsbn(ISBNField.getText());
             }
-            updatedBook.setChaptersMap(home.getCurrentBook().getChaptersMap());
-            updatedBook.setCreatedTime(home.getCurrentBook().getCreatedTime());
+            updatedBook.setChaptersMap(logic.getCurrentBook().getChaptersMap());
+            updatedBook.setCreatedTime(logic.getCurrentBook().getCreatedTime());
             updatedBook.setLastUpdatedTime(new Date(System.currentTimeMillis()));
 
             // Save the updated book.
             dao.updateDocument(updatedBook);
 
             // Reset the book panel.
-            frame.setBookPanel(home.getCurrentBook(), null);
+            frame.setBookPanel(logic.getCurrentBook(), null);
 
             SoundFactory.playUpdate();
 
@@ -137,7 +137,7 @@ public class EditBookDialog extends JDialog {
         super(MainPanel.get(), "Book Information", true);
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         MainPanel frame = MainPanel.get();
-        BookHome home = BookHome.get();
+        BookBusinessLogic logic = BookBusinessLogic.get();
 
         JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
@@ -158,7 +158,7 @@ public class EditBookDialog extends JDialog {
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         documentTitleField.setLineWrap(true);
-        documentTitleField.setText(home.getCurrentBook().getDocumentTitle());
+        documentTitleField.setText(logic.getCurrentBook().getDocumentTitle());
         bookPanel.add(new JScrollPane(documentTitleField), c);
 
         c.gridx = 0;
@@ -171,7 +171,7 @@ public class EditBookDialog extends JDialog {
         c.insets = new Insets(5, 5, 0, 5);
         authorField.setLineWrap(true);
         StringBuilder sb = new StringBuilder();
-        List<String> authorsList = home.getCurrentBook().getAuthorsList();
+        List<String> authorsList = logic.getCurrentBook().getAuthorsList();
         if (!authorsList.isEmpty()) {
             for (String author : authorsList) {
                 sb.append(author);
@@ -199,8 +199,8 @@ public class EditBookDialog extends JDialog {
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
         editionField.setInputVerifier(new EditionInputVerifier());
-        if (home.getCurrentBook().getEdition() != null) {
-            editionField.setText(home.getCurrentBook().getEdition().toString());
+        if (logic.getCurrentBook().getEdition() != null) {
+            editionField.setText(logic.getCurrentBook().getEdition().toString());
         }
         bookPanel.add(editionField, c);
 
@@ -213,8 +213,8 @@ public class EditBookDialog extends JDialog {
         c.gridy = 4;
         c.insets = new Insets(5, 5, 5, 5);
         publishedYearField.setInputVerifier(new PublishedYearInputVerifier());
-        if (home.getCurrentBook().getPublishedYear() != null) {
-            publishedYearField.setText(home.getCurrentBook().getPublishedYear().toString());
+        if (logic.getCurrentBook().getPublishedYear() != null) {
+            publishedYearField.setText(logic.getCurrentBook().getPublishedYear().toString());
         }
         bookPanel.add(publishedYearField, c);
 
@@ -227,7 +227,7 @@ public class EditBookDialog extends JDialog {
         c.gridy = 5;
         c.insets = new Insets(5, 5, 0, 5);
         ISBNField.setInputVerifier(new ISBNInputVerifier());
-        ISBNField.setText(home.getCurrentBook().getIsbn());
+        ISBNField.setText(logic.getCurrentBook().getIsbn());
         bookPanel.add(ISBNField, c);
 
         c.gridx = 1;
@@ -246,7 +246,7 @@ public class EditBookDialog extends JDialog {
         c.gridy = 7;
         c.insets = new Insets(5, 5, 5, 5);
         commentField.setLineWrap(true);
-        commentField.setText(home.getCurrentBook().getComment());
+        commentField.setText(logic.getCurrentBook().getComment());
         commentField.select(0, 0);
         bookPanel.add(new JScrollPane(commentField), c);
 
@@ -258,7 +258,7 @@ public class EditBookDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 8;
         c.insets = new Insets(5, 5, 5, 5);
-        createdTimeField.setText(home.getCurrentBook().getCreatedTime().toString());
+        createdTimeField.setText(logic.getCurrentBook().getCreatedTime().toString());
         bookPanel.add(createdTimeField, c);
 
         c.gridx = 0;
@@ -269,7 +269,7 @@ public class EditBookDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 9;
         c.insets = new Insets(5, 5, 5, 5);
-        lastUpdatedTimeField.setText(home.getCurrentBook().getLastUpdatedTime().toString());
+        lastUpdatedTimeField.setText(logic.getCurrentBook().getLastUpdatedTime().toString());
         bookPanel.add(lastUpdatedTimeField, c);
 
         dialogPanel.add(bookPanel);
