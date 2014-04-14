@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import notes.bean.ArticleHome;
 import notes.entity.aware.AuthorsAware;
 import notes.entity.aware.CommentAware;
 import notes.entity.aware.CreatedTimeAware;
@@ -14,6 +15,8 @@ import notes.utils.EntityHelper;
 import org.dom4j.Element;
 import org.dom4j.tree.DefaultElement;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Date;
 import java.util.List;
 
@@ -125,5 +128,89 @@ public class Article extends AbstractDocument
         lastUpdatedTime = new Date(Long.parseLong(element.attributeValue("LastUpdatedTime")));
 
         return this;
+    }
+
+    /**
+     * {inheritDoc}
+     */
+    @Override
+    public void export(Writer writer) {
+        ArticleHome home = ArticleHome.get();
+        try {
+            writer.append("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF8'><title>");
+            writer.append(getDocumentTitle());
+            writer.append("</title></head>");
+            writer.append("<body><a name='title'/><h2>").append(getDocumentTitle()).append("</h2>");
+
+            // Output document ID.
+            writer.append("<b>Document ID: </b>").append(getDocumentId().toString()).append("<br>");
+
+            // Output authors.
+            if (!getAuthorsList().isEmpty()) {
+                writer.append("<b>Author(s): </b>");
+                StringBuilder authorsBuilder = new StringBuilder();
+                for (String author : getAuthorsList()) {
+                    authorsBuilder.append(author).append(", ");
+                }
+                authorsBuilder.delete(authorsBuilder.length() - 2, authorsBuilder.length());
+                writer.append(authorsBuilder);
+                writer.append("<br>");
+            }
+
+            // Output source.
+            if (getSource() != null && !getSource().equals("")) {
+                writer.append("<b>Source: </b>");
+                writer.append(getSource());
+                writer.append("<br>");
+            }
+
+            // Output created time.
+            writer.append("<b>Created Time: </b>").append(getCreatedTime().toString()).append("<br>");
+
+            // Output last updated time.
+            writer.append("<b>Last Updated Time: </b>").append(getLastUpdatedTime().toString()).append("<br>");
+
+            // Output number of notes.
+            writer.append("<b>Number of Notes: </b>").append(String.valueOf(getNotesCount())).append("<br>");
+
+            // Output comment.
+            writer.append("<b>Comment: </b><br>");
+            writer.append(getComment());
+            writer.append("<br>");
+
+            writer.append("<br><hr>");
+
+            // Output all notes in the article.
+            List<ArticleNote> noteList = home.getAllNotesForCurrentArticle();
+            for (ArticleNote note : noteList) {
+                writer.append("<p>");
+
+                // Output note text.
+                String noteText = note.getNoteText();
+                noteText = noteText.replaceAll("&", "&amp;");
+                noteText = noteText.replaceAll("<", "&lt;");
+                noteText = noteText.replaceAll("\n", "<br>");
+                noteText = noteText.replaceAll("  ", "&emsp;");
+                noteText = noteText.replaceAll("\t", "&emsp;&emsp;");
+                writer.append(noteText);
+                writer.append("<br><i>");
+
+                // Output tags.
+                if (!note.getTagIds().isEmpty()) {
+                    for (Long tagId : note.getTagIds()) {
+                        writer.append("[").append(home.getArticleNoteDAO().findTagById(tagId).getTagText()).append("] ");
+                    }
+                }
+
+                // Output note ID.
+                writer.append("ID: ").append(note.getNoteId().toString());
+
+                writer.append("</i><br></p>");
+            }
+            writer.append("<hr>");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

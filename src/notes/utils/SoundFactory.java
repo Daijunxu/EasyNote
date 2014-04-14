@@ -1,6 +1,6 @@
 package notes.utils;
 
-import notes.data.cache.Property;
+import notes.data.persistence.Property;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 

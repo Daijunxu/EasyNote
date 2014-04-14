@@ -7,7 +7,7 @@ import notes.bean.BookHome;
 import notes.bean.WorksetHome;
 import notes.dao.impl.DocumentNoteDAO;
 import notes.data.cache.Cache;
-import notes.data.cache.Property;
+import notes.data.persistence.Property;
 import notes.entity.Document;
 import notes.entity.SystemMode;
 import notes.entity.article.Article;

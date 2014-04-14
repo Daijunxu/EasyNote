@@ -1,11 +1,13 @@
 package notes.entity;
 
+import notes.data.persistence.Exportable;
+
 /**
  * An interface to describe basic operations of a document.
  *
  * @author Rui Du
  */
-public interface Document extends Comparable<Document>, XMLSerializable<Document> {
+public interface Document extends Comparable<Document>, XMLSerializable<Document>, Exportable {
 
     /**
      * Gets the comment.

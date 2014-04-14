@@ -1,9 +1,8 @@
 package notes.gui.article.component;
 
 import notes.bean.ArticleHome;
-import notes.data.cache.Property;
+import notes.data.persistence.Property;
 import notes.entity.article.Article;
-import notes.entity.article.ArticleNote;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.PreferencesDialog;
 import notes.utils.SoundFactory;
@@ -15,7 +14,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
+import java.io.Writer;
 
 /**
  * Defines the dialog and event listener for exporting current article.
@@ -76,8 +75,8 @@ public class ExportArticleDialog extends JDialog {
                                             "Error", JOptionPane.ERROR_MESSAGE);
                                     return;
                                 }
-                                BufferedWriter output = new BufferedWriter(new FileWriter(newFile));
-                                exportArticle(article, output);
+                                Writer output = new BufferedWriter(new FileWriter(newFile));
+                                article.export(output);
                                 output.close();
                                 SoundFactory.playExport();
                                 setVisible(false);
@@ -94,8 +93,8 @@ public class ExportArticleDialog extends JDialog {
                             return;
                         }
                         try {
-                            BufferedWriter output = new BufferedWriter(new FileWriter(selectedFile));
-                            exportArticle(article, output);
+                            Writer output = new BufferedWriter(new FileWriter(selectedFile));
+                            article.export(output);
                             output.close();
                             SoundFactory.playExport();
                             setVisible(false);
@@ -120,85 +119,4 @@ public class ExportArticleDialog extends JDialog {
         setResizable(false);
         setVisible(true);
     }
-
-    private void exportArticle(Article article, BufferedWriter output) {
-        ArticleHome home = ArticleHome.get();
-        try {
-            output.append("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF8'><title>");
-            output.append(article.getDocumentTitle());
-            output.append("</title></head>");
-            output.append("<body><a name='title'/><h2>").append(article.getDocumentTitle()).append("</h2>");
-
-            // Output document ID.
-            output.append("<b>Document ID: </b>").append(article.getDocumentId().toString()).append("<br>");
-
-            // Output authors.
-            if (!article.getAuthorsList().isEmpty()) {
-                output.append("<b>Author(s): </b>");
-                StringBuilder authorsBuilder = new StringBuilder();
-                for (String author : article.getAuthorsList()) {
-                    authorsBuilder.append(author).append(", ");
-                }
-                authorsBuilder.delete(authorsBuilder.length() - 2, authorsBuilder.length());
-                output.append(authorsBuilder);
-                output.append("<br>");
-            }
-
-            // Output source.
-            if (article.getSource() != null && !article.getSource().equals("")) {
-                output.append("<b>Source: </b>");
-                output.append(article.getSource());
-                output.append("<br>");
-            }
-
-            // Output created time.
-            output.append("<b>Created Time: </b>").append(article.getCreatedTime().toString()).append("<br>");
-
-            // Output last updated time.
-            output.append("<b>Last Updated Time: </b>").append(article.getLastUpdatedTime().toString()).append("<br>");
-
-            // Output number of notes.
-            output.append("<b>Number of Notes: </b>").append(String.valueOf(article.getNotesCount())).append("<br>");
-
-            // Output comment.
-            output.append("<b>Comment: </b><br>");
-            output.append(article.getComment());
-            output.append("<br>");
-
-            output.append("<br><hr>");
-
-            // Output all notes in the article.
-            List<ArticleNote> noteList = home.getAllNotesForCurrentArticle();
-            for (ArticleNote note : noteList) {
-                output.append("<p>");
-
-                // Output note text.
-                String noteText = note.getNoteText();
-                noteText = noteText.replaceAll("&", "&amp;");
-                noteText = noteText.replaceAll("<", "&lt;");
-                noteText = noteText.replaceAll("\n", "<br>");
-                noteText = noteText.replaceAll("  ", "&emsp;");
-                noteText = noteText.replaceAll("\t", "&emsp;&emsp;");
-                output.append(noteText);
-                output.append("<br><i>");
-
-                // Output tags.
-                if (!note.getTagIds().isEmpty()) {
-                    for (Long tagId : note.getTagIds()) {
-                        output.append("[").append(home.getArticleNoteDAO().findTagById(tagId).getTagText()).append("] ");
-                    }
-                }
-
-                // Output note ID.
-                output.append("ID: ").append(note.getNoteId().toString());
-
-                output.append("</i><br></p>");
-            }
-            output.append("<hr>");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

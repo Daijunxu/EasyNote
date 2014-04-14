@@ -2,7 +2,7 @@ package notes.gui.main.component;
 
 import lombok.Getter;
 import notes.data.cache.Cache;
-import notes.data.cache.Property;
+import notes.data.persistence.Property;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
 

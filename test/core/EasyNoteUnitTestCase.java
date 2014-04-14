@@ -1,7 +1,7 @@
 package core;
 
 import notes.data.cache.Cache;
-import notes.data.cache.Property;
+import notes.data.persistence.Property;
 import notes.entity.Document;
 import notes.entity.Note;
 import notes.entity.NoteStatus;

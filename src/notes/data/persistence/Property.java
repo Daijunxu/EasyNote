@@ -1,4 +1,4 @@
-package notes.data.cache;
+package notes.data.persistence;
 
 import lombok.Getter;
 import lombok.Setter;

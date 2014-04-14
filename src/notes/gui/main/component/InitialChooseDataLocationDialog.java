@@ -1,7 +1,7 @@
 package notes.gui.main.component;
 
 import notes.data.cache.Cache;
-import notes.data.cache.Property;
+import notes.data.persistence.Property;
 import notes.utils.SoundFactory;
 
 import javax.swing.*;
@@ -11,6 +11,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 
 /**
  * Defines the dialog and event listener for choosing data file location.
@@ -84,7 +85,7 @@ public class InitialChooseDataLocationDialog extends JDialog {
                             try {
                                 String path = selectedFile.getAbsolutePath()
                                         + "/reading_notes.xml";
-                                BufferedWriter output = new BufferedWriter(new FileWriter(path));
+                                Writer output = new BufferedWriter(new FileWriter(path));
                                 output.append(Cache.getDefaultContentToWrite());
                                 output.close();
 

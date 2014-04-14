@@ -1,7 +1,7 @@
 package notes.gui.main.component;
 
 import notes.dao.impl.DocumentNoteDAO;
-import notes.data.cache.Property;
+import notes.data.persistence.Property;
 import notes.entity.Document;
 import notes.entity.article.Article;
 import notes.entity.book.Book;

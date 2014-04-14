@@ -3,7 +3,7 @@ package notes.gui.main.event;
 import notes.bean.ArticleHome;
 import notes.bean.BookHome;
 import notes.bean.WorksetHome;
-import notes.data.cache.Property;
+import notes.data.persistence.Property;
 import notes.entity.SystemMode;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;

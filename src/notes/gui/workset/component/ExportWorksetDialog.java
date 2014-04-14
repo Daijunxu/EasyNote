@@ -1,10 +1,8 @@
 package notes.gui.workset.component;
 
 import notes.bean.WorksetHome;
-import notes.data.cache.Property;
+import notes.data.persistence.Property;
 import notes.entity.workset.Workset;
-import notes.entity.workset.Worksheet;
-import notes.entity.workset.WorksheetNote;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.PreferencesDialog;
 import notes.utils.SoundFactory;
@@ -16,7 +14,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
+import java.io.Writer;
 
 /**
  * Defines the dialog and event listener for exporting current workset.
@@ -76,8 +74,8 @@ public class ExportWorksetDialog extends JDialog {
                                             "Error", JOptionPane.ERROR_MESSAGE);
                                     return;
                                 }
-                                BufferedWriter output = new BufferedWriter(new FileWriter(newFile));
-                                exportWorkset(workset, output);
+                                Writer output = new BufferedWriter(new FileWriter(newFile));
+                                workset.export(output);
                                 output.close();
                                 SoundFactory.playExport();
                                 setVisible(false);
@@ -94,8 +92,8 @@ public class ExportWorksetDialog extends JDialog {
                             return;
                         }
                         try {
-                            BufferedWriter output = new BufferedWriter(new FileWriter(selectedFile));
-                            exportWorkset(workset, output);
+                            Writer output = new BufferedWriter(new FileWriter(selectedFile));
+                            workset.export(output);
                             output.close();
                             SoundFactory.playExport();
                             setVisible(false);
@@ -118,102 +116,5 @@ public class ExportWorksetDialog extends JDialog {
         setSize(getWidth() + 15, getHeight());
         setResizable(false);
         setVisible(true);
-    }
-
-    private void exportWorkset(Workset workset, BufferedWriter output) {
-        WorksetHome home = WorksetHome.get();
-        try {
-            output.append("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF8'><title>");
-            output.append(workset.getDocumentTitle());
-            output.append("</title></head>");
-            output.append("<body><a name='title'/><h2>").append(workset.getDocumentTitle()).append("</h2>");
-
-            // Output document ID.
-            output.append("<b>Document ID: </b>").append(workset.getDocumentId().toString()).append("<br>");
-
-            // Output authors.
-            if (!workset.getAuthorsList().isEmpty()) {
-                output.append("<b>Author(s): </b>");
-                StringBuilder authorsBuilder = new StringBuilder();
-                for (String author : workset.getAuthorsList()) {
-                    authorsBuilder.append(author).append(", ");
-                }
-                authorsBuilder.delete(authorsBuilder.length() - 2, authorsBuilder.length());
-                output.append(authorsBuilder);
-                output.append("<br>");
-            }
-
-            // Output created time.
-            output.append("<b>Created Time: </b>").append(workset.getCreatedTime().toString()).append("<br>");
-
-            // Output last updated time.
-            output.append("<b>Last Updated Time: </b>").append(workset.getLastUpdatedTime().toString()).append("<br>");
-
-            // Output number of notes.
-            output.append("<b>Number of Notes: </b>").append(String.valueOf(workset.getNotesCount())).append("<br>");
-
-            // Output comment.
-            output.append("<b>Comment: </b><br>");
-            output.append(workset.getComment());
-            output.append("<br>");
-
-            output.append("<br>");
-
-            // Output anchors for worksheets.
-            for (Long worksheetId : workset.getWorksheetsMap().keySet()) {
-                output.append("<a href='#worksheet").append(String.valueOf(worksheetId)).append("'><b>Worksheet ")
-                        .append(String.valueOf(worksheetId)).append(": ");
-                output.append(workset.getWorksheetsMap().get(worksheetId).getWorksheetTitle());
-                output.append("</b></a><br>");
-            }
-
-            output.append("<br><hr>");
-
-            // Output notes for each worksheet.
-            for (Long worksheetId : workset.getWorksheetsMap().keySet()) {
-                // Output worksheet title.
-                Worksheet worksheet = workset.getWorksheetsMap().get(worksheetId);
-                output.append("<a name='worksheet").append(String.valueOf(worksheetId)).append("'/><h3>Worksheet ")
-                        .append(String.valueOf(worksheetId)).append(": ");
-                output.append(worksheet.getWorksheetTitle());
-                output.append("</h3>");
-
-                // Output anchor to title.
-                output.append("<a href='#title'>Back to Top</a>");
-
-                // Output all notes in the worksheet.
-                List<WorksheetNote> noteList = home.getNotesListForCurrentWorksheet();
-                for (WorksheetNote note : noteList) {
-                    output.append("<p>");
-
-                    // Output note text.
-                    String noteText = note.getNoteText();
-                    noteText = noteText.replaceAll("&", "&amp;");
-                    noteText = noteText.replaceAll("<", "&lt;");
-                    noteText = noteText.replaceAll("\n", "<br>");
-                    noteText = noteText.replaceAll("  ", "&emsp;");
-                    noteText = noteText.replaceAll("\t", "&emsp;&emsp;");
-                    output.append(noteText);
-                    output.append("<br><i>");
-
-                    // Output tags.
-                    if (!note.getTagIds().isEmpty()) {
-                        for (Long tagId : note.getTagIds()) {
-                            output.append("[").append(home.getWorksheetNoteDAO().findTagById(tagId).getTagText())
-                                    .append("] ");
-                        }
-                    }
-
-                    // Output note ID.
-                    output.append("ID: ").append(note.getNoteId().toString());
-
-                    output.append("</i><br></p>");
-                }
-                output.append("<hr>");
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

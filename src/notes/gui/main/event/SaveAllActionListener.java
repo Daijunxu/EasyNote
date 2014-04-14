@@ -1,7 +1,7 @@
 package notes.gui.main.event;
 
 import notes.data.cache.Cache;
-import notes.data.cache.Property;
+import notes.data.persistence.Property;
 import notes.utils.SoundFactory;
 
 import java.awt.event.ActionEvent;

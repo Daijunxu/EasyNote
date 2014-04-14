@@ -1,10 +1,8 @@
 package notes.gui.book.component;
 
 import notes.bean.BookHome;
-import notes.data.cache.Property;
+import notes.data.persistence.Property;
 import notes.entity.book.Book;
-import notes.entity.book.BookNote;
-import notes.entity.book.Chapter;
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.PreferencesDialog;
 import notes.utils.SoundFactory;
@@ -16,7 +14,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
+import java.io.Writer;
 
 /**
  * Defines the dialog and event listener for exporting current book.
@@ -76,8 +74,8 @@ public class ExportBookDialog extends JDialog {
                                             "Error", JOptionPane.ERROR_MESSAGE);
                                     return;
                                 }
-                                BufferedWriter output = new BufferedWriter(new FileWriter(newFile));
-                                exportBook(book, output);
+                                Writer output = new BufferedWriter(new FileWriter(newFile));
+                                book.export(output);
                                 output.close();
                                 SoundFactory.playExport();
                                 setVisible(false);
@@ -94,8 +92,8 @@ public class ExportBookDialog extends JDialog {
                             return;
                         }
                         try {
-                            BufferedWriter output = new BufferedWriter(new FileWriter(selectedFile));
-                            exportBook(book, output);
+                            Writer output = new BufferedWriter(new FileWriter(selectedFile));
+                            book.export(output);
                             output.close();
                             SoundFactory.playExport();
                             setVisible(false);
@@ -118,117 +116,5 @@ public class ExportBookDialog extends JDialog {
         setSize(getWidth() + 15, getHeight());
         setResizable(false);
         setVisible(true);
-    }
-
-    private void exportBook(Book book, BufferedWriter output) {
-        BookHome home = BookHome.get();
-        try {
-            output.append("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF8'><title>");
-            output.append(book.getDocumentTitle());
-            output.append("</title></head>");
-            output.append("<body><a name='title'/><h2>").append(book.getDocumentTitle()).append("</h2>");
-
-            // Output document ID.
-            output.append("<b>Document ID: </b>").append(book.getDocumentId().toString()).append("<br>");
-
-            // Output authors.
-            if (!book.getAuthorsList().isEmpty()) {
-                output.append("<b>Author(s): </b>");
-                StringBuilder authorsBuilder = new StringBuilder();
-                for (String author : book.getAuthorsList()) {
-                    authorsBuilder.append(author).append(", ");
-                }
-                authorsBuilder.delete(authorsBuilder.length() - 2, authorsBuilder.length());
-                output.append(authorsBuilder);
-                output.append("<br>");
-            }
-
-            // Output edition.
-            if (book.getEdition() != null) {
-                output.append("<b>Edition: </b>").append(book.getEdition().toString()).append("<br>");
-            }
-
-            // Output published year.
-            if (book.getPublishedYear() != null) {
-                output.append("<b>Published Year: </b>").append(book.getPublishedYear().toString()).append("<br>");
-            }
-
-            // Output ISBN.
-            if (book.getIsbn() != null && !book.getIsbn().equals("")) {
-                output.append("<b>ISBN: </b>").append(book.getIsbn()).append("<br>");
-            }
-
-            // Output created time.
-            output.append("<b>Created Time: </b>").append(book.getCreatedTime().toString()).append("<br>");
-
-            // Output last updated time.
-            output.append("<b>Last Updated Time: </b>").append(book.getLastUpdatedTime().toString()).append("<br>");
-
-            // Output number of notes.
-            output.append("<b>Number of Notes: </b>").append(String.valueOf(book.getNotesCount())).append("<br>");
-
-            // Output comment.
-            output.append("<b>Comment: </b><br>");
-            output.append(book.getComment());
-            output.append("<br>");
-
-            output.append("<br>");
-
-            // Output anchors for chapters.
-            for (Long chapterId : book.getChaptersMap().keySet()) {
-                output.append("<a href='#chapter").append(String.valueOf(chapterId)).append("'><b>Chapter ")
-                        .append(String.valueOf(chapterId)).append(": ");
-                output.append(book.getChaptersMap().get(chapterId).getChapterTitle());
-                output.append("</b></a><br>");
-            }
-
-            output.append("<br><hr>");
-
-            // Output notes for each chapter.
-            for (Long chapterId : book.getChaptersMap().keySet()) {
-                // Output chapter title.
-                Chapter chapter = book.getChaptersMap().get(chapterId);
-                output.append("<a name='chapter").append(String.valueOf(chapterId)).append("'/><h3>Chapter ")
-                        .append(String.valueOf(chapterId)).append(": ");
-                output.append(chapter.getChapterTitle());
-                output.append("</h3>");
-
-                // Output anchor to title.
-                output.append("<a href='#title'>Back to Top</a>");
-
-                // Output all notes in the chapter.
-                List<BookNote> noteList = home.getNotesListForCurrentChapter();
-                for (BookNote note : noteList) {
-                    output.append("<p>");
-
-                    // Output note text.
-                    String noteText = note.getNoteText();
-                    noteText = noteText.replaceAll("&", "&amp;");
-                    noteText = noteText.replaceAll("<", "&lt;");
-                    noteText = noteText.replaceAll("\n", "<br>");
-                    noteText = noteText.replaceAll("  ", "&emsp;");
-                    noteText = noteText.replaceAll("\t", "&emsp;&emsp;");
-                    output.append(noteText);
-                    output.append("<br><i>");
-
-                    // Output tags.
-                    if (!note.getTagIds().isEmpty()) {
-                        for (Long tagId : note.getTagIds()) {
-                            output.append("[").append(home.getBookNoteDAO().findTagById(tagId).getTagText())
-                                    .append("] ");
-                        }
-                    }
-
-                    // Output note ID.
-                    output.append("ID: ").append(note.getNoteId().toString());
-
-                    output.append("</i><br></p>");
-                }
-                output.append("<hr>");
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

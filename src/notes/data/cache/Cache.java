@@ -2,6 +2,7 @@ package notes.data.cache;
 
 import junit.framework.Assert;
 import lombok.Getter;
+import notes.data.persistence.Property;
 import notes.entity.XMLSerializable;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
