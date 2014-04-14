@@ -21,7 +21,7 @@ import java.util.Set;
 /**
  * Data access object for workset notes.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 10/1/13
  * Time: 12:22 AM
  */

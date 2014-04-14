@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Entity class to describe a worksheet. A worksheet contains multiple notes.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 9/30/13
  * Time: 1:20 AM
  */

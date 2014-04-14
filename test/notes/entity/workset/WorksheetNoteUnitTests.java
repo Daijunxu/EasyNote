@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Unit tests for the {@code WorksheetNote}.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 9/30/13
  * Time: 10:17 PM
  */

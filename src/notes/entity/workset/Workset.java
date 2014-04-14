@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * Entity class to describe a workset. A workset contains a collection of worksheets.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 9/30/13
  * Time: 1:16 AM
  */

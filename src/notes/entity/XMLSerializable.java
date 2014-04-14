@@ -3,7 +3,7 @@ package notes.entity;
 import org.dom4j.Element;
 
 /**
- * User: rui
+ * Author: Rui Du
  * Date: 9/21/13
  * Time: 11:39 AM
  */

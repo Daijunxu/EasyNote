@@ -23,7 +23,7 @@ import java.awt.event.ActionListener;
 /**
  * Defines event listener of editing a note. Notes can belong to different types.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 9/15/13
  * Time: 5:07 PM
  */

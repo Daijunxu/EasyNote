@@ -3,7 +3,7 @@ package notes.utils;
 /**
  * A helper class to process texts in the note.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 10/18/13
  * Time: 7:22 PM
  */

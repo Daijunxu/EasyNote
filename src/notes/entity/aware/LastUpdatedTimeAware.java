@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Aware interface for entities that require information of last updated time.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 10/3/13
  * Time: 2:04 AM
  */

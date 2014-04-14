@@ -4,7 +4,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
 
 /**
- * User: rui
+ * Author: Rui Du
  * Date: 9/29/13
  * Time: 7:29 PM
  */

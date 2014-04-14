@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * The object that stores temporary data for the front end and provides access to DAO component.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 10/1/13
  * Time: 12:59 AM
  */

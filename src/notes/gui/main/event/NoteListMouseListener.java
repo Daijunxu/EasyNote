@@ -20,7 +20,7 @@ import java.awt.event.MouseEvent;
 /**
  * Mouse event listener for notes' JList.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 10/20/13
  * Time: 4:18 AM
  */

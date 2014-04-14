@@ -11,7 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * User: rui
+ * Author: Rui Du
  * Date: 10/20/13
  * Time: 4:45 AM
  */

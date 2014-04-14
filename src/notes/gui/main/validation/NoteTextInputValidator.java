@@ -6,7 +6,7 @@ import java.nio.charset.CharsetEncoder;
 /**
  * Validates that the input note text is valid.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 10/19/13
  * Time: 10:30 AM
  */

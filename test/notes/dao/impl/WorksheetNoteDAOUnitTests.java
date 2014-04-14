@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Unit tests for the {@code WorksheetNoteDAO}.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 10/1/13
  * Time: 12:36 AM
  */

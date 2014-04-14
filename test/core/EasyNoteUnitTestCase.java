@@ -27,7 +27,7 @@ import java.util.TreeMap;
 /**
  * Basic unit test cases for the system.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 9/7/13
  * Time: 11:56 PM
  */

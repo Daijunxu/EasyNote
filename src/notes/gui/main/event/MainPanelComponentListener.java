@@ -10,7 +10,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 /**
- * User: rui
+ * Author: Rui Du
  * Date: 9/29/13
  * Time: 7:04 PM
  */

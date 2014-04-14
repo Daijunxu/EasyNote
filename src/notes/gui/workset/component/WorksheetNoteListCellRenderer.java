@@ -10,7 +10,7 @@ import java.awt.*;
 /**
  * Defines the cell renderer for worksheet notes' JList.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 10/4/13
  * Time: 6:43 AM
  */

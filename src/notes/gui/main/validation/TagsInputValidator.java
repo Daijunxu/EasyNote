@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Validates that the input tags is valid.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 10/19/13
  * Time: 11:28 AM
  */

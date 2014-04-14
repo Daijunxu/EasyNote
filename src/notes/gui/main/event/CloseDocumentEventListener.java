@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 /**
  * The event listener for closing the opened document.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 10/12/13
  * Time: 3:15 AM
  */

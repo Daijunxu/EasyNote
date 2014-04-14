@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * An enumeration type to indicate the status of a note.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 9/30/13
  * Time: 1:43 AM
  */

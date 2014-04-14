@@ -3,7 +3,7 @@ package notes.entity.aware;
 /**
  * Aware interface for entities that require comment.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 10/3/13
  * Time: 6:08 AM
  */

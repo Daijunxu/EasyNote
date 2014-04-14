@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Entity class to describe a note in the worksheet.
  * <p/>
- * User: rui
+ * Author: Rui Du
  * Date: 9/30/13
  * Time: 1:36 AM
  */
