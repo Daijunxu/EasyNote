@@ -1,7 +1,6 @@
 package notes.gui.main.event;
 
 import notes.data.cache.Cache;
-import notes.data.persistence.Property;
 import notes.utils.SoundFactory;
 
 import java.awt.event.ActionEvent;
@@ -21,6 +20,5 @@ public class SaveAllActionListener implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         SoundFactory.playUpdate();
         Cache.get().saveAllCachesToXML();
-        Property.get().saveProperty();
     }
 }

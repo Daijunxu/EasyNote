@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  * Factory class responsible for playing sound effects.
- *
+ * <p/>
  * Author: Rui Du
  */
 public class SoundFactory {
@@ -53,7 +53,7 @@ public class SoundFactory {
         try {
             if (isSoundEffectEnabled()) {
                 AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                        Property.get().getSoundTheme()).get("delete")));
+                        Property.get().getSoundThemeName()).get("delete")));
                 player.start(stream);
             }
         } catch (Exception e) {
@@ -68,7 +68,7 @@ public class SoundFactory {
         try {
             if (isSoundEffectEnabled()) {
                 AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                        Property.get().getSoundTheme()).get("error")));
+                        Property.get().getSoundThemeName()).get("error")));
                 player.start(stream);
             }
         } catch (Exception e) {
@@ -83,7 +83,7 @@ public class SoundFactory {
         try {
             if (isSoundEffectEnabled()) {
                 AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                        Property.get().getSoundTheme()).get("export")));
+                        Property.get().getSoundThemeName()).get("export")));
                 player.start(stream);
             }
         } catch (Exception e) {
@@ -98,7 +98,7 @@ public class SoundFactory {
         try {
             if (isSoundEffectEnabled()) {
                 AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                        Property.get().getSoundTheme()).get("navigation")));
+                        Property.get().getSoundThemeName()).get("navigation")));
                 player.start(stream);
             }
         } catch (Exception e) {
@@ -113,7 +113,7 @@ public class SoundFactory {
         try {
             if (isSoundEffectEnabled()) {
                 AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                        Property.get().getSoundTheme()).get("notify")));
+                        Property.get().getSoundThemeName()).get("notify")));
                 player.start(stream);
             }
         } catch (Exception e) {
@@ -128,7 +128,7 @@ public class SoundFactory {
         try {
             if (isSoundEffectEnabled()) {
                 AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                        Property.get().getSoundTheme()).get("off")));
+                        Property.get().getSoundThemeName()).get("off")));
                 player.start(stream);
             }
         } catch (Exception e) {
@@ -143,7 +143,7 @@ public class SoundFactory {
         try {
             if (isSoundEffectEnabled()) {
                 AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                        Property.get().getSoundTheme()).get("on")));
+                        Property.get().getSoundThemeName()).get("on")));
                 player.start(stream);
             }
         } catch (Exception e) {
@@ -158,7 +158,7 @@ public class SoundFactory {
         try {
             if (isSoundEffectEnabled()) {
                 AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                        Property.get().getSoundTheme()).get("popup")));
+                        Property.get().getSoundThemeName()).get("popup")));
                 player.start(stream);
             }
         } catch (Exception e) {
@@ -173,7 +173,7 @@ public class SoundFactory {
         try {
             if (isSoundEffectEnabled()) {
                 AudioStream stream = new AudioStream(new FileInputStream(soundMap.get(
-                        Property.get().getSoundTheme()).get("update")));
+                        Property.get().getSoundThemeName()).get("update")));
                 player.start(stream);
             }
         } catch (Exception e) {
@@ -182,7 +182,8 @@ public class SoundFactory {
     }
 
     private static boolean isSoundEffectEnabled() {
-        return Property.get().getSoundTheme() != null;
+        String soundThemeName = Property.get().getSoundThemeName();
+        return (soundThemeName != null && (!soundThemeName.equals(SoundTheme.NONE.getDescription())));
     }
 
 }

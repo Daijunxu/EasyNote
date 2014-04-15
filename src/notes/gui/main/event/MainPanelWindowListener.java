@@ -60,8 +60,6 @@ public class MainPanelWindowListener implements WindowListener {
                 Property.get().setLastOpenedDocumentId(BookBusinessLogic.get().getCurrentBook().getDocumentId());
             }
         }
-
-        Property.get().saveProperty();
     }
 
     /**

@@ -36,11 +36,11 @@ public class Property {
     @Setter
     private String xmlDataLocation;
     /**
-     * The default sound theme.
+     * The name of current sound theme.
      */
     @Getter
     @Setter
-    private String soundTheme;
+    private String soundThemeName;
     /**
      * Whether to open the last document when program starts.
      */
@@ -71,7 +71,7 @@ public class Property {
         }
         setXmlDataLocation(PROPERTIES.getProperty("xmlDataLocation"));
         documentTypes = Arrays.asList(PROPERTIES.getProperty("documentType").split(","));
-        setSoundTheme(PROPERTIES.getProperty("soundTheme"));
+        setSoundThemeName(PROPERTIES.getProperty("soundTheme"));
 
         if (PROPERTIES.getProperty("showLastDocumentOnOpening") != null) {
             setShowLastDocumentOnOpening(PROPERTIES.getProperty("showLastDocumentOnOpening").equals("true"));
@@ -107,7 +107,7 @@ public class Property {
         }
         PROPERTIES.setProperty("documentType", sb.toString());
 
-        PROPERTIES.setProperty("soundTheme", getSoundTheme());
+        PROPERTIES.setProperty("soundTheme", getSoundThemeName());
         PROPERTIES.setProperty("showLastDocumentOnOpening", String.valueOf(isShowLastDocumentOnOpening()));
 
         if (getLastOpenedDocumentId() != null) {

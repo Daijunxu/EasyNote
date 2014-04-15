@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 
 /**
  * Defines the dialog and event listener for editing system preferences.
- *
+ * <p/>
  * Author: Rui Du
  */
 public class PreferencesDialog extends JDialog {
@@ -38,11 +38,13 @@ public class PreferencesDialog extends JDialog {
             }
 
             // Check setting for sound theme.
-            Property.get().setSoundTheme(soundThemeField.getSelectedItem().toString());
+            Property.get().setSoundThemeName(soundThemeField.getSelectedItem().toString());
 
             // Check setting for option of whether to open the last document when program starts.
             Property.get().setShowLastDocumentOnOpening(showLastDocumentOnOpeningCheckBox.isSelected());
 
+            // Save preference settings to disk.
+            Property.get().saveProperty();
             SoundFactory.playUpdate();
 
             setVisible(false);
@@ -110,7 +112,7 @@ public class PreferencesDialog extends JDialog {
         for (SoundTheme theme : SoundTheme.values()) {
             soundThemeField.addItem(theme.getDescription());
         }
-        soundThemeField.setSelectedItem(Property.get().getSoundTheme());
+        soundThemeField.setSelectedItem(Property.get().getSoundThemeName());
         preferencesPanel.add(soundThemeField, c);
 
         c.gridx = 0;
