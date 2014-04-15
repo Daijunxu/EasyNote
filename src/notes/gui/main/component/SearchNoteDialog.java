@@ -3,9 +3,9 @@ package notes.gui.main.component;
 import notes.businesslogic.ArticleBusinessLogic;
 import notes.businesslogic.BookBusinessLogic;
 import notes.businesslogic.WorksetBusinessLogic;
-import notes.dao.impl.DocumentNoteDAO;
 import notes.businessobjects.Document;
 import notes.businessobjects.Note;
+import notes.dao.impl.DocumentNoteDAO;
 import notes.gui.main.event.SearchNoteDialogWindowListener;
 import notes.gui.main.event.SearchNoteListMouseListener;
 import notes.utils.EntityHelper;
@@ -18,13 +18,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
  * Defines the dialog and event listener for searching notes.
- *
+ * <p/>
  * Author: Rui Du
  */
 public class SearchNoteDialog extends JDialog {
@@ -46,7 +48,7 @@ public class SearchNoteDialog extends JDialog {
                 searchNotes(WorksetBusinessLogic.get().getWorksheetNoteDAO().findAllWorksets());
             } else {
                 // Search notes in a particular document.
-                Long documentId = DocumentNoteDAO.get().findDocumentByTitle(selectedValue).getDocumentId();
+                Long documentId = documentTitleToIdMap.get(selectedValue);
                 Set<Long> candidateDocuments = new HashSet<Long>();
                 candidateDocuments.add(documentId);
                 searchNotes(candidateDocuments);
@@ -81,12 +83,15 @@ public class SearchNoteDialog extends JDialog {
     private JScrollPane resultScrollPane = new JScrollPane();
     private JList resultList;
     private List<Note> resultNoteList;
+    private Map<String, Long> documentTitleToIdMap;
 
     private SearchNoteDialog() {
         super(MainPanel.get(), "Search Notes", true);
+
+        documentTitleToIdMap = new HashMap<String, Long>();
+
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         addWindowListener(new SearchNoteDialogWindowListener());
-        BookBusinessLogic logic = BookBusinessLogic.get();
 
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
         getContentPane().add(dialogPanel);
@@ -203,6 +208,7 @@ public class SearchNoteDialog extends JDialog {
         List<String> documentTitleList = new ArrayList<String>();
         for (Document document : documentsList) {
             documentTitleList.add(document.getDocumentTitle());
+            documentTitleToIdMap.put(document.getDocumentTitle(), document.getDocumentId());
         }
         Collections.sort(documentTitleList);
         for (String documentTitle : documentTitleList) {

@@ -1,11 +1,11 @@
 package notes.gui.main.component;
 
-import notes.dao.impl.DocumentNoteDAO;
-import notes.data.persistence.Property;
 import notes.businessobjects.Document;
 import notes.businessobjects.article.Article;
 import notes.businessobjects.book.Book;
 import notes.businessobjects.workset.Workset;
+import notes.dao.impl.DocumentNoteDAO;
+import notes.data.persistence.Property;
 import notes.utils.SoundFactory;
 
 import javax.swing.*;
@@ -13,11 +13,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Defines the dialog and event listener for opening a document.
- *
+ * <p/>
  * Author: Rui Du
  */
 public class OpenDocumentDialog extends JDialog {
@@ -33,7 +35,8 @@ public class OpenDocumentDialog extends JDialog {
             }
 
             String selectedDocumentTitle = documentTitleField.getSelectedValue().toString();
-            Document document = DocumentNoteDAO.get().findDocumentByTitle(selectedDocumentTitle);
+            Long documentId = documentTitleToIdMap.get(selectedDocumentTitle);
+            Document document = DocumentNoteDAO.get().findDocumentById(documentId);
             if (document instanceof Workset) {
                 MainPanel.get().setWorksetPanel((Workset) document, null);
             } else if (document instanceof Book) {
@@ -41,6 +44,8 @@ public class OpenDocumentDialog extends JDialog {
             } else if (document instanceof Article) {
                 MainPanel.get().setArticlePanel((Article) document, null);
             }
+
+            documentTitleToIdMap.clear();
 
             SoundFactory.playUpdate();
             setVisible(false);
@@ -55,11 +60,16 @@ public class OpenDocumentDialog extends JDialog {
     private final JComboBox documentTypeField = new JComboBox(Property.get().getDocumentTypes().toArray());
     private final JList documentTitleField;
 
+    private final Map<String, Long> documentTitleToIdMap;
+
     /**
      * Constructs an instance of {@code OpenDocumentDialog}.
      */
     public OpenDocumentDialog() {
         super(MainPanel.get(), "Open Document", true);
+
+        documentTitleToIdMap = new HashMap<String, Long>();
+
         setIconImage(new ImageIcon("./resources/images/book.gif").getImage());
         final MainPanel frame = MainPanel.get();
 
@@ -140,6 +150,7 @@ public class OpenDocumentDialog extends JDialog {
             for (Document document : DocumentNoteDAO.get().findAllDocuments()) {
                 if (document.getClass() == documentClass) {
                     documentsTitleList.add(document.getDocumentTitle());
+                    documentTitleToIdMap.put(document.getDocumentTitle(), document.getDocumentId());
                 }
             }
         } catch (Exception e) {

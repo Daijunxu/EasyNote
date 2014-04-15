@@ -9,7 +9,7 @@ import java.util.Set;
 
 /**
  * An interface to describe the data access object for notes.
- *
+ * <p/>
  * Author: Rui Du
  */
 public interface NoteDAO<N extends Note, D extends Document> {
@@ -90,14 +90,6 @@ public interface NoteDAO<N extends Note, D extends Document> {
      * @return {@code D} The found document. Null if no document is found.
      */
     D findDocumentById(Long documentId);
-
-    /**
-     * Finds the document by the document title.
-     *
-     * @param documentTitle The document title.
-     * @return {@code D} The found document. Null if no document is found.
-     */
-    D findDocumentByTitle(String documentTitle);
 
     /**
      * Finds the note by the note ID.

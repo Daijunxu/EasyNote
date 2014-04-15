@@ -230,15 +230,6 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
      * {@inheritDoc}
      */
     @Override
-    public Document findDocumentByTitle(String documentTitle) {
-        Long documentId = CACHE.getDocumentCache().getDocumentTitleIdMap().get(documentTitle);
-        return findDocumentById(documentId);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Note findNoteById(Long noteId) {
         return CACHE.getNoteCache().getNoteMap().get(noteId);
     }

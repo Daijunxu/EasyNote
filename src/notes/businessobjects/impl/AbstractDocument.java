@@ -9,7 +9,7 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 
 /**
  * An abstract entity class specifying the basic members and methods of a document.
- *
+ * <p/>
  * Author: Rui Du
  */
 @EqualsAndHashCode
@@ -17,13 +17,13 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 public abstract class AbstractDocument implements Document {
 
     /**
-     * The document identifier.
+     * A unique identifier of the document.
      */
     @Getter
     @Setter
     protected Long documentId;
     /**
-     * The document's title.
+     * A unique title of the document.
      */
     @Getter
     @Setter
