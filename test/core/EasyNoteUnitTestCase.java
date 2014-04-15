@@ -174,7 +174,7 @@ public class EasyNoteUnitTestCase {
             note3.setWorksheetId(1L);
             note3.setTagIds(new ArrayList<Long>(Arrays.asList(2L)));
             note3.setNoteText("A note in the worksheet.");
-            note3.setNoteStatus(NoteStatus.DONE);
+            note3.setNoteStatus(NoteStatus.COMPLETED);
             note3.setCreatedTime(new Date(1341429578719L));
             noteMap.put(note3.getNoteId(), note3);
 

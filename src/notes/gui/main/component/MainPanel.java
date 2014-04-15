@@ -96,7 +96,6 @@ public class MainPanel extends JFrame {
     private static final ArticleBusinessLogic articleHome = ArticleBusinessLogic.get();
 
     private static final int PORT = 9999;
-    private static ServerSocket socket;
 
     /**
      * The single instance of {@code MainPanel}.
@@ -172,7 +171,7 @@ public class MainPanel extends JFrame {
 
         // Bind the port so that only one application is running at a time.
         try {
-            socket = new ServerSocket(PORT, 0, InetAddress.getByAddress(new byte[]{127, 0, 0, 1}));
+            new ServerSocket(PORT, 0, InetAddress.getByAddress(new byte[]{127, 0, 0, 1}));
         } catch (BindException e) {
             System.err.println("Already running.");
             System.exit(1);

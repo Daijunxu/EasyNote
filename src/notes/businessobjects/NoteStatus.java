@@ -18,8 +18,8 @@ public enum NoteStatus {
     NO_ACTION("No Action", null),
     NEED_ACTION("Need Action", new Color(255, 255, 0)),
     WORKING("Working", new Color(51, 153, 255)),
-    ALERT("Blocked", new Color(220,0,0)),
-    DONE("Done", new Color(0, 220, 0));
+    ALERT("Blocked", new Color(220, 0, 0)),
+    COMPLETED("Completed", new Color(0, 220, 0));
 
     /**
      * The description of the note status that is shown in the UI.

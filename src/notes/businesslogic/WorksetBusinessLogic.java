@@ -9,6 +9,7 @@ import notes.businessobjects.workset.WorksheetNote;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -147,5 +148,55 @@ public class WorksetBusinessLogic implements Serializable {
      */
     public int getIndexForNote(Long noteIdToFind) {
         return currentWorksheet.getNotesList().indexOf(noteIdToFind);
+    }
+
+    public boolean canMoveCurrentWorksheetUp() {
+        Long worksheetId = currentWorksheet.getWorksheetId();
+        int index = getIndexForWorksheet(worksheetId);
+        return (index > 0);
+    }
+
+    public boolean canMoveCurrentWorksheetDown() {
+        Long currentWorksheetId = currentWorksheet.getWorksheetId();
+        int index = getIndexForWorksheet(currentWorksheetId);
+        return (index < getNumberOfWorksheets() - 1);
+    }
+
+    public void moveCurrentWorksheetUp() {
+        Long currentWorksheetId = currentWorksheet.getWorksheetId();
+        int index = getIndexForWorksheet(currentWorksheetId);
+        Collections.swap(currentWorkset.getWorksheetIdsList(), index, index - 1);
+    }
+
+    public void moveCurrentWorksheetDown() {
+        Long currentWorksheetId = currentWorksheet.getWorksheetId();
+        int index = getIndexForWorksheet(currentWorksheetId);
+        Collections.swap(currentWorkset.getWorksheetIdsList(), index, index + 1);
+    }
+
+    public void moveCurrentWorksheetToTop() {
+        Long currentWorksheetId = currentWorksheet.getWorksheetId();
+        int index = getIndexForWorksheet(currentWorksheetId);
+        List<Long> worksheetIdsList = currentWorkset.getWorksheetIdsList();
+
+        for (int i = index; i > 0; i--) {
+            System.out.println(i);
+            Collections.swap(worksheetIdsList, i, i - 1);
+        }
+    }
+
+    public void moveCurrentWorksheetToBottom() {
+        Long currentWorksheetId = currentWorksheet.getWorksheetId();
+        int index = getIndexForWorksheet(currentWorksheetId);
+        List<Long> worksheetIdsList = currentWorkset.getWorksheetIdsList();
+
+        for (int i = index; i < worksheetIdsList.size() - 1; i++) {
+            System.out.println(i);
+            Collections.swap(worksheetIdsList, i, i + 1);
+        }
+    }
+
+    private int getNumberOfWorksheets() {
+        return currentWorkset.getWorksheetIdsList().size();
     }
 }
