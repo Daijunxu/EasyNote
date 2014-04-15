@@ -78,8 +78,6 @@ public class BookNoteDAO extends DocumentNoteDAO {
 
         // Remove the document in the document CACHE.
         CACHE.getDocumentCache().getDocumentMap().remove(cachedBook.getDocumentId());
-        CACHE.getDocumentCache().getDocumentTitleIdMap()
-                .remove(cachedBook.getDocumentTitle());
     }
 
     /**
@@ -203,8 +201,6 @@ public class BookNoteDAO extends DocumentNoteDAO {
         Book updateBook = (Book) (CACHE.getDocumentCache().getDocumentMap().get(document
                 .getDocumentId()));
         if (updateBook != null) {
-            CACHE.getDocumentCache().getDocumentTitleIdMap()
-                    .remove(updateBook.getDocumentTitle());
             updateBook.setDocumentTitle(document.getDocumentTitle());
             updateBook.setAuthorsList(((Book) document).getAuthorsList());
             updateBook.setComment(document.getComment());
@@ -217,8 +213,6 @@ public class BookNoteDAO extends DocumentNoteDAO {
             } else {
                 updateBook.setLastUpdatedTime(((Book) document).getLastUpdatedTime());
             }
-            CACHE.getDocumentCache().getDocumentTitleIdMap()
-                    .put(updateBook.getDocumentTitle(), updateBook.getDocumentId());
             return updateBook;
         }
         return null;
@@ -318,19 +312,12 @@ public class BookNoteDAO extends DocumentNoteDAO {
 
             // Add the document to document CACHE.
             try {
-                if (CACHE.getDocumentCache().getDocumentMap()
-                        .containsKey(newBook.getDocumentId())) {
-                    throw new DuplicateRecordException("Duplicate document exception: same document ID!");
-                }
-                if (CACHE.getDocumentCache().getDocumentTitleIdMap()
-                        .containsKey(newBook.getDocumentTitle())) {
-                    throw new DuplicateRecordException("Duplicate document exception: same document title!");
+                if (isExistingDocument(newBook)) {
+                    throw new DuplicateRecordException("Duplicate document!");
                 }
 
                 CACHE.getDocumentCache().getDocumentMap()
                         .put(newBook.getDocumentId(), newBook);
-                CACHE.getDocumentCache().getDocumentTitleIdMap()
-                        .put(newBook.getDocumentTitle(), newBook.getDocumentId());
 
                 // Update the max document ID in document CACHE.
                 if (CACHE.getDocumentCache().getMaxDocumentId() < newBook.getDocumentId()) {

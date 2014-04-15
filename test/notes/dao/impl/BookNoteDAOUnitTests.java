@@ -57,13 +57,9 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         Book deleteDocument = (Book) testData.documentMap.get(1L);
         dao.deleteDocument(deleteDocument);
         assertNotNull(CACHE.getDocumentCache().getDocumentMap());
-        assertNotNull(CACHE.getDocumentCache().getDocumentTitleIdMap());
         assertFalse(CACHE.getDocumentCache().getDocumentMap().isEmpty());
-        assertFalse(CACHE.getDocumentCache().getDocumentTitleIdMap().isEmpty());
         assertNull(CACHE.getDocumentCache().getDocumentMap()
                 .get(deleteDocument.getDocumentId()));
-        assertFalse(CACHE.getDocumentCache().getDocumentTitleIdMap()
-                .containsKey(deleteDocument.getDocumentTitle()));
         assertFalse(CACHE.getNoteCache().getNoteMap().containsKey(1L));
     }
 
@@ -229,8 +225,6 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
         assertEquals(savedBook,
                 CACHE.getDocumentCache().getDocumentMap().get(newBook.getDocumentId()));
-        assertTrue(CACHE.getDocumentCache().getDocumentTitleIdMap()
-                .containsKey(newBook.getDocumentTitle()));
         assertEquals(CACHE.getDocumentCache().getMaxDocumentId(), newBook.getDocumentId());
         assertNotNull(savedBook.getCreatedTime());
         assertNotNull(savedBook.getLastUpdatedTime());

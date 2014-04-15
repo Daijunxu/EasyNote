@@ -73,6 +73,21 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
         return documentList;
     }
 
+    public boolean isExistingDocument(Document document) {
+        if (findDocumentById(document.getDocumentId()) != null) {
+            return true;
+        }
+
+        List<Document> existingDocuments = findAllDocuments();
+        for (Document existingDocument : existingDocuments) {
+            if (existingDocument.getDocumentTitle().equals(document.getDocumentTitle())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * {@inheritDoc}
      */

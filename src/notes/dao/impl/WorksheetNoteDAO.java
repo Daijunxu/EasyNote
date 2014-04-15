@@ -80,8 +80,6 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
 
         // Remove the document in the document cache.
         CACHE.getDocumentCache().getDocumentMap().remove(cachedWorkset.getDocumentId());
-        CACHE.getDocumentCache().getDocumentTitleIdMap()
-                .remove(cachedWorkset.getDocumentTitle());
     }
 
     /**
@@ -216,8 +214,6 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
         Workset updateWorkset = (Workset) (CACHE.getDocumentCache().getDocumentMap().get(document
                 .getDocumentId()));
         if (updateWorkset != null) {
-            CACHE.getDocumentCache().getDocumentTitleIdMap()
-                    .remove(updateWorkset.getDocumentTitle());
             updateWorkset.setDocumentTitle(document.getDocumentTitle());
             updateWorkset.setAuthorsList(((Workset) document).getAuthorsList());
             updateWorkset.setComment(document.getComment());
@@ -228,8 +224,6 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
             } else {
                 updateWorkset.setLastUpdatedTime(((Workset) document).getLastUpdatedTime());
             }
-            CACHE.getDocumentCache().getDocumentTitleIdMap()
-                    .put(updateWorkset.getDocumentTitle(), updateWorkset.getDocumentId());
             return updateWorkset;
         }
         return null;
@@ -350,19 +344,12 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
 
             // Add the document to document cache.
             try {
-                if (CACHE.getDocumentCache().getDocumentMap()
-                        .containsKey(newWorkset.getDocumentId())) {
-                    throw new DuplicateRecordException("Duplicate document exception: same document ID!");
-                }
-                if (CACHE.getDocumentCache().getDocumentTitleIdMap()
-                        .containsKey(newWorkset.getDocumentTitle())) {
-                    throw new DuplicateRecordException("Duplicate document exception: same document title!");
+                if (isExistingDocument(newWorkset)) {
+                    throw new DuplicateRecordException("Duplicate document!");
                 }
 
                 CACHE.getDocumentCache().getDocumentMap()
                         .put(newWorkset.getDocumentId(), newWorkset);
-                CACHE.getDocumentCache().getDocumentTitleIdMap()
-                        .put(newWorkset.getDocumentTitle(), newWorkset.getDocumentId());
 
                 // Update the max document ID in document cache.
                 if (CACHE.getDocumentCache().getMaxDocumentId() < newWorkset.getDocumentId()) {

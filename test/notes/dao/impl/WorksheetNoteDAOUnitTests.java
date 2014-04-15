@@ -60,13 +60,9 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         Workset deleteDocument = (Workset) testData.documentMap.get(3L);
         dao.deleteDocument(deleteDocument);
         assertNotNull(CACHE.getDocumentCache().getDocumentMap());
-        assertNotNull(CACHE.getDocumentCache().getDocumentTitleIdMap());
         assertFalse(CACHE.getDocumentCache().getDocumentMap().isEmpty());
-        assertFalse(CACHE.getDocumentCache().getDocumentTitleIdMap().isEmpty());
         assertNull(CACHE.getDocumentCache().getDocumentMap()
                 .get(deleteDocument.getDocumentId()));
-        assertFalse(CACHE.getDocumentCache().getDocumentTitleIdMap()
-                .containsKey(deleteDocument.getDocumentTitle()));
         assertFalse(CACHE.getNoteCache().getNoteMap().containsKey(3L));
     }
 
@@ -238,8 +234,6 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
 
         assertEquals(savedWorkset,
                 CACHE.getDocumentCache().getDocumentMap().get(newWorkset.getDocumentId()));
-        assertTrue(CACHE.getDocumentCache().getDocumentTitleIdMap()
-                .containsKey(newWorkset.getDocumentTitle()));
         assertEquals(CACHE.getDocumentCache().getMaxDocumentId(), newWorkset.getDocumentId());
         assertNotNull(savedWorkset.getCreatedTime());
         assertNotNull(savedWorkset.getLastUpdatedTime());

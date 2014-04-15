@@ -30,11 +30,6 @@ public class DocumentCache implements XMLSerializable<DocumentCache> {
     @Getter
     private final Map<Long, Document> documentMap;
     /**
-     * The map of all documents' titles to their IDs.
-     */
-    @Getter
-    private final Map<String, Long> documentTitleIdMap;
-    /**
      * The maximum document ID in the data.
      */
     @Getter
@@ -46,7 +41,6 @@ public class DocumentCache implements XMLSerializable<DocumentCache> {
      */
     public DocumentCache() {
         documentMap = new HashMap<Long, Document>();
-        documentTitleIdMap = new HashMap<String, Long>();
     }
 
     /**
@@ -63,7 +57,6 @@ public class DocumentCache implements XMLSerializable<DocumentCache> {
      */
     public void clear() {
         this.documentMap.clear();
-        this.documentTitleIdMap.clear();
         this.maxDocumentId = Long.MIN_VALUE;
     }
 
@@ -102,7 +95,6 @@ public class DocumentCache implements XMLSerializable<DocumentCache> {
             }
 
             documentMap.put(newDocument.getDocumentId(), newDocument);
-            documentTitleIdMap.put(newDocument.getDocumentTitle(), newDocument.getDocumentId());
             if (maxDocumentId < newDocument.getDocumentId()) {
                 maxDocumentId = newDocument.getDocumentId();
             }

@@ -29,7 +29,6 @@ public class DocumentCacheUnitTests extends EasyNoteUnitTestCase {
         documentCache.clear();
         assertNotNull(documentCache);
         assertTrue(documentCache.getDocumentMap().isEmpty());
-        assertTrue(documentCache.getDocumentTitleIdMap().isEmpty());
         assertTrue(documentCache.getMaxDocumentId() == Long.MIN_VALUE);
     }
 
@@ -46,19 +45,6 @@ public class DocumentCacheUnitTests extends EasyNoteUnitTestCase {
         for (Document document : testData.documentMap.values()) {
             assertEquals(document, documentMap.get(document.getDocumentId()));
         }
-    }
-
-    /**
-     * Test method for {@link notes.data.cache.DocumentCache#getDocumentTitleIdMap()}.
-     */
-    @Test
-    public void testGetDocumentTitleIdMap() {
-        final UnitTestData testData = new UnitTestData();
-        assertNotNull(documentCache.getDocumentTitleIdMap());
-        Map<String, Long> documentTitleIdMap = documentCache
-                .getDocumentTitleIdMap();
-        assertFalse(documentTitleIdMap.isEmpty());
-        assertEquals(testData.documentTitleIdMap, documentTitleIdMap);
     }
 
     /**
@@ -98,7 +84,6 @@ public class DocumentCacheUnitTests extends EasyNoteUnitTestCase {
         documentCache.buildFromXMLElement(documentCacheElement);
 
         assertEquals(documentCache.getDocumentMap(), testData.documentMap);
-        assertEquals(documentCache.getDocumentTitleIdMap(), testData.documentTitleIdMap);
         assertEquals(documentCache.getMaxDocumentId(), testData.maxDocumentId);
     }
 }
