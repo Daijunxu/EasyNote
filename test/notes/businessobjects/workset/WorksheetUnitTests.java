@@ -1,7 +1,6 @@
 package notes.businessobjects.workset;
 
 import core.EasyNoteUnitTestCase;
-import notes.data.cache.Cache;
 import notes.utils.EntityHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Element;
@@ -29,7 +28,7 @@ public class WorksheetUnitTests extends EasyNoteUnitTestCase {
         final UnitTestData testData = new UnitTestData();
         Workset testWorkset = (Workset) (testData.documentMap.get(3L));
         Worksheet testWorksheet = testWorkset.getWorksheetsMap().get(1L);
-        Workset cachedWorkset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(3L));
+        Workset cachedWorkset = (Workset) (CACHE.getDocumentCache().getDocumentMap().get(3L));
         Worksheet cachedWorksheet = cachedWorkset.getWorksheetsMap().get(1L);
         assertTrue(testWorksheet.equals(cachedWorksheet));
         assertFalse(testWorksheet.equals(new Worksheet()));
@@ -44,7 +43,7 @@ public class WorksheetUnitTests extends EasyNoteUnitTestCase {
         final UnitTestData testData = new UnitTestData();
         Workset testWorkset = (Workset) (testData.documentMap.get(3L));
         Worksheet testWorksheet = testWorkset.getWorksheetsMap().get(1L);
-        Workset cachedWorkset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(3L));
+        Workset cachedWorkset = (Workset) (CACHE.getDocumentCache().getDocumentMap().get(3L));
         Worksheet cachedWorksheet = cachedWorkset.getWorksheetsMap().get(1L);
         assertEquals(testWorksheet.hashCode(), cachedWorksheet.hashCode());
     }
@@ -57,7 +56,7 @@ public class WorksheetUnitTests extends EasyNoteUnitTestCase {
         final UnitTestData testData = new UnitTestData();
         Workset testWorkset = (Workset) (testData.documentMap.get(3L));
         Worksheet testWorksheet = testWorkset.getWorksheetsMap().get(1L);
-        Workset cachedWorkset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(3L));
+        Workset cachedWorkset = (Workset) (CACHE.getDocumentCache().getDocumentMap().get(3L));
         Worksheet cachedWorksheet = cachedWorkset.getWorksheetsMap().get(1L);
         assertEquals(StringUtils.substringAfter(testWorksheet.toString(), "["),
                 StringUtils.substringAfter(cachedWorksheet.toString(), "["));

@@ -15,10 +15,10 @@ import java.util.Map;
 
 /**
  * Stores all the notes.
- *
+ * <p/>
  * Author: Rui Du
  */
-public class NoteCache implements XMLSerializable {
+public class NoteCache implements XMLSerializable<NoteCache> {
 
     /**
      * The single instance that is used in this system.

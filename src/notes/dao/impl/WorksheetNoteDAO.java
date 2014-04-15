@@ -27,13 +27,14 @@ import java.util.Set;
  */
 public class WorksheetNoteDAO extends DocumentNoteDAO {
 
-    private static final WorksheetNoteDAO instance = new WorksheetNoteDAO();
+    private static final WorksheetNoteDAO INSTANCE = new WorksheetNoteDAO();
+    private static final Cache CACHE = Cache.get();
 
     private WorksheetNoteDAO() {
     }
 
     public static WorksheetNoteDAO get() {
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -43,9 +44,9 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
      * @param documentId The document ID of the document that the worksheet belongs to.
      */
     public void deleteWorksheet(Worksheet worksheet, Long documentId) {
-        Workset cachedWorkset = (Workset) Cache.get().getDocumentCache().getDocumentMap().get(documentId);
+        Workset cachedWorkset = (Workset) CACHE.getDocumentCache().getDocumentMap().get(documentId);
         Worksheet cachedWorksheet = cachedWorkset.getWorksheetsMap().get(worksheet.getWorksheetId());
-        Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
+        Map<Long, Note> noteMap = CACHE.getNoteCache().getNoteMap();
 
         // Remove all notes in the worksheet.
         for (Long noteId : cachedWorksheet.getNotesList()) {
@@ -65,11 +66,11 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
      */
     @Override
     public void deleteDocument(Document document) {
-        Workset cachedWorkset = (Workset) Cache.get().getDocumentCache().getDocumentMap()
+        Workset cachedWorkset = (Workset) CACHE.getDocumentCache().getDocumentMap()
                 .get(document.getDocumentId());
 
         // Remove all notes under the document.
-        Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
+        Map<Long, Note> noteMap = CACHE.getNoteCache().getNoteMap();
         Map<Long, Worksheet> worksheetsMap = cachedWorkset.getWorksheetsMap();
         for (Worksheet worksheet : worksheetsMap.values()) {
             for (Long noteId : worksheet.getNotesList()) {
@@ -78,8 +79,8 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
         }
 
         // Remove the document in the document cache.
-        Cache.get().getDocumentCache().getDocumentMap().remove(cachedWorkset.getDocumentId());
-        Cache.get().getDocumentCache().getDocumentTitleIdMap()
+        CACHE.getDocumentCache().getDocumentMap().remove(cachedWorkset.getDocumentId());
+        CACHE.getDocumentCache().getDocumentTitleIdMap()
                 .remove(cachedWorkset.getDocumentTitle());
     }
 
@@ -91,13 +92,13 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
         Long noteId = note.getNoteId();
 
         // Update the note list in the corresponding document.
-        Workset workset = (Workset) Cache.get().getDocumentCache().getDocumentMap()
+        Workset workset = (Workset) CACHE.getDocumentCache().getDocumentMap()
                 .get(note.getDocumentId());
         Worksheet worksheet = workset.getWorksheetsMap().get(((WorksheetNote) note).getWorksheetId());
         worksheet.getNotesList().remove(noteId);
 
         // Remove the note in the note cache.
-        Cache.get().getNoteCache().getNoteMap().remove(noteId);
+        CACHE.getNoteCache().getNoteMap().remove(noteId);
 
         // Update worksheet's last updated time.
         worksheet.setLastUpdatedTime(new Date());
@@ -113,7 +114,7 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
      */
     public Set<Long> findAllWorksets() {
         Set<Long> resultSet = new HashSet<Long>();
-        for (Document document : Cache.get().getDocumentCache().getDocumentMap().values()) {
+        for (Document document : CACHE.getDocumentCache().getDocumentMap().values()) {
             if (document instanceof Workset) {
                 resultSet.add(document.getDocumentId());
             }
@@ -128,8 +129,8 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
      * @return {@code Map} All notes in the document grouped by worksheet IDs.
      */
     public Map<Long, List<WorksheetNote>> findAllNotesByWorksheets(Long documentId) {
-        Workset workset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(documentId));
-        Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
+        Workset workset = (Workset) (CACHE.getDocumentCache().getDocumentMap().get(documentId));
+        Map<Long, Note> noteMap = CACHE.getNoteCache().getNoteMap();
         Map<Long, List<WorksheetNote>> noteMapByWorksheets = new HashMap<Long, List<WorksheetNote>>();
 
         for (Worksheet worksheet : workset.getWorksheetsMap().values()) {
@@ -148,8 +149,8 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
      */
     @Override
     public List<Note> findAllNotesByDocumentId(Long documentId) {
-        Workset workset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(documentId));
-        Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
+        Workset workset = (Workset) (CACHE.getDocumentCache().getDocumentMap().get(documentId));
+        Map<Long, Note> noteMap = CACHE.getNoteCache().getNoteMap();
         List<Note> noteList = new ArrayList<Note>();
 
         for (Worksheet worksheet : workset.getWorksheetsMap().values()) {
@@ -170,7 +171,7 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
      */
     public Worksheet updateWorksheet(Worksheet worksheet, Long documentId, Long oldWorksheetId) {
         try {
-            Workset cachedWorkset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(documentId));
+            Workset cachedWorkset = (Workset) (CACHE.getDocumentCache().getDocumentMap().get(documentId));
             Map<Long, Worksheet> worksheetsMap = cachedWorkset.getWorksheetsMap();
             Worksheet cachedWorksheet = cachedWorkset.getWorksheetsMap().get(oldWorksheetId);
             Long updatedWorksheetId = worksheet.getWorksheetId();
@@ -212,10 +213,10 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
      */
     @Override
     public Document updateDocument(Document document) {
-        Workset updateWorkset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(document
+        Workset updateWorkset = (Workset) (CACHE.getDocumentCache().getDocumentMap().get(document
                 .getDocumentId()));
         if (updateWorkset != null) {
-            Cache.get().getDocumentCache().getDocumentTitleIdMap()
+            CACHE.getDocumentCache().getDocumentTitleIdMap()
                     .remove(updateWorkset.getDocumentTitle());
             updateWorkset.setDocumentTitle(document.getDocumentTitle());
             updateWorkset.setAuthorsList(((Workset) document).getAuthorsList());
@@ -227,7 +228,7 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
             } else {
                 updateWorkset.setLastUpdatedTime(((Workset) document).getLastUpdatedTime());
             }
-            Cache.get().getDocumentCache().getDocumentTitleIdMap()
+            CACHE.getDocumentCache().getDocumentTitleIdMap()
                     .put(updateWorkset.getDocumentTitle(), updateWorkset.getDocumentId());
             return updateWorkset;
         }
@@ -239,9 +240,9 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
      */
     @Override
     public Note updateNote(Note note) {
-        Workset workset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(note
+        Workset workset = (Workset) (CACHE.getDocumentCache().getDocumentMap().get(note
                 .getDocumentId()));
-        WorksheetNote cachedNote = (WorksheetNote) (Cache.get().getNoteCache().getNoteMap().get(note
+        WorksheetNote cachedNote = (WorksheetNote) (CACHE.getNoteCache().getNoteMap().get(note
                 .getNoteId()));
         if (cachedNote != null) {
             cachedNote.setDocumentId(note.getDocumentId());
@@ -286,7 +287,7 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
 
     public Worksheet saveWorksheet(Worksheet worksheet, Long documentId) {
         try {
-            Workset cachedWorkset = (Workset) Cache.get().getDocumentCache().getDocumentMap()
+            Workset cachedWorkset = (Workset) CACHE.getDocumentCache().getDocumentMap()
                     .get(documentId);
             Map<Long, Worksheet> worksheetMap = cachedWorkset.getWorksheetsMap();
             if (worksheetMap.containsKey(worksheet.getWorksheetId())) {
@@ -327,7 +328,7 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
         if (document instanceof Workset) {
             Workset newWorkset = new Workset();
             if (document.getDocumentId() == null) {
-                newWorkset.setDocumentId(Cache.get().getDocumentCache().getMaxDocumentId() + 1L);
+                newWorkset.setDocumentId(CACHE.getDocumentCache().getMaxDocumentId() + 1L);
             } else {
                 newWorkset.setDocumentId(document.getDocumentId());
             }
@@ -349,23 +350,23 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
 
             // Add the document to document cache.
             try {
-                if (Cache.get().getDocumentCache().getDocumentMap()
+                if (CACHE.getDocumentCache().getDocumentMap()
                         .containsKey(newWorkset.getDocumentId())) {
                     throw new DuplicateRecordException("Duplicate document exception: same document ID!");
                 }
-                if (Cache.get().getDocumentCache().getDocumentTitleIdMap()
+                if (CACHE.getDocumentCache().getDocumentTitleIdMap()
                         .containsKey(newWorkset.getDocumentTitle())) {
                     throw new DuplicateRecordException("Duplicate document exception: same document title!");
                 }
 
-                Cache.get().getDocumentCache().getDocumentMap()
+                CACHE.getDocumentCache().getDocumentMap()
                         .put(newWorkset.getDocumentId(), newWorkset);
-                Cache.get().getDocumentCache().getDocumentTitleIdMap()
+                CACHE.getDocumentCache().getDocumentTitleIdMap()
                         .put(newWorkset.getDocumentTitle(), newWorkset.getDocumentId());
 
                 // Update the max document ID in document cache.
-                if (Cache.get().getDocumentCache().getMaxDocumentId() < newWorkset.getDocumentId()) {
-                    Cache.get().getDocumentCache().setMaxDocumentId(newWorkset.getDocumentId());
+                if (CACHE.getDocumentCache().getMaxDocumentId() < newWorkset.getDocumentId()) {
+                    CACHE.getDocumentCache().setMaxDocumentId(newWorkset.getDocumentId());
                 }
 
                 return newWorkset;
@@ -384,7 +385,7 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
         if (note instanceof WorksheetNote) {
             WorksheetNote newNote = new WorksheetNote();
             if (note.getNoteId() == null) {
-                newNote.setNoteId(Cache.get().getNoteCache().getMaxNoteId() + 1L);
+                newNote.setNoteId(CACHE.getNoteCache().getMaxNoteId() + 1L);
             } else {
                 newNote.setNoteId(note.getNoteId());
             }
@@ -401,21 +402,21 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
 
             // Add the note to note cache.
             try {
-                if (Cache.get().getNoteCache().getNoteMap().containsKey(newNote.getNoteId())) {
+                if (CACHE.getNoteCache().getNoteMap().containsKey(newNote.getNoteId())) {
                     throw new DuplicateRecordException("Duplicate note exception: same note ID!");
                 }
             } catch (DuplicateRecordException e) {
                 e.printStackTrace();
             }
-            Cache.get().getNoteCache().getNoteMap().put(newNote.getNoteId(), newNote);
+            CACHE.getNoteCache().getNoteMap().put(newNote.getNoteId(), newNote);
 
             // Update the max note ID in note cache.
-            if (Cache.get().getNoteCache().getMaxNoteId() < newNote.getNoteId()) {
-                Cache.get().getNoteCache().setMaxNoteId(newNote.getNoteId());
+            if (CACHE.getNoteCache().getMaxNoteId() < newNote.getNoteId()) {
+                CACHE.getNoteCache().setMaxNoteId(newNote.getNoteId());
             }
 
             // Add the note ID to corresponding notes list.
-            Workset workset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(newNote
+            Workset workset = (Workset) (CACHE.getDocumentCache().getDocumentMap().get(newNote
                     .getDocumentId()));
             Worksheet worksheet = workset.getWorksheetsMap().get(newNote.getWorksheetId());
             worksheet.getNotesList().add(newNote.getNoteId());

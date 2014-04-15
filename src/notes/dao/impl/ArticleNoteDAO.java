@@ -17,18 +17,19 @@ import java.util.Set;
 
 /**
  * Data access object for article notes.
- *
+ * <p/>
  * Author: Rui Du
  */
 public class ArticleNoteDAO extends DocumentNoteDAO {
 
-    private static final ArticleNoteDAO instance = new ArticleNoteDAO();
+    private static final ArticleNoteDAO INSTANCE = new ArticleNoteDAO();
+    private static final Cache CACHE = Cache.get();
 
     private ArticleNoteDAO() {
     }
 
     public static ArticleNoteDAO get() {
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -36,18 +37,18 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
      */
     @Override
     public void deleteDocument(Document document) {
-        Article cachedArticle = (Article) Cache.get().getDocumentCache().getDocumentMap()
+        Article cachedArticle = (Article) CACHE.getDocumentCache().getDocumentMap()
                 .get(document.getDocumentId());
 
         // Remove all notes under the document.
-        Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
+        Map<Long, Note> noteMap = CACHE.getNoteCache().getNoteMap();
         for (Long noteId : cachedArticle.getNotesList()) {
             noteMap.remove(noteId);
         }
 
-        // Remove the document in the document cache.
-        Cache.get().getDocumentCache().getDocumentMap().remove(cachedArticle.getDocumentId());
-        Cache.get().getDocumentCache().getDocumentTitleIdMap()
+        // Remove the document in the document CACHE.
+        CACHE.getDocumentCache().getDocumentMap().remove(cachedArticle.getDocumentId());
+        CACHE.getDocumentCache().getDocumentTitleIdMap()
                 .remove(cachedArticle.getDocumentTitle());
     }
 
@@ -59,12 +60,12 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
         Long noteId = note.getNoteId();
 
         // Update the note list in the corresponding document.
-        Article article = (Article) Cache.get().getDocumentCache().getDocumentMap()
+        Article article = (Article) CACHE.getDocumentCache().getDocumentMap()
                 .get(note.getDocumentId());
         article.getNotesList().remove(noteId);
 
-        // Remove the note in the note cache.
-        Cache.get().getNoteCache().getNoteMap().remove(noteId);
+        // Remove the note in the note CACHE.
+        CACHE.getNoteCache().getNoteMap().remove(noteId);
 
         // Update article's last updated time.
         article.setLastUpdatedTime(new Date());
@@ -77,7 +78,7 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
      */
     public Set<Long> findAllArticles() {
         Set<Long> resultSet = new HashSet<Long>();
-        for (Document document : Cache.get().getDocumentCache().getDocumentMap().values()) {
+        for (Document document : CACHE.getDocumentCache().getDocumentMap().values()) {
             if (document instanceof Article) {
                 resultSet.add(document.getDocumentId());
             }
@@ -90,9 +91,9 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
      */
     @Override
     public List<Note> findAllNotesByDocumentId(Long documentId) {
-        Article article = (Article) (Cache.get().getDocumentCache().getDocumentMap()
+        Article article = (Article) (CACHE.getDocumentCache().getDocumentMap()
                 .get(documentId));
-        Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
+        Map<Long, Note> noteMap = CACHE.getNoteCache().getNoteMap();
         List<Note> noteList = new ArrayList<Note>();
 
         for (Long noteId : article.getNotesList()) {
@@ -107,10 +108,10 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
      */
     @Override
     public Document updateDocument(Document document) {
-        Article updateArticle = (Article) (Cache.get().getDocumentCache().getDocumentMap()
+        Article updateArticle = (Article) (CACHE.getDocumentCache().getDocumentMap()
                 .get(document.getDocumentId()));
         if (updateArticle != null) {
-            Cache.get().getDocumentCache().getDocumentTitleIdMap()
+            CACHE.getDocumentCache().getDocumentTitleIdMap()
                     .remove(updateArticle.getDocumentTitle());
             updateArticle.setDocumentTitle(document.getDocumentTitle());
             updateArticle.setAuthorsList(((Article) document).getAuthorsList());
@@ -121,7 +122,7 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
             } else {
                 updateArticle.setLastUpdatedTime(((Article) document).getLastUpdatedTime());
             }
-            Cache.get().getDocumentCache().getDocumentTitleIdMap()
+            CACHE.getDocumentCache().getDocumentTitleIdMap()
                     .put(updateArticle.getDocumentTitle(), updateArticle.getDocumentId());
             return updateArticle;
         }
@@ -133,9 +134,9 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
      */
     @Override
     public Note updateNote(Note note) {
-        Article article = (Article) Cache.get().getDocumentCache().getDocumentMap()
+        Article article = (Article) CACHE.getDocumentCache().getDocumentMap()
                 .get(note.getDocumentId());
-        ArticleNote updateNote = (ArticleNote) (Cache.get().getNoteCache().getNoteMap().get(note
+        ArticleNote updateNote = (ArticleNote) (CACHE.getNoteCache().getNoteMap().get(note
                 .getNoteId()));
         if (updateNote != null) {
             updateNote.setDocumentId(note.getDocumentId());
@@ -158,7 +159,7 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
         if (document instanceof Article) {
             Article newArticle = new Article();
             if (document.getDocumentId() == null) {
-                newArticle.setDocumentId(Cache.get().getDocumentCache().getMaxDocumentId() + 1L);
+                newArticle.setDocumentId(CACHE.getDocumentCache().getMaxDocumentId() + 1L);
             } else {
                 newArticle.setDocumentId(document.getDocumentId());
             }
@@ -182,25 +183,25 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
                 newArticle.setNotesList(((Article) document).getNotesList());
             }
 
-            // Add the document to document cache.
+            // Add the document to document CACHE.
             try {
-                if (Cache.get().getDocumentCache().getDocumentMap()
+                if (CACHE.getDocumentCache().getDocumentMap()
                         .containsKey(newArticle.getDocumentId())) {
                     throw new DuplicateRecordException("Duplicate document exception: same document ID!");
                 }
-                if (Cache.get().getDocumentCache().getDocumentTitleIdMap()
+                if (CACHE.getDocumentCache().getDocumentTitleIdMap()
                         .containsKey(newArticle.getDocumentTitle())) {
                     throw new DuplicateRecordException("Duplicate document exception: same document title!");
                 }
 
-                Cache.get().getDocumentCache().getDocumentMap()
+                CACHE.getDocumentCache().getDocumentMap()
                         .put(newArticle.getDocumentId(), newArticle);
-                Cache.get().getDocumentCache().getDocumentTitleIdMap()
+                CACHE.getDocumentCache().getDocumentTitleIdMap()
                         .put(newArticle.getDocumentTitle(), newArticle.getDocumentId());
 
-                // Update the max document ID in document cache.
-                if (Cache.get().getDocumentCache().getMaxDocumentId() < newArticle.getDocumentId()) {
-                    Cache.get().getDocumentCache().setMaxDocumentId(newArticle.getDocumentId());
+                // Update the max document ID in document CACHE.
+                if (CACHE.getDocumentCache().getMaxDocumentId() < newArticle.getDocumentId()) {
+                    CACHE.getDocumentCache().setMaxDocumentId(newArticle.getDocumentId());
                 }
 
                 return newArticle;
@@ -219,7 +220,7 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
         if (note instanceof ArticleNote) {
             ArticleNote newNote = new ArticleNote();
             if (note.getNoteId() == null) {
-                newNote.setNoteId(Cache.get().getNoteCache().getMaxNoteId() + 1L);
+                newNote.setNoteId(CACHE.getNoteCache().getMaxNoteId() + 1L);
             } else {
                 newNote.setNoteId(note.getNoteId());
             }
@@ -232,23 +233,23 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
                 newNote.setCreatedTime(note.getCreatedTime());
             }
 
-            // Add the note to note cache.
+            // Add the note to note CACHE.
             try {
-                if (Cache.get().getNoteCache().getNoteMap().containsKey(newNote.getNoteId())) {
+                if (CACHE.getNoteCache().getNoteMap().containsKey(newNote.getNoteId())) {
                     throw new DuplicateRecordException("Duplicate note exception: same note ID!");
                 }
             } catch (DuplicateRecordException e) {
                 e.printStackTrace();
             }
-            Cache.get().getNoteCache().getNoteMap().put(newNote.getNoteId(), newNote);
+            CACHE.getNoteCache().getNoteMap().put(newNote.getNoteId(), newNote);
 
-            // Update the max note ID in note cache.
-            if (Cache.get().getNoteCache().getMaxNoteId() < newNote.getNoteId()) {
-                Cache.get().getNoteCache().setMaxNoteId(newNote.getNoteId());
+            // Update the max note ID in note CACHE.
+            if (CACHE.getNoteCache().getMaxNoteId() < newNote.getNoteId()) {
+                CACHE.getNoteCache().setMaxNoteId(newNote.getNoteId());
             }
 
             // Add the note ID to corresponding notes list.
-            Article article = (Article) (Cache.get().getDocumentCache().getDocumentMap()
+            Article article = (Article) (CACHE.getDocumentCache().getDocumentMap()
                     .get(newNote.getDocumentId()));
             article.getNotesList().add(newNote.getNoteId());
 

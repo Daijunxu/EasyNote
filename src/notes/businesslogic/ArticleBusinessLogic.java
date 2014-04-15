@@ -2,12 +2,11 @@ package notes.businesslogic;
 
 import lombok.Getter;
 import lombok.Setter;
-import notes.dao.impl.ArticleNoteDAO;
-import notes.data.cache.Cache;
+import notes.businessobjects.Note;
 import notes.businessobjects.article.Article;
 import notes.businessobjects.article.ArticleNote;
+import notes.dao.impl.ArticleNoteDAO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -89,13 +88,8 @@ public class ArticleBusinessLogic {
      *
      * @return {@code List} The list of notes for the current article.
      */
-    public List<ArticleNote> getAllNotesForCurrentArticle() {
-        Cache cache = Cache.get();
-        List<ArticleNote> articleNoteList = new ArrayList<ArticleNote>();
-        for (Long articleNoteId : currentArticle.getNotesList()) {
-            articleNoteList.add((ArticleNote) cache.getNoteCache().getNoteMap().get(articleNoteId));
-        }
-        return articleNoteList;
+    public List<Note> getAllNotesForCurrentArticle() {
+        return articleNoteDAO.findAllNotesByDocumentId(currentArticle.getDocumentId());
     }
 
     /**

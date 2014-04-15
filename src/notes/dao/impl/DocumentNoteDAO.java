@@ -16,18 +16,19 @@ import java.util.Set;
 
 /**
  * An abstract class implementing basic members and methods of a NoteDAO.
- *
+ * <p/>
  * Author: Rui Du
  */
 public class DocumentNoteDAO implements NoteDAO<Note, Document> {
 
-    private static final DocumentNoteDAO instance = new DocumentNoteDAO();
+    private static final DocumentNoteDAO INSTANCE = new DocumentNoteDAO();
+    private static final Cache CACHE = Cache.get();
 
     protected DocumentNoteDAO() {
     }
 
     public static DocumentNoteDAO get() {
-        return instance;
+        return INSTANCE;
     }
 
     @Override
@@ -48,13 +49,13 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
         Long tagId = tag.getTagId();
 
         // Remove all occurrences of the tag in notes.
-        for (Note note : Cache.get().getNoteCache().getNoteMap().values()) {
+        for (Note note : CACHE.getNoteCache().getNoteMap().values()) {
             note.getTagIds().remove(tagId);
         }
 
         // Remove the tag from the tag cache.
-        Cache.get().getTagCache().getTagIdMap().remove(tagId);
-        Cache.get().getTagCache().getTagTextMap().remove(tag.getTagText());
+        CACHE.getTagCache().getTagIdMap().remove(tagId);
+        CACHE.getTagCache().getTagTextMap().remove(tag.getTagText());
 
     }
 
@@ -64,7 +65,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
     @Override
     public List<Document> findAllDocuments() {
         List<Document> documentList = new ArrayList<Document>();
-        Map<Long, Document> documentMap = Cache.get().getDocumentCache().getDocumentMap();
+        Map<Long, Document> documentMap = CACHE.getDocumentCache().getDocumentMap();
         for (Document document : documentMap.values()) {
             documentList.add(document);
         }
@@ -78,7 +79,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
     @Override
     public List<Note> findAllNotes() {
         List<Note> noteList = new ArrayList<Note>();
-        Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
+        Map<Long, Note> noteMap = CACHE.getNoteCache().getNoteMap();
         for (Note note : noteMap.values()) {
             noteList.add(note);
         }
@@ -96,7 +97,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
      */
     @Override
     public List<Note> findAllNotesByTagId(Long tagId) {
-        Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
+        Map<Long, Note> noteMap = CACHE.getNoteCache().getNoteMap();
         List<Note> noteList = new ArrayList<Note>();
         for (Note note : noteMap.values()) {
             if (note.getTagIds().contains(tagId)) {
@@ -113,7 +114,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
     @Override
     public List<Note> findAllNotesContainingText(Set<Long> candidateDocuments, String text, boolean caseSensitive,
                                                  boolean exactSearch) {
-        Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
+        Map<Long, Note> noteMap = CACHE.getNoteCache().getNoteMap();
         List<Note> resultList = new ArrayList<Note>();
 
         if (!caseSensitive) {
@@ -209,7 +210,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
     @Override
     public List<Tag> findAllTags() {
         List<Tag> tagList = new ArrayList<Tag>();
-        Map<Long, Tag> tagMap = Cache.get().getTagCache().getTagIdMap();
+        Map<Long, Tag> tagMap = CACHE.getTagCache().getTagIdMap();
         for (Tag tag : tagMap.values()) {
             tagList.add(tag);
         }
@@ -222,7 +223,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
      */
     @Override
     public Document findDocumentById(Long documentId) {
-        return Cache.get().getDocumentCache().getDocumentMap().get(documentId);
+        return CACHE.getDocumentCache().getDocumentMap().get(documentId);
     }
 
     /**
@@ -230,7 +231,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
      */
     @Override
     public Document findDocumentByTitle(String documentTitle) {
-        Long documentId = Cache.get().getDocumentCache().getDocumentTitleIdMap().get(documentTitle);
+        Long documentId = CACHE.getDocumentCache().getDocumentTitleIdMap().get(documentTitle);
         return findDocumentById(documentId);
     }
 
@@ -239,7 +240,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
      */
     @Override
     public Note findNoteById(Long noteId) {
-        return Cache.get().getNoteCache().getNoteMap().get(noteId);
+        return CACHE.getNoteCache().getNoteMap().get(noteId);
     }
 
     /**
@@ -247,7 +248,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
      */
     @Override
     public Tag findTagById(Long tagId) {
-        return Cache.get().getTagCache().getTagIdMap().get(tagId);
+        return CACHE.getTagCache().getTagIdMap().get(tagId);
     }
 
     /**
@@ -255,7 +256,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
      */
     @Override
     public Tag findTagByText(String tagText) {
-        return Cache.get().getTagCache().getTagTextMap().get(tagText);
+        return CACHE.getTagCache().getTagTextMap().get(tagText);
     }
 
     @Override
@@ -273,11 +274,11 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
      */
     @Override
     public Tag updateTag(Tag tag) {
-        Tag updateTag = Cache.get().getTagCache().getTagIdMap().get(tag.getTagId());
+        Tag updateTag = CACHE.getTagCache().getTagIdMap().get(tag.getTagId());
         if (updateTag != null) {
-            Cache.get().getTagCache().getTagTextMap().remove(updateTag.getTagText());
+            CACHE.getTagCache().getTagTextMap().remove(updateTag.getTagText());
             updateTag.setTagText(tag.getTagText());
-            Cache.get().getTagCache().getTagTextMap().put(updateTag.getTagText(), updateTag);
+            CACHE.getTagCache().getTagTextMap().put(updateTag.getTagText(), updateTag);
             return updateTag;
         }
         return null;
@@ -300,7 +301,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
     public Tag saveTag(Tag tag) {
         Tag newTag = new Tag();
         if (tag.getTagId() == null) {
-            newTag.setTagId(Cache.get().getTagCache().getMaxTagId() + 1L);
+            newTag.setTagId(CACHE.getTagCache().getMaxTagId() + 1L);
         } else {
             newTag.setTagId(tag.getTagId());
         }
@@ -308,21 +309,21 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
 
         // Add the tag to tag cache.
         try {
-            if (Cache.get().getTagCache().getTagIdMap().containsKey(newTag.getTagId())) {
+            if (CACHE.getTagCache().getTagIdMap().containsKey(newTag.getTagId())) {
                 throw new DuplicateRecordException("Duplicate tag exception: same tag ID!");
             }
-            if (Cache.get().getTagCache().getTagTextMap().containsKey(newTag.getTagText())) {
+            if (CACHE.getTagCache().getTagTextMap().containsKey(newTag.getTagText())) {
                 throw new DuplicateRecordException("Duplicate tag exception: same tag text!");
             }
         } catch (DuplicateRecordException e) {
             e.printStackTrace();
         }
-        Cache.get().getTagCache().getTagIdMap().put(newTag.getTagId(), newTag);
-        Cache.get().getTagCache().getTagTextMap().put(newTag.getTagText(), newTag);
+        CACHE.getTagCache().getTagIdMap().put(newTag.getTagId(), newTag);
+        CACHE.getTagCache().getTagTextMap().put(newTag.getTagText(), newTag);
 
         // Update max note id in tag cache.
-        if (Cache.get().getTagCache().getMaxTagId() < newTag.getTagId()) {
-            Cache.get().getTagCache().setMaxTagId(newTag.getTagId());
+        if (CACHE.getTagCache().getMaxTagId() < newTag.getTagId()) {
+            CACHE.getTagCache().setMaxTagId(newTag.getTagId());
         }
 
         return newTag;

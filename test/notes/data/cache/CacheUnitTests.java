@@ -14,14 +14,12 @@ import static org.junit.Assert.assertNotNull;
  */
 public class CacheUnitTests extends EasyNoteUnitTestCase {
 
-    private final Cache cache = Cache.get();
-
     /**
      * Test method for {@link notes.data.cache.Cache#getDocumentCache()}.
      */
     @Test
     public void testGetDocumentCache() {
-        assertNotNull(cache.getDocumentCache());
+        assertNotNull(CACHE.getDocumentCache());
     }
 
     /**
@@ -29,7 +27,7 @@ public class CacheUnitTests extends EasyNoteUnitTestCase {
      */
     @Test
     public void testGetInstance() {
-        assertNotNull(cache);
+        assertNotNull(CACHE);
     }
 
     /**
@@ -37,7 +35,7 @@ public class CacheUnitTests extends EasyNoteUnitTestCase {
      */
     @Test
     public void testGetNoteCache() {
-        assertNotNull(cache.getNoteCache());
+        assertNotNull(CACHE.getNoteCache());
     }
 
     /**
@@ -45,7 +43,7 @@ public class CacheUnitTests extends EasyNoteUnitTestCase {
      */
     @Test
     public void testGetTagCache() {
-        assertNotNull(cache.getTagCache());
+        assertNotNull(CACHE.getTagCache());
     }
 
     /**
@@ -53,7 +51,7 @@ public class CacheUnitTests extends EasyNoteUnitTestCase {
      */
     @Test
     public void testToXMLElement() {
-        Element cacheElement = cache.toXMLElement();
+        Element cacheElement = CACHE.toXMLElement();
         assertEquals(cacheElement.getName(), "Data");
         assertNotNull(cacheElement.elements());
         assertEquals(cacheElement.elements().size(), 3);
@@ -68,14 +66,14 @@ public class CacheUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        Element noteCacheElement = cache.toXMLElement();
-        cache.buildFromXMLElement(noteCacheElement);
+        Element noteCacheElement = CACHE.toXMLElement();
+        CACHE.buildFromXMLElement(noteCacheElement);
 
-        assertEquals(cache.getDocumentCache().getDocumentMap(), testData.documentMap);
-        assertEquals(cache.getDocumentCache().getMaxDocumentId(), testData.maxDocumentId);
-        assertEquals(cache.getTagCache().getTagIdMap(), testData.tagIdMap);
-        assertEquals(cache.getTagCache().getMaxTagId(), testData.maxTagId);
-        assertEquals(cache.getNoteCache().getNoteMap(), testData.noteMap);
-        assertEquals(cache.getNoteCache().getMaxNoteId(), testData.maxNoteId);
+        assertEquals(CACHE.getDocumentCache().getDocumentMap(), testData.documentMap);
+        assertEquals(CACHE.getDocumentCache().getMaxDocumentId(), testData.maxDocumentId);
+        assertEquals(CACHE.getTagCache().getTagIdMap(), testData.tagIdMap);
+        assertEquals(CACHE.getTagCache().getMaxTagId(), testData.maxTagId);
+        assertEquals(CACHE.getNoteCache().getNoteMap(), testData.noteMap);
+        assertEquals(CACHE.getNoteCache().getMaxNoteId(), testData.maxNoteId);
     }
 }

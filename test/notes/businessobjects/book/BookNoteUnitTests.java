@@ -1,7 +1,6 @@
 package notes.businessobjects.book;
 
 import core.EasyNoteUnitTestCase;
-import notes.data.cache.Cache;
 import notes.utils.EntityHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Element;
@@ -26,7 +25,7 @@ public class BookNoteUnitTests extends EasyNoteUnitTestCase {
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
         BookNote bookNote = (BookNote) (testData.noteMap.get(1L));
-        assertTrue(bookNote.equals(Cache.get().getNoteCache().getNoteMap().get(1L)));
+        assertTrue(bookNote.equals(CACHE.getNoteCache().getNoteMap().get(1L)));
         assertFalse(bookNote.equals(new BookNote()));
         assertFalse(bookNote.equals(new Object()));
     }
@@ -37,7 +36,7 @@ public class BookNoteUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        assertEquals(testData.noteMap.get(1L).hashCode(), Cache.get().getNoteCache().getNoteMap()
+        assertEquals(testData.noteMap.get(1L).hashCode(), CACHE.getNoteCache().getNoteMap()
                 .get(1L).hashCode());
     }
 
@@ -48,7 +47,7 @@ public class BookNoteUnitTests extends EasyNoteUnitTestCase {
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
         BookNote testBookNote = (BookNote) (testData.noteMap.get(1L));
-        BookNote cachedBookNote = (BookNote) (Cache.get().getNoteCache().getNoteMap().get(1L));
+        BookNote cachedBookNote = (BookNote) (CACHE.getNoteCache().getNoteMap().get(1L));
         assertEquals(StringUtils.substringAfter(testBookNote.toString(), "["),
                 StringUtils.substringAfter(cachedBookNote.toString(), "["));
     }

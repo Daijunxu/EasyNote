@@ -1,7 +1,6 @@
 package notes.dao.impl;
 
 import core.EasyNoteUnitTestCase;
-import notes.data.cache.Cache;
 import notes.businessobjects.Note;
 import notes.businessobjects.workset.Workset;
 import notes.businessobjects.workset.Worksheet;
@@ -45,11 +44,11 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         Workset workset = (Workset) testData.documentMap.get(3L);
         Worksheet deleteWorksheet = workset.getWorksheetsMap().get(1L);
         dao.deleteWorksheet(deleteWorksheet, 3L);
-        assertNotNull(Cache.get().getDocumentCache().getDocumentMap().get(3L));
-        Workset cachedWorkset = (Workset) Cache.get().getDocumentCache().getDocumentMap().get(3L);
+        assertNotNull(CACHE.getDocumentCache().getDocumentMap().get(3L));
+        Workset cachedWorkset = (Workset) CACHE.getDocumentCache().getDocumentMap().get(3L);
         assertFalse(cachedWorkset.getWorksheetsMap().isEmpty());
         assertFalse(cachedWorkset.getWorksheetsMap().containsKey(1L));
-        assertFalse(Cache.get().getNoteCache().getNoteMap().containsKey(3L));
+        assertFalse(CACHE.getNoteCache().getNoteMap().containsKey(3L));
     }
 
     /**
@@ -60,15 +59,15 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
         Workset deleteDocument = (Workset) testData.documentMap.get(3L);
         dao.deleteDocument(deleteDocument);
-        assertNotNull(Cache.get().getDocumentCache().getDocumentMap());
-        assertNotNull(Cache.get().getDocumentCache().getDocumentTitleIdMap());
-        assertFalse(Cache.get().getDocumentCache().getDocumentMap().isEmpty());
-        assertFalse(Cache.get().getDocumentCache().getDocumentTitleIdMap().isEmpty());
-        assertNull(Cache.get().getDocumentCache().getDocumentMap()
+        assertNotNull(CACHE.getDocumentCache().getDocumentMap());
+        assertNotNull(CACHE.getDocumentCache().getDocumentTitleIdMap());
+        assertFalse(CACHE.getDocumentCache().getDocumentMap().isEmpty());
+        assertFalse(CACHE.getDocumentCache().getDocumentTitleIdMap().isEmpty());
+        assertNull(CACHE.getDocumentCache().getDocumentMap()
                 .get(deleteDocument.getDocumentId()));
-        assertFalse(Cache.get().getDocumentCache().getDocumentTitleIdMap()
+        assertFalse(CACHE.getDocumentCache().getDocumentTitleIdMap()
                 .containsKey(deleteDocument.getDocumentTitle()));
-        assertFalse(Cache.get().getNoteCache().getNoteMap().containsKey(3L));
+        assertFalse(CACHE.getNoteCache().getNoteMap().containsKey(3L));
     }
 
     /**
@@ -78,15 +77,15 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
     public void testDeleteNote() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
         WorksheetNote deleteNote = (WorksheetNote) testData.noteMap.get(3L);
-        Workset workset = (Workset) (Cache.get().getDocumentCache().getDocumentMap().get(deleteNote.getDocumentId()));
+        Workset workset = (Workset) (CACHE.getDocumentCache().getDocumentMap().get(deleteNote.getDocumentId()));
         Worksheet worksheet = workset.getWorksheetsMap().get(deleteNote.getWorksheetId());
         Date updateTimeBeforeDelete = worksheet.getLastUpdatedTime();
         dao.deleteNote(deleteNote);
         Date updateTimeAfterDelete = worksheet.getLastUpdatedTime();
 
-        assertNotNull(Cache.get().getNoteCache().getNoteMap());
-        assertFalse(Cache.get().getNoteCache().getNoteMap().isEmpty());
-        assertNull(Cache.get().getNoteCache().getNoteMap().get(deleteNote.getNoteId()));
+        assertNotNull(CACHE.getNoteCache().getNoteMap());
+        assertFalse(CACHE.getNoteCache().getNoteMap().isEmpty());
+        assertNull(CACHE.getNoteCache().getNoteMap().get(deleteNote.getNoteId()));
         assertTrue(updateTimeAfterDelete.after(updateTimeBeforeDelete));
         assertFalse(workset.getWorksheetsMap().get(deleteNote.getWorksheetId()).getNotesList()
                 .contains(deleteNote.getNoteId()));
@@ -140,7 +139,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
                 testWorksheet.getWorksheetId());
 
         assertNotNull(updatedWorksheet);
-        Workset cachedWorkset = (Workset) Cache.get().getDocumentCache().getDocumentMap()
+        Workset cachedWorkset = (Workset) CACHE.getDocumentCache().getDocumentMap()
                 .get(testWorkset.getDocumentId());
         assertEquals(updatedWorksheet, cachedWorkset.getWorksheetsMap().get(updatedWorksheet.getWorksheetId()));
         assertFalse(updatedWorksheet.equals(testWorksheet));
@@ -165,7 +164,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         Workset updatedWorkset = (Workset) dao.updateDocument(newWorkset);
 
         assertNotNull(updatedWorkset);
-        assertEquals(updatedWorkset, Cache.get().getDocumentCache().getDocumentMap().get(newWorkset.getDocumentId()));
+        assertEquals(updatedWorkset, CACHE.getDocumentCache().getDocumentMap().get(newWorkset.getDocumentId()));
         assertFalse(updatedWorkset.equals(testWorkset));
         assertEquals(updatedWorkset.getComment(), newWorkset.getComment());
         assertEquals(updatedWorkset.getWorksheetsMap(), newWorkset.getWorksheetsMap());
@@ -191,7 +190,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         WorksheetNote updatedWorksheetNote = (WorksheetNote) dao.updateNote(newWorksheetNote);
 
         assertNotNull(updatedWorksheetNote);
-        assertEquals(updatedWorksheetNote, Cache.get().getNoteCache().getNoteMap().get(newWorksheetNote.getNoteId()));
+        assertEquals(updatedWorksheetNote, CACHE.getNoteCache().getNoteMap().get(newWorksheetNote.getNoteId()));
         assertFalse(updatedWorksheetNote.equals(testWorksheetNote));
         assertEquals(updatedWorksheetNote.getWorksheetId(), newWorksheetNote.getWorksheetId());
         assertFalse(updatedWorksheetNote.getWorksheetId().equals(testWorksheetNote.getWorksheetId()));
@@ -209,7 +208,7 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         newWorksheet.setWorksheetId(3L);
         newWorksheet.setWorksheetTitle("Worksheet 3");
         Worksheet savedWorksheet = dao.saveWorksheet(newWorksheet, 3L);
-        Workset workset = (Workset) Cache.get().getDocumentCache().getDocumentMap().get(3L);
+        Workset workset = (Workset) CACHE.getDocumentCache().getDocumentMap().get(3L);
 
         assertEquals(savedWorksheet, workset.getWorksheetsMap().get(3L));
         assertNotNull(savedWorksheet.getNotesList());
@@ -238,10 +237,10 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         Workset savedWorkset = (Workset) dao.saveDocument(newWorkset);
 
         assertEquals(savedWorkset,
-                Cache.get().getDocumentCache().getDocumentMap().get(newWorkset.getDocumentId()));
-        assertTrue(Cache.get().getDocumentCache().getDocumentTitleIdMap()
+                CACHE.getDocumentCache().getDocumentMap().get(newWorkset.getDocumentId()));
+        assertTrue(CACHE.getDocumentCache().getDocumentTitleIdMap()
                 .containsKey(newWorkset.getDocumentTitle()));
-        assertEquals(Cache.get().getDocumentCache().getMaxDocumentId(), newWorkset.getDocumentId());
+        assertEquals(CACHE.getDocumentCache().getMaxDocumentId(), newWorkset.getDocumentId());
         assertNotNull(savedWorkset.getCreatedTime());
         assertNotNull(savedWorkset.getLastUpdatedTime());
     }
@@ -260,10 +259,10 @@ public class WorksheetNoteDAOUnitTests extends EasyNoteUnitTestCase {
         WorksheetNote savedWorksheetNote = (WorksheetNote) dao.saveNote(newWorksheetNote);
 
         assertEquals(savedWorksheetNote,
-                Cache.get().getNoteCache().getNoteMap().get(newWorksheetNote.getNoteId()));
-        assertEquals(Cache.get().getNoteCache().getMaxNoteId(), newWorksheetNote.getNoteId());
+                CACHE.getNoteCache().getNoteMap().get(newWorksheetNote.getNoteId()));
+        assertEquals(CACHE.getNoteCache().getMaxNoteId(), newWorksheetNote.getNoteId());
         assertNotNull(savedWorksheetNote.getCreatedTime());
-        Workset workset = (Workset) Cache.get().getDocumentCache().getDocumentMap()
+        Workset workset = (Workset) CACHE.getDocumentCache().getDocumentMap()
                 .get(savedWorksheetNote.getDocumentId());
         Worksheet worksheet = workset.getWorksheetsMap().get(savedWorksheetNote.getWorksheetId());
         assertTrue(worksheet.getNotesList().contains(savedWorksheetNote.getNoteId()));

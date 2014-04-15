@@ -5,10 +5,8 @@ import lombok.Setter;
 import notes.businesslogic.ArticleBusinessLogic;
 import notes.businesslogic.BookBusinessLogic;
 import notes.businesslogic.WorksetBusinessLogic;
-import notes.dao.impl.DocumentNoteDAO;
-import notes.data.cache.Cache;
-import notes.data.persistence.Property;
 import notes.businessobjects.Document;
+import notes.businessobjects.Note;
 import notes.businessobjects.SystemMode;
 import notes.businessobjects.article.Article;
 import notes.businessobjects.article.ArticleNote;
@@ -18,6 +16,9 @@ import notes.businessobjects.book.Chapter;
 import notes.businessobjects.workset.Workset;
 import notes.businessobjects.workset.Worksheet;
 import notes.businessobjects.workset.WorksheetNote;
+import notes.dao.impl.DocumentNoteDAO;
+import notes.data.cache.Cache;
+import notes.data.persistence.Property;
 import notes.gui.article.event.DeleteArticleActionListener;
 import notes.gui.article.event.DeleteArticleNoteActionListener;
 import notes.gui.article.event.EditArticleActionListener;
@@ -76,7 +77,7 @@ import java.util.Map;
 
 /**
  * The main panel.
- *
+ * <p/>
  * Author: Rui Du
  */
 public class MainPanel extends JFrame {
@@ -754,7 +755,7 @@ public class MainPanel extends JFrame {
         articleHome.updateTemporaryData(articleHome.getCurrentArticle().getDocumentId(), selectedNoteId);
 
         // Get current notes data.
-        List<ArticleNote> notesDataList = articleHome.getAllNotesForCurrentArticle();
+        List<Note> notesDataList = articleHome.getAllNotesForCurrentArticle();
         Object[] notesObject = new ArticleNote[notesDataList.size()];
         for (int i = 0; i < notesDataList.size(); i++) {
             notesObject[i] = notesDataList.get(i);

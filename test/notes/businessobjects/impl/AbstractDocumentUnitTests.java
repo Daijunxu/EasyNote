@@ -1,7 +1,6 @@
 package notes.businessobjects.impl;
 
 import core.EasyNoteUnitTestCase;
-import notes.data.cache.Cache;
 import notes.businessobjects.Document;
 import org.junit.Test;
 
@@ -23,7 +22,7 @@ public class AbstractDocumentUnitTests extends EasyNoteUnitTestCase {
         final UnitTestData testData = new UnitTestData();
         Document testDocument1 = testData.documentMap.get(1L);
         Document testDocument2 = testData.documentMap.get(2L);
-        Document cachedDocument = Cache.get().getDocumentCache().getDocumentMap().get(1L);
+        Document cachedDocument = CACHE.getDocumentCache().getDocumentMap().get(1L);
         assertEquals(testDocument1.compareTo(cachedDocument), 0);
         assertTrue(testDocument1.compareTo(testDocument2) < 0);
         assertTrue(testDocument2.compareTo(testDocument1) > 0);

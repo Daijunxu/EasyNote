@@ -1,7 +1,6 @@
 package notes.businessobjects.workset;
 
 import core.EasyNoteUnitTestCase;
-import notes.data.cache.Cache;
 import notes.businessobjects.NoteStatus;
 import notes.utils.EntityHelper;
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +28,7 @@ public class WorksheetNoteUnitTests extends EasyNoteUnitTestCase {
     public void testEquals() {
         final EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
         WorksheetNote worksheetNote = (WorksheetNote) (testData.noteMap.get(3L));
-        assertTrue(worksheetNote.equals(Cache.get().getNoteCache().getNoteMap().get(3L)));
+        assertTrue(worksheetNote.equals(CACHE.getNoteCache().getNoteMap().get(3L)));
         assertFalse(worksheetNote.equals(new WorksheetNote()));
         assertFalse(worksheetNote.equals(new Object()));
     }
@@ -40,7 +39,7 @@ public class WorksheetNoteUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
-        assertEquals(testData.noteMap.get(3L).hashCode(), Cache.get().getNoteCache().getNoteMap()
+        assertEquals(testData.noteMap.get(3L).hashCode(), CACHE.getNoteCache().getNoteMap()
                 .get(3L).hashCode());
     }
 
@@ -51,7 +50,7 @@ public class WorksheetNoteUnitTests extends EasyNoteUnitTestCase {
     public void testToString() {
         final EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
         WorksheetNote testWorksheetNote = (WorksheetNote) (testData.noteMap.get(3L));
-        WorksheetNote cachedWorksheetNote = (WorksheetNote) (Cache.get().getNoteCache().getNoteMap().get(3L));
+        WorksheetNote cachedWorksheetNote = (WorksheetNote) (CACHE.getNoteCache().getNoteMap().get(3L));
         assertEquals(StringUtils.substringAfter(testWorksheetNote.toString(), "["),
                 StringUtils.substringAfter(cachedWorksheetNote.toString(), "["));
     }

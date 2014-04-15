@@ -1,7 +1,6 @@
 package notes.businessobjects.article;
 
 import core.EasyNoteUnitTestCase;
-import notes.data.cache.Cache;
 import notes.utils.EntityHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Element;
@@ -26,7 +25,7 @@ public class ArticleUnitTests extends EasyNoteUnitTestCase {
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
         Article article = (Article) (testData.documentMap.get(2L));
-        assertTrue(article.equals(Cache.get().getDocumentCache().getDocumentMap().get(2L)));
+        assertTrue(article.equals(CACHE.getDocumentCache().getDocumentMap().get(2L)));
         assertFalse(article.equals(new Article()));
         assertFalse(article.equals(new Object()));
     }
@@ -36,7 +35,7 @@ public class ArticleUnitTests extends EasyNoteUnitTestCase {
      */
     @Test
     public void testGetNotesCount() {
-        assertEquals(1, Cache.get().getDocumentCache().getDocumentMap().get(2L).getNotesCount());
+        assertEquals(1, CACHE.getDocumentCache().getDocumentMap().get(2L).getNotesCount());
     }
 
     /**
@@ -45,7 +44,7 @@ public class ArticleUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        assertEquals(testData.documentMap.get(2L).hashCode(), Cache.get().getDocumentCache()
+        assertEquals(testData.documentMap.get(2L).hashCode(), CACHE.getDocumentCache()
                 .getDocumentMap().get(2L).hashCode());
     }
 
@@ -56,7 +55,7 @@ public class ArticleUnitTests extends EasyNoteUnitTestCase {
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
         Article testArticle = (Article) (testData.documentMap.get(2L));
-        Article cachedArticle = (Article) (Cache.get().getDocumentCache().getDocumentMap().get(2L));
+        Article cachedArticle = (Article) (CACHE.getDocumentCache().getDocumentMap().get(2L));
         assertEquals(StringUtils.substringAfter(testArticle.toString(), "["),
                 StringUtils.substringAfter(cachedArticle.toString(), "["));
     }

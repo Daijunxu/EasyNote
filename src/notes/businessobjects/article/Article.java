@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import notes.businesslogic.ArticleBusinessLogic;
+import notes.businessobjects.Note;
 import notes.businessobjects.aware.AuthorsAware;
 import notes.businessobjects.aware.CommentAware;
 import notes.businessobjects.aware.CreatedTimeAware;
@@ -22,7 +23,7 @@ import java.util.List;
 
 /**
  * Entity class to describe an article.
- *
+ * <p/>
  * Author: Rui Du
  */
 @NoArgsConstructor
@@ -181,8 +182,8 @@ public class Article extends AbstractDocument
             writer.append("<br><hr>");
 
             // Output all notes in the article.
-            List<ArticleNote> noteList = logic.getAllNotesForCurrentArticle();
-            for (ArticleNote note : noteList) {
+            List<Note> noteList = logic.getAllNotesForCurrentArticle();
+            for (Note note : noteList) {
                 writer.append("<p>");
 
                 // Output note text.

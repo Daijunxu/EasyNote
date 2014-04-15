@@ -34,6 +34,7 @@ import java.util.TreeMap;
 public class EasyNoteUnitTestCase {
 
     protected static final String TEST_DATA_XML_LOCATION_OVERRIDE = "./test/reading_notes.xml";
+    protected static final Cache CACHE = Cache.get();
 
     /**
      * Load and refresh the cache using test data.
@@ -43,7 +44,7 @@ public class EasyNoteUnitTestCase {
     @Before
     public void initializeCache() throws Exception {
         Property.get().setXmlDataLocation(TEST_DATA_XML_LOCATION_OVERRIDE);
-        Cache.get().loadAllCachesFromXML();
+        CACHE.loadAllCachesFromXML();
     }
 
     /**

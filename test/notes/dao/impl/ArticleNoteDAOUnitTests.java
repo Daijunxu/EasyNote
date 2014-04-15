@@ -1,7 +1,6 @@
 package notes.dao.impl;
 
 import core.EasyNoteUnitTestCase;
-import notes.data.cache.Cache;
 import notes.businessobjects.Note;
 import notes.businessobjects.article.Article;
 import notes.businessobjects.article.ArticleNote;
@@ -38,15 +37,15 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
         UnitTestData testData = new UnitTestData();
         Article deleteDocument = (Article) testData.documentMap.get(2L);
         dao.deleteDocument(deleteDocument);
-        assertNotNull(Cache.get().getDocumentCache().getDocumentMap());
-        assertNotNull(Cache.get().getDocumentCache().getDocumentTitleIdMap());
-        assertFalse(Cache.get().getDocumentCache().getDocumentMap().isEmpty());
-        assertFalse(Cache.get().getDocumentCache().getDocumentTitleIdMap().isEmpty());
-        assertNull(Cache.get().getDocumentCache().getDocumentMap()
+        assertNotNull(CACHE.getDocumentCache().getDocumentMap());
+        assertNotNull(CACHE.getDocumentCache().getDocumentTitleIdMap());
+        assertFalse(CACHE.getDocumentCache().getDocumentMap().isEmpty());
+        assertFalse(CACHE.getDocumentCache().getDocumentTitleIdMap().isEmpty());
+        assertNull(CACHE.getDocumentCache().getDocumentMap()
                 .get(deleteDocument.getDocumentId()));
-        assertFalse(Cache.get().getDocumentCache().getDocumentTitleIdMap()
+        assertFalse(CACHE.getDocumentCache().getDocumentTitleIdMap()
                 .containsKey(deleteDocument.getDocumentTitle()));
-        assertFalse(Cache.get().getNoteCache().getNoteMap().containsKey(2L));
+        assertFalse(CACHE.getNoteCache().getNoteMap().containsKey(2L));
     }
 
     /**
@@ -57,10 +56,10 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
         UnitTestData testData = new UnitTestData();
         ArticleNote deleteNote = (ArticleNote) testData.noteMap.get(2L);
         dao.deleteNote(deleteNote);
-        assertNotNull(Cache.get().getNoteCache().getNoteMap());
-        assertFalse(Cache.get().getNoteCache().getNoteMap().isEmpty());
-        assertNull(Cache.get().getNoteCache().getNoteMap().get(deleteNote.getNoteId()));
-        Article article = (Article) Cache.get().getDocumentCache().getDocumentMap()
+        assertNotNull(CACHE.getNoteCache().getNoteMap());
+        assertFalse(CACHE.getNoteCache().getNoteMap().isEmpty());
+        assertNull(CACHE.getNoteCache().getNoteMap().get(deleteNote.getNoteId()));
+        Article article = (Article) CACHE.getDocumentCache().getDocumentMap()
                 .get(deleteNote.getDocumentId());
         assertFalse(article.getNotesList().contains(deleteNote.getNoteId()));
     }
@@ -96,7 +95,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
         Article updatedArticle = (Article) dao.updateDocument(newArticle);
 
         assertNotNull(updatedArticle);
-        assertEquals(updatedArticle, Cache.get().getDocumentCache().getDocumentMap().get(newArticle.getDocumentId()));
+        assertEquals(updatedArticle, CACHE.getDocumentCache().getDocumentMap().get(newArticle.getDocumentId()));
         assertFalse(updatedArticle.equals(testArticle));
         assertEquals(updatedArticle.getComment(), newArticle.getComment());
         assertEquals(updatedArticle.getSource(), newArticle.getSource());
@@ -120,7 +119,7 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
         ArticleNote updatedArticleNote = (ArticleNote) dao.updateNote(newArticleNote);
 
         assertNotNull(updatedArticleNote);
-        assertEquals(updatedArticleNote, Cache.get().getNoteCache().getNoteMap().get(newArticleNote.getNoteId()));
+        assertEquals(updatedArticleNote, CACHE.getNoteCache().getNoteMap().get(newArticleNote.getNoteId()));
         assertFalse(updatedArticleNote.equals(testArticleNote));
         assertEquals(updatedArticleNote.getNoteText(), newArticleNote.getNoteText());
         assertFalse(updatedArticleNote.getNoteText().equals(testArticleNote.getNoteText()));
@@ -142,10 +141,10 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
         Article savedArticle = (Article) dao.saveDocument(newArticle);
 
         assertEquals(savedArticle,
-                Cache.get().getDocumentCache().getDocumentMap().get(newArticle.getDocumentId()));
-        assertTrue(Cache.get().getDocumentCache().getDocumentTitleIdMap()
+                CACHE.getDocumentCache().getDocumentMap().get(newArticle.getDocumentId()));
+        assertTrue(CACHE.getDocumentCache().getDocumentTitleIdMap()
                 .containsKey(newArticle.getDocumentTitle()));
-        assertEquals(Cache.get().getDocumentCache().getMaxDocumentId(), newArticle.getDocumentId());
+        assertEquals(CACHE.getDocumentCache().getMaxDocumentId(), newArticle.getDocumentId());
         assertNotNull(savedArticle.getCreatedTime());
         assertNotNull(savedArticle.getLastUpdatedTime());
     }
@@ -163,10 +162,10 @@ public class ArticleNoteDAOUnitTests extends EasyNoteUnitTestCase {
         ArticleNote savedArticleNote = (ArticleNote) dao.saveNote(newArticleNote);
 
         assertEquals(savedArticleNote,
-                Cache.get().getNoteCache().getNoteMap().get(newArticleNote.getNoteId()));
-        assertEquals(Cache.get().getNoteCache().getMaxNoteId(), newArticleNote.getNoteId());
+                CACHE.getNoteCache().getNoteMap().get(newArticleNote.getNoteId()));
+        assertEquals(CACHE.getNoteCache().getMaxNoteId(), newArticleNote.getNoteId());
         assertNotNull(savedArticleNote.getCreatedTime());
-        Article article = (Article) Cache.get().getDocumentCache().getDocumentMap()
+        Article article = (Article) CACHE.getDocumentCache().getDocumentMap()
                 .get(savedArticleNote.getDocumentId());
         assertTrue(article.getNotesList().contains(savedArticleNote.getNoteId()));
     }

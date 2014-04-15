@@ -21,18 +21,19 @@ import java.util.TreeMap;
 
 /**
  * Data access object for book notes.
- *
+ * <p/>
  * Author: Rui Du
  */
 public class BookNoteDAO extends DocumentNoteDAO {
 
-    private static final BookNoteDAO instance = new BookNoteDAO();
+    private static final BookNoteDAO INSTANCE = new BookNoteDAO();
+    private static final Cache CACHE = Cache.get();
 
     private BookNoteDAO() {
     }
 
     public static BookNoteDAO get() {
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -42,9 +43,9 @@ public class BookNoteDAO extends DocumentNoteDAO {
      * @param documentId The document ID of the document that the chapter belongs to.
      */
     public void deleteChapter(Chapter chapter, Long documentId) {
-        Book cachedBook = (Book) Cache.get().getDocumentCache().getDocumentMap().get(documentId);
+        Book cachedBook = (Book) CACHE.getDocumentCache().getDocumentMap().get(documentId);
         Chapter cachedChapter = cachedBook.getChaptersMap().get(chapter.getChapterId());
-        Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
+        Map<Long, Note> noteMap = CACHE.getNoteCache().getNoteMap();
 
         // Remove all notes in the chapter.
         for (Long noteId : cachedChapter.getNotesList()) {
@@ -63,11 +64,11 @@ public class BookNoteDAO extends DocumentNoteDAO {
      */
     @Override
     public void deleteDocument(Document document) {
-        Book cachedBook = (Book) Cache.get().getDocumentCache().getDocumentMap()
+        Book cachedBook = (Book) CACHE.getDocumentCache().getDocumentMap()
                 .get(document.getDocumentId());
 
         // Remove all notes under the document.
-        Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
+        Map<Long, Note> noteMap = CACHE.getNoteCache().getNoteMap();
         Map<Long, Chapter> chaptersMap = cachedBook.getChaptersMap();
         for (Chapter chapter : chaptersMap.values()) {
             for (Long noteId : chapter.getNotesList()) {
@@ -75,9 +76,9 @@ public class BookNoteDAO extends DocumentNoteDAO {
             }
         }
 
-        // Remove the document in the document cache.
-        Cache.get().getDocumentCache().getDocumentMap().remove(cachedBook.getDocumentId());
-        Cache.get().getDocumentCache().getDocumentTitleIdMap()
+        // Remove the document in the document CACHE.
+        CACHE.getDocumentCache().getDocumentMap().remove(cachedBook.getDocumentId());
+        CACHE.getDocumentCache().getDocumentTitleIdMap()
                 .remove(cachedBook.getDocumentTitle());
     }
 
@@ -89,13 +90,13 @@ public class BookNoteDAO extends DocumentNoteDAO {
         Long noteId = note.getNoteId();
 
         // Update the note list in the corresponding document.
-        Book book = (Book) Cache.get().getDocumentCache().getDocumentMap()
+        Book book = (Book) CACHE.getDocumentCache().getDocumentMap()
                 .get(note.getDocumentId());
         Chapter chapter = book.getChaptersMap().get(((BookNote) note).getChapterId());
         chapter.getNotesList().remove(noteId);
 
-        // Remove the note in the note cache.
-        Cache.get().getNoteCache().getNoteMap().remove(noteId);
+        // Remove the note in the note CACHE.
+        CACHE.getNoteCache().getNoteMap().remove(noteId);
 
         // Update book's last updated time.
         book.setLastUpdatedTime(new Date());
@@ -108,7 +109,7 @@ public class BookNoteDAO extends DocumentNoteDAO {
      */
     public Set<Long> findAllBooks() {
         Set<Long> resultSet = new HashSet<Long>();
-        for (Document document : Cache.get().getDocumentCache().getDocumentMap().values()) {
+        for (Document document : CACHE.getDocumentCache().getDocumentMap().values()) {
             if (document instanceof Book) {
                 resultSet.add(document.getDocumentId());
             }
@@ -123,8 +124,8 @@ public class BookNoteDAO extends DocumentNoteDAO {
      * @return {@code Map} All notes in the document grouped by chapter IDs.
      */
     public Map<Long, List<BookNote>> findAllNotesByChapters(Long documentId) {
-        Book book = (Book) (Cache.get().getDocumentCache().getDocumentMap().get(documentId));
-        Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
+        Book book = (Book) (CACHE.getDocumentCache().getDocumentMap().get(documentId));
+        Map<Long, Note> noteMap = CACHE.getNoteCache().getNoteMap();
         Map<Long, List<BookNote>> noteMapByChapters = new HashMap<Long, List<BookNote>>();
 
         for (Chapter chapter : book.getChaptersMap().values()) {
@@ -143,8 +144,8 @@ public class BookNoteDAO extends DocumentNoteDAO {
      */
     @Override
     public List<Note> findAllNotesByDocumentId(Long documentId) {
-        Book book = (Book) (Cache.get().getDocumentCache().getDocumentMap().get(documentId));
-        Map<Long, Note> noteMap = Cache.get().getNoteCache().getNoteMap();
+        Book book = (Book) (CACHE.getDocumentCache().getDocumentMap().get(documentId));
+        Map<Long, Note> noteMap = CACHE.getNoteCache().getNoteMap();
         List<Note> noteList = new ArrayList<Note>();
 
         for (Chapter chapter : book.getChaptersMap().values()) {
@@ -165,7 +166,7 @@ public class BookNoteDAO extends DocumentNoteDAO {
      */
     public Chapter updateChapter(Chapter chapter, Long documentId) {
         try {
-            Book cachedBook = (Book) (Cache.get().getDocumentCache().getDocumentMap().get(documentId));
+            Book cachedBook = (Book) (CACHE.getDocumentCache().getDocumentMap().get(documentId));
             TreeMap<Long, Chapter> chaptersMap = cachedBook.getChaptersMap();
             Chapter cachedChapter = cachedBook.getChaptersMap().get(chapter.getChapterId());
             Long oldChapterId = cachedChapter.getChapterId();
@@ -199,10 +200,10 @@ public class BookNoteDAO extends DocumentNoteDAO {
      */
     @Override
     public Document updateDocument(Document document) {
-        Book updateBook = (Book) (Cache.get().getDocumentCache().getDocumentMap().get(document
+        Book updateBook = (Book) (CACHE.getDocumentCache().getDocumentMap().get(document
                 .getDocumentId()));
         if (updateBook != null) {
-            Cache.get().getDocumentCache().getDocumentTitleIdMap()
+            CACHE.getDocumentCache().getDocumentTitleIdMap()
                     .remove(updateBook.getDocumentTitle());
             updateBook.setDocumentTitle(document.getDocumentTitle());
             updateBook.setAuthorsList(((Book) document).getAuthorsList());
@@ -216,7 +217,7 @@ public class BookNoteDAO extends DocumentNoteDAO {
             } else {
                 updateBook.setLastUpdatedTime(((Book) document).getLastUpdatedTime());
             }
-            Cache.get().getDocumentCache().getDocumentTitleIdMap()
+            CACHE.getDocumentCache().getDocumentTitleIdMap()
                     .put(updateBook.getDocumentTitle(), updateBook.getDocumentId());
             return updateBook;
         }
@@ -228,9 +229,9 @@ public class BookNoteDAO extends DocumentNoteDAO {
      */
     @Override
     public Note updateNote(Note note) {
-        Book book = (Book) (Cache.get().getDocumentCache().getDocumentMap().get(note
+        Book book = (Book) (CACHE.getDocumentCache().getDocumentMap().get(note
                 .getDocumentId()));
-        BookNote cachedNote = (BookNote) (Cache.get().getNoteCache().getNoteMap().get(note
+        BookNote cachedNote = (BookNote) (CACHE.getNoteCache().getNoteMap().get(note
                 .getNoteId()));
         if (cachedNote != null) {
             cachedNote.setDocumentId(note.getDocumentId());
@@ -264,7 +265,7 @@ public class BookNoteDAO extends DocumentNoteDAO {
      */
     public Chapter saveChapter(Chapter chapter, Long documentId) {
         try {
-            Book cachedBook = (Book) Cache.get().getDocumentCache().getDocumentMap()
+            Book cachedBook = (Book) CACHE.getDocumentCache().getDocumentMap()
                     .get(documentId);
             TreeMap<Long, Chapter> chapterMap = cachedBook.getChaptersMap();
             if (chapterMap.containsKey(chapter.getChapterId())) {
@@ -293,7 +294,7 @@ public class BookNoteDAO extends DocumentNoteDAO {
         if (document instanceof Book) {
             Book newBook = new Book();
             if (document.getDocumentId() == null) {
-                newBook.setDocumentId(Cache.get().getDocumentCache().getMaxDocumentId() + 1L);
+                newBook.setDocumentId(CACHE.getDocumentCache().getMaxDocumentId() + 1L);
             } else {
                 newBook.setDocumentId(document.getDocumentId());
             }
@@ -315,25 +316,25 @@ public class BookNoteDAO extends DocumentNoteDAO {
                 newBook.setLastUpdatedTime(((Book) document).getLastUpdatedTime());
             }
 
-            // Add the document to document cache.
+            // Add the document to document CACHE.
             try {
-                if (Cache.get().getDocumentCache().getDocumentMap()
+                if (CACHE.getDocumentCache().getDocumentMap()
                         .containsKey(newBook.getDocumentId())) {
                     throw new DuplicateRecordException("Duplicate document exception: same document ID!");
                 }
-                if (Cache.get().getDocumentCache().getDocumentTitleIdMap()
+                if (CACHE.getDocumentCache().getDocumentTitleIdMap()
                         .containsKey(newBook.getDocumentTitle())) {
                     throw new DuplicateRecordException("Duplicate document exception: same document title!");
                 }
 
-                Cache.get().getDocumentCache().getDocumentMap()
+                CACHE.getDocumentCache().getDocumentMap()
                         .put(newBook.getDocumentId(), newBook);
-                Cache.get().getDocumentCache().getDocumentTitleIdMap()
+                CACHE.getDocumentCache().getDocumentTitleIdMap()
                         .put(newBook.getDocumentTitle(), newBook.getDocumentId());
 
-                // Update the max document ID in document cache.
-                if (Cache.get().getDocumentCache().getMaxDocumentId() < newBook.getDocumentId()) {
-                    Cache.get().getDocumentCache().setMaxDocumentId(newBook.getDocumentId());
+                // Update the max document ID in document CACHE.
+                if (CACHE.getDocumentCache().getMaxDocumentId() < newBook.getDocumentId()) {
+                    CACHE.getDocumentCache().setMaxDocumentId(newBook.getDocumentId());
                 }
 
                 return newBook;
@@ -352,7 +353,7 @@ public class BookNoteDAO extends DocumentNoteDAO {
         if (note instanceof BookNote) {
             BookNote newNote = new BookNote();
             if (note.getNoteId() == null) {
-                newNote.setNoteId(Cache.get().getNoteCache().getMaxNoteId() + 1L);
+                newNote.setNoteId(CACHE.getNoteCache().getMaxNoteId() + 1L);
             } else {
                 newNote.setNoteId(note.getNoteId());
             }
@@ -366,23 +367,23 @@ public class BookNoteDAO extends DocumentNoteDAO {
                 newNote.setCreatedTime(note.getCreatedTime());
             }
 
-            // Add the note to note cache.
+            // Add the note to note CACHE.
             try {
-                if (Cache.get().getNoteCache().getNoteMap().containsKey(newNote.getNoteId())) {
+                if (CACHE.getNoteCache().getNoteMap().containsKey(newNote.getNoteId())) {
                     throw new DuplicateRecordException("Duplicate note exception: same note ID!");
                 }
             } catch (DuplicateRecordException e) {
                 e.printStackTrace();
             }
-            Cache.get().getNoteCache().getNoteMap().put(newNote.getNoteId(), newNote);
+            CACHE.getNoteCache().getNoteMap().put(newNote.getNoteId(), newNote);
 
-            // Update the max note ID in note cache.
-            if (Cache.get().getNoteCache().getMaxNoteId() < newNote.getNoteId()) {
-                Cache.get().getNoteCache().setMaxNoteId(newNote.getNoteId());
+            // Update the max note ID in note CACHE.
+            if (CACHE.getNoteCache().getMaxNoteId() < newNote.getNoteId()) {
+                CACHE.getNoteCache().setMaxNoteId(newNote.getNoteId());
             }
 
             // Add the note ID to corresponding notes list.
-            Book book = (Book) (Cache.get().getDocumentCache().getDocumentMap().get(newNote
+            Book book = (Book) (CACHE.getDocumentCache().getDocumentMap().get(newNote
                     .getDocumentId()));
             Chapter chapter = book.getChaptersMap().get(newNote.getChapterId());
             chapter.getNotesList().add(newNote.getNoteId());

@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * Stores all the tags.
- *
+ * <p/>
  * Author: Rui Du
  */
 public class TagCache implements XMLSerializable<TagCache> {

@@ -15,10 +15,10 @@ import java.util.Map;
 
 /**
  * Stores all the documents.
- *
+ * <p/>
  * Author: Rui Du
  */
-public class DocumentCache implements XMLSerializable {
+public class DocumentCache implements XMLSerializable<DocumentCache> {
 
     /**
      * The single instance that is used in this system.

@@ -1,7 +1,6 @@
 package notes.businessobjects.book;
 
 import core.EasyNoteUnitTestCase;
-import notes.data.cache.Cache;
 import notes.utils.EntityHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Element;
@@ -27,7 +26,7 @@ public class ChapterUnitTests extends EasyNoteUnitTestCase {
         final UnitTestData testData = new UnitTestData();
         Book testBook = (Book) (testData.documentMap.get(1L));
         Chapter testChapter = testBook.getChaptersMap().get(1L);
-        Book cachedBook = (Book) (Cache.get().getDocumentCache().getDocumentMap().get(1L));
+        Book cachedBook = (Book) (CACHE.getDocumentCache().getDocumentMap().get(1L));
         Chapter cachedChapter = cachedBook.getChaptersMap().get(1L);
         assertTrue(testChapter.equals(cachedChapter));
         assertFalse(testChapter.equals(new Chapter()));
@@ -42,7 +41,7 @@ public class ChapterUnitTests extends EasyNoteUnitTestCase {
         final UnitTestData testData = new UnitTestData();
         Book testBook = (Book) (testData.documentMap.get(1L));
         Chapter testChapter = testBook.getChaptersMap().get(1L);
-        Book cachedBook = (Book) (Cache.get().getDocumentCache().getDocumentMap().get(1L));
+        Book cachedBook = (Book) (CACHE.getDocumentCache().getDocumentMap().get(1L));
         Chapter cachedChapter = cachedBook.getChaptersMap().get(1L);
         assertEquals(testChapter.hashCode(), cachedChapter.hashCode());
     }
@@ -55,7 +54,7 @@ public class ChapterUnitTests extends EasyNoteUnitTestCase {
         final UnitTestData testData = new UnitTestData();
         Book testBook = (Book) (testData.documentMap.get(1L));
         Chapter testChapter = testBook.getChaptersMap().get(1L);
-        Book cachedBook = (Book) (Cache.get().getDocumentCache().getDocumentMap().get(1L));
+        Book cachedBook = (Book) (CACHE.getDocumentCache().getDocumentMap().get(1L));
         Chapter cachedChapter = cachedBook.getChaptersMap().get(1L);
         assertEquals(StringUtils.substringAfter(testChapter.toString(), "["),
                 StringUtils.substringAfter(cachedChapter.toString(), "["));

@@ -1,7 +1,6 @@
 package notes.businessobjects.workset;
 
 import core.EasyNoteUnitTestCase;
-import notes.data.cache.Cache;
 import notes.utils.EntityHelper;
 import org.dom4j.Element;
 import org.junit.Test;
@@ -27,7 +26,7 @@ public class WorksetUnitTests extends EasyNoteUnitTestCase {
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
         Workset workset = (Workset) (testData.documentMap.get(3L));
-        assertTrue(workset.equals(Cache.get().getDocumentCache().getDocumentMap().get(3L)));
+        assertTrue(workset.equals(CACHE.getDocumentCache().getDocumentMap().get(3L)));
         assertFalse(workset.equals(new Workset()));
         assertFalse(workset.equals(new Object()));
     }
@@ -37,7 +36,7 @@ public class WorksetUnitTests extends EasyNoteUnitTestCase {
      */
     @Test
     public void testGetNotesCount() {
-        assertEquals(1, Cache.get().getDocumentCache().getDocumentMap().get(3L).getNotesCount());
+        assertEquals(1, CACHE.getDocumentCache().getDocumentMap().get(3L).getNotesCount());
     }
 
     /**
@@ -46,7 +45,7 @@ public class WorksetUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        assertEquals(testData.documentMap.get(3L).hashCode(), Cache.get().getDocumentCache()
+        assertEquals(testData.documentMap.get(3L).hashCode(), CACHE.getDocumentCache()
                 .getDocumentMap().get(3L).hashCode());
     }
 
