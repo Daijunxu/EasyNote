@@ -80,7 +80,7 @@ public class BookBusinessLogic {
     }
 
     /**
-     * Updates the data members in BookBusinessLogic, which are acquired from Cache.
+     * Updates the data members in BookBusinessLogic, which are acquired from CacheDelegate.
      *
      * @param documentId The current selected document ID.
      * @param chapterId  The current selected chapter ID.

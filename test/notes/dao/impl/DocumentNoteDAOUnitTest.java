@@ -18,10 +18,10 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the {@code DocumentNoteDAO}.
- *
+ * <p/>
  * Author: Rui Du
  */
-public class DocumentNoteDAOUnitTests extends EasyNoteUnitTestCase {
+public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
 
     /**
      * The data access object for the {@code NoteDAO}.
@@ -35,15 +35,11 @@ public class DocumentNoteDAOUnitTests extends EasyNoteUnitTestCase {
     public void testDeleteTag() {
         Tag deletedTag = new Tag(1L, "Algorithm");
         dao.deleteTag(deletedTag);
-        assertNotNull(CACHE.getTagCache().getTagIdMap());
-        assertNotNull(CACHE.getTagCache().getTagTextMap());
-        assertFalse(CACHE.getTagCache().getTagIdMap().isEmpty());
-        assertFalse(CACHE.getTagCache().getTagTextMap().isEmpty());
-        assertFalse(CACHE.getTagCache().getTagIdMap().containsKey(deletedTag.getTagId()));
-        assertNull(CACHE.getTagCache().getTagIdMap().get(deletedTag.getTagId()));
-        assertFalse(CACHE.getTagCache().getTagTextMap().containsKey(deletedTag.getTagText()));
-        assertFalse(CACHE.getNoteCache().getNoteMap().get(2L).getTagIds()
-                .contains(deletedTag.getTagId()));
+        assertNotNull(CACHE.getTagCache().findAll());
+        assertNull(CACHE.getTagCache().find(deletedTag.getTagId()));
+        assertNull(CACHE.getTagCache().find(deletedTag.getTagId()));
+        assertNull(CACHE.getTagCache().find(deletedTag.getTagText()));
+        assertFalse(CACHE.getNoteCache().find(2L).getTagIds().contains(deletedTag.getTagId()));
     }
 
     /**
@@ -248,11 +244,11 @@ public class DocumentNoteDAOUnitTests extends EasyNoteUnitTestCase {
         Tag updatedTag = dao.updateTag(newTag);
 
         assertNotNull(updatedTag);
-        assertEquals(updatedTag, CACHE.getTagCache().getTagIdMap().get(newTag.getTagId()));
+        assertEquals(updatedTag, CACHE.getTagCache().find(newTag.getTagId()));
         assertFalse(updatedTag.equals(testTag));
         assertEquals(updatedTag.getTagText(), newTag.getTagText());
-        assertFalse(CACHE.getTagCache().getTagTextMap().containsKey(testTag.getTagText()));
-        assertTrue(CACHE.getTagCache().getTagTextMap().containsKey(updatedTag.getTagText()));
+        assertNull(CACHE.getTagCache().find(testTag.getTagText()));
+        assertNotNull(CACHE.getTagCache().find(updatedTag.getTagText()));
     }
 
     /**
@@ -262,9 +258,8 @@ public class DocumentNoteDAOUnitTests extends EasyNoteUnitTestCase {
     public void testSaveTag() {
         Tag newTag = new Tag(3L, "Performance");
         Tag savedTag = dao.saveTag(newTag);
-        assertEquals(savedTag, CACHE.getTagCache().getTagIdMap().get(newTag.getTagId()));
-        assertTrue(CACHE.getTagCache().getTagTextMap().containsKey(newTag.getTagText()));
-        assertEquals(CACHE.getTagCache().getMaxTagId(), newTag.getTagId());
+        assertEquals(savedTag, CACHE.getTagCache().find(newTag.getTagId()));
+        assertNotNull(CACHE.getTagCache().find(newTag.getTagText()));
     }
 
 }

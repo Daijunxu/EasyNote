@@ -1,16 +1,18 @@
 package notes.data.cache;
 
-import lombok.Getter;
-import lombok.Setter;
 import notes.businessobjects.Note;
-import notes.businessobjects.XMLSerializable;
 import notes.businessobjects.article.ArticleNote;
 import notes.businessobjects.book.BookNote;
 import notes.businessobjects.workset.WorksheetNote;
+import notes.dao.DuplicateRecordException;
 import org.dom4j.Element;
 import org.dom4j.tree.DefaultElement;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,7 +20,7 @@ import java.util.Map;
  * <p/>
  * Author: Rui Du
  */
-public class NoteCache implements XMLSerializable<NoteCache> {
+public class NoteCache implements Cache<Note> {
 
     /**
      * The single instance that is used in this system.
@@ -27,17 +29,14 @@ public class NoteCache implements XMLSerializable<NoteCache> {
     /**
      * The map of all notes from note IDs to the notes.
      */
-    @Getter
     private final Map<Long, Note> noteMap;
     /**
      * The maximum note ID in the data.
      */
-    @Getter
-    @Setter
     private Long maxNoteId = 0L;
 
     /**
-     * Constructs an instance of {@code NoteCache}. Should only be called by Cache.
+     * Constructs an instance of {@code NoteCache}. Should only be called by CacheDelegate.
      */
     public NoteCache() {
         noteMap = new HashMap<Long, Note>();
@@ -100,5 +99,162 @@ public class NoteCache implements XMLSerializable<NoteCache> {
             }
         }
         return this;
+    }
+
+    @Override
+    public Note insert(Note note) {
+        if (note instanceof WorksheetNote) {
+            WorksheetNote newNote = new WorksheetNote();
+            if (note.getNoteId() == null) {
+                newNote.setNoteId(maxNoteId + 1L);
+            } else {
+                newNote.setNoteId(note.getNoteId());
+            }
+            newNote.setDocumentId(note.getDocumentId());
+            newNote.setWorksheetId(((WorksheetNote) note).getWorksheetId());
+            newNote.setTagIds(note.getTagIds());
+            newNote.setNoteText(note.getNoteText());
+            newNote.setNoteStatus(((WorksheetNote) note).getNoteStatus());
+            if (note.getCreatedTime() == null) {
+                newNote.setCreatedTime(new Date());
+            } else {
+                newNote.setCreatedTime(note.getCreatedTime());
+            }
+
+            // Add the note to note cache.
+            try {
+                if (noteMap.containsKey(newNote.getNoteId())) {
+                    throw new DuplicateRecordException("Duplicate note exception: same note ID!");
+                }
+            } catch (DuplicateRecordException e) {
+                e.printStackTrace();
+            }
+            noteMap.put(newNote.getNoteId(), newNote);
+
+            // Update the max note ID in note cache.
+            if (maxNoteId < newNote.getNoteId()) {
+                maxNoteId = newNote.getNoteId();
+            }
+            return newNote;
+
+        } else if (note instanceof ArticleNote) {
+            ArticleNote newNote = new ArticleNote();
+            if (note.getNoteId() == null) {
+                newNote.setNoteId(maxNoteId + 1L);
+            } else {
+                newNote.setNoteId(note.getNoteId());
+            }
+            newNote.setDocumentId(note.getDocumentId());
+            newNote.setTagIds(note.getTagIds());
+            newNote.setNoteText(note.getNoteText());
+            if (note.getCreatedTime() == null) {
+                newNote.setCreatedTime(new Date(System.currentTimeMillis()));
+            } else {
+                newNote.setCreatedTime(note.getCreatedTime());
+            }
+
+            try {
+                if (noteMap.containsKey(newNote.getNoteId())) {
+                    throw new DuplicateRecordException("Duplicate note exception: same note ID!");
+                }
+            } catch (DuplicateRecordException e) {
+                e.printStackTrace();
+            }
+            noteMap.put(newNote.getNoteId(), newNote);
+
+            // Update the max note ID in note CACHE.
+            if (maxNoteId < newNote.getNoteId()) {
+                maxNoteId = newNote.getNoteId();
+            }
+            return newNote;
+
+        } else if (note instanceof BookNote) {
+            BookNote newNote = new BookNote();
+            if (note.getNoteId() == null) {
+                newNote.setNoteId(maxNoteId + 1L);
+            } else {
+                newNote.setNoteId(note.getNoteId());
+            }
+            newNote.setDocumentId(note.getDocumentId());
+            newNote.setChapterId(((BookNote) note).getChapterId());
+            newNote.setTagIds(note.getTagIds());
+            newNote.setNoteText(note.getNoteText());
+            if (note.getCreatedTime() == null) {
+                newNote.setCreatedTime(new Date(System.currentTimeMillis()));
+            } else {
+                newNote.setCreatedTime(note.getCreatedTime());
+            }
+
+            try {
+                if (noteMap.containsKey(newNote.getNoteId())) {
+                    throw new DuplicateRecordException("Duplicate note exception: same note ID!");
+                }
+            } catch (DuplicateRecordException e) {
+                e.printStackTrace();
+            }
+            noteMap.put(newNote.getNoteId(), newNote);
+
+            // Update the max note ID in note CACHE.
+            if (maxNoteId < newNote.getNoteId()) {
+                maxNoteId = newNote.getNoteId();
+            }
+            return newNote;
+        }
+
+        return null;
+    }
+
+    @Override
+    public void remove(Long id) {
+        noteMap.remove(id);
+    }
+
+    @Override
+    public Note update(Note note) {
+        if (note instanceof WorksheetNote) {
+            WorksheetNote cachedNote = (WorksheetNote) (noteMap.get(note.getNoteId()));
+            if (cachedNote != null) {
+                cachedNote.setDocumentId(note.getDocumentId());
+                cachedNote.setWorksheetId(((WorksheetNote) note).getWorksheetId());
+                cachedNote.setTagIds(note.getTagIds());
+                cachedNote.setNoteText(note.getNoteText());
+                cachedNote.setNoteStatus(((WorksheetNote) note).getNoteStatus());
+                return cachedNote;
+            }
+        } else if (note instanceof ArticleNote) {
+            ArticleNote cachedNote = (ArticleNote) (noteMap.get(note.getNoteId()));
+            if (cachedNote != null) {
+                cachedNote.setDocumentId(note.getDocumentId());
+                cachedNote.setTagIds(note.getTagIds());
+                cachedNote.setNoteText(note.getNoteText());
+                return cachedNote;
+            }
+        } else if (note instanceof BookNote) {
+            BookNote cachedNote = (BookNote) (noteMap.get(note.getNoteId()));
+            if (cachedNote != null) {
+                cachedNote.setDocumentId(note.getDocumentId());
+                cachedNote.setChapterId(((BookNote) note).getChapterId());
+                cachedNote.setTagIds(note.getTagIds());
+                cachedNote.setNoteText(note.getNoteText());
+                return cachedNote;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public Note find(Long id) {
+        return noteMap.get(id);
+    }
+
+    @Override
+    public List<Note> findAll() {
+        List<Note> noteList = new ArrayList<Note>();
+        for (Note note : noteMap.values()) {
+            noteList.add(note);
+        }
+        Collections.sort(noteList);
+        return noteList;
     }
 }

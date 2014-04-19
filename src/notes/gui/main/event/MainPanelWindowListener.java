@@ -3,7 +3,7 @@ package notes.gui.main.event;
 import notes.businesslogic.ArticleBusinessLogic;
 import notes.businesslogic.BookBusinessLogic;
 import notes.businesslogic.WorksetBusinessLogic;
-import notes.data.cache.Cache;
+import notes.data.cache.CacheDelegate;
 import notes.data.persistence.Property;
 import notes.businessobjects.SystemMode;
 import notes.gui.main.component.MainPanel;
@@ -44,7 +44,7 @@ public class MainPanelWindowListener implements WindowListener {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Cache.get().saveAllCachesToXML();
+        CacheDelegate.get().saveAllCachesToXML();
 
         // Save the current opened document id.
         SystemMode currentMode = MainPanel.get().getCurrentMode();

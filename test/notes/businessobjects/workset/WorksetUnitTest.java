@@ -17,8 +17,8 @@ import static org.junit.Assert.assertTrue;
  * Date: 9/30/13
  * Time: 10:16 PM
  */
-public class WorksetUnitTests extends EasyNoteUnitTestCase {
-    
+public class WorksetUnitTest extends EasyNoteUnitTestCase {
+
     /**
      * Test method for {@link Workset#equals(java.lang.Object)}.
      */
@@ -26,7 +26,7 @@ public class WorksetUnitTests extends EasyNoteUnitTestCase {
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
         Workset workset = (Workset) (testData.documentMap.get(3L));
-        assertTrue(workset.equals(CACHE.getDocumentCache().getDocumentMap().get(3L)));
+        assertTrue(workset.equals(CACHE.getDocumentCache().find(3L)));
         assertFalse(workset.equals(new Workset()));
         assertFalse(workset.equals(new Object()));
     }
@@ -36,7 +36,7 @@ public class WorksetUnitTests extends EasyNoteUnitTestCase {
      */
     @Test
     public void testGetNotesCount() {
-        assertEquals(1, CACHE.getDocumentCache().getDocumentMap().get(3L).getNotesCount());
+        assertEquals(1, CACHE.getDocumentCache().find(3L).getNotesCount());
     }
 
     /**
@@ -45,8 +45,7 @@ public class WorksetUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        assertEquals(testData.documentMap.get(3L).hashCode(), CACHE.getDocumentCache()
-                .getDocumentMap().get(3L).hashCode());
+        assertEquals(testData.documentMap.get(3L).hashCode(), CACHE.getDocumentCache().find(3L).hashCode());
     }
 
     /**

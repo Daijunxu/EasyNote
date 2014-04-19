@@ -1,6 +1,6 @@
 package notes.gui.main.event;
 
-import notes.data.cache.Cache;
+import notes.data.cache.CacheDelegate;
 import notes.utils.SoundFactory;
 
 import java.awt.event.ActionEvent;
@@ -19,6 +19,6 @@ public class SaveAllActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         SoundFactory.playUpdate();
-        Cache.get().saveAllCachesToXML();
+        CacheDelegate.get().saveAllCachesToXML();
     }
 }

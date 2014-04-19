@@ -1,6 +1,6 @@
 package notes.gui.main.component;
 
-import notes.data.cache.Cache;
+import notes.data.cache.CacheDelegate;
 import notes.data.persistence.Property;
 import notes.utils.SoundFactory;
 
@@ -54,9 +54,9 @@ public class InitialChooseDataLocationDialog extends JDialog {
                         setVisible(false);
                         // Change default data location.
                         Property.get().setXmlDataLocation(selectedFile.getAbsolutePath());
-                        Cache.hasProblem = false;
-                        Cache.get().loadAllCachesFromXML();
-                        if (Cache.hasProblem) {
+                        CacheDelegate.hasProblem = false;
+                        CacheDelegate.get().loadAllCachesFromXML();
+                        if (CacheDelegate.hasProblem) {
                             SoundFactory.playNotify();
                             int result = JOptionPane.showConfirmDialog(
                                     null,
@@ -86,12 +86,12 @@ public class InitialChooseDataLocationDialog extends JDialog {
                                 String path = selectedFile.getAbsolutePath()
                                         + "/reading_notes.xml";
                                 Writer output = new BufferedWriter(new FileWriter(path));
-                                output.append(Cache.getDefaultContentToWrite());
+                                output.append(CacheDelegate.getDefaultContentToWrite());
                                 output.close();
 
                                 Property.get().setXmlDataLocation(path);
-                                Cache.hasProblem = false;
-                                Cache.get().loadAllCachesFromXML();
+                                CacheDelegate.hasProblem = false;
+                                CacheDelegate.get().loadAllCachesFromXML();
 
                                 SoundFactory.playOn();
 

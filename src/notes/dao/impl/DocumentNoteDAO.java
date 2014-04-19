@@ -1,17 +1,15 @@
 package notes.dao.impl;
 
-import notes.dao.DuplicateRecordException;
-import notes.dao.NoteDAO;
-import notes.data.cache.Cache;
 import notes.businessobjects.Document;
 import notes.businessobjects.Note;
 import notes.businessobjects.Tag;
+import notes.dao.NoteDAO;
+import notes.data.cache.CacheDelegate;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -22,7 +20,7 @@ import java.util.Set;
 public class DocumentNoteDAO implements NoteDAO<Note, Document> {
 
     private static final DocumentNoteDAO INSTANCE = new DocumentNoteDAO();
-    private static final Cache CACHE = Cache.get();
+    private static final CacheDelegate CACHE = CacheDelegate.get();
 
     protected DocumentNoteDAO() {
     }
@@ -41,65 +39,27 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
         throw new UnsupportedOperationException("This method should not be called here.");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void deleteTag(Tag tag) {
         Long tagId = tag.getTagId();
 
         // Remove all occurrences of the tag in notes.
-        for (Note note : CACHE.getNoteCache().getNoteMap().values()) {
+        for (Note note : CACHE.getNoteCache().findAll()) {
             note.getTagIds().remove(tagId);
         }
 
         // Remove the tag from the tag cache.
-        CACHE.getTagCache().getTagIdMap().remove(tagId);
-        CACHE.getTagCache().getTagTextMap().remove(tag.getTagText());
-
+        CACHE.getTagCache().remove(tagId);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public List<Document> findAllDocuments() {
-        List<Document> documentList = new ArrayList<Document>();
-        Map<Long, Document> documentMap = CACHE.getDocumentCache().getDocumentMap();
-        for (Document document : documentMap.values()) {
-            documentList.add(document);
-        }
-        Collections.sort(documentList);
-        return documentList;
+        return CACHE.getDocumentCache().findAll();
     }
 
-    public boolean isExistingDocument(Document document) {
-        if (findDocumentById(document.getDocumentId()) != null) {
-            return true;
-        }
-
-        List<Document> existingDocuments = findAllDocuments();
-        for (Document existingDocument : existingDocuments) {
-            if (existingDocument.getDocumentTitle().equals(document.getDocumentTitle())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public List<Note> findAllNotes() {
-        List<Note> noteList = new ArrayList<Note>();
-        Map<Long, Note> noteMap = CACHE.getNoteCache().getNoteMap();
-        for (Note note : noteMap.values()) {
-            noteList.add(note);
-        }
-        Collections.sort(noteList);
-        return noteList;
+        return CACHE.getNoteCache().findAll();
     }
 
     @Override
@@ -107,14 +67,10 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
         throw new UnsupportedOperationException("This method should not be called here.");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public List<Note> findAllNotesByTagId(Long tagId) {
-        Map<Long, Note> noteMap = CACHE.getNoteCache().getNoteMap();
         List<Note> noteList = new ArrayList<Note>();
-        for (Note note : noteMap.values()) {
+        for (Note note : CACHE.getNoteCache().findAll()) {
             if (note.getTagIds().contains(tagId)) {
                 noteList.add(note);
             }
@@ -123,13 +79,9 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
         return noteList;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public List<Note> findAllNotesContainingText(Set<Long> candidateDocuments, String text, boolean caseSensitive,
                                                  boolean exactSearch) {
-        Map<Long, Note> noteMap = CACHE.getNoteCache().getNoteMap();
         List<Note> resultList = new ArrayList<Note>();
 
         if (!caseSensitive) {
@@ -141,7 +93,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
                 }
 
                 boolean isResult;
-                for (Note note : noteMap.values()) {
+                for (Note note : CACHE.getNoteCache().findAll()) {
                     if (candidateDocuments != null && !candidateDocuments.contains(note.getDocumentId())) {
                         continue;
                     }
@@ -163,7 +115,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
                 }
             } else {
                 // not case sensitive, exact search.
-                for (Note note : noteMap.values()) {
+                for (Note note : CACHE.getNoteCache().findAll()) {
                     if (candidateDocuments != null && !candidateDocuments.contains(note.getDocumentId())) {
                         continue;
                     }
@@ -182,7 +134,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
                 }
 
                 boolean isResult;
-                for (Note note : noteMap.values()) {
+                for (Note note : CACHE.getNoteCache().findAll()) {
                     if (candidateDocuments != null && !candidateDocuments.contains(note.getDocumentId())) {
                         continue;
                     }
@@ -204,7 +156,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
                 }
             } else {
                 // Case sensitive, exact search.
-                for (Note note : noteMap.values()) {
+                for (Note note : CACHE.getNoteCache().findAll()) {
                     if (candidateDocuments != null && !candidateDocuments.contains(note.getDocumentId())) {
                         continue;
                     }
@@ -219,55 +171,34 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
         return resultList;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public List<Tag> findAllTags() {
-        List<Tag> tagList = new ArrayList<Tag>();
-        Map<Long, Tag> tagMap = CACHE.getTagCache().getTagIdMap();
-        for (Tag tag : tagMap.values()) {
-            tagList.add(tag);
-        }
-        Collections.sort(tagList);
-        return tagList;
+        return CACHE.getTagCache().findAll();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Document findDocumentById(Long documentId) {
-        return CACHE.getDocumentCache().getDocumentMap().get(documentId);
+        return CACHE.getDocumentCache().find(documentId);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Note findNoteById(Long noteId) {
-        return CACHE.getNoteCache().getNoteMap().get(noteId);
+        return CACHE.getNoteCache().find(noteId);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Tag findTagById(Long tagId) {
-        return CACHE.getTagCache().getTagIdMap().get(tagId);
+        return CACHE.getTagCache().find(tagId);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Tag findTagByText(String tagText) {
-        return CACHE.getTagCache().getTagTextMap().get(tagText);
+        return CACHE.getTagCache().find(tagText);
     }
 
     @Override
     public Document updateDocument(Document document) {
-        throw new UnsupportedOperationException("This method should not be called here.");
+        return CACHE.getDocumentCache().update(document);
     }
 
     @Override
@@ -275,24 +206,14 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
         throw new UnsupportedOperationException("This method should not be called here.");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Tag updateTag(Tag tag) {
-        Tag updateTag = CACHE.getTagCache().getTagIdMap().get(tag.getTagId());
-        if (updateTag != null) {
-            CACHE.getTagCache().getTagTextMap().remove(updateTag.getTagText());
-            updateTag.setTagText(tag.getTagText());
-            CACHE.getTagCache().getTagTextMap().put(updateTag.getTagText(), updateTag);
-            return updateTag;
-        }
-        return null;
+        return CACHE.getTagCache().update(tag);
     }
 
     @Override
     public Document saveDocument(Document document) {
-        throw new UnsupportedOperationException("This method should not be called here.");
+        return CACHE.getDocumentCache().insert(document);
     }
 
     @Override
@@ -300,39 +221,9 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
         throw new UnsupportedOperationException("This method should not be called here.");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Tag saveTag(Tag tag) {
-        Tag newTag = new Tag();
-        if (tag.getTagId() == null) {
-            newTag.setTagId(CACHE.getTagCache().getMaxTagId() + 1L);
-        } else {
-            newTag.setTagId(tag.getTagId());
-        }
-        newTag.setTagText(tag.getTagText());
-
-        // Add the tag to tag cache.
-        try {
-            if (CACHE.getTagCache().getTagIdMap().containsKey(newTag.getTagId())) {
-                throw new DuplicateRecordException("Duplicate tag exception: same tag ID!");
-            }
-            if (CACHE.getTagCache().getTagTextMap().containsKey(newTag.getTagText())) {
-                throw new DuplicateRecordException("Duplicate tag exception: same tag text!");
-            }
-        } catch (DuplicateRecordException e) {
-            e.printStackTrace();
-        }
-        CACHE.getTagCache().getTagIdMap().put(newTag.getTagId(), newTag);
-        CACHE.getTagCache().getTagTextMap().put(newTag.getTagText(), newTag);
-
-        // Update max note id in tag cache.
-        if (CACHE.getTagCache().getMaxTagId() < newTag.getTagId()) {
-            CACHE.getTagCache().setMaxTagId(newTag.getTagId());
-        }
-
-        return newTag;
+        return CACHE.getTagCache().insert(tag);
     }
 
 }

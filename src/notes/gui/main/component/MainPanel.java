@@ -17,7 +17,7 @@ import notes.businessobjects.workset.Workset;
 import notes.businessobjects.workset.Worksheet;
 import notes.businessobjects.workset.WorksheetNote;
 import notes.dao.impl.DocumentNoteDAO;
-import notes.data.cache.Cache;
+import notes.data.cache.CacheDelegate;
 import notes.data.persistence.Property;
 import notes.gui.article.event.DeleteArticleActionListener;
 import notes.gui.article.event.DeleteArticleNoteActionListener;
@@ -184,8 +184,8 @@ public class MainPanel extends JFrame {
 
         Property property = Property.get();
 
-        if (Cache.get() == null || Cache.hasProblem) {
-            System.out.println("Cache is having problem!");
+        if (CacheDelegate.get() == null || CacheDelegate.hasProblem) {
+            System.out.println("CacheDelegate is having problem!");
             SoundFactory.playNotify();
             int result = JOptionPane.showConfirmDialog(null,
                     "Missing data file or having invalid data file. Choose a new data file?",

@@ -9,10 +9,10 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the {@code AbstractDocument}.
- *
+ * <p/>
  * Author: Rui Du
  */
-public class AbstractDocumentUnitTests extends EasyNoteUnitTestCase {
+public class AbstractDocumentUnitTest extends EasyNoteUnitTestCase {
 
     /**
      * Test method for {@link notes.businessobjects.impl.AbstractDocument#compareTo(notes.businessobjects.Document)}.
@@ -22,7 +22,7 @@ public class AbstractDocumentUnitTests extends EasyNoteUnitTestCase {
         final UnitTestData testData = new UnitTestData();
         Document testDocument1 = testData.documentMap.get(1L);
         Document testDocument2 = testData.documentMap.get(2L);
-        Document cachedDocument = CACHE.getDocumentCache().getDocumentMap().get(1L);
+        Document cachedDocument = CACHE.getDocumentCache().find(1L);
         assertEquals(testDocument1.compareTo(cachedDocument), 0);
         assertTrue(testDocument1.compareTo(testDocument2) < 0);
         assertTrue(testDocument2.compareTo(testDocument1) > 0);

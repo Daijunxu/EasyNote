@@ -1,7 +1,5 @@
 package core;
 
-import notes.data.cache.Cache;
-import notes.data.persistence.Property;
 import notes.businessobjects.Document;
 import notes.businessobjects.Note;
 import notes.businessobjects.NoteStatus;
@@ -14,6 +12,8 @@ import notes.businessobjects.book.Chapter;
 import notes.businessobjects.workset.Workset;
 import notes.businessobjects.workset.Worksheet;
 import notes.businessobjects.workset.WorksheetNote;
+import notes.data.cache.CacheDelegate;
+import notes.data.persistence.Property;
 import org.junit.Before;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ import java.util.TreeMap;
 public class EasyNoteUnitTestCase {
 
     protected static final String TEST_DATA_XML_LOCATION_OVERRIDE = "./test/reading_notes.xml";
-    protected static final Cache CACHE = Cache.get();
+    protected static final CacheDelegate CACHE = CacheDelegate.get();
 
     /**
      * Load and refresh the cache using test data.

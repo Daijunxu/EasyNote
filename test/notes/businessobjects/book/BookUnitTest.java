@@ -13,10 +13,10 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the {@code Book}.
- *
+ * <p/>
  * Author: Rui Du
  */
-public class BookUnitTests extends EasyNoteUnitTestCase {
+public class BookUnitTest extends EasyNoteUnitTestCase {
 
     /**
      * Test method for {@link notes.businessobjects.book.Book#equals(java.lang.Object)}.
@@ -25,7 +25,7 @@ public class BookUnitTests extends EasyNoteUnitTestCase {
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
         Book book = (Book) (testData.documentMap.get(1L));
-        assertTrue(book.equals(CACHE.getDocumentCache().getDocumentMap().get(1L)));
+        assertTrue(book.equals(CACHE.getDocumentCache().find(1L)));
         assertFalse(book.equals(new Book()));
         assertFalse(book.equals(new Object()));
     }
@@ -35,7 +35,7 @@ public class BookUnitTests extends EasyNoteUnitTestCase {
      */
     @Test
     public void testGetNotesCount() {
-        assertEquals(1, CACHE.getDocumentCache().getDocumentMap().get(1L).getNotesCount());
+        assertEquals(1, CACHE.getDocumentCache().find(1L).getNotesCount());
     }
 
     /**
@@ -44,8 +44,7 @@ public class BookUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        assertEquals(testData.documentMap.get(1L).hashCode(), CACHE.getDocumentCache()
-                .getDocumentMap().get(1L).hashCode());
+        assertEquals(testData.documentMap.get(1L).hashCode(), CACHE.getDocumentCache().find(1L).hashCode());
     }
 
     /**
@@ -55,7 +54,7 @@ public class BookUnitTests extends EasyNoteUnitTestCase {
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
         Book testBook = (Book) (testData.documentMap.get(1L));
-        Book cachedBook = (Book) (CACHE.getDocumentCache().getDocumentMap().get(1L));
+        Book cachedBook = (Book) (CACHE.getDocumentCache().find(1L));
         assertEquals(StringUtils.substringBetween(testBook.toString(), "[", "chapterMap"),
                 StringUtils.substringBetween(cachedBook.toString(), "[", "chapterMap"));
         assertEquals(StringUtils.substringAfter(testBook.toString(), "createdTime"),

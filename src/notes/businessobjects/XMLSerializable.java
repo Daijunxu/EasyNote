@@ -3,6 +3,8 @@ package notes.businessobjects;
 import org.dom4j.Element;
 
 /**
+ * Identifies that a type can be serialized to and deserialized from XML format data.
+ * <p/>
  * Author: Rui Du
  * Date: 9/21/13
  * Time: 11:39 AM

@@ -12,10 +12,10 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the {@code Tag}.
- *
+ * <p/>
  * Author: Rui Du
  */
-public class TagUnitTests extends EasyNoteUnitTestCase {
+public class TagUnitTest extends EasyNoteUnitTestCase {
 
     /**
      * Test method for {@link notes.businessobjects.Tag#equals(java.lang.Object)}.
@@ -24,7 +24,7 @@ public class TagUnitTests extends EasyNoteUnitTestCase {
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
         Tag tag = testData.tagIdMap.get(1L);
-        assertTrue(tag.equals(CACHE.getTagCache().getTagIdMap().get(1L)));
+        assertTrue(tag.equals(CACHE.getTagCache().find(1L)));
         assertFalse(tag.equals(new Tag()));
         assertFalse(tag.equals(new Object()));
     }
@@ -35,8 +35,7 @@ public class TagUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        assertEquals(testData.tagIdMap.get(1L).hashCode(), CACHE.getTagCache().getTagIdMap()
-                .get(1L).hashCode());
+        assertEquals(testData.tagIdMap.get(1L).hashCode(), CACHE.getTagCache().find(1L).hashCode());
     }
 
     /**
@@ -46,7 +45,7 @@ public class TagUnitTests extends EasyNoteUnitTestCase {
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
         Tag testTag = testData.tagIdMap.get(1L);
-        Tag cachedTag = CACHE.getTagCache().getTagIdMap().get(1L);
+        Tag cachedTag = CACHE.getTagCache().find(1L);
         assertEquals(StringUtils.substringAfter(testTag.toString(), "["),
                 StringUtils.substringAfter(cachedTag.toString(), "["));
     }

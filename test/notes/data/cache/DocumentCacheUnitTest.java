@@ -5,19 +5,18 @@ import notes.businessobjects.Document;
 import org.dom4j.Element;
 import org.junit.Test;
 
-import java.util.Map;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the {@code DocumentCache}.
- *
+ * <p/>
  * Author: Rui Du
  */
-public class DocumentCacheUnitTests extends EasyNoteUnitTestCase {
+public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
 
     private final DocumentCache documentCache = DocumentCache.get();
 
@@ -28,33 +27,7 @@ public class DocumentCacheUnitTests extends EasyNoteUnitTestCase {
     public void testClear() {
         documentCache.clear();
         assertNotNull(documentCache);
-        assertTrue(documentCache.getDocumentMap().isEmpty());
-        assertTrue(documentCache.getMaxDocumentId() == Long.MIN_VALUE);
-    }
-
-    /**
-     * Test method for {@link notes.data.cache.DocumentCache#getDocumentMap()}.
-     */
-    @Test
-    public void testGetDocumentMap() {
-        final UnitTestData testData = new UnitTestData();
-        assertNotNull(documentCache.getDocumentMap());
-        Map<Long, Document> documentMap = documentCache.getDocumentMap();
-        assertFalse(documentMap.isEmpty());
-        assertEquals(testData.documentMap.keySet(), documentMap.keySet());
-        for (Document document : testData.documentMap.values()) {
-            assertEquals(document, documentMap.get(document.getDocumentId()));
-        }
-    }
-
-    /**
-     * Test method for {@link notes.data.cache.DocumentCache#getMaxDocumentId()}.
-     */
-    @Test
-    public void testGetMaxDocumentId() {
-        final UnitTestData testData = new UnitTestData();
-        assertNotNull(documentCache.getMaxDocumentId());
-        assertEquals(testData.maxDocumentId, documentCache.getMaxDocumentId());
+        assertTrue(documentCache.findAll().isEmpty());
     }
 
     /**
@@ -83,7 +56,12 @@ public class DocumentCacheUnitTests extends EasyNoteUnitTestCase {
         Element documentCacheElement = documentCache.toXMLElement();
         documentCache.buildFromXMLElement(documentCacheElement);
 
-        assertEquals(documentCache.getDocumentMap(), testData.documentMap);
-        assertEquals(documentCache.getMaxDocumentId(), testData.maxDocumentId);
+        List<Document> documentList = CACHE.getDocumentCache().findAll();
+
+        assertEquals(documentList.size(), testData.documentMap.size());
+
+        for (Document document : documentList) {
+            assertEquals(document, testData.documentMap.get(document.getDocumentId()));
+        }
     }
 }

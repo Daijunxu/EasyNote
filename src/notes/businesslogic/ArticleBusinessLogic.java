@@ -63,7 +63,7 @@ public class ArticleBusinessLogic {
     }
 
     /**
-     * Updates the data members in ArticleBusinessLogic, which are acquired from Cache.
+     * Updates the data members in ArticleBusinessLogic, which are acquired from cache.
      *
      * @param documentId The current selected document ID.
      * @param noteId     The current selected note ID.

@@ -13,10 +13,10 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the {@code Chapter}.
- *
+ * <p/>
  * Author: Rui Du
  */
-public class ChapterUnitTests extends EasyNoteUnitTestCase {
+public class ChapterUnitTest extends EasyNoteUnitTestCase {
 
     /**
      * Test method for {@link notes.businessobjects.book.Chapter#equals(java.lang.Object)}.
@@ -26,7 +26,7 @@ public class ChapterUnitTests extends EasyNoteUnitTestCase {
         final UnitTestData testData = new UnitTestData();
         Book testBook = (Book) (testData.documentMap.get(1L));
         Chapter testChapter = testBook.getChaptersMap().get(1L);
-        Book cachedBook = (Book) (CACHE.getDocumentCache().getDocumentMap().get(1L));
+        Book cachedBook = (Book) (CACHE.getDocumentCache().find(1L));
         Chapter cachedChapter = cachedBook.getChaptersMap().get(1L);
         assertTrue(testChapter.equals(cachedChapter));
         assertFalse(testChapter.equals(new Chapter()));
@@ -41,7 +41,7 @@ public class ChapterUnitTests extends EasyNoteUnitTestCase {
         final UnitTestData testData = new UnitTestData();
         Book testBook = (Book) (testData.documentMap.get(1L));
         Chapter testChapter = testBook.getChaptersMap().get(1L);
-        Book cachedBook = (Book) (CACHE.getDocumentCache().getDocumentMap().get(1L));
+        Book cachedBook = (Book) (CACHE.getDocumentCache().find(1L));
         Chapter cachedChapter = cachedBook.getChaptersMap().get(1L);
         assertEquals(testChapter.hashCode(), cachedChapter.hashCode());
     }
@@ -54,7 +54,7 @@ public class ChapterUnitTests extends EasyNoteUnitTestCase {
         final UnitTestData testData = new UnitTestData();
         Book testBook = (Book) (testData.documentMap.get(1L));
         Chapter testChapter = testBook.getChaptersMap().get(1L);
-        Book cachedBook = (Book) (CACHE.getDocumentCache().getDocumentMap().get(1L));
+        Book cachedBook = (Book) (CACHE.getDocumentCache().find(1L));
         Chapter cachedChapter = cachedBook.getChaptersMap().get(1L);
         assertEquals(StringUtils.substringAfter(testChapter.toString(), "["),
                 StringUtils.substringAfter(cachedChapter.toString(), "["));

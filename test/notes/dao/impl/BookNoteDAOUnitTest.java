@@ -21,10 +21,10 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the {@code BookNoteDAO}.
- *
+ * <p/>
  * Author: Rui Du
  */
-public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
+public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
 
     /**
      * The data access object for the {@code BookNoteDAO}.
@@ -41,11 +41,11 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         Book book = (Book) testData.documentMap.get(1L);
         Chapter deleteChapter = book.getChaptersMap().get(1L);
         dao.deleteChapter(deleteChapter, 1L);
-        assertNotNull(CACHE.getDocumentCache().getDocumentMap().get(1L));
-        Book cachedBook = (Book) CACHE.getDocumentCache().getDocumentMap().get(1L);
+        assertNotNull(CACHE.getDocumentCache().find(1L));
+        Book cachedBook = (Book) CACHE.getDocumentCache().find(1L);
         assertFalse(cachedBook.getChaptersMap().isEmpty());
         assertFalse(cachedBook.getChaptersMap().containsKey(1L));
-        assertFalse(CACHE.getNoteCache().getNoteMap().containsKey(1L));
+        assertNull(CACHE.getNoteCache().find(1L));
     }
 
     /**
@@ -56,11 +56,9 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         UnitTestData testData = new UnitTestData();
         Book deleteDocument = (Book) testData.documentMap.get(1L);
         dao.deleteDocument(deleteDocument);
-        assertNotNull(CACHE.getDocumentCache().getDocumentMap());
-        assertFalse(CACHE.getDocumentCache().getDocumentMap().isEmpty());
-        assertNull(CACHE.getDocumentCache().getDocumentMap()
-                .get(deleteDocument.getDocumentId()));
-        assertFalse(CACHE.getNoteCache().getNoteMap().containsKey(1L));
+        assertFalse(CACHE.getDocumentCache().findAll().isEmpty());
+        assertNull(CACHE.getDocumentCache().find(deleteDocument.getDocumentId()));
+        assertNull(CACHE.getNoteCache().find(1L));
     }
 
     /**
@@ -71,11 +69,9 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         UnitTestData testData = new UnitTestData();
         BookNote deleteNote = (BookNote) testData.noteMap.get(1L);
         dao.deleteNote(deleteNote);
-        assertNotNull(CACHE.getNoteCache().getNoteMap());
-        assertFalse(CACHE.getNoteCache().getNoteMap().isEmpty());
-        assertNull(CACHE.getNoteCache().getNoteMap().get(deleteNote.getNoteId()));
-        Book book = (Book) CACHE.getDocumentCache().getDocumentMap()
-                .get(deleteNote.getDocumentId());
+        assertFalse(CACHE.getNoteCache().findAll().isEmpty());
+        assertNull(CACHE.getNoteCache().find(deleteNote.getNoteId()));
+        Book book = (Book) CACHE.getDocumentCache().find(deleteNote.getDocumentId());
         assertFalse(book.getChaptersMap().get(deleteNote.getChapterId()).getNotesList()
                 .contains(deleteNote.getNoteId()));
     }
@@ -126,8 +122,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         Chapter updatedChapter = dao.updateChapter(updateChapter, testBook.getDocumentId());
 
         assertNotNull(updatedChapter);
-        Book cachedBook = (Book) CACHE.getDocumentCache().getDocumentMap()
-                .get(testBook.getDocumentId());
+        Book cachedBook = (Book) CACHE.getDocumentCache().find(testBook.getDocumentId());
         assertEquals(updatedChapter, cachedBook.getChaptersMap().get(updatedChapter.getChapterId()));
         assertFalse(updatedChapter.equals(testChapter));
         assertEquals(updatedChapter.getChapterId(), updateChapter.getChapterId());
@@ -153,7 +148,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         Book updatedBook = (Book) dao.updateDocument(newBook);
 
         assertNotNull(updatedBook);
-        assertEquals(updatedBook, CACHE.getDocumentCache().getDocumentMap().get(newBook.getDocumentId()));
+        assertEquals(updatedBook, CACHE.getDocumentCache().find(newBook.getDocumentId()));
         assertFalse(updatedBook.equals(testBook));
         assertEquals(updatedBook.getComment(), newBook.getComment());
         assertEquals(updatedBook.getChaptersMap(), newBook.getChaptersMap());
@@ -178,7 +173,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         BookNote updatedBookNote = (BookNote) dao.updateNote(newBookNote);
 
         assertNotNull(updatedBookNote);
-        assertEquals(updatedBookNote, CACHE.getNoteCache().getNoteMap().get(newBookNote.getNoteId()));
+        assertEquals(updatedBookNote, CACHE.getNoteCache().find(newBookNote.getNoteId()));
         assertFalse(updatedBookNote.equals(testBookNote));
         assertEquals(updatedBookNote.getChapterId(), newBookNote.getChapterId());
         assertFalse(updatedBookNote.getChapterId().equals(testBookNote.getChapterId()));
@@ -196,7 +191,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         newChapter.setChapterId(3L);
         newChapter.setChapterTitle("Chapter 3");
         Chapter savedChapter = dao.saveChapter(newChapter, 1L);
-        Book book = (Book) CACHE.getDocumentCache().getDocumentMap().get(1L);
+        Book book = (Book) CACHE.getDocumentCache().find(1L);
 
         assertEquals(savedChapter, book.getChaptersMap().get(3L));
         assertNotNull(savedChapter.getNotesList());
@@ -223,9 +218,7 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         newBook.setChaptersMap(chaptersMap);
         Book savedBook = (Book) dao.saveDocument(newBook);
 
-        assertEquals(savedBook,
-                CACHE.getDocumentCache().getDocumentMap().get(newBook.getDocumentId()));
-        assertEquals(CACHE.getDocumentCache().getMaxDocumentId(), newBook.getDocumentId());
+        assertEquals(savedBook, CACHE.getDocumentCache().find(newBook.getDocumentId()));
         assertNotNull(savedBook.getCreatedTime());
         assertNotNull(savedBook.getLastUpdatedTime());
     }
@@ -243,12 +236,9 @@ public class BookNoteDAOUnitTests extends EasyNoteUnitTestCase {
         newBookNote.setNoteText("New note.");
         BookNote savedBookNote = (BookNote) dao.saveNote(newBookNote);
 
-        assertEquals(savedBookNote,
-                CACHE.getNoteCache().getNoteMap().get(newBookNote.getNoteId()));
-        assertEquals(CACHE.getNoteCache().getMaxNoteId(), newBookNote.getNoteId());
+        assertEquals(savedBookNote, CACHE.getNoteCache().find(newBookNote.getNoteId()));
         assertNotNull(savedBookNote.getCreatedTime());
-        Book book = (Book) CACHE.getDocumentCache().getDocumentMap()
-                .get(savedBookNote.getDocumentId());
+        Book book = (Book) CACHE.getDocumentCache().find(savedBookNote.getDocumentId());
         Chapter chapter = book.getChaptersMap().get(savedBookNote.getChapterId());
         assertTrue(chapter.getNotesList().contains(savedBookNote.getNoteId()));
     }

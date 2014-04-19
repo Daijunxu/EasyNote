@@ -1,7 +1,7 @@
 package notes.gui.main.component;
 
 import lombok.Getter;
-import notes.data.cache.Cache;
+import notes.data.cache.CacheDelegate;
 import notes.data.persistence.Property;
 import notes.utils.SoundFactory;
 import notes.utils.SoundTheme;
@@ -26,11 +26,11 @@ public class PreferencesDialog extends JDialog {
             // Check setting for data location.
             if (!dataLocationField.getText().equals(Property.get().getXmlDataLocation())) {
                 // Save current cache data.
-                Cache.get().saveAllCachesToXML();
+                CacheDelegate.get().saveAllCachesToXML();
                 // Change default data location.
                 Property.get().setXmlDataLocation(dataLocationField.getText());
                 // Reload the cache data.
-                Cache.get().loadAllCachesFromXML();
+                CacheDelegate.get().loadAllCachesFromXML();
                 // Clear all temporary data.
                 frame.clearAllTemporaryData();
                 // Set up the default panel.

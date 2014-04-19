@@ -13,10 +13,10 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the {@code ArticleNote}.
- *
+ * <p/>
  * Author: Rui Du
  */
-public class ArticleNoteUnitTests extends EasyNoteUnitTestCase {
+public class ArticleNoteUnitTest extends EasyNoteUnitTestCase {
 
     /**
      * Test method for {@link notes.businessobjects.article.ArticleNote#equals(java.lang.Object)}.
@@ -25,7 +25,7 @@ public class ArticleNoteUnitTests extends EasyNoteUnitTestCase {
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
         ArticleNote articleNote = (ArticleNote) (testData.noteMap.get(2L));
-        assertTrue(articleNote.equals(CACHE.getNoteCache().getNoteMap().get(2L)));
+        assertTrue(articleNote.equals(CACHE.getNoteCache().find(2L)));
         assertFalse(articleNote.equals(new ArticleNote()));
         assertFalse(articleNote.equals(new Object()));
     }
@@ -36,8 +36,7 @@ public class ArticleNoteUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        assertEquals(testData.noteMap.get(2L).hashCode(), CACHE.getNoteCache().getNoteMap()
-                .get(2L).hashCode());
+        assertEquals(testData.noteMap.get(2L).hashCode(), CACHE.getNoteCache().find(2L).hashCode());
     }
 
     /**
@@ -47,8 +46,7 @@ public class ArticleNoteUnitTests extends EasyNoteUnitTestCase {
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
         ArticleNote testArticleNote = (ArticleNote) (testData.noteMap.get(2L));
-        ArticleNote cachedArticleNote = (ArticleNote) (CACHE.getNoteCache().getNoteMap()
-                .get(2L));
+        ArticleNote cachedArticleNote = (ArticleNote) (CACHE.getNoteCache().find(2L));
         assertEquals(StringUtils.substringAfter(testArticleNote.toString(), "["),
                 StringUtils.substringAfter(cachedArticleNote.toString(), "["));
     }
@@ -69,7 +67,7 @@ public class ArticleNoteUnitTests extends EasyNoteUnitTestCase {
         assertNotNull(articleNoteElement.attribute("CreatedTime"));
         assertNotNull(articleNoteElement.getText());
         assertEquals(Long.parseLong(articleNoteElement.attributeValue("NoteId")),
-                        testArticleNote.getNoteId().longValue());
+                testArticleNote.getNoteId().longValue());
         assertEquals(Long.parseLong(articleNoteElement.attributeValue("DocumentId")),
                 testArticleNote.getDocumentId().longValue());
         assertEquals(EntityHelper.buildIDsList(articleNoteElement.attributeValue("TagIds")),

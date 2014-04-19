@@ -83,7 +83,7 @@ public class WorksetBusinessLogic implements Serializable {
     }
 
     /**
-     * Updates the data members in WorksetBusinessLogic, which are acquired from Cache.
+     * Updates the data members in WorksetBusinessLogic, which are acquired from CacheDelegate.
      *
      * @param documentId  The current selected document ID.
      * @param worksheetId The current selected worksheet ID.

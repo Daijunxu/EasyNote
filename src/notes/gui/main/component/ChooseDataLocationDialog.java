@@ -1,6 +1,6 @@
 package notes.gui.main.component;
 
-import notes.data.cache.Cache;
+import notes.data.cache.CacheDelegate;
 import notes.data.persistence.Property;
 import notes.utils.SoundFactory;
 
@@ -69,7 +69,7 @@ public class ChooseDataLocationDialog extends JDialog {
                             try {
                                 String path = selectedFile.getAbsolutePath() + "/reading_notes.xml";
                                 Writer output = new BufferedWriter(new FileWriter(path));
-                                output.append(Cache.getDefaultContentToWrite());
+                                output.append(CacheDelegate.getDefaultContentToWrite());
                                 output.close();
                                 PreferencesDialog.get().getDataLocationField().setText(path);
                                 SoundFactory.playNavigation();

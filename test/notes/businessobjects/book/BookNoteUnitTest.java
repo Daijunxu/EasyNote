@@ -13,10 +13,10 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the {@code BookNote}.
- *
+ * <p/>
  * Author: Rui Du
  */
-public class BookNoteUnitTests extends EasyNoteUnitTestCase {
+public class BookNoteUnitTest extends EasyNoteUnitTestCase {
 
     /**
      * Test method for {@link notes.businessobjects.book.BookNote#equals(java.lang.Object)}.
@@ -25,7 +25,7 @@ public class BookNoteUnitTests extends EasyNoteUnitTestCase {
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
         BookNote bookNote = (BookNote) (testData.noteMap.get(1L));
-        assertTrue(bookNote.equals(CACHE.getNoteCache().getNoteMap().get(1L)));
+        assertTrue(bookNote.equals(CACHE.getNoteCache().find(1L)));
         assertFalse(bookNote.equals(new BookNote()));
         assertFalse(bookNote.equals(new Object()));
     }
@@ -36,8 +36,7 @@ public class BookNoteUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        assertEquals(testData.noteMap.get(1L).hashCode(), CACHE.getNoteCache().getNoteMap()
-                .get(1L).hashCode());
+        assertEquals(testData.noteMap.get(1L).hashCode(), CACHE.getNoteCache().find(1L).hashCode());
     }
 
     /**
@@ -47,7 +46,7 @@ public class BookNoteUnitTests extends EasyNoteUnitTestCase {
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
         BookNote testBookNote = (BookNote) (testData.noteMap.get(1L));
-        BookNote cachedBookNote = (BookNote) (CACHE.getNoteCache().getNoteMap().get(1L));
+        BookNote cachedBookNote = (BookNote) (CACHE.getNoteCache().find(1L));
         assertEquals(StringUtils.substringAfter(testBookNote.toString(), "["),
                 StringUtils.substringAfter(cachedBookNote.toString(), "["));
     }

@@ -5,19 +5,18 @@ import notes.businessobjects.Note;
 import org.dom4j.Element;
 import org.junit.Test;
 
-import java.util.Map;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the {@code NoteCache}.
- *
+ * <p/>
  * Author: Rui Du
  */
-public class NoteCacheUnitTests extends EasyNoteUnitTestCase {
+public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
 
     private final NoteCache noteCache = NoteCache.get();
 
@@ -28,33 +27,7 @@ public class NoteCacheUnitTests extends EasyNoteUnitTestCase {
     public void testClear() {
         noteCache.clear();
         assertNotNull(noteCache);
-        assertTrue(noteCache.getNoteMap().isEmpty());
-        assertTrue(noteCache.getMaxNoteId() == Long.MIN_VALUE);
-    }
-
-    /**
-     * Test method for {@link notes.data.cache.NoteCache#getMaxNoteId()}.
-     */
-    @Test
-    public void testGetMaxNoteId() {
-        final UnitTestData testData = new UnitTestData();
-        assertNotNull(noteCache.getMaxNoteId());
-        assertEquals(testData.maxNoteId, noteCache.getMaxNoteId());
-    }
-
-    /**
-     * Test method for {@link notes.data.cache.NoteCache#getNoteMap()}.
-     */
-    @Test
-    public void testGetNoteMap() {
-        final UnitTestData testData = new UnitTestData();
-        assertNotNull(noteCache.getNoteMap());
-        Map<Long, Note> noteMap = noteCache.getNoteMap();
-        assertFalse(noteMap.isEmpty());
-        assertEquals(testData.noteMap.keySet(), noteMap.keySet());
-        for (Note note : testData.noteMap.values()) {
-            assertEquals(note, noteMap.get(note.getNoteId()));
-        }
+        assertTrue(noteCache.findAll().isEmpty());
     }
 
     /**
@@ -83,7 +56,12 @@ public class NoteCacheUnitTests extends EasyNoteUnitTestCase {
         Element noteCacheElement = noteCache.toXMLElement();
         noteCache.buildFromXMLElement(noteCacheElement);
 
-        assertEquals(noteCache.getNoteMap(), testData.noteMap);
-        assertEquals(noteCache.getMaxNoteId(), testData.maxNoteId);
+        List<Note> noteList = CACHE.getNoteCache().findAll();
+
+        assertEquals(noteList.size(), testData.noteMap.size());
+
+        for (Note note : noteList) {
+            assertEquals(note, testData.noteMap.get(note.getNoteId()));
+        }
     }
 }

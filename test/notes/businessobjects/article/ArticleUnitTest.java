@@ -13,10 +13,10 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the {@code Article}.
- *
+ * <p/>
  * Author: Rui Du
  */
-public class ArticleUnitTests extends EasyNoteUnitTestCase {
+public class ArticleUnitTest extends EasyNoteUnitTestCase {
 
     /**
      * Test method for {@link notes.businessobjects.article.Article#equals(java.lang.Object)}.
@@ -25,7 +25,7 @@ public class ArticleUnitTests extends EasyNoteUnitTestCase {
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
         Article article = (Article) (testData.documentMap.get(2L));
-        assertTrue(article.equals(CACHE.getDocumentCache().getDocumentMap().get(2L)));
+        assertTrue(article.equals(CACHE.getDocumentCache().find(2L)));
         assertFalse(article.equals(new Article()));
         assertFalse(article.equals(new Object()));
     }
@@ -35,7 +35,7 @@ public class ArticleUnitTests extends EasyNoteUnitTestCase {
      */
     @Test
     public void testGetNotesCount() {
-        assertEquals(1, CACHE.getDocumentCache().getDocumentMap().get(2L).getNotesCount());
+        assertEquals(1, CACHE.getDocumentCache().find(2L).getNotesCount());
     }
 
     /**
@@ -44,8 +44,7 @@ public class ArticleUnitTests extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        assertEquals(testData.documentMap.get(2L).hashCode(), CACHE.getDocumentCache()
-                .getDocumentMap().get(2L).hashCode());
+        assertEquals(testData.documentMap.get(2L).hashCode(), CACHE.getDocumentCache().find(2L).hashCode());
     }
 
     /**
@@ -55,7 +54,7 @@ public class ArticleUnitTests extends EasyNoteUnitTestCase {
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
         Article testArticle = (Article) (testData.documentMap.get(2L));
-        Article cachedArticle = (Article) (CACHE.getDocumentCache().getDocumentMap().get(2L));
+        Article cachedArticle = (Article) (CACHE.getDocumentCache().find(2L));
         assertEquals(StringUtils.substringAfter(testArticle.toString(), "["),
                 StringUtils.substringAfter(cachedArticle.toString(), "["));
     }
