@@ -24,7 +24,7 @@ public class BookUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
-        Book book = (Book) (testData.documentMap.get(1L));
+        Book book = testData.getBook();
         assertTrue(book.equals(CACHE.getDocumentCache().find(1L)));
         assertFalse(book.equals(new Book()));
         assertFalse(book.equals(new Object()));
@@ -35,7 +35,8 @@ public class BookUnitTest extends EasyNoteUnitTestCase {
      */
     @Test
     public void testGetNotesCount() {
-        assertEquals(1, CACHE.getDocumentCache().find(1L).getNotesCount());
+        final UnitTestData testData = new UnitTestData();
+        assertEquals(1, testData.getBook().getNotesCount());
     }
 
     /**
@@ -44,7 +45,8 @@ public class BookUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        assertEquals(testData.documentMap.get(1L).hashCode(), CACHE.getDocumentCache().find(1L).hashCode());
+        Book book = testData.getBook();
+        assertEquals(book.hashCode(), CACHE.getDocumentCache().find(book.getDocumentId()).hashCode());
     }
 
     /**
@@ -53,7 +55,7 @@ public class BookUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
-        Book testBook = (Book) (testData.documentMap.get(1L));
+        Book testBook = testData.getBook();
         Book cachedBook = (Book) (CACHE.getDocumentCache().find(1L));
         assertEquals(StringUtils.substringBetween(testBook.toString(), "[", "chapterMap"),
                 StringUtils.substringBetween(cachedBook.toString(), "[", "chapterMap"));
@@ -67,7 +69,7 @@ public class BookUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        Book testBook = (Book) (testData.documentMap.get(1L));
+        Book testBook = testData.getBook();
         Element bookElement = testBook.toXMLElement();
 
         assertEquals(bookElement.getName(), "Book");
@@ -104,7 +106,7 @@ public class BookUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        Book testBook = (Book) (testData.documentMap.get(1L));
+        Book testBook = testData.getBook();
         Element bookElement = testBook.toXMLElement();
         Book newBook = new Book().buildFromXMLElement(bookElement);
 

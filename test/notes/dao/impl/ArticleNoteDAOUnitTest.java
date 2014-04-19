@@ -35,7 +35,7 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testDeleteDocument() {
         UnitTestData testData = new UnitTestData();
-        Article deleteDocument = (Article) testData.documentMap.get(2L);
+        Article deleteDocument = testData.getArticle();
         dao.deleteDocument(deleteDocument);
         assertFalse(CACHE.getDocumentCache().findAll().isEmpty());
         assertNull(CACHE.getDocumentCache().find(deleteDocument.getDocumentId()));
@@ -48,7 +48,7 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testDeleteNote() {
         UnitTestData testData = new UnitTestData();
-        ArticleNote deleteNote = (ArticleNote) testData.noteMap.get(2L);
+        ArticleNote deleteNote = testData.getArticleNote();
         dao.deleteNote(deleteNote);
         assertFalse(CACHE.getNoteCache().findAll().isEmpty());
         assertNull(CACHE.getNoteCache().find(deleteNote.getNoteId()));
@@ -63,11 +63,13 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testFindAllNotesByDocumentId() {
         UnitTestData testData = new UnitTestData();
-        List<Note> noteList = dao.findAllNotesByDocumentId(2L);
+        Article testArticle = testData.getArticle();
+        ArticleNote testArticleNote = testData.getArticleNote();
+        List<Note> noteList = dao.findAllNotesByDocumentId(testArticle.getDocumentId());
         assertNotNull(noteList);
         assertFalse(noteList.isEmpty());
-        assertTrue(noteList.size() == 1);
-        assertEquals(testData.noteMap.get(noteList.get(0).getNoteId()), noteList.get(0));
+        assertTrue(noteList.size() == testArticle.getNotesCount());
+        assertEquals(testArticleNote, noteList.get(0));
     }
 
     /**
@@ -77,7 +79,7 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testUpdateDocument() {
         UnitTestData testData = new UnitTestData();
-        Article testArticle = (Article) testData.documentMap.get(2L);
+        Article testArticle = testData.getArticle();
         Article newArticle = new Article();
         newArticle.setDocumentId(testArticle.getDocumentId());
         newArticle.setDocumentTitle(testArticle.getDocumentTitle());
@@ -102,7 +104,7 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testUpdateNote() {
         UnitTestData testData = new UnitTestData();
-        ArticleNote testArticleNote = (ArticleNote) testData.noteMap.get(2L);
+        ArticleNote testArticleNote = testData.getArticleNote();
         ArticleNote newArticleNote = new ArticleNote();
         newArticleNote.setNoteId(testArticleNote.getNoteId());
         newArticleNote.setDocumentId(testArticleNote.getDocumentId());

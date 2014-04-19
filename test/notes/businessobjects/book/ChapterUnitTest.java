@@ -24,8 +24,7 @@ public class ChapterUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
-        Book testBook = (Book) (testData.documentMap.get(1L));
-        Chapter testChapter = testBook.getChaptersMap().get(1L);
+        Chapter testChapter = testData.getChapter();
         Book cachedBook = (Book) (CACHE.getDocumentCache().find(1L));
         Chapter cachedChapter = cachedBook.getChaptersMap().get(1L);
         assertTrue(testChapter.equals(cachedChapter));
@@ -39,8 +38,7 @@ public class ChapterUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        Book testBook = (Book) (testData.documentMap.get(1L));
-        Chapter testChapter = testBook.getChaptersMap().get(1L);
+        Chapter testChapter = testData.getChapter();
         Book cachedBook = (Book) (CACHE.getDocumentCache().find(1L));
         Chapter cachedChapter = cachedBook.getChaptersMap().get(1L);
         assertEquals(testChapter.hashCode(), cachedChapter.hashCode());
@@ -52,8 +50,7 @@ public class ChapterUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
-        Book testBook = (Book) (testData.documentMap.get(1L));
-        Chapter testChapter = testBook.getChaptersMap().get(1L);
+        Chapter testChapter = testData.getChapter();
         Book cachedBook = (Book) (CACHE.getDocumentCache().find(1L));
         Chapter cachedChapter = cachedBook.getChaptersMap().get(1L);
         assertEquals(StringUtils.substringAfter(testChapter.toString(), "["),
@@ -66,8 +63,7 @@ public class ChapterUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        Book testBook = (Book) (testData.documentMap.get(1L));
-        Chapter testChapter = testBook.getChaptersMap().get(1L);
+        Chapter testChapter = testData.getChapter();
         Element chapterElement = testChapter.toXMLElement();
 
         assertEquals(chapterElement.getName(), "Chapter");
@@ -84,8 +80,7 @@ public class ChapterUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        Book testBook = (Book) (testData.documentMap.get(1L));
-        Chapter testChapter = testBook.getChaptersMap().get(1L);
+        Chapter testChapter = testData.getChapter();
         Element chapterElement = testChapter.toXMLElement();
         Chapter newChapter = new Chapter().buildFromXMLElement(chapterElement);
 

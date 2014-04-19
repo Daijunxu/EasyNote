@@ -26,8 +26,7 @@ public class WorksheetUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
-        Workset testWorkset = (Workset) (testData.documentMap.get(3L));
-        Worksheet testWorksheet = testWorkset.getWorksheetsMap().get(1L);
+        Worksheet testWorksheet = testData.getWorksheet();
         Workset cachedWorkset = (Workset) (CACHE.getDocumentCache().find(3L));
         Worksheet cachedWorksheet = cachedWorkset.getWorksheetsMap().get(1L);
         assertTrue(testWorksheet.equals(cachedWorksheet));
@@ -41,8 +40,7 @@ public class WorksheetUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        Workset testWorkset = (Workset) (testData.documentMap.get(3L));
-        Worksheet testWorksheet = testWorkset.getWorksheetsMap().get(1L);
+        Worksheet testWorksheet = testData.getWorksheet();
         Workset cachedWorkset = (Workset) (CACHE.getDocumentCache().find(3L));
         Worksheet cachedWorksheet = cachedWorkset.getWorksheetsMap().get(1L);
         assertEquals(testWorksheet.hashCode(), cachedWorksheet.hashCode());
@@ -54,8 +52,7 @@ public class WorksheetUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
-        Workset testWorkset = (Workset) (testData.documentMap.get(3L));
-        Worksheet testWorksheet = testWorkset.getWorksheetsMap().get(1L);
+        Worksheet testWorksheet = testData.getWorksheet();
         Workset cachedWorkset = (Workset) (CACHE.getDocumentCache().find(3L));
         Worksheet cachedWorksheet = cachedWorkset.getWorksheetsMap().get(1L);
         assertEquals(StringUtils.substringAfter(testWorksheet.toString(), "["),
@@ -68,8 +65,7 @@ public class WorksheetUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        Workset testWorkset = (Workset) (testData.documentMap.get(3L));
-        Worksheet testWorksheet = testWorkset.getWorksheetsMap().get(1L);
+        Worksheet testWorksheet = testData.getWorksheet();
         Element worksheetElement = testWorksheet.toXMLElement();
 
         assertEquals(worksheetElement.getName(), "Worksheet");
@@ -86,8 +82,7 @@ public class WorksheetUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        Workset testWorkset = (Workset) (testData.documentMap.get(3L));
-        Worksheet testWorksheet = testWorkset.getWorksheetsMap().get(1L);
+        Worksheet testWorksheet = testData.getWorksheet();
         Element worksheetElement = testWorksheet.toXMLElement();
         Worksheet newWorksheet = new Worksheet().buildFromXMLElement(worksheetElement);
 

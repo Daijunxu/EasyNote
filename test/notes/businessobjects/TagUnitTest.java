@@ -23,10 +23,10 @@ public class TagUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
-        Tag tag = testData.tagIdMap.get(1L);
-        assertTrue(tag.equals(CACHE.getTagCache().find(1L)));
-        assertFalse(tag.equals(new Tag()));
-        assertFalse(tag.equals(new Object()));
+        Tag testTag = testData.getTag();
+        assertTrue(testTag.equals(CACHE.getTagCache().find(1L)));
+        assertFalse(testTag.equals(new Tag()));
+        assertFalse(testTag.equals(new Object()));
     }
 
     /**
@@ -35,7 +35,8 @@ public class TagUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        assertEquals(testData.tagIdMap.get(1L).hashCode(), CACHE.getTagCache().find(1L).hashCode());
+        Tag testTag = testData.getTag();
+        assertEquals(testTag.hashCode(), CACHE.getTagCache().find(testTag.getTagId()).hashCode());
     }
 
     /**
@@ -44,7 +45,7 @@ public class TagUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
-        Tag testTag = testData.tagIdMap.get(1L);
+        Tag testTag = testData.getTag();
         Tag cachedTag = CACHE.getTagCache().find(1L);
         assertEquals(StringUtils.substringAfter(testTag.toString(), "["),
                 StringUtils.substringAfter(cachedTag.toString(), "["));
@@ -56,7 +57,7 @@ public class TagUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        Tag testTag = testData.tagIdMap.get(1L);
+        Tag testTag = testData.getTag();
         Element tagElement = testTag.toXMLElement();
 
         assertEquals(tagElement.getName(), "Tag");
@@ -72,7 +73,7 @@ public class TagUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        Tag testTag = testData.tagIdMap.get(1L);
+        Tag testTag = testData.getTag();
         Element tagElement = testTag.toXMLElement();
         Tag newTag = new Tag().buildFromXMLElement(tagElement);
 

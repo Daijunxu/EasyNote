@@ -24,7 +24,7 @@ public class BookNoteUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
-        BookNote bookNote = (BookNote) (testData.noteMap.get(1L));
+        BookNote bookNote = testData.getBookNote();
         assertTrue(bookNote.equals(CACHE.getNoteCache().find(1L)));
         assertFalse(bookNote.equals(new BookNote()));
         assertFalse(bookNote.equals(new Object()));
@@ -36,7 +36,8 @@ public class BookNoteUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        assertEquals(testData.noteMap.get(1L).hashCode(), CACHE.getNoteCache().find(1L).hashCode());
+        BookNote bookNote = testData.getBookNote();
+        assertEquals(bookNote.hashCode(), CACHE.getNoteCache().find(bookNote.getNoteId()).hashCode());
     }
 
     /**
@@ -45,7 +46,7 @@ public class BookNoteUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
-        BookNote testBookNote = (BookNote) (testData.noteMap.get(1L));
+        BookNote testBookNote = testData.getBookNote();
         BookNote cachedBookNote = (BookNote) (CACHE.getNoteCache().find(1L));
         assertEquals(StringUtils.substringAfter(testBookNote.toString(), "["),
                 StringUtils.substringAfter(cachedBookNote.toString(), "["));
@@ -57,7 +58,7 @@ public class BookNoteUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        BookNote testBookNote = (BookNote) (testData.noteMap.get(1L));
+        BookNote testBookNote = testData.getBookNote();
         Element bookNoteElement = testBookNote.toXMLElement();
 
         assertEquals(bookNoteElement.getName(), "BookNote");
@@ -86,7 +87,7 @@ public class BookNoteUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        BookNote testBookNote = (BookNote) (testData.noteMap.get(1L));
+        BookNote testBookNote = testData.getBookNote();
         Element articleNoteElement = testBookNote.toXMLElement();
         BookNote newBookNote = new BookNote().buildFromXMLElement(articleNoteElement);
 

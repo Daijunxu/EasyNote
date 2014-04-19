@@ -38,14 +38,16 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testDeleteChapter() {
         UnitTestData testData = new UnitTestData();
-        Book book = (Book) testData.documentMap.get(1L);
-        Chapter deleteChapter = book.getChaptersMap().get(1L);
-        dao.deleteChapter(deleteChapter, 1L);
-        assertNotNull(CACHE.getDocumentCache().find(1L));
-        Book cachedBook = (Book) CACHE.getDocumentCache().find(1L);
+        Book book = testData.getBook();
+        Long documentId = book.getDocumentId();
+        Chapter deleteChapter = testData.getChapter();
+
+        dao.deleteChapter(deleteChapter, documentId);
+        assertNotNull(CACHE.getDocumentCache().find(documentId));
+        Book cachedBook = (Book) CACHE.getDocumentCache().find(documentId);
         assertFalse(cachedBook.getChaptersMap().isEmpty());
-        assertFalse(cachedBook.getChaptersMap().containsKey(1L));
-        assertNull(CACHE.getNoteCache().find(1L));
+        assertFalse(cachedBook.getChaptersMap().containsKey(documentId));
+        assertNull(CACHE.getNoteCache().find(documentId));
     }
 
     /**
@@ -54,11 +56,12 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testDeleteDocument() {
         UnitTestData testData = new UnitTestData();
-        Book deleteDocument = (Book) testData.documentMap.get(1L);
+        Book deleteDocument = testData.getBook();
+        BookNote bookNote = testData.getBookNote();
         dao.deleteDocument(deleteDocument);
         assertFalse(CACHE.getDocumentCache().findAll().isEmpty());
         assertNull(CACHE.getDocumentCache().find(deleteDocument.getDocumentId()));
-        assertNull(CACHE.getNoteCache().find(1L));
+        assertNull(CACHE.getNoteCache().find(bookNote.getNoteId()));
     }
 
     /**
@@ -67,7 +70,7 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testDeleteNote() {
         UnitTestData testData = new UnitTestData();
-        BookNote deleteNote = (BookNote) testData.noteMap.get(1L);
+        BookNote deleteNote = testData.getBookNote();
         dao.deleteNote(deleteNote);
         assertFalse(CACHE.getNoteCache().findAll().isEmpty());
         assertNull(CACHE.getNoteCache().find(deleteNote.getNoteId()));
@@ -82,9 +85,10 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testFindAllNotesByChapters() {
         UnitTestData testData = new UnitTestData();
-        Map<Long, List<BookNote>> noteMap = dao.findAllNotesByChapters(1L);
+        Book book = testData.getBook();
+        Map<Long, List<BookNote>> noteMap = dao.findAllNotesByChapters(book.getDocumentId());
         assertNotNull(noteMap);
-        assertTrue(noteMap.size() == 2);
+        assertTrue(noteMap.size() == book.getChaptersMap().size());
         assertTrue(noteMap.containsKey(1L));
         assertNotNull(noteMap.get(1L));
         assertTrue(noteMap.get(1L).size() == 1);
@@ -113,8 +117,8 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testUpdateChapter() {
         UnitTestData testData = new UnitTestData();
-        Book testBook = (Book) testData.documentMap.get(1L);
-        Chapter testChapter = testBook.getChaptersMap().get(1L);
+        Book testBook = testData.getBook();
+        Chapter testChapter = testData.getChapter();
         Chapter updateChapter = new Chapter();
         updateChapter.setChapterId(testChapter.getChapterId());
         updateChapter.setChapterTitle("Another chapter title");
@@ -134,7 +138,7 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testUpdateDocument() {
         UnitTestData testData = new UnitTestData();
-        Book testBook = (Book) testData.documentMap.get(1L);
+        Book testBook = testData.getBook();
         Book newBook = new Book();
         newBook.setDocumentId(testBook.getDocumentId());
         newBook.setDocumentTitle(testBook.getDocumentTitle());
@@ -163,7 +167,7 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testUpdateNote() {
         UnitTestData testData = new UnitTestData();
-        BookNote testBookNote = (BookNote) testData.noteMap.get(1L);
+        BookNote testBookNote = testData.getBookNote();
         BookNote newBookNote = new BookNote();
         newBookNote.setNoteId(testBookNote.getNoteId());
         newBookNote.setDocumentId(testBookNote.getDocumentId());

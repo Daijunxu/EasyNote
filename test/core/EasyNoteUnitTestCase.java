@@ -52,22 +52,36 @@ public class EasyNoteUnitTestCase {
      */
     public static class UnitTestData {
         public Map<Long, Document> documentMap;
-        public Map<String, Long> documentTitleIdMap;
-        public Long maxDocumentId;
         public Map<Long, Tag> tagIdMap;
         public Map<String, Tag> tagTextMap;
-        public Long maxTagId;
         public Map<Long, Note> noteMap;
-        public Long maxNoteId;
 
         public UnitTestData() {
 
             documentMap = new HashMap<Long, Document>();
-            documentTitleIdMap = new HashMap<String, Long>();
             tagIdMap = new HashMap<Long, Tag>();
             tagTextMap = new HashMap<String, Tag>();
             noteMap = new HashMap<Long, Note>();
 
+            createTags();
+
+            createBook();
+            createArticle();
+            createWorkset();
+        }
+
+        private void createTags() {
+            Tag tag1 = new Tag(1L, "Algorithm");
+            tagIdMap.put(tag1.getTagId(), tag1);
+
+            Tag tag2 = new Tag(2L, "Design Pattern");
+            tagIdMap.put(tag2.getTagId(), tag2);
+
+            tagTextMap.put(tag1.getTagText(), tag1);
+            tagTextMap.put(tag2.getTagText(), tag2);
+        }
+
+        private void createBook() {
             Book document1 = new Book();
             document1.setDocumentId(1L);
             document1.setDocumentTitle("Head First Design Patterns");
@@ -91,6 +105,17 @@ public class EasyNoteUnitTestCase {
             document1.setLastUpdatedTime(new Date(1341429512312L));
             documentMap.put(document1.getDocumentId(), document1);
 
+            BookNote note1 = new BookNote();
+            note1.setNoteId(1L);
+            note1.setDocumentId(1L);
+            note1.setChapterId(1L);
+            note1.setTagIds(new ArrayList<Long>(Arrays.asList(2L)));
+            note1.setNoteText("Separating what changes from what stays the same.");
+            note1.setCreatedTime(new Date(1341429578719L));
+            noteMap.put(note1.getNoteId(), note1);
+        }
+
+        private void createArticle() {
             Article document2 = new Article();
             document2.setDocumentId(2L);
             document2.setDocumentTitle("Flexible Mixture Model for Collaborative Filtering");
@@ -102,6 +127,19 @@ public class EasyNoteUnitTestCase {
             document2.setNotesList(new ArrayList<Long>(Arrays.asList(2L)));
             documentMap.put(document2.getDocumentId(), document2);
 
+            ArticleNote note2 = new ArticleNote();
+            note2.setNoteId(2L);
+            note2.setDocumentId(2L);
+            note2.setTagIds(new ArrayList<Long>(Arrays.asList(1L)));
+            note2.setNoteText("FMM extends existing partitioning/clustering algorithms for "
+                    + "collaborative filtering by clustering both users and items together "
+                    + "simultaneously without assuming that each user and item should only "
+                    + "belong to a single cluster.\nThis is the second line of note text.");
+            note2.setCreatedTime(new Date(1341429591369L));
+            noteMap.put(note2.getNoteId(), note2);
+        }
+
+        private void createWorkset() {
             Workset document3 = new Workset();
             document3.setDocumentId(3L);
             document3.setDocumentTitle("My Workset");
@@ -132,43 +170,6 @@ public class EasyNoteUnitTestCase {
             document3.setLastUpdatedTime(new Date(1341429512312L));
             documentMap.put(document3.getDocumentId(), document3);
 
-            documentTitleIdMap.put(document1.getDocumentTitle(), document1.getDocumentId());
-            documentTitleIdMap.put(document2.getDocumentTitle(), document2.getDocumentId());
-            documentTitleIdMap.put(document3.getDocumentTitle(), document3.getDocumentId());
-
-            maxDocumentId = 3L;
-
-            Tag tag1 = new Tag(1L, "Algorithm");
-            tagIdMap.put(tag1.getTagId(), tag1);
-
-            Tag tag2 = new Tag(2L, "Design Pattern");
-            tagIdMap.put(tag2.getTagId(), tag2);
-
-            tagTextMap.put(tag1.getTagText(), tag1);
-            tagTextMap.put(tag2.getTagText(), tag2);
-
-            maxTagId = 2L;
-
-            BookNote note1 = new BookNote();
-            note1.setNoteId(1L);
-            note1.setDocumentId(1L);
-            note1.setChapterId(1L);
-            note1.setTagIds(new ArrayList<Long>(Arrays.asList(2L)));
-            note1.setNoteText("Separating what changes from what stays the same.");
-            note1.setCreatedTime(new Date(1341429578719L));
-            noteMap.put(note1.getNoteId(), note1);
-
-            ArticleNote note2 = new ArticleNote();
-            note2.setNoteId(2L);
-            note2.setDocumentId(2L);
-            note2.setTagIds(new ArrayList<Long>(Arrays.asList(1L)));
-            note2.setNoteText("FMM extends existing partitioning/clustering algorithms for "
-                    + "collaborative filtering by clustering both users and items together "
-                    + "simultaneously without assuming that each user and item should only "
-                    + "belong to a single cluster.\nThis is the second line of note text.");
-            note2.setCreatedTime(new Date(1341429591369L));
-            noteMap.put(note2.getNoteId(), note2);
-
             WorksheetNote note3 = new WorksheetNote();
             note3.setNoteId(3L);
             note3.setDocumentId(3L);
@@ -178,9 +179,42 @@ public class EasyNoteUnitTestCase {
             note3.setNoteStatus(NoteStatus.COMPLETED);
             note3.setCreatedTime(new Date(1341429578719L));
             noteMap.put(note3.getNoteId(), note3);
-
-            maxNoteId = 3L;
         }
 
+        public Book getBook() {
+            return (Book) documentMap.get(1L);
+        }
+
+        public Chapter getChapter() {
+            return getBook().getChaptersMap().get(1L);
+        }
+
+        public Article getArticle() {
+            return (Article) documentMap.get(2L);
+        }
+
+        public Workset getWorkset() {
+            return (Workset) documentMap.get(3L);
+        }
+
+        public Worksheet getWorksheet() {
+            return getWorkset().getWorksheetsMap().get(1L);
+        }
+
+        public BookNote getBookNote() {
+            return (BookNote) noteMap.get(1L);
+        }
+
+        public ArticleNote getArticleNote() {
+            return (ArticleNote) noteMap.get(2L);
+        }
+
+        public WorksheetNote getWorksheetNote() {
+            return (WorksheetNote) noteMap.get(3L);
+        }
+
+        public Tag getTag() {
+            return tagIdMap.get(1L);
+        }
     }
 }

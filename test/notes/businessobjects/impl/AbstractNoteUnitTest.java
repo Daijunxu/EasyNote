@@ -20,9 +20,9 @@ public class AbstractNoteUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testCompareTo() {
         final UnitTestData testData = new UnitTestData();
-        Note testNote1 = testData.noteMap.get(1L);
-        Note testNote2 = testData.noteMap.get(2L);
-        Note cachedNote = CACHE.getNoteCache().find(1L);
+        Note testNote1 = testData.getBookNote();
+        Note testNote2 = testData.getArticleNote();
+        Note cachedNote = CACHE.getNoteCache().find(testNote1.getNoteId());
         assertEquals(testNote1.compareTo(cachedNote), 0);
         assertTrue(testNote1.compareTo(testNote2) < 0);
         assertTrue(testNote2.compareTo(testNote1) > 0);

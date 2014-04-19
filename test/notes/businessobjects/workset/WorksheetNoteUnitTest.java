@@ -27,7 +27,7 @@ public class WorksheetNoteUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testEquals() {
         final EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
-        WorksheetNote worksheetNote = (WorksheetNote) (testData.noteMap.get(3L));
+        WorksheetNote worksheetNote = testData.getWorksheetNote();
         assertTrue(worksheetNote.equals(CACHE.getNoteCache().find(3L)));
         assertFalse(worksheetNote.equals(new WorksheetNote()));
         assertFalse(worksheetNote.equals(new Object()));
@@ -39,7 +39,8 @@ public class WorksheetNoteUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
-        assertEquals(testData.noteMap.get(3L).hashCode(), CACHE.getNoteCache().find(3L).hashCode());
+        WorksheetNote worksheetNote = testData.getWorksheetNote();
+        assertEquals(worksheetNote.hashCode(), CACHE.getNoteCache().find(worksheetNote.getNoteId()).hashCode());
     }
 
     /**
@@ -48,7 +49,7 @@ public class WorksheetNoteUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToString() {
         final EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
-        WorksheetNote testWorksheetNote = (WorksheetNote) (testData.noteMap.get(3L));
+        WorksheetNote testWorksheetNote = testData.getWorksheetNote();
         WorksheetNote cachedWorksheetNote = (WorksheetNote) (CACHE.getNoteCache().find(3L));
         assertEquals(StringUtils.substringAfter(testWorksheetNote.toString(), "["),
                 StringUtils.substringAfter(cachedWorksheetNote.toString(), "["));
@@ -60,7 +61,7 @@ public class WorksheetNoteUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToXMLElement() {
         final EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
-        WorksheetNote testWorksheetNote = (WorksheetNote) (testData.noteMap.get(3L));
+        WorksheetNote testWorksheetNote = testData.getWorksheetNote();
         Element worksheetNoteElement = testWorksheetNote.toXMLElement();
 
         assertEquals(worksheetNoteElement.getName(), "WorksheetNote");
@@ -91,7 +92,7 @@ public class WorksheetNoteUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testBuildFromXMLElement() {
         final EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
-        WorksheetNote testWorksheetNote = (WorksheetNote) (testData.noteMap.get(3L));
+        WorksheetNote testWorksheetNote = testData.getWorksheetNote();
         Element articleNoteElement = testWorksheetNote.toXMLElement();
         WorksheetNote newWorksheetNote = new WorksheetNote().buildFromXMLElement(articleNoteElement);
 

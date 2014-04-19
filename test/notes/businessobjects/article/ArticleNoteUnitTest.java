@@ -24,7 +24,7 @@ public class ArticleNoteUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
-        ArticleNote articleNote = (ArticleNote) (testData.noteMap.get(2L));
+        ArticleNote articleNote = testData.getArticleNote();
         assertTrue(articleNote.equals(CACHE.getNoteCache().find(2L)));
         assertFalse(articleNote.equals(new ArticleNote()));
         assertFalse(articleNote.equals(new Object()));
@@ -36,7 +36,8 @@ public class ArticleNoteUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        assertEquals(testData.noteMap.get(2L).hashCode(), CACHE.getNoteCache().find(2L).hashCode());
+        ArticleNote articleNote = testData.getArticleNote();
+        assertEquals(articleNote.hashCode(), CACHE.getNoteCache().find(articleNote.getNoteId()).hashCode());
     }
 
     /**
@@ -45,7 +46,7 @@ public class ArticleNoteUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
-        ArticleNote testArticleNote = (ArticleNote) (testData.noteMap.get(2L));
+        ArticleNote testArticleNote = testData.getArticleNote();
         ArticleNote cachedArticleNote = (ArticleNote) (CACHE.getNoteCache().find(2L));
         assertEquals(StringUtils.substringAfter(testArticleNote.toString(), "["),
                 StringUtils.substringAfter(cachedArticleNote.toString(), "["));
@@ -57,7 +58,7 @@ public class ArticleNoteUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        ArticleNote testArticleNote = (ArticleNote) (testData.noteMap.get(2L));
+        ArticleNote testArticleNote = testData.getArticleNote();
         Element articleNoteElement = testArticleNote.toXMLElement();
 
         assertEquals(articleNoteElement.getName(), "ArticleNote");
@@ -83,7 +84,7 @@ public class ArticleNoteUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        ArticleNote testArticleNote = (ArticleNote) (testData.noteMap.get(2L));
+        ArticleNote testArticleNote = testData.getArticleNote();
         Element articleNoteElement = testArticleNote.toXMLElement();
         ArticleNote newArticleNote = new ArticleNote().buildFromXMLElement(articleNoteElement);
 

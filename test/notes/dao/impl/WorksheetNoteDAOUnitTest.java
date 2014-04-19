@@ -41,11 +41,13 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testDeleteWorksheet() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
-        Workset workset = (Workset) testData.documentMap.get(3L);
+        Workset workset = testData.getWorkset();
+        Long documentId = workset.getDocumentId();
         Worksheet deleteWorksheet = workset.getWorksheetsMap().get(1L);
-        dao.deleteWorksheet(deleteWorksheet, 3L);
-        assertNotNull(CACHE.getDocumentCache().find(3L));
-        Workset cachedWorkset = (Workset) CACHE.getDocumentCache().find(3L);
+
+        dao.deleteWorksheet(deleteWorksheet, documentId);
+        assertNotNull(CACHE.getDocumentCache().find(documentId));
+        Workset cachedWorkset = (Workset) CACHE.getDocumentCache().find(documentId);
         assertFalse(cachedWorkset.getWorksheetsMap().isEmpty());
         assertFalse(cachedWorkset.getWorksheetsMap().containsKey(1L));
         assertNull(CACHE.getNoteCache().find(3L));
@@ -57,7 +59,7 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testDeleteDocument() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
-        Workset deleteDocument = (Workset) testData.documentMap.get(3L);
+        Workset deleteDocument = testData.getWorkset();
         dao.deleteDocument(deleteDocument);
         assertFalse(CACHE.getDocumentCache().findAll().isEmpty());
         assertNull(CACHE.getDocumentCache().find(deleteDocument.getDocumentId()));
@@ -70,7 +72,7 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testDeleteNote() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
-        WorksheetNote deleteNote = (WorksheetNote) testData.noteMap.get(3L);
+        WorksheetNote deleteNote = testData.getWorksheetNote();
         Workset workset = (Workset) (CACHE.getDocumentCache().find(deleteNote.getDocumentId()));
         Worksheet worksheet = workset.getWorksheetsMap().get(deleteNote.getWorksheetId());
         Date updateTimeBeforeDelete = worksheet.getLastUpdatedTime();
@@ -121,7 +123,7 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testUpdateWorksheet() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
-        Workset testWorkset = (Workset) testData.documentMap.get(3L);
+        Workset testWorkset = testData.getWorkset();
         Worksheet testWorksheet = testWorkset.getWorksheetsMap().get(1L);
         Worksheet updateWorksheet = new Worksheet();
         updateWorksheet.setWorksheetId(999L);
@@ -144,7 +146,7 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testUpdateDocument() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
-        Workset testWorkset = (Workset) testData.documentMap.get(3L);
+        Workset testWorkset = testData.getWorkset();
         Workset newWorkset = new Workset();
         newWorkset.setDocumentId(testWorkset.getDocumentId());
         newWorkset.setDocumentTitle(testWorkset.getDocumentTitle());
@@ -171,7 +173,7 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testUpdateNote() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
-        WorksheetNote testWorksheetNote = (WorksheetNote) testData.noteMap.get(3L);
+        WorksheetNote testWorksheetNote = testData.getWorksheetNote();
         WorksheetNote newWorksheetNote = new WorksheetNote();
         newWorksheetNote.setNoteId(testWorksheetNote.getNoteId());
         newWorksheetNote.setDocumentId(testWorksheetNote.getDocumentId());

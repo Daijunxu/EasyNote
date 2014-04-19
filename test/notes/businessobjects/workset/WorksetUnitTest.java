@@ -25,8 +25,8 @@ public class WorksetUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
-        Workset workset = (Workset) (testData.documentMap.get(3L));
-        assertTrue(workset.equals(CACHE.getDocumentCache().find(3L)));
+        Workset workset = testData.getWorkset();
+        assertTrue(workset.equals(CACHE.getDocumentCache().find(workset.getDocumentId())));
         assertFalse(workset.equals(new Workset()));
         assertFalse(workset.equals(new Object()));
     }
@@ -36,7 +36,8 @@ public class WorksetUnitTest extends EasyNoteUnitTestCase {
      */
     @Test
     public void testGetNotesCount() {
-        assertEquals(1, CACHE.getDocumentCache().find(3L).getNotesCount());
+        final UnitTestData testData = new UnitTestData();
+        assertEquals(1, testData.getWorkset().getNotesCount());
     }
 
     /**
@@ -45,7 +46,8 @@ public class WorksetUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        assertEquals(testData.documentMap.get(3L).hashCode(), CACHE.getDocumentCache().find(3L).hashCode());
+        Workset workset = testData.getWorkset();
+        assertEquals(workset.hashCode(), CACHE.getDocumentCache().find(workset.getDocumentId()).hashCode());
     }
 
     /**
@@ -54,7 +56,7 @@ public class WorksetUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        Workset testWorkset = (Workset) (testData.documentMap.get(3L));
+        Workset testWorkset = testData.getWorkset();
         Element workSetElement = testWorkset.toXMLElement();
 
         assertEquals(workSetElement.getName(), "Workset");
@@ -84,7 +86,7 @@ public class WorksetUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        Workset testWorkset = (Workset) (testData.documentMap.get(3L));
+        Workset testWorkset = testData.getWorkset();
         Element workSetElement = testWorkset.toXMLElement();
         Workset newWorkset = new Workset().buildFromXMLElement(workSetElement);
 

@@ -24,7 +24,7 @@ public class ArticleUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
-        Article article = (Article) (testData.documentMap.get(2L));
+        Article article = testData.getArticle();
         assertTrue(article.equals(CACHE.getDocumentCache().find(2L)));
         assertFalse(article.equals(new Article()));
         assertFalse(article.equals(new Object()));
@@ -44,7 +44,8 @@ public class ArticleUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
-        assertEquals(testData.documentMap.get(2L).hashCode(), CACHE.getDocumentCache().find(2L).hashCode());
+        Article article = testData.getArticle();
+        assertEquals(article.hashCode(), CACHE.getDocumentCache().find(article.getDocumentId()).hashCode());
     }
 
     /**
@@ -53,7 +54,7 @@ public class ArticleUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
-        Article testArticle = (Article) (testData.documentMap.get(2L));
+        Article testArticle = testData.getArticle();
         Article cachedArticle = (Article) (CACHE.getDocumentCache().find(2L));
         assertEquals(StringUtils.substringAfter(testArticle.toString(), "["),
                 StringUtils.substringAfter(cachedArticle.toString(), "["));
@@ -65,7 +66,7 @@ public class ArticleUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        Article testArticle = (Article) (testData.documentMap.get(2L));
+        Article testArticle = testData.getArticle();
         Element articleElement = testArticle.toXMLElement();
 
         assertEquals(articleElement.getName(), "Article");
@@ -95,7 +96,7 @@ public class ArticleUnitTest extends EasyNoteUnitTestCase {
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();
-        Article testArticle = (Article) (testData.documentMap.get(2L));
+        Article testArticle = testData.getArticle();
         Element bookElement = testArticle.toXMLElement();
         Article newArticle = new Article().buildFromXMLElement(bookElement);
 
