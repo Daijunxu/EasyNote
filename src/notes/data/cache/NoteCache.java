@@ -175,8 +175,10 @@ public class NoteCache implements Cache<Note> {
     }
 
     @Override
-    public void remove(Long id) {
+    public Note remove(Long id) {
+        Note note = noteMap.get(id);
         noteMap.remove(id);
+        return note;
     }
 
     @Override

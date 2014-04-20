@@ -126,10 +126,11 @@ public class TagCache implements Cache<Tag> {
     }
 
     @Override
-    public void remove(Long id) {
+    public Tag remove(Long id) {
         Tag tag = tagIdMap.get(id);
         tagIdMap.remove(id);
         tagTextMap.remove(tag.getTagText());
+        return tag;
     }
 
     @Override

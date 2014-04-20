@@ -202,8 +202,10 @@ public class DocumentCache implements Cache<Document> {
     }
 
     @Override
-    public void remove(Long id) {
+    public Document remove(Long id) {
+        Document document = documentMap.get(id);
         documentMap.remove(id);
+        return document;
     }
 
     @Override
