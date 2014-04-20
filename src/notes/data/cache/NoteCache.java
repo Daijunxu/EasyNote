@@ -9,7 +9,6 @@ import org.dom4j.Element;
 import org.dom4j.tree.DefaultElement;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -225,7 +224,6 @@ public class NoteCache implements Cache<Note> {
         for (Note note : noteMap.values()) {
             noteList.add(note);
         }
-        Collections.sort(noteList);
         return noteList;
     }
 }

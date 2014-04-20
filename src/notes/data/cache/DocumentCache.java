@@ -9,7 +9,6 @@ import org.dom4j.Element;
 import org.dom4j.tree.DefaultElement;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -276,7 +275,6 @@ public class DocumentCache implements Cache<Document> {
         for (Document document : documentMap.values()) {
             documentList.add(document);
         }
-        Collections.sort(documentList);
         return documentList;
     }
 

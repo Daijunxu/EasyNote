@@ -6,7 +6,6 @@ import org.dom4j.Element;
 import org.dom4j.tree.DefaultElement;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -166,7 +165,6 @@ public class TagCache implements Cache<Tag> {
         for (Tag tag : tagIdMap.values()) {
             tagList.add(tag);
         }
-        Collections.sort(tagList);
         return tagList;
     }
 }
