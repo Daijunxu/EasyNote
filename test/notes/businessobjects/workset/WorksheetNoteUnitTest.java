@@ -21,9 +21,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class WorksheetNoteUnitTest extends EasyNoteUnitTestCase {
 
-    /**
-     * Test method for {@link notes.businessobjects.workset.WorksheetNote#equals(java.lang.Object)}.
-     */
     @Test
     public void testEquals() {
         final EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
@@ -33,9 +30,6 @@ public class WorksheetNoteUnitTest extends EasyNoteUnitTestCase {
         assertFalse(worksheetNote.equals(new Object()));
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.workset.WorksheetNote#hashCode()}.
-     */
     @Test
     public void testHashCode() {
         final EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
@@ -43,9 +37,6 @@ public class WorksheetNoteUnitTest extends EasyNoteUnitTestCase {
         assertEquals(worksheetNote.hashCode(), CACHE.getNoteCache().find(worksheetNote.getNoteId()).hashCode());
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.workset.WorksheetNote#toString()}.
-     */
     @Test
     public void testToString() {
         final EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
@@ -55,9 +46,6 @@ public class WorksheetNoteUnitTest extends EasyNoteUnitTestCase {
                 StringUtils.substringAfter(cachedWorksheetNote.toString(), "["));
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.workset.WorksheetNote#toXMLElement()}.
-     */
     @Test
     public void testToXMLElement() {
         final EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
@@ -86,9 +74,6 @@ public class WorksheetNoteUnitTest extends EasyNoteUnitTestCase {
         assertEquals(worksheetNoteElement.getText(), testWorksheetNote.getNoteText());
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.workset.WorksheetNote#buildFromXMLElement(org.dom4j.Element)}.
-     */
     @Test
     public void testBuildFromXMLElement() {
         final EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();

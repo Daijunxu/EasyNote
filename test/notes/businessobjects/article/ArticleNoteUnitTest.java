@@ -18,9 +18,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class ArticleNoteUnitTest extends EasyNoteUnitTestCase {
 
-    /**
-     * Test method for {@link notes.businessobjects.article.ArticleNote#equals(java.lang.Object)}.
-     */
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
@@ -30,9 +27,6 @@ public class ArticleNoteUnitTest extends EasyNoteUnitTestCase {
         assertFalse(articleNote.equals(new Object()));
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.article.ArticleNote#hashCode()}.
-     */
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
@@ -40,9 +34,6 @@ public class ArticleNoteUnitTest extends EasyNoteUnitTestCase {
         assertEquals(articleNote.hashCode(), CACHE.getNoteCache().find(articleNote.getNoteId()).hashCode());
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.article.ArticleNote#toString()}.
-     */
     @Test
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
@@ -52,9 +43,6 @@ public class ArticleNoteUnitTest extends EasyNoteUnitTestCase {
                 StringUtils.substringAfter(cachedArticleNote.toString(), "["));
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.article.ArticleNote#toXMLElement()}.
-     */
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
@@ -78,9 +66,6 @@ public class ArticleNoteUnitTest extends EasyNoteUnitTestCase {
         assertEquals(articleNoteElement.getText(), testArticleNote.getNoteText());
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.article.ArticleNote#buildFromXMLElement(org.dom4j.Element)}.
-     */
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();

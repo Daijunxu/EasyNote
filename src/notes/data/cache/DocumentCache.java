@@ -102,125 +102,101 @@ public class DocumentCache implements Cache<Document> {
     }
 
     @Override
-    public Document insert(Document document) {
-        try {
-            if (document instanceof Book) {
-                Book newBook = new Book();
-                if (document.getDocumentId() == null) {
-                    newBook.setDocumentId(maxDocumentId + 1L);
-                } else {
-                    newBook.setDocumentId(document.getDocumentId());
-                }
-                newBook.setDocumentTitle(document.getDocumentTitle());
-                newBook.setAuthorsList(((Book) document).getAuthorsList());
-                newBook.setComment(document.getComment());
-                newBook.setEdition(((Book) document).getEdition());
-                newBook.setPublishedYear(((Book) document).getPublishedYear());
-                newBook.setIsbn(((Book) document).getIsbn());
-                newBook.setChaptersMap(((Book) document).getChaptersMap());
-                if (((Book) document).getCreatedTime() == null) {
-                    newBook.setCreatedTime(new Date(System.currentTimeMillis()));
-                } else {
-                    newBook.setCreatedTime(((Book) document).getCreatedTime());
-                }
-                if (((Book) document).getLastUpdatedTime() == null) {
-                    newBook.setLastUpdatedTime(new Date(System.currentTimeMillis()));
-                } else {
-                    newBook.setLastUpdatedTime(((Book) document).getLastUpdatedTime());
-                }
+    public Document insert(Document document) throws DuplicateRecordException {
+        Long documentId = (document.getDocumentId() != null) ? document.getDocumentId() : maxDocumentId + 1L;
 
-                // Add the document to document CACHE.
-                if (isExistingDocument(newBook)) {
-                    throw new DuplicateRecordException("Duplicate document!");
-                }
+        if (isExistingDocument(documentId, document.getDocumentTitle())) {
+            throw new DuplicateRecordException("Duplicate document with id = " + documentId
+                    + " and title = " + document.getDocumentTitle());
+        }
 
-                documentMap.put(newBook.getDocumentId(), newBook);
-
-                // Update the max document ID in document CACHE.
-                if (maxDocumentId < newBook.getDocumentId()) {
-                    maxDocumentId = newBook.getDocumentId();
-                }
-
-                return newBook;
-            } else if (document instanceof Article) {
-                Article newArticle = new Article();
-                if (document.getDocumentId() == null) {
-                    newArticle.setDocumentId(maxDocumentId + 1L);
-                } else {
-                    newArticle.setDocumentId(document.getDocumentId());
-                }
-                newArticle.setDocumentTitle(document.getDocumentTitle());
-                newArticle.setAuthorsList(((Article) document).getAuthorsList());
-                newArticle.setComment(document.getComment());
-                newArticle.setSource(((Article) document).getSource());
-                if (((Article) document).getCreatedTime() == null) {
-                    newArticle.setCreatedTime(new Date(System.currentTimeMillis()));
-                } else {
-                    newArticle.setCreatedTime(((Article) document).getCreatedTime());
-                }
-                if (((Article) document).getLastUpdatedTime() == null) {
-                    newArticle.setLastUpdatedTime(new Date(System.currentTimeMillis()));
-                } else {
-                    newArticle.setLastUpdatedTime(((Article) document).getLastUpdatedTime());
-                }
-                if (((Article) document).getNotesList() == null) {
-                    newArticle.setNotesList(new ArrayList<Long>());
-                } else {
-                    newArticle.setNotesList(((Article) document).getNotesList());
-                }
-
-                // Add the document to document CACHE.
-                if (isExistingDocument(newArticle)) {
-                    throw new DuplicateRecordException("Duplicate document!");
-                }
-
-                documentMap.put(newArticle.getDocumentId(), newArticle);
-
-                // Update the max document ID in document CACHE.
-                if (maxDocumentId < newArticle.getDocumentId()) {
-                    maxDocumentId = newArticle.getDocumentId();
-                }
-
-                return newArticle;
-            } else if (document instanceof Workset) {
-                Workset newWorkset = new Workset();
-                if (document.getDocumentId() == null) {
-                    newWorkset.setDocumentId(maxDocumentId + 1L);
-                } else {
-                    newWorkset.setDocumentId(document.getDocumentId());
-                }
-                newWorkset.setDocumentTitle(document.getDocumentTitle());
-                newWorkset.setAuthorsList(((Workset) document).getAuthorsList());
-                newWorkset.setComment(document.getComment());
-                newWorkset.setWorksheetIdsList(((Workset) document).getWorksheetIdsList());
-                newWorkset.setWorksheetsMap(((Workset) document).getWorksheetsMap());
-                if (((Workset) document).getCreatedTime() == null) {
-                    newWorkset.setCreatedTime(new Date());
-                } else {
-                    newWorkset.setCreatedTime(((Workset) document).getCreatedTime());
-                }
-                if (((Workset) document).getLastUpdatedTime() == null) {
-                    newWorkset.setLastUpdatedTime(new Date());
-                } else {
-                    newWorkset.setLastUpdatedTime(((Workset) document).getLastUpdatedTime());
-                }
-
-                // Add the document to document cache.
-                if (isExistingDocument(newWorkset)) {
-                    throw new DuplicateRecordException("Duplicate document!");
-                }
-
-                documentMap.put(newWorkset.getDocumentId(), newWorkset);
-
-                // Update the max document ID in document cache.
-                if (maxDocumentId < newWorkset.getDocumentId()) {
-                    maxDocumentId = newWorkset.getDocumentId();
-                }
-
-                return newWorkset;
+        if (document instanceof Book) {
+            Book newBook = new Book();
+            newBook.setDocumentId(documentId);
+            newBook.setDocumentTitle(document.getDocumentTitle());
+            newBook.setAuthorsList(((Book) document).getAuthorsList());
+            newBook.setComment(document.getComment());
+            newBook.setEdition(((Book) document).getEdition());
+            newBook.setPublishedYear(((Book) document).getPublishedYear());
+            newBook.setIsbn(((Book) document).getIsbn());
+            newBook.setChaptersMap(((Book) document).getChaptersMap());
+            if (((Book) document).getCreatedTime() == null) {
+                newBook.setCreatedTime(new Date(System.currentTimeMillis()));
+            } else {
+                newBook.setCreatedTime(((Book) document).getCreatedTime());
             }
-        } catch (DuplicateRecordException e) {
-            e.printStackTrace();
+            if (((Book) document).getLastUpdatedTime() == null) {
+                newBook.setLastUpdatedTime(new Date(System.currentTimeMillis()));
+            } else {
+                newBook.setLastUpdatedTime(((Book) document).getLastUpdatedTime());
+            }
+
+            documentMap.put(newBook.getDocumentId(), newBook);
+
+            // Update the max document ID in document CACHE.
+            if (maxDocumentId < newBook.getDocumentId()) {
+                maxDocumentId = newBook.getDocumentId();
+            }
+
+            return newBook;
+        } else if (document instanceof Article) {
+            Article newArticle = new Article();
+            newArticle.setDocumentId(documentId);
+            newArticle.setDocumentTitle(document.getDocumentTitle());
+            newArticle.setAuthorsList(((Article) document).getAuthorsList());
+            newArticle.setComment(document.getComment());
+            newArticle.setSource(((Article) document).getSource());
+            if (((Article) document).getCreatedTime() == null) {
+                newArticle.setCreatedTime(new Date(System.currentTimeMillis()));
+            } else {
+                newArticle.setCreatedTime(((Article) document).getCreatedTime());
+            }
+            if (((Article) document).getLastUpdatedTime() == null) {
+                newArticle.setLastUpdatedTime(new Date(System.currentTimeMillis()));
+            } else {
+                newArticle.setLastUpdatedTime(((Article) document).getLastUpdatedTime());
+            }
+            if (((Article) document).getNotesList() == null) {
+                newArticle.setNotesList(new ArrayList<Long>());
+            } else {
+                newArticle.setNotesList(((Article) document).getNotesList());
+            }
+
+            documentMap.put(newArticle.getDocumentId(), newArticle);
+
+            // Update the max document ID in document CACHE.
+            if (maxDocumentId < newArticle.getDocumentId()) {
+                maxDocumentId = newArticle.getDocumentId();
+            }
+
+            return newArticle;
+        } else if (document instanceof Workset) {
+            Workset newWorkset = new Workset();
+            newWorkset.setDocumentId(documentId);
+            newWorkset.setDocumentTitle(document.getDocumentTitle());
+            newWorkset.setAuthorsList(((Workset) document).getAuthorsList());
+            newWorkset.setComment(document.getComment());
+            newWorkset.setWorksheetIdsList(((Workset) document).getWorksheetIdsList());
+            newWorkset.setWorksheetsMap(((Workset) document).getWorksheetsMap());
+            if (((Workset) document).getCreatedTime() == null) {
+                newWorkset.setCreatedTime(new Date());
+            } else {
+                newWorkset.setCreatedTime(((Workset) document).getCreatedTime());
+            }
+            if (((Workset) document).getLastUpdatedTime() == null) {
+                newWorkset.setLastUpdatedTime(new Date());
+            } else {
+                newWorkset.setLastUpdatedTime(((Workset) document).getLastUpdatedTime());
+            }
+
+            documentMap.put(newWorkset.getDocumentId(), newWorkset);
+
+            // Update the max document ID in document cache.
+            if (maxDocumentId < newWorkset.getDocumentId()) {
+                maxDocumentId = newWorkset.getDocumentId();
+            }
+
+            return newWorkset;
         }
 
         return null;
@@ -232,7 +208,12 @@ public class DocumentCache implements Cache<Document> {
     }
 
     @Override
-    public Document update(Document document) {
+    public Document update(Document document) throws DuplicateRecordException {
+
+        if (isExistingDocumentTitle(document.getDocumentId(), document.getDocumentTitle())) {
+            throw new DuplicateRecordException("Duplicate document title: " + document.getDocumentTitle());
+        }
+
         if (document instanceof Book) {
             Book cachedBook = (Book) (documentMap.get(document.getDocumentId()));
             if (cachedBook != null) {
@@ -299,13 +280,24 @@ public class DocumentCache implements Cache<Document> {
         return documentList;
     }
 
-    private boolean isExistingDocument(Document document) {
-        if (documentMap.containsKey(document.getDocumentId())) {
+    private boolean isExistingDocument(Long documentId, String documentTitle) {
+        if (documentMap.containsKey(documentId)) {
             return true;
         }
 
         for (Document existingDocument : documentMap.values()) {
-            if (existingDocument.getDocumentTitle().equals(document.getDocumentTitle())) {
+            if (existingDocument.getDocumentTitle().equals(documentTitle)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isExistingDocumentTitle(Long documentId, String documentTitle) {
+        for (Document existingDocument : documentMap.values()) {
+            if (existingDocument.getDocumentTitle().equals(documentTitle)
+                    && (!documentId.equals(existingDocument.getDocumentId()))) {
                 return true;
             }
         }

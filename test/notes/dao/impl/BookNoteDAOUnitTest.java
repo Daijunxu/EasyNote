@@ -5,6 +5,7 @@ import notes.businessobjects.Note;
 import notes.businessobjects.book.Book;
 import notes.businessobjects.book.BookNote;
 import notes.businessobjects.book.Chapter;
+import notes.dao.DuplicateRecordException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -26,15 +27,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
 
-    /**
-     * The data access object for the {@code BookNoteDAO}.
-     */
     private BookNoteDAO dao = BookNoteDAO.get();
 
-    /**
-     * Test method for
-     * {@link notes.dao.impl.BookNoteDAO#deleteChapter(notes.businessobjects.book.Chapter, java.lang.Long)}.
-     */
     @Test
     public void testDeleteChapter() {
         UnitTestData testData = new UnitTestData();
@@ -50,9 +44,6 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertNull(CACHE.getNoteCache().find(documentId));
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.BookNoteDAO#deleteDocument(notes.businessobjects.Document)}.
-     */
     @Test
     public void testDeleteDocument() {
         UnitTestData testData = new UnitTestData();
@@ -64,9 +55,6 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertNull(CACHE.getNoteCache().find(bookNote.getNoteId()));
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.BookNoteDAO#deleteNote(notes.businessobjects.Note)}.
-     */
     @Test
     public void testDeleteNote() {
         UnitTestData testData = new UnitTestData();
@@ -79,9 +67,6 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
                 .contains(deleteNote.getNoteId()));
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.BookNoteDAO#findAllNotesByChapters(java.lang.Long)}.
-     */
     @Test
     public void testFindAllNotesByChapters() {
         UnitTestData testData = new UnitTestData();
@@ -97,9 +82,6 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
                 noteMap.get(1L).get(0));
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.BookNoteDAO#findAllNotesByDocumentId(java.lang.Long)}.
-     */
     @Test
     public void testFindAllNotesByDocumentId() {
         UnitTestData testData = new UnitTestData();
@@ -110,10 +92,6 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(testData.noteMap.get(noteList.get(0).getNoteId()), noteList.get(0));
     }
 
-    /**
-     * Test method for
-     * {@link notes.dao.impl.BookNoteDAO#updateChapter(notes.businessobjects.book.Chapter, java.lang.Long)}.
-     */
     @Test
     public void testUpdateChapter() {
         UnitTestData testData = new UnitTestData();
@@ -132,11 +110,8 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(updatedChapter.getChapterId(), updateChapter.getChapterId());
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.BookNoteDAO#updateDocument(notes.businessobjects.Document)}.
-     */
     @Test
-    public void testUpdateDocument() {
+    public void testUpdateDocument() throws DuplicateRecordException {
         UnitTestData testData = new UnitTestData();
         Book testBook = testData.getBook();
         Book newBook = new Book();
@@ -161,9 +136,6 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertTrue(testBook.getLastUpdatedTime().compareTo(updatedBook.getLastUpdatedTime()) < 0);
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.BookNoteDAO#updateNote(notes.businessobjects.Note)}.
-     */
     @Test
     public void testUpdateNote() {
         UnitTestData testData = new UnitTestData();
@@ -185,10 +157,6 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(testBookNote.getCreatedTime(), updatedBookNote.getCreatedTime());
     }
 
-    /**
-     * Test method for
-     * {@link notes.dao.impl.BookNoteDAO#saveChapter(notes.businessobjects.book.Chapter, java.lang.Long)}.
-     */
     @Test
     public void testSaveChapter() {
         Chapter newChapter = new Chapter();
@@ -202,11 +170,8 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertTrue(savedChapter.getNotesList().isEmpty());
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.BookNoteDAO#saveDocument(notes.businessobjects.Document)}.
-     */
     @Test
-    public void testSaveDocument() {
+    public void testSaveDocument() throws DuplicateRecordException {
         Book newBook = new Book();
         newBook.setDocumentId(4L);
         newBook.setDocumentTitle("Data Mining");
@@ -227,9 +192,6 @@ public class BookNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertNotNull(savedBook.getLastUpdatedTime());
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.BookNoteDAO#saveNote(notes.businessobjects.Note)}.
-     */
     @Test
     public void testSaveNote() {
         BookNote newBookNote = new BookNote();

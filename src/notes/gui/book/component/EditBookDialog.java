@@ -1,6 +1,7 @@
 package notes.gui.book.component;
 
 import notes.businesslogic.BookBusinessLogic;
+import notes.dao.DuplicateRecordException;
 import notes.dao.impl.BookNoteDAO;
 import notes.businessobjects.book.Book;
 import notes.gui.book.validation.EditionInputVerifier;
@@ -19,7 +20,7 @@ import java.util.List;
 
 /**
  * Defines the dialog and event listener for editing a book.
- *
+ * <p/>
  * Author: Rui Du
  */
 public class EditBookDialog extends JDialog {
@@ -105,14 +106,21 @@ public class EditBookDialog extends JDialog {
             updatedBook.setLastUpdatedTime(new Date(System.currentTimeMillis()));
 
             // Save the updated book.
-            dao.updateDocument(updatedBook);
+            try {
+                dao.updateDocument(updatedBook);
 
-            // Reset the book panel.
-            frame.setBookPanel(logic.getCurrentBook(), null);
+                // Reset the book panel.
+                frame.setBookPanel(logic.getCurrentBook(), null);
 
-            SoundFactory.playUpdate();
-
-            setVisible(false);
+                SoundFactory.playUpdate();
+                setVisible(false);
+            } catch (DuplicateRecordException exception) {
+                exception.printStackTrace();
+                SoundFactory.playError();
+                JOptionPane.showMessageDialog(null, "Document with the same title already exists!",
+                        "Input error", JOptionPane.ERROR_MESSAGE);
+                documentTitleField.requestFocus();
+            }
         }
     });
     private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {

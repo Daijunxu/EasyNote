@@ -23,14 +23,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
 
-    /**
-     * The data access object for the {@code NoteDAO}.
-     */
     private DocumentNoteDAO dao = DocumentNoteDAO.get();
 
-    /**
-     * Test method for {@link DocumentNoteDAO#deleteTag(notes.businessobjects.Tag)}.
-     */
     @Test
     public void testDeleteTag() {
         Tag deletedTag = new Tag(1L, "Algorithm");
@@ -42,9 +36,6 @@ public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertFalse(CACHE.getNoteCache().find(2L).getTagIds().contains(deletedTag.getTagId()));
     }
 
-    /**
-     * Test method for {@link DocumentNoteDAO#findAllDocuments()}.
-     */
     @Test
     public void testFindAllDocuments() {
         UnitTestData testData = new UnitTestData();
@@ -57,9 +48,6 @@ public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
         }
     }
 
-    /**
-     * Test method for {@link DocumentNoteDAO#findAllNotes()}.
-     */
     @Test
     public void testFindAllNotes() {
         UnitTestData testData = new UnitTestData();
@@ -72,9 +60,6 @@ public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
         }
     }
 
-    /**
-     * Test method for {@link DocumentNoteDAO#findAllNotesByTagId(java.lang.Long)}.
-     */
     @Test
     public void testFindAllNotesByTagId() {
         UnitTestData testData = new UnitTestData();
@@ -85,11 +70,6 @@ public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(testData.noteMap.get(noteList.get(0).getNoteId()), noteList.get(0));
     }
 
-    /**
-     * Test method for
-     * {@link DocumentNoteDAO#findAllNotesContainingText(java.util.Set, String, boolean, boolean)}
-     * .
-     */
     @Test
     public void testFindAllNotesContainingTextInAllDocuments() {
         UnitTestData testData = new UnitTestData();
@@ -125,11 +105,6 @@ public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(testData.noteMap.get(noteList6.get(0).getNoteId()), noteList6.get(0));
     }
 
-    /**
-     * Test method for
-     * {@link DocumentNoteDAO#findAllNotesContainingText(java.util.Set, String, boolean, boolean)}
-     * .
-     */
     @Test
     public void testFindAllNotesContainingTextWithCandidateDocuments() {
         UnitTestData testData = new UnitTestData();
@@ -174,9 +149,6 @@ public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertTrue(noteList7.isEmpty());
     }
 
-    /**
-     * Test method for {@link DocumentNoteDAO#findAllTags()}.
-     */
     @Test
     public void testFindAllTags() {
         UnitTestData testData = new UnitTestData();
@@ -189,9 +161,6 @@ public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
         }
     }
 
-    /**
-     * Test method for {@link DocumentNoteDAO#findDocumentById(java.lang.Long)}.
-     */
     @Test
     public void testFindDocumentById() {
         UnitTestData testData = new UnitTestData();
@@ -200,9 +169,6 @@ public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(testData.documentMap.get(1L), document);
     }
 
-    /**
-     * Test method for {@link DocumentNoteDAO#findNoteById(java.lang.Long)}.
-     */
     @Test
     public void testFindNoteById() {
         UnitTestData testData = new UnitTestData();
@@ -211,9 +177,6 @@ public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(testData.noteMap.get(1L), note);
     }
 
-    /**
-     * Test method for {@link DocumentNoteDAO#findTagById(java.lang.Long)}.
-     */
     @Test
     public void testFindTagById() {
         UnitTestData testData = new UnitTestData();
@@ -222,9 +185,6 @@ public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(testData.tagIdMap.get(1L), tag);
     }
 
-    /**
-     * Test method for {@link DocumentNoteDAO#findTagByText(java.lang.String)}.
-     */
     @Test
     public void testFindTagByText() {
         UnitTestData testData = new UnitTestData();
@@ -233,9 +193,6 @@ public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(testData.tagTextMap.get("Algorithm"), tag);
     }
 
-    /**
-     * Test method for {@link DocumentNoteDAO#updateTag(notes.businessobjects.Tag)}.
-     */
     @Test
     public void testUpdateTag() {
         UnitTestData testData = new UnitTestData();
@@ -251,9 +208,6 @@ public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertNotNull(CACHE.getTagCache().find(updatedTag.getTagText()));
     }
 
-    /**
-     * Test method for {@link DocumentNoteDAO#saveTag(notes.businessobjects.Tag)}.
-     */
     @Test
     public void testSaveTag() {
         Tag newTag = new Tag(3L, "Performance");

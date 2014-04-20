@@ -14,9 +14,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class AbstractNoteUnitTest extends EasyNoteUnitTestCase {
 
-    /**
-     * Test method for {@link notes.businessobjects.impl.AbstractNote#compareTo(notes.businessobjects.Note)}.
-     */
     @Test
     public void testCompareTo() {
         final UnitTestData testData = new UnitTestData();

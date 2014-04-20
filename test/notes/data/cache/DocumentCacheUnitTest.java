@@ -9,6 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -20,9 +21,6 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
 
     private final DocumentCache documentCache = DocumentCache.get();
 
-    /**
-     * Test method for {@link notes.data.cache.DocumentCache#clear()}.
-     */
     @Test
     public void testClear() {
         documentCache.clear();
@@ -30,9 +28,6 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
         assertTrue(documentCache.findAll().isEmpty());
     }
 
-    /**
-     * Test method for {@link notes.data.cache.DocumentCache#toXMLElement()}.
-     */
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
@@ -47,9 +42,6 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
         }
     }
 
-    /**
-     * Test method for {@link notes.data.cache.DocumentCache#buildFromXMLElement(org.dom4j.Element)}.
-     */
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();
@@ -61,6 +53,69 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
         assertEquals(documentList.size(), testData.documentMap.size());
 
         for (Document document : documentList) {
+            assertEquals(document, testData.documentMap.get(document.getDocumentId()));
+        }
+    }
+
+    @Test
+    public void testInsertBook() {
+        // TODO
+    }
+
+    @Test
+    public void testInsertArticle() {
+        // TODO
+    }
+
+    @Test
+    public void testInsertWorkset() {
+        // TODO
+    }
+
+    @Test
+    public void testRemove() {
+        UnitTestData testData = new UnitTestData();
+        Document document = testData.getBook();
+
+        documentCache.remove(document.getDocumentId());
+
+        assertNull(documentCache.find(document.getDocumentId()));
+    }
+
+    @Test
+    public void testUpdateBook() {
+        // TODO
+    }
+
+    @Test
+    public void testUpdateArticle() {
+        // TODO
+    }
+
+    @Test
+    public void testUpdateWorkset() {
+        // TODO
+    }
+
+    @Test
+    public void testFind() {
+        UnitTestData testData = new UnitTestData();
+        Document document = testData.getWorkset();
+
+        Document cachedDocument = documentCache.find(document.getDocumentId());
+
+        assertEquals(document, cachedDocument);
+    }
+
+    @Test
+    public void testFindAll() {
+        UnitTestData testData = new UnitTestData();
+
+        List<Document> documentList = documentCache.findAll();
+
+        assertEquals(testData.documentMap.size(), documentList.size());
+        for (Document document : documentList) {
+            assertNotNull(testData.documentMap.get(document.getDocumentId()));
             assertEquals(document, testData.documentMap.get(document.getDocumentId()));
         }
     }

@@ -4,6 +4,7 @@ import core.EasyNoteUnitTestCase;
 import notes.businessobjects.Note;
 import notes.businessobjects.article.Article;
 import notes.businessobjects.article.ArticleNote;
+import notes.dao.DuplicateRecordException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -23,15 +24,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
 
-    /**
-     * The data access object for the {@code ArticleNoteDAO}.
-     */
     private ArticleNoteDAO dao = ArticleNoteDAO.get();
 
-    /**
-     * Test method for
-     * {@link notes.dao.impl.ArticleNoteDAO#deleteDocument(notes.businessobjects.Document)}.
-     */
     @Test
     public void testDeleteDocument() {
         UnitTestData testData = new UnitTestData();
@@ -42,9 +36,6 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertNull(CACHE.getNoteCache().find(2L));
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.ArticleNoteDAO#deleteNote(notes.businessobjects.Note)}.
-     */
     @Test
     public void testDeleteNote() {
         UnitTestData testData = new UnitTestData();
@@ -56,10 +47,6 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertFalse(article.getNotesList().contains(deleteNote.getNoteId()));
     }
 
-    /**
-     * Test method for
-     * {@link notes.dao.impl.ArticleNoteDAO#findAllNotesByDocumentId(java.lang.Long)}.
-     */
     @Test
     public void testFindAllNotesByDocumentId() {
         UnitTestData testData = new UnitTestData();
@@ -72,12 +59,8 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(testArticleNote, noteList.get(0));
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.ArticleNoteDAO#updateDocument(notes.businessobjects.Document)}
-     * .
-     */
     @Test
-    public void testUpdateDocument() {
+    public void testUpdateDocument() throws DuplicateRecordException {
         UnitTestData testData = new UnitTestData();
         Article testArticle = testData.getArticle();
         Article newArticle = new Article();
@@ -98,9 +81,6 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertTrue(testArticle.getLastUpdatedTime().compareTo(updatedArticle.getLastUpdatedTime()) < 0);
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.ArticleNoteDAO#updateNote(notes.businessobjects.Note)}.
-     */
     @Test
     public void testUpdateNote() {
         UnitTestData testData = new UnitTestData();
@@ -121,11 +101,8 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(testArticleNote.getCreatedTime(), updatedArticleNote.getCreatedTime());
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.ArticleNoteDAO#saveDocument(notes.businessobjects.Document)}.
-     */
     @Test
-    public void testSaveDocument() {
+    public void testSaveDocument() throws DuplicateRecordException {
         Article newArticle = new Article();
         newArticle.setDocumentId(4L);
         newArticle.setDocumentTitle("Data Mining");
@@ -139,9 +116,6 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertNotNull(savedArticle.getLastUpdatedTime());
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.ArticleNoteDAO#saveNote(notes.businessobjects.Note)}.
-     */
     @Test
     public void testSaveNote() {
         ArticleNote newArticleNote = new ArticleNote();

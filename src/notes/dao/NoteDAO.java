@@ -121,7 +121,7 @@ public interface NoteDAO<N extends Note, D extends Document> {
      * @param document The document to update.
      * @return {@code D} The updated document.
      */
-    D updateDocument(D document);
+    D updateDocument(D document) throws DuplicateRecordException;
 
     /**
      * Updates a note.
@@ -145,7 +145,7 @@ public interface NoteDAO<N extends Note, D extends Document> {
      * @param document The document to save.
      * @return {@code D} The saved document.
      */
-    D saveDocument(D document);
+    D saveDocument(D document) throws DuplicateRecordException;
 
     /**
      * Saves a note.

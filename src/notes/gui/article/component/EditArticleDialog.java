@@ -1,8 +1,9 @@
 package notes.gui.article.component;
 
 import notes.businesslogic.ArticleBusinessLogic;
-import notes.dao.impl.ArticleNoteDAO;
 import notes.businessobjects.article.Article;
+import notes.dao.DuplicateRecordException;
+import notes.dao.impl.ArticleNoteDAO;
 import notes.gui.main.component.MainPanel;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
@@ -16,7 +17,7 @@ import java.util.List;
 
 /**
  * Defines the dialog and event listener for editing an article.
- *
+ * <p/>
  * Author: Rui Du
  */
 public class EditArticleDialog extends JDialog {
@@ -80,14 +81,21 @@ public class EditArticleDialog extends JDialog {
             updatedArticle.setLastUpdatedTime(new Date(System.currentTimeMillis()));
 
             // Save the updated article.
-            dao.updateDocument(updatedArticle);
+            try {
+                dao.updateDocument(updatedArticle);
 
-            // Update the note panel.
-            frame.setArticlePanel(logic.getCurrentArticle(), logic.getCurrentArticleNote().getNoteId());
+                // Update the note panel.
+                frame.setArticlePanel(logic.getCurrentArticle(), logic.getCurrentArticleNote().getNoteId());
 
-            SoundFactory.playUpdate();
-
-            setVisible(false);
+                SoundFactory.playUpdate();
+                setVisible(false);
+            } catch (DuplicateRecordException exception) {
+                exception.printStackTrace();
+                SoundFactory.playError();
+                JOptionPane.showMessageDialog(null, "Document with the same title already exists!",
+                        "Input error", JOptionPane.ERROR_MESSAGE);
+                documentTitleField.requestFocus();
+            }
         }
     });
     private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {

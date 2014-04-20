@@ -3,6 +3,7 @@ package notes.dao.impl;
 import notes.businessobjects.Document;
 import notes.businessobjects.Note;
 import notes.businessobjects.Tag;
+import notes.dao.DuplicateRecordException;
 import notes.dao.NoteDAO;
 import notes.data.cache.CacheDelegate;
 
@@ -197,7 +198,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
     }
 
     @Override
-    public Document updateDocument(Document document) {
+    public Document updateDocument(Document document) throws DuplicateRecordException {
         return CACHE.getDocumentCache().update(document);
     }
 
@@ -212,7 +213,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
     }
 
     @Override
-    public Document saveDocument(Document document) {
+    public Document saveDocument(Document document) throws DuplicateRecordException {
         return CACHE.getDocumentCache().insert(document);
     }
 

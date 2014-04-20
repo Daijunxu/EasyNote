@@ -18,9 +18,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class BookUnitTest extends EasyNoteUnitTestCase {
 
-    /**
-     * Test method for {@link notes.businessobjects.book.Book#equals(java.lang.Object)}.
-     */
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
@@ -30,18 +27,12 @@ public class BookUnitTest extends EasyNoteUnitTestCase {
         assertFalse(book.equals(new Object()));
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.book.Book#getNotesCount()}.
-     */
     @Test
     public void testGetNotesCount() {
         final UnitTestData testData = new UnitTestData();
         assertEquals(1, testData.getBook().getNotesCount());
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.book.Book#hashCode()}.
-     */
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
@@ -49,9 +40,6 @@ public class BookUnitTest extends EasyNoteUnitTestCase {
         assertEquals(book.hashCode(), CACHE.getDocumentCache().find(book.getDocumentId()).hashCode());
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.book.Book#toString()}.
-     */
     @Test
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
@@ -63,9 +51,6 @@ public class BookUnitTest extends EasyNoteUnitTestCase {
                 StringUtils.substringAfter(cachedBook.toString(), "createdTime"));
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.book.Book#toXMLElement()}.
-     */
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
@@ -100,9 +85,6 @@ public class BookUnitTest extends EasyNoteUnitTestCase {
         assertEquals(bookElement.elements().get(0).getName(), "Chapter");
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.book.Book#buildFromXMLElement(org.dom4j.Element)}.
-     */
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();

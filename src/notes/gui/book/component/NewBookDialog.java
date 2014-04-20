@@ -1,6 +1,7 @@
 package notes.gui.book.component;
 
 import notes.businesslogic.BookBusinessLogic;
+import notes.dao.DuplicateRecordException;
 import notes.dao.impl.BookNoteDAO;
 import notes.businessobjects.book.Book;
 import notes.businessobjects.book.Chapter;
@@ -20,7 +21,7 @@ import java.util.TreeMap;
 
 /**
  * Defines the dialog and event listener for creating a new book.
- *
+ * <p/>
  * Author: Rui Du
  */
 public class NewBookDialog extends JDialog {
@@ -105,20 +106,20 @@ public class NewBookDialog extends JDialog {
             updatedBook.setLastUpdatedTime(new Date(System.currentTimeMillis()));
 
             // Save the new book.
-            Book savedBook = (Book) dao.saveDocument(updatedBook);
+            try {
+                Book savedBook = (Book) dao.saveDocument(updatedBook);
 
-            if (savedBook == null) {
-                SoundFactory.playError();
-                JOptionPane.showMessageDialog(null, "Document already exists!", "Input error",
-                        JOptionPane.ERROR_MESSAGE);
-                documentTitleField.requestFocus();
-            } else {
                 // Reset the book panel.
                 frame.setBookPanel(savedBook, null);
 
                 SoundFactory.playUpdate();
-
                 setVisible(false);
+            } catch (DuplicateRecordException exception) {
+                exception.printStackTrace();
+                SoundFactory.playError();
+                JOptionPane.showMessageDialog(null, "Document already exists!", "Input error",
+                        JOptionPane.ERROR_MESSAGE);
+                documentTitleField.requestFocus();
             }
         }
     });

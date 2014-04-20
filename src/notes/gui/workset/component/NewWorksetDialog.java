@@ -1,6 +1,7 @@
 package notes.gui.workset.component;
 
 import notes.businesslogic.WorksetBusinessLogic;
+import notes.dao.DuplicateRecordException;
 import notes.dao.impl.WorksheetNoteDAO;
 import notes.businessobjects.workset.Workset;
 import notes.businessobjects.workset.Worksheet;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 
 /**
  * Defines the dialog and event listener for creating a new workset.
- *
+ * <p/>
  * Author: Rui Du
  */
 public class NewWorksetDialog extends JDialog {
@@ -74,19 +75,20 @@ public class NewWorksetDialog extends JDialog {
             updatedWorkset.setLastUpdatedTime(new Date(System.currentTimeMillis()));
 
             // Save the new workset.
-            Workset savedWorkset = (Workset) dao.saveDocument(updatedWorkset);
+            try {
+                Workset savedWorkset = (Workset) dao.saveDocument(updatedWorkset);
 
-            if (savedWorkset == null) {
-                SoundFactory.playError();
-                JOptionPane.showMessageDialog(null, "Document already exists!", "Input error",
-                        JOptionPane.ERROR_MESSAGE);
-                documentTitleField.requestFocus();
-            } else {
                 // Reset the workset panel.
                 frame.setWorksetPanel(savedWorkset, null);
 
                 SoundFactory.playUpdate();
                 setVisible(false);
+            } catch (DuplicateRecordException exception) {
+                exception.printStackTrace();
+                SoundFactory.playError();
+                JOptionPane.showMessageDialog(null, "Document already exists!", "Input error",
+                        JOptionPane.ERROR_MESSAGE);
+                documentTitleField.requestFocus();
             }
         }
     });

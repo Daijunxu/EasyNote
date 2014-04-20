@@ -1,6 +1,7 @@
 package notes.gui.workset.component;
 
 import notes.businesslogic.WorksetBusinessLogic;
+import notes.dao.DuplicateRecordException;
 import notes.dao.impl.WorksheetNoteDAO;
 import notes.businessobjects.workset.Workset;
 import notes.gui.main.component.MainPanel;
@@ -16,7 +17,7 @@ import java.util.List;
 
 /**
  * Defines the dialog and event listener for editing a workset.
- *
+ * <p/>
  * Author: Rui Du
  */
 public class EditWorksetDialog extends JDialog {
@@ -72,13 +73,21 @@ public class EditWorksetDialog extends JDialog {
             updatedWorkset.setLastUpdatedTime(new Date(System.currentTimeMillis()));
 
             // Save the updated Workset.
-            dao.updateDocument(updatedWorkset);
+            try {
+                dao.updateDocument(updatedWorkset);
 
-            // Reset the Workset panel.
-            frame.setWorksetPanel(logic.getCurrentWorkset(), null);
+                // Reset the Workset panel.
+                frame.setWorksetPanel(logic.getCurrentWorkset(), null);
 
-            SoundFactory.playUpdate();
-            setVisible(false);
+                SoundFactory.playUpdate();
+                setVisible(false);
+            } catch (DuplicateRecordException exception) {
+                exception.printStackTrace();
+                SoundFactory.playError();
+                JOptionPane.showMessageDialog(null, "Document with the same title already exists!",
+                        "Input error", JOptionPane.ERROR_MESSAGE);
+                documentTitleField.requestFocus();
+            }
         }
     });
     private final JButton cancelButton = new JButton(new AbstractAction("Cancel") {

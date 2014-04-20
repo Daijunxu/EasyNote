@@ -102,14 +102,15 @@ public class NoteCache implements Cache<Note> {
     }
 
     @Override
-    public Note insert(Note note) {
+    public Note insert(Note note) throws DuplicateRecordException {
+        Long noteId = (note.getNoteId() != null) ? note.getNoteId() : maxNoteId + 1L;
+        if (noteMap.containsKey(noteId)) {
+            throw new DuplicateRecordException("Duplicate note exception: same note ID!");
+        }
+
         if (note instanceof WorksheetNote) {
             WorksheetNote newNote = new WorksheetNote();
-            if (note.getNoteId() == null) {
-                newNote.setNoteId(maxNoteId + 1L);
-            } else {
-                newNote.setNoteId(note.getNoteId());
-            }
+            newNote.setNoteId(noteId);
             newNote.setDocumentId(note.getDocumentId());
             newNote.setWorksheetId(((WorksheetNote) note).getWorksheetId());
             newNote.setTagIds(note.getTagIds());
@@ -121,14 +122,6 @@ public class NoteCache implements Cache<Note> {
                 newNote.setCreatedTime(note.getCreatedTime());
             }
 
-            // Add the note to note cache.
-            try {
-                if (noteMap.containsKey(newNote.getNoteId())) {
-                    throw new DuplicateRecordException("Duplicate note exception: same note ID!");
-                }
-            } catch (DuplicateRecordException e) {
-                e.printStackTrace();
-            }
             noteMap.put(newNote.getNoteId(), newNote);
 
             // Update the max note ID in note cache.
@@ -139,11 +132,7 @@ public class NoteCache implements Cache<Note> {
 
         } else if (note instanceof ArticleNote) {
             ArticleNote newNote = new ArticleNote();
-            if (note.getNoteId() == null) {
-                newNote.setNoteId(maxNoteId + 1L);
-            } else {
-                newNote.setNoteId(note.getNoteId());
-            }
+            newNote.setNoteId(noteId);
             newNote.setDocumentId(note.getDocumentId());
             newNote.setTagIds(note.getTagIds());
             newNote.setNoteText(note.getNoteText());
@@ -153,13 +142,6 @@ public class NoteCache implements Cache<Note> {
                 newNote.setCreatedTime(note.getCreatedTime());
             }
 
-            try {
-                if (noteMap.containsKey(newNote.getNoteId())) {
-                    throw new DuplicateRecordException("Duplicate note exception: same note ID!");
-                }
-            } catch (DuplicateRecordException e) {
-                e.printStackTrace();
-            }
             noteMap.put(newNote.getNoteId(), newNote);
 
             // Update the max note ID in note CACHE.
@@ -170,11 +152,7 @@ public class NoteCache implements Cache<Note> {
 
         } else if (note instanceof BookNote) {
             BookNote newNote = new BookNote();
-            if (note.getNoteId() == null) {
-                newNote.setNoteId(maxNoteId + 1L);
-            } else {
-                newNote.setNoteId(note.getNoteId());
-            }
+            newNote.setNoteId(noteId);
             newNote.setDocumentId(note.getDocumentId());
             newNote.setChapterId(((BookNote) note).getChapterId());
             newNote.setTagIds(note.getTagIds());
@@ -185,13 +163,6 @@ public class NoteCache implements Cache<Note> {
                 newNote.setCreatedTime(note.getCreatedTime());
             }
 
-            try {
-                if (noteMap.containsKey(newNote.getNoteId())) {
-                    throw new DuplicateRecordException("Duplicate note exception: same note ID!");
-                }
-            } catch (DuplicateRecordException e) {
-                e.printStackTrace();
-            }
             noteMap.put(newNote.getNoteId(), newNote);
 
             // Update the max note ID in note CACHE.

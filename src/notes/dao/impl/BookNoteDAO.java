@@ -232,17 +232,21 @@ public class BookNoteDAO extends DocumentNoteDAO {
     @Override
     public Note saveNote(Note note) {
         if (note instanceof BookNote) {
-            BookNote newNote = (BookNote) CACHE.getNoteCache().insert(note);
+            try {
+                BookNote newNote = (BookNote) CACHE.getNoteCache().insert(note);
 
-            // Add the note ID to corresponding notes list in the chapter.
-            Book book = (Book) (CACHE.getDocumentCache().find(newNote.getDocumentId()));
-            Chapter chapter = book.getChaptersMap().get(newNote.getChapterId());
-            chapter.getNotesList().add(newNote.getNoteId());
+                // Add the note ID to corresponding notes list in the chapter.
+                Book book = (Book) (CACHE.getDocumentCache().find(newNote.getDocumentId()));
+                Chapter chapter = book.getChaptersMap().get(newNote.getChapterId());
+                chapter.getNotesList().add(newNote.getNoteId());
 
-            // Update book's last updated time.
-            book.setLastUpdatedTime(new Date());
+                // Update book's last updated time.
+                book.setLastUpdatedTime(new Date());
 
-            return newNote;
+                return newNote;
+            } catch (DuplicateRecordException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

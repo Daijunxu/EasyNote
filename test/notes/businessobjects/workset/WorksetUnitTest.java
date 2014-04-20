@@ -19,9 +19,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class WorksetUnitTest extends EasyNoteUnitTestCase {
 
-    /**
-     * Test method for {@link Workset#equals(java.lang.Object)}.
-     */
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
@@ -31,18 +28,12 @@ public class WorksetUnitTest extends EasyNoteUnitTestCase {
         assertFalse(workset.equals(new Object()));
     }
 
-    /**
-     * Test method for {@link Workset#getNotesCount()}.
-     */
     @Test
     public void testGetNotesCount() {
         final UnitTestData testData = new UnitTestData();
         assertEquals(1, testData.getWorkset().getNotesCount());
     }
 
-    /**
-     * Test method for {@link Workset#hashCode()}.
-     */
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
@@ -50,9 +41,6 @@ public class WorksetUnitTest extends EasyNoteUnitTestCase {
         assertEquals(workset.hashCode(), CACHE.getDocumentCache().find(workset.getDocumentId()).hashCode());
     }
 
-    /**
-     * Test method for {@link Workset#toXMLElement()}.
-     */
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
@@ -80,9 +68,6 @@ public class WorksetUnitTest extends EasyNoteUnitTestCase {
         assertEquals(workSetElement.elements().get(0).getName(), "Worksheet");
     }
 
-    /**
-     * Test method for {@link Workset#buildFromXMLElement(org.dom4j.Element)}.
-     */
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();

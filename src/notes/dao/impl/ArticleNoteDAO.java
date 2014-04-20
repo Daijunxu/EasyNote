@@ -4,6 +4,7 @@ import notes.businessobjects.Document;
 import notes.businessobjects.Note;
 import notes.businessobjects.article.Article;
 import notes.businessobjects.article.ArticleNote;
+import notes.dao.DuplicateRecordException;
 import notes.data.cache.CacheDelegate;
 
 import java.util.ArrayList;
@@ -100,17 +101,22 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
     @Override
     public Note saveNote(Note note) {
         if (note instanceof ArticleNote) {
-            ArticleNote savedNote = (ArticleNote) CACHE.getNoteCache().insert(note);
+            try {
+                ArticleNote savedNote = (ArticleNote) CACHE.getNoteCache().insert(note);
 
-            // Add the note ID to corresponding notes list in the article.
-            Article article = (Article) (CACHE.getDocumentCache().find(savedNote.getDocumentId()));
-            article.getNotesList().add(savedNote.getNoteId());
+                // Add the note ID to corresponding notes list in the article.
+                Article article = (Article) (CACHE.getDocumentCache().find(savedNote.getDocumentId()));
+                article.getNotesList().add(savedNote.getNoteId());
 
-            // Update article's last updated time.
-            article.setLastUpdatedTime(new Date());
+                // Update article's last updated time.
+                article.setLastUpdatedTime(new Date());
 
-            return savedNote;
+                return savedNote;
+            } catch (DuplicateRecordException e) {
+                e.printStackTrace();
+            }
         }
+
         return null;
     }
 

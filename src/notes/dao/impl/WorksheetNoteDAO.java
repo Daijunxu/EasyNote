@@ -266,20 +266,24 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
     @Override
     public Note saveNote(Note note) {
         if (note instanceof WorksheetNote) {
-            WorksheetNote newNote = (WorksheetNote) CACHE.getNoteCache().insert(note);
+            try {
+                WorksheetNote newNote = (WorksheetNote) CACHE.getNoteCache().insert(note);
 
-            // Add the note ID to corresponding notes list in the worksheet.
-            Workset workset = (Workset) (CACHE.getDocumentCache().find(newNote.getDocumentId()));
-            Worksheet worksheet = workset.getWorksheetsMap().get(newNote.getWorksheetId());
-            worksheet.getNotesList().add(newNote.getNoteId());
+                // Add the note ID to corresponding notes list in the worksheet.
+                Workset workset = (Workset) (CACHE.getDocumentCache().find(newNote.getDocumentId()));
+                Worksheet worksheet = workset.getWorksheetsMap().get(newNote.getWorksheetId());
+                worksheet.getNotesList().add(newNote.getNoteId());
 
-            // Update worksheet's last updated time.
-            worksheet.setLastUpdatedTime(new Date());
+                // Update worksheet's last updated time.
+                worksheet.setLastUpdatedTime(new Date());
 
-            // Update workset's last updated time.
-            workset.setLastUpdatedTime(new Date());
+                // Update workset's last updated time.
+                workset.setLastUpdatedTime(new Date());
 
-            return newNote;
+                return newNote;
+            } catch (DuplicateRecordException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

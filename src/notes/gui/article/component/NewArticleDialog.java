@@ -1,6 +1,7 @@
 package notes.gui.article.component;
 
 import notes.businesslogic.ArticleBusinessLogic;
+import notes.dao.DuplicateRecordException;
 import notes.dao.impl.ArticleNoteDAO;
 import notes.businessobjects.article.Article;
 import notes.gui.main.component.MainPanel;
@@ -16,7 +17,7 @@ import java.util.Date;
 
 /**
  * Defines the dialog and event listener of creating a new article.
- *
+ * <p/>
  * Author: Rui Du
  */
 public class NewArticleDialog extends JDialog {
@@ -79,20 +80,20 @@ public class NewArticleDialog extends JDialog {
             newArticle.setNotesList(new ArrayList<Long>());
 
             // Save the updated article.
-            Article savedArticle = (Article) dao.saveDocument(newArticle);
+            try {
+                Article savedArticle = (Article) dao.saveDocument(newArticle);
 
-            if (savedArticle == null) {
-                SoundFactory.playError();
-                JOptionPane.showMessageDialog(null, "Document already exists!", "Input error",
-                        JOptionPane.ERROR_MESSAGE);
-                documentTitleField.requestFocus();
-            } else {
                 // Update the note panel.
                 frame.setArticlePanel(savedArticle, null);
 
                 SoundFactory.playUpdate();
-
                 setVisible(false);
+            } catch (DuplicateRecordException exception) {
+                exception.printStackTrace();
+                SoundFactory.playError();
+                JOptionPane.showMessageDialog(null, "Document already exists!", "Input error",
+                        JOptionPane.ERROR_MESSAGE);
+                documentTitleField.requestFocus();
             }
         }
     });

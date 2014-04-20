@@ -18,9 +18,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class ChapterUnitTest extends EasyNoteUnitTestCase {
 
-    /**
-     * Test method for {@link notes.businessobjects.book.Chapter#equals(java.lang.Object)}.
-     */
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
@@ -32,9 +29,6 @@ public class ChapterUnitTest extends EasyNoteUnitTestCase {
         assertFalse(testChapter.equals(new Object()));
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.book.Chapter#hashCode()}.
-     */
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
@@ -44,9 +38,6 @@ public class ChapterUnitTest extends EasyNoteUnitTestCase {
         assertEquals(testChapter.hashCode(), cachedChapter.hashCode());
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.book.Chapter#toString()}.
-     */
     @Test
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
@@ -57,9 +48,6 @@ public class ChapterUnitTest extends EasyNoteUnitTestCase {
                 StringUtils.substringAfter(cachedChapter.toString(), "["));
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.book.Chapter#toXMLElement()}.
-     */
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
@@ -74,9 +62,6 @@ public class ChapterUnitTest extends EasyNoteUnitTestCase {
         assertEquals(chapterElement.attributeValue("NotesList"), EntityHelper.buildEntityStrFromList(testChapter.getNotesList()));
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.book.Chapter#buildFromXMLElement(org.dom4j.Element)}.
-     */
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();

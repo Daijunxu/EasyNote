@@ -1,6 +1,7 @@
 package notes.data.cache;
 
 import notes.businessobjects.XMLSerializable;
+import notes.dao.DuplicateRecordException;
 
 import java.util.List;
 
@@ -14,11 +15,11 @@ import java.util.List;
  */
 public interface Cache<T> extends XMLSerializable<Cache> {
 
-    public T insert(T object);
+    public T insert(T object) throws DuplicateRecordException;
 
     public void remove(Long id);
 
-    public T update(T object);
+    public T update(T object) throws DuplicateRecordException;
 
     public T find(Long id);
 

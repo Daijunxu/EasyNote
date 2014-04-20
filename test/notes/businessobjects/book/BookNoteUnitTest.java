@@ -18,9 +18,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class BookNoteUnitTest extends EasyNoteUnitTestCase {
 
-    /**
-     * Test method for {@link notes.businessobjects.book.BookNote#equals(java.lang.Object)}.
-     */
     @Test
     public void testEquals() {
         final UnitTestData testData = new UnitTestData();
@@ -30,9 +27,6 @@ public class BookNoteUnitTest extends EasyNoteUnitTestCase {
         assertFalse(bookNote.equals(new Object()));
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.book.BookNote#hashCode()}.
-     */
     @Test
     public void testHashCode() {
         final UnitTestData testData = new UnitTestData();
@@ -40,9 +34,6 @@ public class BookNoteUnitTest extends EasyNoteUnitTestCase {
         assertEquals(bookNote.hashCode(), CACHE.getNoteCache().find(bookNote.getNoteId()).hashCode());
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.book.BookNote#toString()}.
-     */
     @Test
     public void testToString() {
         final UnitTestData testData = new UnitTestData();
@@ -52,9 +43,6 @@ public class BookNoteUnitTest extends EasyNoteUnitTestCase {
                 StringUtils.substringAfter(cachedBookNote.toString(), "["));
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.book.BookNote#toXMLElement()}.
-     */
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
@@ -81,9 +69,6 @@ public class BookNoteUnitTest extends EasyNoteUnitTestCase {
         assertEquals(bookNoteElement.getText(), testBookNote.getNoteText());
     }
 
-    /**
-     * Test method for {@link notes.businessobjects.book.BookNote#buildFromXMLElement(org.dom4j.Element)}.
-     */
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();

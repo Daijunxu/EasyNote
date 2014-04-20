@@ -5,6 +5,7 @@ import notes.businessobjects.Note;
 import notes.businessobjects.workset.Workset;
 import notes.businessobjects.workset.Worksheet;
 import notes.businessobjects.workset.WorksheetNote;
+import notes.dao.DuplicateRecordException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -29,15 +30,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
 
-    /**
-     * The data access object for the {@code WorksheetNoteDAO}.
-     */
     private WorksheetNoteDAO dao = WorksheetNoteDAO.get();
 
-    /**
-     * Test method for
-     * {@link notes.dao.impl.WorksheetNoteDAO#deleteWorksheet(notes.businessobjects.workset.Worksheet, Long)}
-     */
     @Test
     public void testDeleteWorksheet() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
@@ -53,9 +47,6 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertNull(CACHE.getNoteCache().find(3L));
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#deleteDocument(notes.businessobjects.Document)}.
-     */
     @Test
     public void testDeleteDocument() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
@@ -66,9 +57,6 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertNull(CACHE.getNoteCache().find(3L));
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#deleteNote(notes.businessobjects.Note)}.
-     */
     @Test
     public void testDeleteNote() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
@@ -86,9 +74,6 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
                 .contains(deleteNote.getNoteId()));
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#findAllNotesByWorksheets(java.lang.Long)}.
-     */
     @Test
     public void testFindAllNotesByWorksheets() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
@@ -103,9 +88,6 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
                 noteMap.get(1L).get(0));
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#findAllNotesByDocumentId(java.lang.Long)}.
-     */
     @Test
     public void testFindAllNotesByDocumentId() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
@@ -116,10 +98,6 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(testData.noteMap.get(noteList.get(0).getNoteId()), noteList.get(0));
     }
 
-    /**
-     * Test method for
-     * {@link notes.dao.impl.WorksheetNoteDAO#updateWorksheet(notes.businessobjects.workset.Worksheet, Long, Long)}.
-     */
     @Test
     public void testUpdateWorksheet() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
@@ -140,11 +118,8 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(updatedWorksheet.getWorksheetId(), updateWorksheet.getWorksheetId());
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#updateDocument(notes.businessobjects.Document)}.
-     */
     @Test
-    public void testUpdateDocument() {
+    public void testUpdateDocument() throws DuplicateRecordException {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
         Workset testWorkset = testData.getWorkset();
         Workset newWorkset = new Workset();
@@ -167,9 +142,6 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertTrue(testWorkset.getLastUpdatedTime().compareTo(updatedWorkset.getLastUpdatedTime()) < 0);
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#updateNote(notes.businessobjects.Note)}.
-     */
     @Test
     public void testUpdateNote() {
         EasyNoteUnitTestCase.UnitTestData testData = new EasyNoteUnitTestCase.UnitTestData();
@@ -192,10 +164,6 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(testWorksheetNote.getCreatedTime(), updatedWorksheetNote.getCreatedTime());
     }
 
-    /**
-     * Test method for
-     * {@link notes.dao.impl.WorksheetNoteDAO#saveWorksheet(notes.businessobjects.workset.Worksheet, java.lang.Long)}.
-     */
     @Test
     public void testSaveWorksheet() {
         Worksheet newWorksheet = new Worksheet();
@@ -209,11 +177,8 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertTrue(savedWorksheet.getNotesList().isEmpty());
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#saveDocument(notes.businessobjects.Document)}.
-     */
     @Test
-    public void testSaveDocument() {
+    public void testSaveDocument() throws DuplicateRecordException {
         Workset newWorkset = new Workset();
         newWorkset.setDocumentId(4L);
         newWorkset.setDocumentTitle("Data Mining");
@@ -235,9 +200,6 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertNotNull(savedWorkset.getLastUpdatedTime());
     }
 
-    /**
-     * Test method for {@link notes.dao.impl.WorksheetNoteDAO#saveNote(notes.businessobjects.Note)}.
-     */
     @Test
     public void testSaveNote() {
         WorksheetNote newWorksheetNote = new WorksheetNote();

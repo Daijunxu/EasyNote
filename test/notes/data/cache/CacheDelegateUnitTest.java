@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNotNull;
  * <p/>
  * Author: Rui Du
  */
-public class CacheUnitTest extends EasyNoteUnitTestCase {
+public class CacheDelegateUnitTest extends EasyNoteUnitTestCase {
 
     /**
      * Test method for {@link CacheDelegate#getDocumentCache()}.

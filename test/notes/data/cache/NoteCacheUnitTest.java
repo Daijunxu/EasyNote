@@ -9,6 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -20,9 +21,6 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
 
     private final NoteCache noteCache = NoteCache.get();
 
-    /**
-     * Test method for {@link notes.data.cache.NoteCache#clear()}.
-     */
     @Test
     public void testClear() {
         noteCache.clear();
@@ -30,9 +28,6 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
         assertTrue(noteCache.findAll().isEmpty());
     }
 
-    /**
-     * Test method for {@link notes.data.cache.NoteCache#toXMLElement()}.
-     */
     @Test
     public void testToXMLElement() {
         final UnitTestData testData = new UnitTestData();
@@ -47,9 +42,6 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
         }
     }
 
-    /**
-     * Test method for {@link notes.data.cache.NoteCache#buildFromXMLElement(org.dom4j.Element)}.
-     */
     @Test
     public void testBuildFromXMLElement() {
         final UnitTestData testData = new UnitTestData();
@@ -61,6 +53,69 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
         assertEquals(noteList.size(), testData.noteMap.size());
 
         for (Note note : noteList) {
+            assertEquals(note, testData.noteMap.get(note.getNoteId()));
+        }
+    }
+
+    @Test
+    public void testInsertBookNote() {
+        // TODO
+    }
+
+    @Test
+    public void testInsertArticleNote() {
+        // TODO
+    }
+
+    @Test
+    public void testInsertWorksheetNote() {
+        // TODO
+    }
+
+    @Test
+    public void testRemove() {
+        UnitTestData testData = new UnitTestData();
+        Note note = testData.getBookNote();
+
+        noteCache.remove(note.getNoteId());
+
+        assertNull(noteCache.find(note.getNoteId()));
+    }
+
+    @Test
+    public void testUpdateBookNote() {
+        // TODO
+    }
+
+    @Test
+    public void testUpdateArticleNote() {
+        // TODO
+    }
+
+    @Test
+    public void testUpdateWorksheetNote() {
+        // TODO
+    }
+
+    @Test
+    public void testFind() {
+        UnitTestData testData = new UnitTestData();
+        Note note = testData.getWorksheetNote();
+
+        Note cachedNote = noteCache.find(note.getNoteId());
+
+        assertEquals(note, cachedNote);
+    }
+
+    @Test
+    public void testFindAll() {
+        UnitTestData testData = new UnitTestData();
+
+        List<Note> noteList = noteCache.findAll();
+
+        assertEquals(testData.noteMap.size(), noteList.size());
+        for (Note note : noteList) {
+            assertNotNull(testData.noteMap.get(note.getNoteId()));
             assertEquals(note, testData.noteMap.get(note.getNoteId()));
         }
     }
