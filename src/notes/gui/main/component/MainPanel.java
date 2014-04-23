@@ -39,16 +39,15 @@ import notes.gui.book.event.NewBookActionListener;
 import notes.gui.book.event.NewBookNoteActionListener;
 import notes.gui.book.event.NewChapterActionListener;
 import notes.gui.main.event.AboutActionListener;
-import notes.gui.main.event.document.CloseDocumentEventListener;
-import notes.gui.main.event.mouse.IndexListMouseListener;
 import notes.gui.main.event.MainPanelComponentListener;
 import notes.gui.main.event.MainPanelWindowListener;
 import notes.gui.main.event.MainPanelWindowStateListener;
+import notes.gui.main.event.OpenPreferencesActionListener;
+import notes.gui.main.event.document.CloseDocumentEventListener;
+import notes.gui.main.event.document.OpenDocumentActionListener;
+import notes.gui.main.event.mouse.IndexListMouseListener;
 import notes.gui.main.event.mouse.NoteListMouseListener;
 import notes.gui.main.event.note.NoteListSelectionListener;
-import notes.gui.main.event.document.OpenDocumentActionListener;
-import notes.gui.main.event.OpenPreferencesActionListener;
-import notes.gui.main.event.SaveAllActionListener;
 import notes.gui.main.event.search.SearchNoteActionListener;
 import notes.gui.workset.component.WorksheetListCellRenderer;
 import notes.gui.workset.component.WorksheetNoteListCellRenderer;
@@ -274,8 +273,6 @@ public class MainPanel extends JFrame {
         deleteDocumentItem.addActionListener(new DeleteArticleActionListener());
         JMenuItem exportDocumentItem = new JMenuItem("Export", KeyEvent.VK_P);
         exportDocumentItem.addActionListener(new ExportArticleEventListener());
-        JMenuItem saveAllItem = new JMenuItem("Save All", KeyEvent.VK_S);
-        saveAllItem.addActionListener(new SaveAllActionListener());
         JMenuItem closeItem = new JMenuItem("Close Article", KeyEvent.VK_C);
         closeItem.addActionListener(new CloseDocumentEventListener());
         articleMenu.add(newDocumentMenu);
@@ -283,7 +280,6 @@ public class MainPanel extends JFrame {
         articleMenu.add(editDocumentItem);
         articleMenu.add(deleteDocumentItem);
         articleMenu.add(exportDocumentItem);
-        articleMenu.add(saveAllItem);
         articleMenu.add(closeItem);
 
         noteMenu.setMnemonic(KeyEvent.VK_N);
@@ -347,8 +343,6 @@ public class MainPanel extends JFrame {
         deleteDocumentItem.addActionListener(new DeleteBookActionListener());
         JMenuItem exportDocumentItem = new JMenuItem("Export", KeyEvent.VK_P);
         exportDocumentItem.addActionListener(new ExportBookActionListener());
-        JMenuItem saveAllItem = new JMenuItem("Save All", KeyEvent.VK_S);
-        saveAllItem.addActionListener(new SaveAllActionListener());
         JMenuItem closeItem = new JMenuItem("Close Book", KeyEvent.VK_C);
         closeItem.addActionListener(new CloseDocumentEventListener());
         bookMenu.add(newDocumentMenu);
@@ -356,7 +350,6 @@ public class MainPanel extends JFrame {
         bookMenu.add(editDocumentItem);
         bookMenu.add(deleteDocumentItem);
         bookMenu.add(exportDocumentItem);
-        bookMenu.add(saveAllItem);
         bookMenu.add(closeItem);
 
         chapterMenu.setMnemonic(KeyEvent.VK_C);
@@ -432,8 +425,6 @@ public class MainPanel extends JFrame {
         deleteDocumentItem.addActionListener(new DeleteWorksetActionListener());
         JMenuItem exportDocumentItem = new JMenuItem("Export", KeyEvent.VK_P);
         exportDocumentItem.addActionListener(new ExportWorksetActionListener());
-        JMenuItem saveAllItem = new JMenuItem("Save All", KeyEvent.VK_S);
-        saveAllItem.addActionListener(new SaveAllActionListener());
         JMenuItem closeItem = new JMenuItem("Close Workset", KeyEvent.VK_C);
         closeItem.addActionListener(new CloseDocumentEventListener());
         worksetMenu.add(newDocumentMenu);
@@ -441,7 +432,6 @@ public class MainPanel extends JFrame {
         worksetMenu.add(editDocumentItem);
         worksetMenu.add(deleteDocumentItem);
         worksetMenu.add(exportDocumentItem);
-        worksetMenu.add(saveAllItem);
         worksetMenu.add(closeItem);
 
         worksheetMenu.setMnemonic(KeyEvent.VK_E);
@@ -570,11 +560,8 @@ public class MainPanel extends JFrame {
         JMenuItem newBookItem = new JMenuItem("Book", KeyEvent.VK_B);
         newBookItem.addActionListener(new NewBookActionListener());
         newDocumentMenu.add(newBookItem);
-        JMenuItem saveAllItem = new JMenuItem("Save All", KeyEvent.VK_S);
-        saveAllItem.addActionListener(new SaveAllActionListener());
         documentMenu.add(openDocumentItem);
         documentMenu.add(newDocumentMenu);
-        documentMenu.add(saveAllItem);
 
         searchMenu.setMnemonic(KeyEvent.VK_S);
         JMenuItem searchNoteItem = new JMenuItem("Search Notes", KeyEvent.VK_N);
