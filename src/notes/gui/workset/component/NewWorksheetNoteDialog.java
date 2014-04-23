@@ -199,6 +199,7 @@ public class NewWorksheetNoteDialog extends JDialog {
         setLocationRelativeTo(frame);
         setSize(getWidth() + 15, getHeight());
         setResizable(false);
+        noteTextField.requestFocus();
         setVisible(true);
     }
 }
