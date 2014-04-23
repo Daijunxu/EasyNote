@@ -24,7 +24,7 @@ public class DeleteWorksheetNoteActionListener implements ActionListener {
         WorksetBusinessLogic logic = WorksetBusinessLogic.get();
         MainPanel frame = MainPanel.get();
         try {
-            WorksheetNote worksheetNote = logic.getCurrentWorksheetNote();
+            WorksheetNote worksheetNote = logic.getCurrentNote();
             if (worksheetNote == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No note is selected!", "Input error",

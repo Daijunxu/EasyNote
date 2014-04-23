@@ -18,34 +18,26 @@ import javax.swing.*;
  */
 public class WorksheetPopupMenu extends JPopupMenu {
 
-    private final JMenuItem newItem;
-    private final JMenuItem editItem;
-    private final JMenuItem deleteItem;
-    private final JMenuItem moveUpItem;
-    private final JMenuItem moveDownItem;
-    private final JMenuItem moveToTopItem;
-    private final JMenuItem moveToBottomItem;
-
-    private final WorksetBusinessLogic logic = WorksetBusinessLogic.get();
-
     /**
      * Creates an instance of {@code WorksheetPopupMenu}.
      */
     public WorksheetPopupMenu() {
-        newItem = new JMenuItem("New");
+        WorksetBusinessLogic logic = WorksetBusinessLogic.get();
+
+        JMenuItem newItem = new JMenuItem("New");
         newItem.addActionListener(new NewWorksheetActionListener());
-        editItem = new JMenuItem("Edit");
+        JMenuItem editItem = new JMenuItem("Edit");
         editItem.addActionListener(new EditWorksheetActionListener());
-        deleteItem = new JMenuItem("Delete");
+        JMenuItem deleteItem = new JMenuItem("Delete");
         deleteItem.addActionListener(new DeleteWorksheetActionListener());
 
-        moveUpItem = new JMenuItem("Move up");
+        JMenuItem moveUpItem = new JMenuItem("Move up");
         moveUpItem.addActionListener(new MoveWorksheetUpActionListener());
-        moveDownItem = new JMenuItem("Move down");
+        JMenuItem moveDownItem = new JMenuItem("Move down");
         moveDownItem.addActionListener(new MoveWorksheetDownActionListener());
-        moveToTopItem = new JMenuItem("Move to top");
+        JMenuItem moveToTopItem = new JMenuItem("Move to top");
         moveToTopItem.addActionListener(new MoveWorksheetToTopActionListener());
-        moveToBottomItem = new JMenuItem("Move to bottom");
+        JMenuItem moveToBottomItem = new JMenuItem("Move to bottom");
         moveToBottomItem.addActionListener(new MoveWorksheetToBottomActionListener());
 
         if (logic.getCurrentWorksheet() == null) {

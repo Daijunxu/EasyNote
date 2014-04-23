@@ -1,4 +1,4 @@
-package notes.gui.main.event;
+package notes.gui.main.event.mouse;
 
 import notes.businesslogic.ArticleBusinessLogic;
 import notes.businesslogic.BookBusinessLogic;
@@ -52,14 +52,14 @@ public class NoteListMouseListener extends MouseAdapter {
         if (systemMode.equals(SystemMode.WORKSET) && WorksetBusinessLogic.get().getCurrentWorkset() != null
                 && WorksetBusinessLogic.get().getCurrentWorksheet() != null && WorksetBusinessLogic.get().getWorksheetNoteDAO() != null) {
             new EditWorksheetNoteDialog(WorksetBusinessLogic.get().getCurrentWorkset(),
-                    WorksetBusinessLogic.get().getCurrentWorksheet(), WorksetBusinessLogic.get().getCurrentWorksheetNote());
+                    WorksetBusinessLogic.get().getCurrentWorksheet(), WorksetBusinessLogic.get().getCurrentNote());
         } else if (systemMode.equals(SystemMode.BOOK) && BookBusinessLogic.get().getCurrentBook() != null
-                && BookBusinessLogic.get().getCurrentChapter() != null && BookBusinessLogic.get().getCurrentBookNote() != null) {
+                && BookBusinessLogic.get().getCurrentChapter() != null && BookBusinessLogic.get().getCurrentNote() != null) {
             new EditBookNoteDialog(BookBusinessLogic.get().getCurrentBook(), BookBusinessLogic.get().getCurrentChapter(),
-                    BookBusinessLogic.get().getCurrentBookNote());
+                    BookBusinessLogic.get().getCurrentNote());
         } else if (systemMode.equals(SystemMode.ARTICLE) && ArticleBusinessLogic.get().getCurrentArticle() != null
-                && ArticleBusinessLogic.get().getCurrentArticleNote() != null) {
-            new EditArticleNoteDialog(ArticleBusinessLogic.get().getCurrentArticle(), ArticleBusinessLogic.get().getCurrentArticleNote());
+                && ArticleBusinessLogic.get().getCurrentNote() != null) {
+            new EditArticleNoteDialog(ArticleBusinessLogic.get().getCurrentArticle(), ArticleBusinessLogic.get().getCurrentNote());
         }
     }
 

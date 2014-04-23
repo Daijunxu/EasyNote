@@ -2,10 +2,10 @@ package notes.businesslogic;
 
 import lombok.Getter;
 import lombok.Setter;
-import notes.dao.impl.BookNoteDAO;
 import notes.businessobjects.book.Book;
 import notes.businessobjects.book.BookNote;
 import notes.businessobjects.book.Chapter;
+import notes.dao.impl.BookNoteDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +13,10 @@ import java.util.TreeMap;
 
 /**
  * The object that stores temporary data for the front end and provides access to DAO component.
- *
+ * <p/>
  * Author: Rui Du
  */
-public class BookBusinessLogic {
+public class BookBusinessLogic extends AbstractDocumentBusinessLogic {
 
     /**
      * The single instance of BookBusinessLogic.
@@ -44,7 +44,7 @@ public class BookBusinessLogic {
      */
     @Getter
     @Setter
-    private BookNote currentBookNote;
+    private BookNote currentNote;
 
     /**
      * Constructs an instance of {@code BookBusinessLogic}.
@@ -68,7 +68,7 @@ public class BookBusinessLogic {
     public void clearAllTemporaryData() {
         currentBook = null;
         currentChapter = null;
-        currentBookNote = null;
+        currentNote = null;
     }
 
     /**
@@ -76,7 +76,7 @@ public class BookBusinessLogic {
      */
     public void clearTemporaryDataWhenChapterChanged() {
         currentChapter = null;
-        currentBookNote = null;
+        currentNote = null;
     }
 
     /**
@@ -101,8 +101,8 @@ public class BookBusinessLogic {
         }
 
         if (noteId != null) {
-            // Update currentBookNote.
-            currentBookNote = (BookNote) (bookNoteDAO.findNoteById(noteId));
+            // Update currentNote.
+            currentNote = (BookNote) (bookNoteDAO.findNoteById(noteId));
         }
     }
 
@@ -127,9 +127,12 @@ public class BookBusinessLogic {
      */
     public List<BookNote> getNotesListForCurrentChapter() {
         List<BookNote> notesList = new ArrayList<BookNote>();
+
+        // To keep notes in the order of the current chapter.
         for (Long bookNoteId : currentChapter.getNotesList()) {
             notesList.add((BookNote) bookNoteDAO.findNoteById(bookNoteId));
         }
+
         return notesList;
     }
 
@@ -151,13 +154,13 @@ public class BookBusinessLogic {
         return index;
     }
 
-    /**
-     * Gets the index of the given note in the current chapter.
-     *
-     * @param noteIdToFind The ID of the note to find.
-     * @return int The index of the note.
-     */
+    @Override
     public int getIndexForNote(Long noteIdToFind) {
         return currentChapter.getNotesList().indexOf(noteIdToFind);
+    }
+
+    @Override
+    protected List<Long> getCurrentNoteList() {
+        return currentChapter.getNotesList();
     }
 }

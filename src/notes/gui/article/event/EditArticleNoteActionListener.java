@@ -26,13 +26,13 @@ public class EditArticleNoteActionListener implements ActionListener {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No article is selected!", "Input error",
                         JOptionPane.ERROR_MESSAGE);
-            } else if (logic.getCurrentArticleNote() == null) {
+            } else if (logic.getCurrentNote() == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No note is selected!", "Input error",
                         JOptionPane.ERROR_MESSAGE);
             } else {
                 SoundFactory.playPopup();
-                new EditArticleNoteDialog(logic.getCurrentArticle(), logic.getCurrentArticleNote());
+                new EditArticleNoteDialog(logic.getCurrentArticle(), logic.getCurrentNote());
             }
         } catch (Exception e) {
             e.printStackTrace();

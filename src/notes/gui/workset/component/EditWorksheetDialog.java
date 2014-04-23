@@ -48,9 +48,9 @@ public class EditWorksheetDialog extends JDialog {
 
             if (cachedWorksheet != null) {
                 // Update the worksheet and note panel.
-                if (logic.getCurrentWorksheetNote() != null) {
+                if (logic.getCurrentNote() != null) {
                     frame.updateWorksetPanel(logic.getCurrentWorkset().getDocumentId(), cachedWorksheet.getWorksheetId(),
-                            logic.getCurrentWorksheetNote().getNoteId());
+                            logic.getCurrentNote().getNoteId());
                 } else {
                     frame.updateWorksetPanel(logic.getCurrentWorkset().getDocumentId(), cachedWorksheet.getWorksheetId(),
                             null);

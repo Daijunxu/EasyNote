@@ -2,12 +2,11 @@ package notes.businesslogic;
 
 import lombok.Getter;
 import lombok.Setter;
-import notes.dao.impl.WorksheetNoteDAO;
 import notes.businessobjects.workset.Workset;
 import notes.businessobjects.workset.Worksheet;
 import notes.businessobjects.workset.WorksheetNote;
+import notes.dao.impl.WorksheetNoteDAO;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +18,7 @@ import java.util.List;
  * Date: 10/1/13
  * Time: 12:59 AM
  */
-public class WorksetBusinessLogic implements Serializable {
+public class WorksetBusinessLogic extends AbstractDocumentBusinessLogic {
 
     /**
      * The single instance of WorksetBusinessLogic.
@@ -47,7 +46,7 @@ public class WorksetBusinessLogic implements Serializable {
      */
     @Getter
     @Setter
-    private WorksheetNote currentWorksheetNote;
+    private WorksheetNote currentNote;
 
     /**
      * Constructs an instance of {@code WorksetBusinessLogic}.
@@ -71,7 +70,7 @@ public class WorksetBusinessLogic implements Serializable {
     public void clearAllTemporaryData() {
         currentWorkset = null;
         currentWorksheet = null;
-        currentWorksheetNote = null;
+        currentNote = null;
     }
 
     /**
@@ -79,7 +78,7 @@ public class WorksetBusinessLogic implements Serializable {
      */
     public void clearTemporaryDataWhenWorksheetChanged() {
         currentWorksheet = null;
-        currentWorksheetNote = null;
+        currentNote = null;
     }
 
     /**
@@ -104,8 +103,8 @@ public class WorksetBusinessLogic implements Serializable {
         }
 
         if (noteId != null) {
-            // Update currentWorksheetNote.
-            currentWorksheetNote = (WorksheetNote) (worksheetNoteDAO.findNoteById(noteId));
+            // Update currentNote.
+            currentNote = (WorksheetNote) (worksheetNoteDAO.findNoteById(noteId));
         }
     }
 
@@ -116,9 +115,12 @@ public class WorksetBusinessLogic implements Serializable {
      */
     public List<WorksheetNote> getNotesListForCurrentWorksheet() {
         List<WorksheetNote> worksheetNotesList = new ArrayList<WorksheetNote>();
+
+        // To keep notes in the order of the current worksheet.
         for (Long worksheetNoteId : currentWorksheet.getNotesList()) {
             worksheetNotesList.add((WorksheetNote) worksheetNoteDAO.findNoteById(worksheetNoteId));
         }
+
         return worksheetNotesList;
     }
 
@@ -140,12 +142,7 @@ public class WorksetBusinessLogic implements Serializable {
         return index;
     }
 
-    /**
-     * Gets the index of the given note in the current worksheet.
-     *
-     * @param noteIdToFind The ID of the note to find.
-     * @return int The index of the note.
-     */
+    @Override
     public int getIndexForNote(Long noteIdToFind) {
         return currentWorksheet.getNotesList().indexOf(noteIdToFind);
     }
@@ -180,7 +177,6 @@ public class WorksetBusinessLogic implements Serializable {
         List<Long> worksheetIdsList = currentWorkset.getWorksheetIdsList();
 
         for (int i = index; i > 0; i--) {
-            System.out.println(i);
             Collections.swap(worksheetIdsList, i, i - 1);
         }
     }
@@ -191,12 +187,16 @@ public class WorksetBusinessLogic implements Serializable {
         List<Long> worksheetIdsList = currentWorkset.getWorksheetIdsList();
 
         for (int i = index; i < worksheetIdsList.size() - 1; i++) {
-            System.out.println(i);
             Collections.swap(worksheetIdsList, i, i + 1);
         }
     }
 
     private int getNumberOfWorksheets() {
         return currentWorkset.getWorksheetIdsList().size();
+    }
+
+    @Override
+    protected List<Long> getCurrentNoteList() {
+        return currentWorksheet.getNotesList();
     }
 }

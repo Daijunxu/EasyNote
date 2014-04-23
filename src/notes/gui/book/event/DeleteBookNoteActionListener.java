@@ -24,7 +24,7 @@ public class DeleteBookNoteActionListener implements ActionListener {
         BookBusinessLogic logic = BookBusinessLogic.get();
         MainPanel frame = MainPanel.get();
         try {
-            BookNote bookNote = logic.getCurrentBookNote();
+            BookNote bookNote = logic.getCurrentNote();
             if (bookNote == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No note is selected!", "Input error",

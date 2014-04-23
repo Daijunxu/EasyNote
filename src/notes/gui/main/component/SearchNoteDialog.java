@@ -6,8 +6,8 @@ import notes.businesslogic.WorksetBusinessLogic;
 import notes.businessobjects.Document;
 import notes.businessobjects.Note;
 import notes.dao.impl.DocumentNoteDAO;
-import notes.gui.main.event.SearchNoteDialogWindowListener;
-import notes.gui.main.event.SearchNoteListMouseListener;
+import notes.gui.main.event.search.SearchNoteDialogWindowListener;
+import notes.gui.main.event.search.SearchNoteListMouseListener;
 import notes.utils.EntityHelper;
 import notes.utils.SoundFactory;
 

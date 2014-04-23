@@ -10,7 +10,6 @@ import notes.data.cache.CacheDelegate;
 
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -125,7 +124,6 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
             for (Long noteId : worksheet.getNotesList()) {
                 notesList.add((WorksheetNote) CACHE.getNoteCache().find(noteId));
             }
-            Collections.sort(notesList);
             noteMapByWorksheets.put(worksheet.getWorksheetId(), notesList);
         }
         return noteMapByWorksheets;
@@ -141,7 +139,6 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
                 noteList.add(CACHE.getNoteCache().find(noteId));
             }
         }
-        Collections.sort(noteList);
         return noteList;
     }
 

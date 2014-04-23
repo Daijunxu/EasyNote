@@ -84,7 +84,7 @@ public class EditWorksheetNoteDialog extends JDialog {
             WorksheetNote updatedNote = (WorksheetNote) dao.updateNote(newNote);
 
             // Update current note.
-            logic.setCurrentWorksheetNote(updatedNote);
+            logic.setCurrentNote(updatedNote);
 
             // Update the note panel.
             if (frame.isSearchMode()) {

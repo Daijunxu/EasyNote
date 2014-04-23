@@ -1,4 +1,4 @@
-package notes.gui.main.event;
+package notes.gui.main.event.document;
 
 import notes.gui.main.component.OpenDocumentDialog;
 import notes.utils.SoundFactory;

@@ -24,7 +24,7 @@ public class DeleteArticleNoteActionListener implements ActionListener {
         ArticleBusinessLogic logic = ArticleBusinessLogic.get();
         MainPanel frame = MainPanel.get();
         try {
-            ArticleNote articleNote = logic.getCurrentArticleNote();
+            ArticleNote articleNote = logic.getCurrentNote();
             if (articleNote == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No note is selected!", "Input error",

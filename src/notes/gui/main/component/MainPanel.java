@@ -39,17 +39,17 @@ import notes.gui.book.event.NewBookActionListener;
 import notes.gui.book.event.NewBookNoteActionListener;
 import notes.gui.book.event.NewChapterActionListener;
 import notes.gui.main.event.AboutActionListener;
-import notes.gui.main.event.CloseDocumentEventListener;
-import notes.gui.main.event.IndexListMouseListener;
+import notes.gui.main.event.document.CloseDocumentEventListener;
+import notes.gui.main.event.mouse.IndexListMouseListener;
 import notes.gui.main.event.MainPanelComponentListener;
 import notes.gui.main.event.MainPanelWindowListener;
 import notes.gui.main.event.MainPanelWindowStateListener;
-import notes.gui.main.event.NoteListMouseListener;
-import notes.gui.main.event.NoteListSelectionListener;
-import notes.gui.main.event.OpenDocumentActionListener;
+import notes.gui.main.event.mouse.NoteListMouseListener;
+import notes.gui.main.event.note.NoteListSelectionListener;
+import notes.gui.main.event.document.OpenDocumentActionListener;
 import notes.gui.main.event.OpenPreferencesActionListener;
 import notes.gui.main.event.SaveAllActionListener;
-import notes.gui.main.event.SearchNoteActionListener;
+import notes.gui.main.event.search.SearchNoteActionListener;
 import notes.gui.workset.component.WorksheetListCellRenderer;
 import notes.gui.workset.component.WorksheetNoteListCellRenderer;
 import notes.gui.workset.event.DeleteWorksetActionListener;
@@ -774,8 +774,8 @@ public class MainPanel extends JFrame {
         notesList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         notesList.addListSelectionListener(new NoteListSelectionListener());
         notesList.addMouseListener(new NoteListMouseListener());
-        if (articleHome.getCurrentArticleNote() != null) {
-            notesList.setSelectedValue(articleHome.getCurrentArticleNote(), false);
+        if (articleHome.getCurrentNote() != null) {
+            notesList.setSelectedValue(articleHome.getCurrentNote(), false);
         }
         JScrollPane notesScrollPane = new JScrollPane(notesList);
         notesScrollPane.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));

@@ -4,7 +4,6 @@ import notes.businesslogic.WorksetBusinessLogic;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,18 +23,9 @@ public class MoveWorksheetToBottomActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-        try {
-            if (logic.getCurrentWorkset() == null) {
-                SoundFactory.playError();
-                JOptionPane.showMessageDialog(null, "No workset is selected!", "Input error",
-                        JOptionPane.ERROR_MESSAGE);
-            } else {
-                WorksetBusinessLogic.get().moveCurrentWorksheetToBottom();
-                MainPanel.get().updateWorksetPanel(logic.getCurrentWorkset().getDocumentId(),
-                        logic.getCurrentWorksheet().getWorksheetId(), null);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        logic.moveCurrentWorksheetToBottom();
+        MainPanel.get().updateWorksetPanel(logic.getCurrentWorkset().getDocumentId(),
+                logic.getCurrentWorksheet().getWorksheetId(), null);
+        SoundFactory.playNavigation();
     }
 }

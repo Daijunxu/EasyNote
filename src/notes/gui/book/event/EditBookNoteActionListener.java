@@ -28,12 +28,12 @@ public class EditBookNoteActionListener implements ActionListener {
             } else if (logic.getCurrentChapter() == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No chapter is selected!", "Input error", JOptionPane.ERROR_MESSAGE);
-            } else if (logic.getCurrentBookNote() == null) {
+            } else if (logic.getCurrentNote() == null) {
                 SoundFactory.playError();
                 JOptionPane.showMessageDialog(null, "No note is selected!", "Input error", JOptionPane.ERROR_MESSAGE);
             } else {
                 SoundFactory.playPopup();
-                new EditBookNoteDialog(logic.getCurrentBook(), logic.getCurrentChapter(), logic.getCurrentBookNote());
+                new EditBookNoteDialog(logic.getCurrentBook(), logic.getCurrentChapter(), logic.getCurrentNote());
             }
         } catch (Exception e) {
             e.printStackTrace();

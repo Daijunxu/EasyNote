@@ -7,14 +7,15 @@ import notes.businessobjects.article.Article;
 import notes.businessobjects.article.ArticleNote;
 import notes.dao.impl.ArticleNoteDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The object that stores temporary data for the front end and provides access to DAO component.
- *
+ * <p/>
  * Author: Rui Du
  */
-public class ArticleBusinessLogic {
+public class ArticleBusinessLogic extends AbstractDocumentBusinessLogic {
 
     /**
      * The single instance of ArticleBusinessLogic.
@@ -36,7 +37,7 @@ public class ArticleBusinessLogic {
      */
     @Getter
     @Setter
-    private ArticleNote currentArticleNote;
+    private ArticleNote currentNote;
 
     /**
      * Constructs an instance of {@code ArticleBusinessLogic}.
@@ -59,7 +60,7 @@ public class ArticleBusinessLogic {
      */
     public void clearAllTemporaryData() {
         currentArticle = null;
-        currentArticleNote = null;
+        currentNote = null;
     }
 
     /**
@@ -78,8 +79,8 @@ public class ArticleBusinessLogic {
         }
 
         if (noteId != null) {
-            // Update currentArticleNote.
-            currentArticleNote = (ArticleNote) (articleNoteDAO.findNoteById(noteId));
+            // Update currentNote.
+            currentNote = (ArticleNote) (articleNoteDAO.findNoteById(noteId));
         }
     }
 
@@ -89,16 +90,23 @@ public class ArticleBusinessLogic {
      * @return {@code List} The list of notes for the current article.
      */
     public List<Note> getAllNotesForCurrentArticle() {
-        return articleNoteDAO.findAllNotesByDocumentId(currentArticle.getDocumentId());
+        List<Note> allNotes = new ArrayList<Note>();
+
+        // To keep notes in the order of the current article.
+        for (Long noteId : currentArticle.getNotesList()) {
+            allNotes.add(articleNoteDAO.findNoteById(noteId));
+        }
+
+        return allNotes;
     }
 
-    /**
-     * Gets the index of the given note in the current article.
-     *
-     * @param noteIdToFind The ID of the note to find.
-     * @return int The index of the note.
-     */
+    @Override
     public int getIndexForNote(Long noteIdToFind) {
         return currentArticle.getNotesList().indexOf(noteIdToFind);
+    }
+
+    @Override
+    protected List<Long> getCurrentNoteList() {
+        return currentArticle.getNotesList();
     }
 }

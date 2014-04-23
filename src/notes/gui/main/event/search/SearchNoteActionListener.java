@@ -1,4 +1,4 @@
-package notes.gui.main.event;
+package notes.gui.main.event.search;
 
 import notes.gui.main.component.MainPanel;
 import notes.gui.main.component.SearchNoteDialog;

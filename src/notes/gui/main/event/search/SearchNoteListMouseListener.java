@@ -1,4 +1,4 @@
-package notes.gui.main.event;
+package notes.gui.main.event.search;
 
 import notes.dao.impl.DocumentNoteDAO;
 import notes.businessobjects.Document;

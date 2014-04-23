@@ -85,7 +85,7 @@ public class EditArticleDialog extends JDialog {
                 dao.updateDocument(updatedArticle);
 
                 // Update the note panel.
-                frame.setArticlePanel(logic.getCurrentArticle(), logic.getCurrentArticleNote().getNoteId());
+                frame.setArticlePanel(logic.getCurrentArticle(), logic.getCurrentNote().getNoteId());
 
                 SoundFactory.playUpdate();
                 setVisible(false);

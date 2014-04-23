@@ -80,7 +80,7 @@ public class EditBookNoteDialog extends JDialog {
             BookNote updatedNote = (BookNote) dao.updateNote(newNote);
 
             // Update current note.
-            logic.setCurrentBookNote(updatedNote);
+            logic.setCurrentNote(updatedNote);
 
             // Update the note panel.
             if (frame.isSearchMode()) {

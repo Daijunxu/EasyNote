@@ -10,7 +10,6 @@ import notes.data.cache.CacheDelegate;
 
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -120,7 +119,6 @@ public class BookNoteDAO extends DocumentNoteDAO {
             for (Long noteId : chapter.getNotesList()) {
                 notesList.add((BookNote) CACHE.getNoteCache().find(noteId));
             }
-            Collections.sort(notesList);
             noteMapByChapters.put(chapter.getChapterId(), notesList);
         }
         return noteMapByChapters;
@@ -136,7 +134,6 @@ public class BookNoteDAO extends DocumentNoteDAO {
                 noteList.add(CACHE.getNoteCache().find(noteId));
             }
         }
-        Collections.sort(noteList);
         return noteList;
     }
 

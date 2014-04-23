@@ -28,24 +28,24 @@ public class MainPanelComponentListener implements ComponentListener {
 
         if (currentMode.equals(SystemMode.WORKSET)) {
             WorksetBusinessLogic worksetBusinessLogic = WorksetBusinessLogic.get();
-            if (worksetBusinessLogic.getCurrentWorksheetNote() != null) {
+            if (worksetBusinessLogic.getCurrentNote() != null) {
                 mainPanel.updateWorksheetNotePanel(worksetBusinessLogic.getCurrentWorksheet(),
-                        worksetBusinessLogic.getCurrentWorksheetNote().getNoteId());
+                        worksetBusinessLogic.getCurrentNote().getNoteId());
             } else {
                 mainPanel.updateWorksheetNotePanel(worksetBusinessLogic.getCurrentWorksheet(), null);
             }
         } else if (currentMode.equals(SystemMode.BOOK)) {
             BookBusinessLogic bookBusinessLogic = BookBusinessLogic.get();
-            if (bookBusinessLogic.getCurrentBookNote() != null) {
+            if (bookBusinessLogic.getCurrentNote() != null) {
                 mainPanel.updateBookNotePanel(bookBusinessLogic.getCurrentChapter(),
-                        bookBusinessLogic.getCurrentBookNote().getNoteId());
+                        bookBusinessLogic.getCurrentNote().getNoteId());
             } else {
                 mainPanel.updateBookNotePanel(bookBusinessLogic.getCurrentChapter(), null);
             }
         } else if (currentMode.equals(SystemMode.ARTICLE)) {
             ArticleBusinessLogic articleBusinessLogic = ArticleBusinessLogic.get();
-            if (articleBusinessLogic.getCurrentArticleNote() != null) {
-                mainPanel.updateArticleNotePanel(articleBusinessLogic.getCurrentArticleNote().getNoteId());
+            if (articleBusinessLogic.getCurrentNote() != null) {
+                mainPanel.updateArticleNotePanel(articleBusinessLogic.getCurrentNote().getNoteId());
             } else {
                 mainPanel.updateArticleNotePanel(null);
             }

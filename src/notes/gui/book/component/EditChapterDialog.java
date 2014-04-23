@@ -59,9 +59,9 @@ public class EditChapterDialog extends JDialog {
 
             if (cachedChapter != null) {
                 // Update the chapter and note panel.
-                if (logic.getCurrentBookNote() != null) {
+                if (logic.getCurrentNote() != null) {
                     frame.updateBookPanel(logic.getCurrentBook().getDocumentId(), cachedChapter.getChapterId(),
-                            logic.getCurrentBookNote().getNoteId());
+                            logic.getCurrentNote().getNoteId());
                 } else {
                     frame.updateBookPanel(logic.getCurrentBook().getDocumentId(), cachedChapter.getChapterId(), null);
                 }

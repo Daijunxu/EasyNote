@@ -1,4 +1,4 @@
-package notes.gui.main.event;
+package notes.gui.main.event.mouse;
 
 import notes.businessobjects.SystemMode;
 import notes.gui.book.component.ChapterPopupMenu;

@@ -8,7 +8,6 @@ import notes.dao.DuplicateRecordException;
 import notes.data.cache.CacheDelegate;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -82,7 +81,6 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
         for (Long noteId : article.getNotesList()) {
             noteList.add(CACHE.getNoteCache().find(noteId));
         }
-        Collections.sort(noteList);
         return noteList;
     }
 

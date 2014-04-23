@@ -92,4 +92,5 @@
 [10/12/2013] 16407(152): UI improvements; refactor home objects; add close document menu item.
 [10/12/2013] 15659(152): Refactor searching, main panel and sound effect; hide ID from GUI.
 [10/19/2013] 15690(155): Refactor note input validation; UI improvement.
-[04/09/2014] 15540(157): Add interface for cache component; Large refactor on home beans, DAO and cache components; refactor tests.
+[04/19/2014] 15540(157): Add interface for cache component; Large refactor on home beans, DAO and cache components; refactor tests.
+[04/22/2014] 15878(163): Implement logic to move notes up/down in the collection. Add AbstractDocumentBusinessLogic.
