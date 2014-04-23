@@ -1,5 +1,7 @@
 package notes.data.cache;
 
+import lombok.Getter;
+import lombok.Setter;
 import notes.businessobjects.Tag;
 import notes.dao.DuplicateRecordException;
 import org.dom4j.Element;
@@ -33,6 +35,12 @@ public class TagCache implements Cache<Tag> {
      * The maximum tag ID in the data.
      */
     private Long maxTagId = 0L;
+    /**
+     * A flag indicating whether the data in the cache has been changed.
+     */
+    @Getter
+    @Setter
+    private volatile boolean cacheChanged = false;
 
     /**
      * Constructs an instance of {@code TagCache}. Should only be called by CacheDelegate.
@@ -51,10 +59,8 @@ public class TagCache implements Cache<Tag> {
         return instance;
     }
 
-    /**
-     * Removes all data stored in the tag cache.
-     */
-    public void clear() {
+    @Override
+    public void initialize() {
         this.tagIdMap.clear();
         this.tagTextMap.clear();
         this.maxTagId = Long.MIN_VALUE;
@@ -80,7 +86,7 @@ public class TagCache implements Cache<Tag> {
     @Override
     public TagCache buildFromXMLElement(Element element) {
         // Clear data in the tag cache.
-        clear();
+        initialize();
 
         for (Element tagElement : element.elements()) {
             Tag newTag = new Tag().buildFromXMLElement(tagElement);
@@ -122,6 +128,7 @@ public class TagCache implements Cache<Tag> {
             maxTagId = newTag.getTagId();
         }
 
+        cacheChanged = true;
         return newTag;
     }
 
@@ -130,6 +137,8 @@ public class TagCache implements Cache<Tag> {
         Tag tag = tagIdMap.get(id);
         tagIdMap.remove(id);
         tagTextMap.remove(tag.getTagText());
+
+        cacheChanged = true;
         return tag;
     }
 
@@ -140,6 +149,8 @@ public class TagCache implements Cache<Tag> {
             tagTextMap.remove(updateTag.getTagText());
             updateTag.setTagText(tag.getTagText());
             tagTextMap.put(updateTag.getTagText(), updateTag);
+
+            cacheChanged = true;
             return updateTag;
         }
         return null;

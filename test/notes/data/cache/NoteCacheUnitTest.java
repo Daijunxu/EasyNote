@@ -2,12 +2,17 @@ package notes.data.cache;
 
 import core.EasyNoteUnitTestCase;
 import notes.businessobjects.Note;
+import notes.businessobjects.article.ArticleNote;
+import notes.businessobjects.book.BookNote;
+import notes.businessobjects.workset.WorksheetNote;
+import notes.dao.DuplicateRecordException;
 import org.dom4j.Element;
 import org.junit.Test;
 
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -22,8 +27,8 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
     private final NoteCache noteCache = NoteCache.get();
 
     @Test
-    public void testClear() {
-        noteCache.clear();
+    public void testInitiate() {
+        noteCache.initialize();
         assertNotNull(noteCache);
         assertTrue(noteCache.findAll().isEmpty());
     }
@@ -58,18 +63,42 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
     }
 
     @Test
-    public void testInsertBookNote() {
-        // TODO
+    public void testInsertBookNote() throws DuplicateRecordException {
+        BookNote note = new BookNote();
+        note.setNoteText("New BookNote");
+
+        Note cachedNote = noteCache.insert(note);
+
+        assertNotNull(cachedNote);
+        assertNotNull(cachedNote.getNoteId());
+        assertEquals(note.getNoteText(), cachedNote.getNoteText());
+        assertTrue(noteCache.isCacheChanged());
     }
 
     @Test
-    public void testInsertArticleNote() {
-        // TODO
+    public void testInsertArticleNote() throws DuplicateRecordException {
+        ArticleNote note = new ArticleNote();
+        note.setNoteText("New ArticleNote");
+
+        Note cachedNote = noteCache.insert(note);
+
+        assertNotNull(cachedNote);
+        assertNotNull(cachedNote.getNoteId());
+        assertEquals(note.getNoteText(), cachedNote.getNoteText());
+        assertTrue(noteCache.isCacheChanged());
     }
 
     @Test
-    public void testInsertWorksheetNote() {
-        // TODO
+    public void testInsertWorksheetNote() throws DuplicateRecordException {
+        WorksheetNote note = new WorksheetNote();
+        note.setNoteText("New WorksheetNote");
+
+        Note cachedNote = noteCache.insert(note);
+
+        assertNotNull(cachedNote);
+        assertNotNull(cachedNote.getNoteId());
+        assertEquals(note.getNoteText(), cachedNote.getNoteText());
+        assertTrue(noteCache.isCacheChanged());
     }
 
     @Test
@@ -80,21 +109,46 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
         noteCache.remove(note.getNoteId());
 
         assertNull(noteCache.find(note.getNoteId()));
+        assertTrue(noteCache.isCacheChanged());
     }
 
     @Test
-    public void testUpdateBookNote() {
-        // TODO
+    public void testUpdateBookNote() throws DuplicateRecordException {
+        UnitTestData testData = new UnitTestData();
+        BookNote note = testData.getBookNote();
+        note.setNoteText("Updated BookNote");
+
+        Note cachedNote = noteCache.update(note);
+
+        assertEquals(note.getDocumentId(), cachedNote.getDocumentId());
+        assertEquals(note.getNoteText(), cachedNote.getNoteText());
+        assertTrue(noteCache.isCacheChanged());
     }
 
     @Test
-    public void testUpdateArticleNote() {
-        // TODO
+    public void testUpdateArticleNote() throws DuplicateRecordException {
+        UnitTestData testData = new UnitTestData();
+        ArticleNote note = testData.getArticleNote();
+        note.setNoteText("Updated ArticleNote");
+
+        Note cachedNote = noteCache.update(note);
+
+        assertEquals(note.getDocumentId(), cachedNote.getDocumentId());
+        assertEquals(note.getNoteText(), cachedNote.getNoteText());
+        assertTrue(noteCache.isCacheChanged());
     }
 
     @Test
-    public void testUpdateWorksheetNote() {
-        // TODO
+    public void testUpdateWorksheetNote() throws DuplicateRecordException {
+        UnitTestData testData = new UnitTestData();
+        WorksheetNote note = testData.getWorksheetNote();
+        note.setNoteText("Updated WorksheetNote");
+
+        Note cachedNote = noteCache.update(note);
+
+        assertEquals(note.getDocumentId(), cachedNote.getDocumentId());
+        assertEquals(note.getNoteText(), cachedNote.getNoteText());
+        assertTrue(noteCache.isCacheChanged());
     }
 
     @Test
@@ -105,6 +159,7 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
         Note cachedNote = noteCache.find(note.getNoteId());
 
         assertEquals(note, cachedNote);
+        assertFalse(noteCache.isCacheChanged());
     }
 
     @Test
@@ -118,5 +173,6 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
             assertNotNull(testData.noteMap.get(note.getNoteId()));
             assertEquals(note, testData.noteMap.get(note.getNoteId()));
         }
+        assertFalse(noteCache.isCacheChanged());
     }
 }

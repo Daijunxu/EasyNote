@@ -70,6 +70,16 @@ public class CacheDelegate implements XMLSerializable<CacheDelegate> {
         return instance;
     }
 
+    public boolean isCacheChanged() {
+        return documentCache.isCacheChanged() || noteCache.isCacheChanged() || tagCache.isCacheChanged();
+    }
+
+    public void resetCacheChanged() {
+        documentCache.setCacheChanged(false);
+        noteCache.setCacheChanged(false);
+        tagCache.setCacheChanged(false);
+    }
+
     /**
      * Reads all data into memory from XML file.
      */
@@ -84,6 +94,7 @@ public class CacheDelegate implements XMLSerializable<CacheDelegate> {
             validateXMLData(document);
 
             buildFromXMLElement(document.getRootElement());
+            resetCacheChanged();
         } catch (DocumentException e) {
             CacheDelegate.hasProblem = true;
             e.printStackTrace();

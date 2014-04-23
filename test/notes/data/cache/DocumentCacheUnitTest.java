@@ -2,12 +2,17 @@ package notes.data.cache;
 
 import core.EasyNoteUnitTestCase;
 import notes.businessobjects.Document;
+import notes.businessobjects.article.Article;
+import notes.businessobjects.book.Book;
+import notes.businessobjects.workset.Workset;
+import notes.dao.DuplicateRecordException;
 import org.dom4j.Element;
 import org.junit.Test;
 
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -22,8 +27,8 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
     private final DocumentCache documentCache = DocumentCache.get();
 
     @Test
-    public void testClear() {
-        documentCache.clear();
+    public void testInitiate() {
+        documentCache.initialize();
         assertNotNull(documentCache);
         assertTrue(documentCache.findAll().isEmpty());
     }
@@ -58,18 +63,42 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
     }
 
     @Test
-    public void testInsertBook() {
-        // TODO
+    public void testInsertBook() throws DuplicateRecordException {
+        Book book = new Book();
+        book.setDocumentTitle("New Book");
+
+        Document cachedDocument = documentCache.insert(book);
+
+        assertNotNull(cachedDocument);
+        assertNotNull(cachedDocument.getDocumentId());
+        assertEquals(book.getDocumentTitle(), cachedDocument.getDocumentTitle());
+        assertTrue(documentCache.isCacheChanged());
     }
 
     @Test
-    public void testInsertArticle() {
-        // TODO
+    public void testInsertArticle() throws DuplicateRecordException {
+        Article article = new Article();
+        article.setDocumentTitle("New Article");
+
+        Document cachedDocument = documentCache.insert(article);
+
+        assertNotNull(cachedDocument);
+        assertNotNull(cachedDocument.getDocumentId());
+        assertEquals(article.getDocumentTitle(), cachedDocument.getDocumentTitle());
+        assertTrue(documentCache.isCacheChanged());
     }
 
     @Test
-    public void testInsertWorkset() {
-        // TODO
+    public void testInsertWorkset() throws DuplicateRecordException {
+        Workset workset = new Workset();
+        workset.setDocumentTitle("New Workset");
+
+        Document cachedDocument = documentCache.insert(workset);
+
+        assertNotNull(cachedDocument);
+        assertNotNull(cachedDocument.getDocumentId());
+        assertEquals(workset.getDocumentTitle(), cachedDocument.getDocumentTitle());
+        assertTrue(documentCache.isCacheChanged());
     }
 
     @Test
@@ -80,21 +109,46 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
         documentCache.remove(document.getDocumentId());
 
         assertNull(documentCache.find(document.getDocumentId()));
+        assertTrue(documentCache.isCacheChanged());
     }
 
     @Test
-    public void testUpdateBook() {
-        // TODO
+    public void testUpdateBook() throws DuplicateRecordException {
+        UnitTestData testData = new UnitTestData();
+        Book book = testData.getBook();
+        book.setDocumentTitle("Updated Book");
+
+        Document cachedDocument = documentCache.update(book);
+
+        assertEquals(book.getDocumentId(), cachedDocument.getDocumentId());
+        assertEquals(book.getDocumentTitle(), cachedDocument.getDocumentTitle());
+        assertTrue(documentCache.isCacheChanged());
     }
 
     @Test
-    public void testUpdateArticle() {
-        // TODO
+    public void testUpdateArticle() throws DuplicateRecordException {
+        UnitTestData testData = new UnitTestData();
+        Article article = testData.getArticle();
+        article.setDocumentTitle("Updated Article");
+
+        Document cachedDocument = documentCache.update(article);
+
+        assertEquals(article.getDocumentId(), cachedDocument.getDocumentId());
+        assertEquals(article.getDocumentTitle(), cachedDocument.getDocumentTitle());
+        assertTrue(documentCache.isCacheChanged());
     }
 
     @Test
-    public void testUpdateWorkset() {
-        // TODO
+    public void testUpdateWorkset() throws DuplicateRecordException {
+        UnitTestData testData = new UnitTestData();
+        Workset workset = testData.getWorkset();
+        workset.setDocumentTitle("Updated Workset");
+
+        Document cachedDocument = documentCache.update(workset);
+
+        assertEquals(workset.getDocumentId(), cachedDocument.getDocumentId());
+        assertEquals(workset.getDocumentTitle(), cachedDocument.getDocumentTitle());
+        assertTrue(documentCache.isCacheChanged());
     }
 
     @Test
@@ -105,6 +159,7 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
         Document cachedDocument = documentCache.find(document.getDocumentId());
 
         assertEquals(document, cachedDocument);
+        assertFalse(documentCache.isCacheChanged());
     }
 
     @Test
@@ -118,5 +173,6 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
             assertNotNull(testData.documentMap.get(document.getDocumentId()));
             assertEquals(document, testData.documentMap.get(document.getDocumentId()));
         }
+        assertFalse(documentCache.isCacheChanged());
     }
 }

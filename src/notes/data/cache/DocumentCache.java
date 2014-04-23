@@ -1,5 +1,7 @@
 package notes.data.cache;
 
+import lombok.Getter;
+import lombok.Setter;
 import notes.businessobjects.Document;
 import notes.businessobjects.article.Article;
 import notes.businessobjects.book.Book;
@@ -33,6 +35,12 @@ public class DocumentCache implements Cache<Document> {
      * The maximum document ID in the data.
      */
     private Long maxDocumentId = 0L;
+    /**
+     * A flag indicating whether the data in the cache has been changed.
+     */
+    @Getter
+    @Setter
+    private volatile boolean cacheChanged = false;
 
     /**
      * Constructs an instance of {@code DocumentCache}. Should only be called by CacheDelegate.
@@ -50,10 +58,8 @@ public class DocumentCache implements Cache<Document> {
         return instance;
     }
 
-    /**
-     * Removes all data stored in the document cache.
-     */
-    public void clear() {
+    @Override
+    public void initialize() {
         this.documentMap.clear();
         this.maxDocumentId = Long.MIN_VALUE;
     }
@@ -78,7 +84,7 @@ public class DocumentCache implements Cache<Document> {
     @Override
     public DocumentCache buildFromXMLElement(Element element) {
         // Clear data in the document cache.
-        clear();
+        initialize();
 
         for (Element documentElement : element.elements()) {
             Document newDocument;
@@ -137,6 +143,7 @@ public class DocumentCache implements Cache<Document> {
                 maxDocumentId = newBook.getDocumentId();
             }
 
+            cacheChanged = true;
             return newBook;
         } else if (document instanceof Article) {
             Article newArticle = new Article();
@@ -168,6 +175,7 @@ public class DocumentCache implements Cache<Document> {
                 maxDocumentId = newArticle.getDocumentId();
             }
 
+            cacheChanged = true;
             return newArticle;
         } else if (document instanceof Workset) {
             Workset newWorkset = new Workset();
@@ -195,6 +203,7 @@ public class DocumentCache implements Cache<Document> {
                 maxDocumentId = newWorkset.getDocumentId();
             }
 
+            cacheChanged = true;
             return newWorkset;
         }
 
@@ -205,6 +214,8 @@ public class DocumentCache implements Cache<Document> {
     public Document remove(Long id) {
         Document document = documentMap.get(id);
         documentMap.remove(id);
+
+        cacheChanged = true;
         return document;
     }
 
@@ -230,6 +241,8 @@ public class DocumentCache implements Cache<Document> {
                 } else {
                     cachedBook.setLastUpdatedTime(((Book) document).getLastUpdatedTime());
                 }
+
+                cacheChanged = true;
                 return cachedBook;
             }
         } else if (document instanceof Article) {
@@ -244,6 +257,8 @@ public class DocumentCache implements Cache<Document> {
                 } else {
                     cachedArticle.setLastUpdatedTime(((Article) document).getLastUpdatedTime());
                 }
+
+                cacheChanged = true;
                 return cachedArticle;
             }
         } else if (document instanceof Workset) {
@@ -259,6 +274,8 @@ public class DocumentCache implements Cache<Document> {
                 } else {
                     cachedWorkset.setLastUpdatedTime(((Workset) document).getLastUpdatedTime());
                 }
+
+                cacheChanged = true;
                 return cachedWorkset;
             }
         }

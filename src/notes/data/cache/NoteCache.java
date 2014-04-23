@@ -1,5 +1,7 @@
 package notes.data.cache;
 
+import lombok.Getter;
+import lombok.Setter;
 import notes.businessobjects.Note;
 import notes.businessobjects.article.ArticleNote;
 import notes.businessobjects.book.BookNote;
@@ -33,6 +35,12 @@ public class NoteCache implements Cache<Note> {
      * The maximum note ID in the data.
      */
     private Long maxNoteId = 0L;
+    /**
+     * A flag indicating whether the data in the cache has been changed.
+     */
+    @Getter
+    @Setter
+    private volatile boolean cacheChanged = false;
 
     /**
      * Constructs an instance of {@code NoteCache}. Should only be called by CacheDelegate.
@@ -50,10 +58,8 @@ public class NoteCache implements Cache<Note> {
         return instance;
     }
 
-    /**
-     * Removes all data stored in the note cache.
-     */
-    public void clear() {
+    @Override
+    public void initialize() {
         this.noteMap.clear();
         this.maxNoteId = Long.MIN_VALUE;
     }
@@ -78,7 +84,7 @@ public class NoteCache implements Cache<Note> {
     @Override
     public NoteCache buildFromXMLElement(Element element) {
         // Clear data in the note cache.
-        clear();
+        initialize();
 
         for (Element noteElement : element.elements()) {
             Note newNote;
@@ -127,8 +133,9 @@ public class NoteCache implements Cache<Note> {
             if (maxNoteId < newNote.getNoteId()) {
                 maxNoteId = newNote.getNoteId();
             }
-            return newNote;
 
+            cacheChanged = true;
+            return newNote;
         } else if (note instanceof ArticleNote) {
             ArticleNote newNote = new ArticleNote();
             newNote.setNoteId(noteId);
@@ -147,8 +154,9 @@ public class NoteCache implements Cache<Note> {
             if (maxNoteId < newNote.getNoteId()) {
                 maxNoteId = newNote.getNoteId();
             }
-            return newNote;
 
+            cacheChanged = true;
+            return newNote;
         } else if (note instanceof BookNote) {
             BookNote newNote = new BookNote();
             newNote.setNoteId(noteId);
@@ -168,6 +176,8 @@ public class NoteCache implements Cache<Note> {
             if (maxNoteId < newNote.getNoteId()) {
                 maxNoteId = newNote.getNoteId();
             }
+
+            cacheChanged = true;
             return newNote;
         }
 
@@ -178,6 +188,8 @@ public class NoteCache implements Cache<Note> {
     public Note remove(Long id) {
         Note note = noteMap.get(id);
         noteMap.remove(id);
+
+        cacheChanged = true;
         return note;
     }
 
@@ -191,6 +203,8 @@ public class NoteCache implements Cache<Note> {
                 cachedNote.setTagIds(note.getTagIds());
                 cachedNote.setNoteText(note.getNoteText());
                 cachedNote.setNoteStatus(((WorksheetNote) note).getNoteStatus());
+
+                cacheChanged = true;
                 return cachedNote;
             }
         } else if (note instanceof ArticleNote) {
@@ -199,6 +213,8 @@ public class NoteCache implements Cache<Note> {
                 cachedNote.setDocumentId(note.getDocumentId());
                 cachedNote.setTagIds(note.getTagIds());
                 cachedNote.setNoteText(note.getNoteText());
+
+                cacheChanged = true;
                 return cachedNote;
             }
         } else if (note instanceof BookNote) {
@@ -208,6 +224,8 @@ public class NoteCache implements Cache<Note> {
                 cachedNote.setChapterId(((BookNote) note).getChapterId());
                 cachedNote.setTagIds(note.getTagIds());
                 cachedNote.setNoteText(note.getNoteText());
+
+                cacheChanged = true;
                 return cachedNote;
             }
         }

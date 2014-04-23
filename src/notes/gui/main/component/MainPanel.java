@@ -208,6 +208,18 @@ public class MainPanel extends JFrame {
 
             MainPanel.get().setVisible(true);
             MainPanel.get().setLocation(MainPanel.get().getLocationOnScreen());
+
+            while (true) {
+                try {
+                    Thread.sleep(1000);
+                    if (CacheDelegate.get().isCacheChanged()) {
+                        CacheDelegate.get().resetCacheChanged();
+                        CacheDelegate.get().saveAllCachesToXML();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
     }

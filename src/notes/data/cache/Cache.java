@@ -58,4 +58,16 @@ public interface Cache<T> extends XMLSerializable<Cache> {
      *         Note: the objects in the list is not sorted.
      */
     public List<T> findAll();
+
+    /**
+     * Initialize the cache.
+     */
+    public void initialize();
+
+    /**
+     * To tell if the data stored in the cache has been changed.
+     *
+     * @return true if the data in the cache has been changed, false otherwise.
+     */
+    public boolean isCacheChanged();
 }
