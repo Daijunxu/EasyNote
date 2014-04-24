@@ -94,3 +94,4 @@
 [10/19/2013] 15690(155): Refactor note input validation; UI improvement.
 [04/19/2014] 15540(157): Add interface for cache component; Large refactor on home beans, DAO and cache components; refactor tests.
 [04/22/2014] 15878(163): Implement logic to move notes up/down in the collection. Add AbstractDocumentBusinessLogic.
+[04/24/2014] 16141(164): Real time data saving instead of saving on demand. Deprecate save all. Support status on worksheet.

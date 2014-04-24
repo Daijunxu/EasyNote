@@ -62,6 +62,9 @@ public class WorksheetUnitTest extends EasyNoteUnitTestCase {
         assertEquals(Long.parseLong(worksheetElement.attributeValue("WorksheetId")), testWorksheet.getWorksheetId().longValue());
         assertEquals(worksheetElement.attributeValue("WorksheetTitle"), testWorksheet.getWorksheetTitle());
         assertEquals(worksheetElement.attributeValue("NotesList"), EntityHelper.buildEntityStrFromList(testWorksheet.getNotesList()));
+        assertEquals(Long.parseLong(worksheetElement.attributeValue("CreatedTime")), testWorksheet.getCreatedTime().getTime());
+        assertEquals(Long.parseLong(worksheetElement.attributeValue("LastUpdatedTime")), testWorksheet.getCreatedTime().getTime());
+        assertEquals(WorksheetStatus.values()[Integer.parseInt(worksheetElement.attributeValue("Status"))], testWorksheet.getStatus());
     }
 
     @Test

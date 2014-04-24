@@ -1,8 +1,8 @@
 package notes.gui.workset.component;
 
 import notes.businesslogic.WorksetBusinessLogic;
+import notes.businessobjects.workset.WorksheetNoteStatus;
 import notes.dao.impl.WorksheetNoteDAO;
-import notes.businessobjects.NoteStatus;
 import notes.businessobjects.Tag;
 import notes.businessobjects.workset.Workset;
 import notes.businessobjects.workset.Worksheet;
@@ -63,7 +63,7 @@ public class EditWorksheetNoteDialog extends JDialog {
 
             newNote.setNoteText(TextHelper.processInputText(noteTextField.getText()));
 
-            newNote.setNoteStatus(NoteStatus.values()[noteStatusField.getSelectedIndex()]);
+            newNote.setNoteStatus(WorksheetNoteStatus.values()[noteStatusField.getSelectedIndex()]);
 
             List<Long> updatedTagsList = new ArrayList<Long>();
             for (String tagStr : tagsStrList) {
@@ -167,8 +167,8 @@ public class EditWorksheetNoteDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 2;
         c.insets = new Insets(5, 5, 5, 5);
-        for (NoteStatus noteStatus : NoteStatus.values()) {
-            // Note: the order should be the same as defined in NoteStatus.
+        for (WorksheetNoteStatus noteStatus : WorksheetNoteStatus.values()) {
+            // Note: the order should be the same as defined in WorksheetNoteStatus.
             noteStatusField.addItem(noteStatus.getDescription());
         }
         noteStatusField.setSelectedIndex(selectedNote.getNoteStatus().ordinal());

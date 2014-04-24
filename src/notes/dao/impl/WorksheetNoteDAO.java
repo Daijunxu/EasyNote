@@ -159,6 +159,7 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
             cachedWorksheet.setWorksheetTitle(worksheet.getWorksheetTitle());
             cachedWorksheet.setComment(worksheet.getComment());
             cachedWorksheet.setNotesList(worksheet.getNotesList());
+            cachedWorksheet.setStatus(worksheet.getStatus());
             if (cachedWorksheet.getLastUpdatedTime() == null) {
                 cachedWorksheet.setLastUpdatedTime(new Date());
             } else {

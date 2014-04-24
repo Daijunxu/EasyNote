@@ -199,4 +199,9 @@ public class WorksetBusinessLogic extends AbstractDocumentBusinessLogic {
     protected List<Long> getCurrentNoteList() {
         return currentWorksheet.getNotesList();
     }
+
+    public Worksheet getWorksheetByIndex(int index) {
+        Long worksheetId = currentWorkset.getWorksheetIdsList().get(index);
+        return currentWorkset.getWorksheetsMap().get(worksheetId);
+    }
 }

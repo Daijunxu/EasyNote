@@ -1,7 +1,6 @@
 package notes.businessobjects.workset;
 
 import core.EasyNoteUnitTestCase;
-import notes.businessobjects.NoteStatus;
 import notes.utils.EntityHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Element;
@@ -67,7 +66,7 @@ public class WorksheetNoteUnitTest extends EasyNoteUnitTestCase {
                 testWorksheetNote.getWorksheetId().longValue());
         assertEquals(EntityHelper.buildIDsList(worksheetNoteElement.attributeValue("TagIds")),
                 testWorksheetNote.getTagIds());
-        assertEquals(NoteStatus.values()[Integer.parseInt(worksheetNoteElement.attributeValue("NoteStatus"))],
+        assertEquals(WorksheetNoteStatus.values()[Integer.parseInt(worksheetNoteElement.attributeValue("NoteStatus"))],
                 testWorksheetNote.getNoteStatus());
         assertEquals(Long.parseLong(worksheetNoteElement.attributeValue("CreatedTime")),
                 testWorksheetNote.getCreatedTime().getTime());

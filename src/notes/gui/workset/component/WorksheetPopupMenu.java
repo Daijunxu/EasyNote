@@ -1,6 +1,7 @@
 package notes.gui.workset.component;
 
 import notes.businesslogic.WorksetBusinessLogic;
+import notes.businessobjects.workset.WorksheetStatus;
 import notes.gui.workset.event.DeleteWorksheetActionListener;
 import notes.gui.workset.event.EditWorksheetActionListener;
 import notes.gui.workset.event.MoveWorksheetDownActionListener;
@@ -8,6 +9,7 @@ import notes.gui.workset.event.MoveWorksheetToBottomActionListener;
 import notes.gui.workset.event.MoveWorksheetToTopActionListener;
 import notes.gui.workset.event.MoveWorksheetUpActionListener;
 import notes.gui.workset.event.NewWorksheetActionListener;
+import notes.gui.workset.event.WorksheetStatusChangedActionListener;
 
 import javax.swing.*;
 
@@ -40,6 +42,9 @@ public class WorksheetPopupMenu extends JPopupMenu {
         JMenuItem moveToBottomItem = new JMenuItem("Move to bottom");
         moveToBottomItem.addActionListener(new MoveWorksheetToBottomActionListener());
 
+        JMenuItem statusChangedItem = new JCheckBoxMenuItem("Completed");
+        statusChangedItem.addActionListener(new WorksheetStatusChangedActionListener());
+
         if (logic.getCurrentWorksheet() == null) {
             editItem.setEnabled(false);
             deleteItem.setEnabled(false);
@@ -55,6 +60,12 @@ public class WorksheetPopupMenu extends JPopupMenu {
             moveToBottomItem.setEnabled(false);
         }
 
+        if (logic.getCurrentWorksheet() == null) {
+            statusChangedItem.setEnabled(false);
+        } else if (WorksheetStatus.COMPLETED.equals(logic.getCurrentWorksheet().getStatus())) {
+            statusChangedItem.setSelected(true);
+        }
+
         add(newItem);
         add(editItem);
         add(deleteItem);
@@ -63,6 +74,8 @@ public class WorksheetPopupMenu extends JPopupMenu {
         add(moveDownItem);
         add(moveToTopItem);
         add(moveToBottomItem);
+        addSeparator();
+        add(statusChangedItem);
     }
 
 

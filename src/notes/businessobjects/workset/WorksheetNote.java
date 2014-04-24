@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import notes.businessobjects.NoteStatus;
 import notes.businessobjects.impl.AbstractNote;
 import notes.utils.EntityHelper;
 import org.dom4j.Element;
@@ -38,7 +37,7 @@ public class WorksheetNote extends AbstractNote {
      */
     @Getter
     @Setter
-    private NoteStatus noteStatus;
+    private WorksheetNoteStatus noteStatus;
 
     /**
      * Constructs an instance of {@code WorksheetNote}.
@@ -52,7 +51,7 @@ public class WorksheetNote extends AbstractNote {
      * @throws IllegalArgumentException
      */
     public WorksheetNote(final Long noteId, final Long documentId, final Long worksheetId,
-                         final List<Long> tagIds, final String noteText, final NoteStatus noteStatus)
+                         final List<Long> tagIds, final String noteText, final WorksheetNoteStatus noteStatus)
             throws IllegalArgumentException {
         this.noteId = noteId;
         this.documentId = documentId;
@@ -91,7 +90,7 @@ public class WorksheetNote extends AbstractNote {
         worksheetId = Long.parseLong(element.attributeValue("WorksheetId"));
         tagIds = EntityHelper.buildIDsList(element.attributeValue("TagIds"));
         noteText = element.getText();
-        noteStatus = NoteStatus.values()[Integer.parseInt(element.attributeValue("NoteStatus"))];
+        noteStatus = WorksheetNoteStatus.values()[Integer.parseInt(element.attributeValue("NoteStatus"))];
         createdTime = new Date(Long.parseLong(element.attributeValue("CreatedTime")));
 
         return this;

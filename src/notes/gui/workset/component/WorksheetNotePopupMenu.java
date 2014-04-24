@@ -2,7 +2,7 @@ package notes.gui.workset.component;
 
 import notes.businesslogic.WorksetBusinessLogic;
 import notes.businessobjects.Note;
-import notes.businessobjects.NoteStatus;
+import notes.businessobjects.workset.WorksheetNoteStatus;
 import notes.gui.main.event.note.MoveNoteDownActionListener;
 import notes.gui.main.event.note.MoveNoteToBottomActionListener;
 import notes.gui.main.event.note.MoveNoteToTopActionListener;
@@ -36,7 +36,7 @@ public class WorksheetNotePopupMenu extends JPopupMenu {
         deleteItem.addActionListener(new DeleteWorksheetNoteActionListener());
 
         JMenu setNoteStatusItem = new JMenu("Set status to");
-        for (NoteStatus noteStatus : NoteStatus.values()) {
+        for (WorksheetNoteStatus noteStatus : WorksheetNoteStatus.values()) {
             JMenuItem noteStatusItem = new JMenuItem(noteStatus.getDescription());
             noteStatusItem.addActionListener(new SetWorksheetNoteStatusActionListener());
             setNoteStatusItem.add(noteStatusItem);

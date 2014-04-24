@@ -2,7 +2,7 @@ package core;
 
 import notes.businessobjects.Document;
 import notes.businessobjects.Note;
-import notes.businessobjects.NoteStatus;
+import notes.businessobjects.workset.WorksheetNoteStatus;
 import notes.businessobjects.Tag;
 import notes.businessobjects.article.Article;
 import notes.businessobjects.article.ArticleNote;
@@ -12,6 +12,7 @@ import notes.businessobjects.book.Chapter;
 import notes.businessobjects.workset.Workset;
 import notes.businessobjects.workset.Worksheet;
 import notes.businessobjects.workset.WorksheetNote;
+import notes.businessobjects.workset.WorksheetStatus;
 import notes.data.cache.CacheDelegate;
 import notes.data.persistence.Property;
 import org.junit.Before;
@@ -87,8 +88,7 @@ public class EasyNoteUnitTestCase {
             document1.setDocumentTitle("Head First Design Patterns");
             document1.setAuthorsList(new ArrayList<String>(Arrays.asList("Eric Freeman",
                     "Elisabeth Freeman")));
-            document1
-                    .setComment("A must read book if you want to learn design patterns! Very easy to read!");
+            document1.setComment("A must read book if you want to learn design patterns! Very easy to read!");
             document1.setEdition(1);
             document1.setPublishedYear(2005);
             document1.setIsbn("978-7-5641-0165-7");
@@ -146,6 +146,7 @@ public class EasyNoteUnitTestCase {
             document3.setAuthorsList(new ArrayList<String>(Arrays.asList("Rui Du")));
             document3.setComment("This is my workset.");
             Map<Long, Worksheet> worksheetsMap = new HashMap<Long, Worksheet>();
+
             Worksheet worksheet1 = new Worksheet();
             worksheet1.setWorksheetId(1L);
             worksheet1.setWorksheetTitle("Worksheet1");
@@ -153,12 +154,16 @@ public class EasyNoteUnitTestCase {
             worksheet1.setCreatedTime(new Date(1341429512312L));
             worksheet1.setLastUpdatedTime(new Date(1341429512312L));
             worksheet1.getNotesList().add(3L);
+            worksheet1.setStatus(WorksheetStatus.ACTIVE);
+
             Worksheet worksheet2 = new Worksheet();
             worksheet2.setWorksheetId(2L);
             worksheet2.setWorksheetTitle("Worksheet2");
             worksheet2.setNotesList(new ArrayList<Long>());
             worksheet2.setCreatedTime(new Date(1341429512312L));
             worksheet2.setLastUpdatedTime(new Date(1341429512312L));
+            worksheet2.setStatus(WorksheetStatus.COMPLETED);
+
             worksheetsMap.put(1L, worksheet1);
             worksheetsMap.put(2L, worksheet2);
             document3.setWorksheetsMap(worksheetsMap);
@@ -176,7 +181,7 @@ public class EasyNoteUnitTestCase {
             note3.setWorksheetId(1L);
             note3.setTagIds(new ArrayList<Long>(Arrays.asList(2L)));
             note3.setNoteText("A note in the worksheet.");
-            note3.setNoteStatus(NoteStatus.COMPLETED);
+            note3.setNoteStatus(WorksheetNoteStatus.COMPLETED);
             note3.setCreatedTime(new Date(1341429578719L));
             noteMap.put(note3.getNoteId(), note3);
         }

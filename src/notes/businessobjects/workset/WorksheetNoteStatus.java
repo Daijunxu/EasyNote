@@ -1,4 +1,4 @@
-package notes.businessobjects;
+package notes.businessobjects.workset;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import java.awt.*;
  * Time: 1:43 AM
  */
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public enum NoteStatus {
+public enum WorksheetNoteStatus {
     NO_ACTION("No Action", null),
     NEED_ACTION("Need Action", new Color(255, 255, 0)),
     WORKING("Working", new Color(51, 153, 255)),
@@ -34,13 +34,13 @@ public enum NoteStatus {
     private final Color noteColor;
 
     /**
-     * Get the NoteStatus object from its description.
+     * Get the WorksheetNoteStatus object from its description.
      *
-     * @param description The description of the NoteStatus object.
-     * @return {@code NoteStatus} The corresponding NoteStatus object.
+     * @param description The description of the WorksheetNoteStatus object.
+     * @return {@code WorksheetNoteStatus} The corresponding WorksheetNoteStatus object.
      */
-    public static NoteStatus getNoteStatusFromDescription(String description) {
-        for (NoteStatus noteStatus : NoteStatus.values()) {
+    public static WorksheetNoteStatus getNoteStatusFromDescription(String description) {
+        for (WorksheetNoteStatus noteStatus : WorksheetNoteStatus.values()) {
             if (noteStatus.getDescription().equals(description)) {
                 return noteStatus;
             }

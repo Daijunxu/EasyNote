@@ -1,14 +1,17 @@
 package notes.gui.workset.component;
 
+import notes.businesslogic.WorksetBusinessLogic;
+import notes.businessobjects.workset.Worksheet;
+import notes.businessobjects.workset.WorksheetStatus;
+
 import javax.swing.*;
 import java.awt.*;
 
 /**
  * Defines the cell renderer for the worksheets' JList.
- *
+ * <p/>
  * Author: Rui Du
  */
-// TODO: Can we reuse the chapter list cell renderer?
 public class WorksheetListCellRenderer extends DefaultListCellRenderer {
     private final String HTML_1 = "<html><body style='width: ";
     private final String HTML_2 = "'>";
@@ -33,8 +36,11 @@ public class WorksheetListCellRenderer extends DefaultListCellRenderer {
         String text = HTML_1 + String.valueOf(width) + HTML_2 + value.toString() + HTML_3;
         JLabel label = (JLabel) super.getListCellRendererComponent(list, text, index, isSelected,
                 cellHasFocus);
-        if (!isSelected) {
-            label.setFont(new Font("Times", Font.BOLD, 14));
+        Worksheet worksheet = WorksetBusinessLogic.get().getWorksheetByIndex(index);
+
+        if (WorksheetStatus.COMPLETED.equals(worksheet.getStatus())) {
+            label.setFont(new Font("Times", Font.PLAIN, 14));
+            label.setForeground(Color.GRAY);
         } else {
             label.setFont(new Font("Times", Font.BOLD, 14));
         }

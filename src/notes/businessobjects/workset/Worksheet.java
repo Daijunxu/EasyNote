@@ -55,17 +55,23 @@ public class Worksheet implements XMLSerializable<Worksheet>, CreatedTimeAware, 
     @Setter
     private List<Long> notesList;
     /**
-     * The create time of this workset.
+     * The create time of this worksheet.
      */
     @Getter
     @Setter
     private Date createdTime;
     /**
-     * The last update time of this workset.
+     * The last update time of this worksheet.
      */
     @Getter
     @Setter
     private Date lastUpdatedTime;
+    /**
+     * The status of this worksheet.
+     */
+    @Getter
+    @Setter
+    private WorksheetStatus status = WorksheetStatus.ACTIVE;
 
     /**
      * {@inheritDoc}
@@ -80,6 +86,7 @@ public class Worksheet implements XMLSerializable<Worksheet>, CreatedTimeAware, 
         workSheetElement.addAttribute("NotesList", EntityHelper.buildEntityStrFromList(notesList));
         workSheetElement.addAttribute("CreatedTime", String.valueOf(createdTime.getTime()));
         workSheetElement.addAttribute("LastUpdatedTime", String.valueOf(lastUpdatedTime.getTime()));
+        workSheetElement.addAttribute("Status", String.valueOf(status.ordinal()));
 
         return workSheetElement;
     }
@@ -95,6 +102,7 @@ public class Worksheet implements XMLSerializable<Worksheet>, CreatedTimeAware, 
         notesList = EntityHelper.buildIDsList(element.attributeValue("NotesList"));
         createdTime = new Date(Long.parseLong(element.attributeValue("CreatedTime")));
         lastUpdatedTime = new Date(Long.parseLong(element.attributeValue("LastUpdatedTime")));
+        status = WorksheetStatus.values()[Integer.parseInt(element.attributeValue("Status"))];
 
         return this;
     }

@@ -5,6 +5,7 @@ import notes.businessobjects.Note;
 import notes.businessobjects.workset.Workset;
 import notes.businessobjects.workset.Worksheet;
 import notes.businessobjects.workset.WorksheetNote;
+import notes.businessobjects.workset.WorksheetStatus;
 import notes.dao.DuplicateRecordException;
 import org.junit.Test;
 
@@ -129,7 +130,7 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         newWorkset.setComment("This workset is not worth reading!");
         newWorkset.setWorksheetsMap(testWorkset.getWorksheetsMap());
         newWorkset.getWorksheetsMap().put(2L, new Worksheet(2L, "Second Worksheet", "New comments", new ArrayList<Long>(),
-                new Date(1341429512312L), new Date(1341429512312L)));
+                new Date(1341429512312L), new Date(1341429512312L), WorksheetStatus.ACTIVE));
         Workset updatedWorkset = (Workset) dao.updateDocument(newWorkset);
 
         assertNotNull(updatedWorkset);
@@ -185,7 +186,7 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         newWorkset.setAuthorsList(new ArrayList<String>(Arrays.asList("Author")));
         newWorkset.setComment("Good workset.");
         Worksheet worksheet1 = new Worksheet(1L, "Worksheet 1", "Some comments", new ArrayList<Long>(), new Date(1341429512312L),
-                new Date(1341429512312L));
+                new Date(1341429512312L), WorksheetStatus.ACTIVE);
         worksheet1.getNotesList().add(1L);
         List<Long> worksheetIdsList = new ArrayList<Long>();
         HashMap<Long, Worksheet> worksheetsMap = new HashMap<Long, Worksheet>();

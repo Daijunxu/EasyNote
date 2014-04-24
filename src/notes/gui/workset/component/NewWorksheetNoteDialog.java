@@ -1,8 +1,8 @@
 package notes.gui.workset.component;
 
 import notes.businesslogic.WorksetBusinessLogic;
+import notes.businessobjects.workset.WorksheetNoteStatus;
 import notes.dao.impl.WorksheetNoteDAO;
-import notes.businessobjects.NoteStatus;
 import notes.businessobjects.Tag;
 import notes.businessobjects.workset.WorksheetNote;
 import notes.gui.main.component.MainPanel;
@@ -73,7 +73,7 @@ public class NewWorksheetNoteDialog extends JDialog {
                 }
             }
 
-            createdWorksheetNote.setNoteStatus(NoteStatus.values()[noteStatusField.getSelectedIndex()]);
+            createdWorksheetNote.setNoteStatus(WorksheetNoteStatus.values()[noteStatusField.getSelectedIndex()]);
             createdWorksheetNote.setTagIds(tagsList);
 
             // Save the created workset note.
@@ -164,7 +164,7 @@ public class NewWorksheetNoteDialog extends JDialog {
         c.gridx = 1;
         c.gridy = 3;
         c.insets = new Insets(5, 5, 5, 5);
-        for (NoteStatus noteStatus : NoteStatus.values()) {
+        for (WorksheetNoteStatus noteStatus : WorksheetNoteStatus.values()) {
             noteStatusField.addItem(noteStatus.getDescription());
         }
         noteStatusField.setSelectedIndex(0); // The default note status is "No Action".

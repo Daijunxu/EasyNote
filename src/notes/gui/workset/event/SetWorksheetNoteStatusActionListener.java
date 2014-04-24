@@ -1,7 +1,7 @@
 package notes.gui.workset.event;
 
 import notes.businesslogic.WorksetBusinessLogic;
-import notes.businessobjects.NoteStatus;
+import notes.businessobjects.workset.WorksheetNoteStatus;
 import notes.businessobjects.workset.WorksheetNote;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
@@ -32,7 +32,7 @@ public class SetWorksheetNoteStatusActionListener implements ActionListener {
                         JOptionPane.ERROR_MESSAGE);
             } else {
                 JMenuItem source = (JMenuItem) event.getSource();
-                NoteStatus statusToSet = NoteStatus.getNoteStatusFromDescription(source.getText());
+                WorksheetNoteStatus statusToSet = WorksheetNoteStatus.getNoteStatusFromDescription(source.getText());
                 currentWorksheetNote.setNoteStatus(statusToSet);
 
                 // Update the note panel.
