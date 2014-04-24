@@ -12,7 +12,6 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -72,7 +71,6 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
         assertNotNull(cachedNote);
         assertNotNull(cachedNote.getNoteId());
         assertEquals(note.getNoteText(), cachedNote.getNoteText());
-        assertTrue(noteCache.isCacheChanged());
     }
 
     @Test
@@ -85,7 +83,6 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
         assertNotNull(cachedNote);
         assertNotNull(cachedNote.getNoteId());
         assertEquals(note.getNoteText(), cachedNote.getNoteText());
-        assertTrue(noteCache.isCacheChanged());
     }
 
     @Test
@@ -98,7 +95,6 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
         assertNotNull(cachedNote);
         assertNotNull(cachedNote.getNoteId());
         assertEquals(note.getNoteText(), cachedNote.getNoteText());
-        assertTrue(noteCache.isCacheChanged());
     }
 
     @Test
@@ -109,7 +105,6 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
         noteCache.remove(note.getNoteId());
 
         assertNull(noteCache.find(note.getNoteId()));
-        assertTrue(noteCache.isCacheChanged());
     }
 
     @Test
@@ -122,7 +117,6 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
 
         assertEquals(note.getDocumentId(), cachedNote.getDocumentId());
         assertEquals(note.getNoteText(), cachedNote.getNoteText());
-        assertTrue(noteCache.isCacheChanged());
     }
 
     @Test
@@ -135,7 +129,6 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
 
         assertEquals(note.getDocumentId(), cachedNote.getDocumentId());
         assertEquals(note.getNoteText(), cachedNote.getNoteText());
-        assertTrue(noteCache.isCacheChanged());
     }
 
     @Test
@@ -148,7 +141,6 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
 
         assertEquals(note.getDocumentId(), cachedNote.getDocumentId());
         assertEquals(note.getNoteText(), cachedNote.getNoteText());
-        assertTrue(noteCache.isCacheChanged());
     }
 
     @Test
@@ -159,7 +151,6 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
         Note cachedNote = noteCache.find(note.getNoteId());
 
         assertEquals(note, cachedNote);
-        assertFalse(noteCache.isCacheChanged());
     }
 
     @Test
@@ -173,6 +164,5 @@ public class NoteCacheUnitTest extends EasyNoteUnitTestCase {
             assertNotNull(testData.noteMap.get(note.getNoteId()));
             assertEquals(note, testData.noteMap.get(note.getNoteId()));
         }
-        assertFalse(noteCache.isCacheChanged());
     }
 }

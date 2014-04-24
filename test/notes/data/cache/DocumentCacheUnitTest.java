@@ -12,7 +12,6 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -72,7 +71,6 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
         assertNotNull(cachedDocument);
         assertNotNull(cachedDocument.getDocumentId());
         assertEquals(book.getDocumentTitle(), cachedDocument.getDocumentTitle());
-        assertTrue(documentCache.isCacheChanged());
     }
 
     @Test
@@ -85,7 +83,6 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
         assertNotNull(cachedDocument);
         assertNotNull(cachedDocument.getDocumentId());
         assertEquals(article.getDocumentTitle(), cachedDocument.getDocumentTitle());
-        assertTrue(documentCache.isCacheChanged());
     }
 
     @Test
@@ -98,7 +95,6 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
         assertNotNull(cachedDocument);
         assertNotNull(cachedDocument.getDocumentId());
         assertEquals(workset.getDocumentTitle(), cachedDocument.getDocumentTitle());
-        assertTrue(documentCache.isCacheChanged());
     }
 
     @Test
@@ -109,7 +105,6 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
         documentCache.remove(document.getDocumentId());
 
         assertNull(documentCache.find(document.getDocumentId()));
-        assertTrue(documentCache.isCacheChanged());
     }
 
     @Test
@@ -122,7 +117,6 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
 
         assertEquals(book.getDocumentId(), cachedDocument.getDocumentId());
         assertEquals(book.getDocumentTitle(), cachedDocument.getDocumentTitle());
-        assertTrue(documentCache.isCacheChanged());
     }
 
     @Test
@@ -135,7 +129,6 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
 
         assertEquals(article.getDocumentId(), cachedDocument.getDocumentId());
         assertEquals(article.getDocumentTitle(), cachedDocument.getDocumentTitle());
-        assertTrue(documentCache.isCacheChanged());
     }
 
     @Test
@@ -148,7 +141,6 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
 
         assertEquals(workset.getDocumentId(), cachedDocument.getDocumentId());
         assertEquals(workset.getDocumentTitle(), cachedDocument.getDocumentTitle());
-        assertTrue(documentCache.isCacheChanged());
     }
 
     @Test
@@ -159,7 +151,6 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
         Document cachedDocument = documentCache.find(document.getDocumentId());
 
         assertEquals(document, cachedDocument);
-        assertFalse(documentCache.isCacheChanged());
     }
 
     @Test
@@ -173,6 +164,5 @@ public class DocumentCacheUnitTest extends EasyNoteUnitTestCase {
             assertNotNull(testData.documentMap.get(document.getDocumentId()));
             assertEquals(document, testData.documentMap.get(document.getDocumentId()));
         }
-        assertFalse(documentCache.isCacheChanged());
     }
 }

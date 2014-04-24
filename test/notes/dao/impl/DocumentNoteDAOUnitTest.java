@@ -34,6 +34,7 @@ public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertNull(CACHE.getTagCache().find(deletedTag.getTagId()));
         assertNull(CACHE.getTagCache().find(deletedTag.getTagText()));
         assertFalse(CACHE.getNoteCache().find(2L).getTagIds().contains(deletedTag.getTagId()));
+        assertTrue(CACHE.isCacheChanged());
     }
 
     @Test
@@ -206,6 +207,7 @@ public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(updatedTag.getTagText(), newTag.getTagText());
         assertNull(CACHE.getTagCache().find(testTag.getTagText()));
         assertNotNull(CACHE.getTagCache().find(updatedTag.getTagText()));
+        assertTrue(CACHE.isCacheChanged());
     }
 
     @Test
@@ -214,6 +216,7 @@ public class DocumentNoteDAOUnitTest extends EasyNoteUnitTestCase {
         Tag savedTag = dao.saveTag(newTag);
         assertEquals(savedTag, CACHE.getTagCache().find(newTag.getTagId()));
         assertNotNull(CACHE.getTagCache().find(newTag.getTagText()));
+        assertTrue(CACHE.isCacheChanged());
     }
 
 }

@@ -46,6 +46,7 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertFalse(cachedWorkset.getWorksheetsMap().isEmpty());
         assertFalse(cachedWorkset.getWorksheetsMap().containsKey(1L));
         assertNull(CACHE.getNoteCache().find(3L));
+        assertTrue(CACHE.isCacheChanged());
     }
 
     @Test
@@ -56,6 +57,7 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertFalse(CACHE.getDocumentCache().findAll().isEmpty());
         assertNull(CACHE.getDocumentCache().find(deleteDocument.getDocumentId()));
         assertNull(CACHE.getNoteCache().find(3L));
+        assertTrue(CACHE.isCacheChanged());
     }
 
     @Test
@@ -73,6 +75,7 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertTrue(updateTimeAfterDelete.after(updateTimeBeforeDelete));
         assertFalse(workset.getWorksheetsMap().get(deleteNote.getWorksheetId()).getNotesList()
                 .contains(deleteNote.getNoteId()));
+        assertTrue(CACHE.isCacheChanged());
     }
 
     @Test
@@ -117,6 +120,7 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(updatedWorksheet, cachedWorkset.getWorksheetsMap().get(updatedWorksheet.getWorksheetId()));
         assertFalse(updatedWorksheet.equals(testWorksheet));
         assertEquals(updatedWorksheet.getWorksheetId(), updateWorksheet.getWorksheetId());
+        assertTrue(CACHE.isCacheChanged());
     }
 
     @Test
@@ -141,6 +145,7 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(testWorkset.getDocumentId(), updatedWorkset.getDocumentId());
         assertEquals(testWorkset.getCreatedTime(), updatedWorkset.getCreatedTime());
         assertTrue(testWorkset.getLastUpdatedTime().compareTo(updatedWorkset.getLastUpdatedTime()) < 0);
+        assertTrue(CACHE.isCacheChanged());
     }
 
     @Test
@@ -163,6 +168,7 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertFalse(updatedWorksheetNote.getWorksheetId().equals(testWorksheetNote.getWorksheetId()));
         assertEquals(testWorksheetNote.getNoteId(), updatedWorksheetNote.getNoteId());
         assertEquals(testWorksheetNote.getCreatedTime(), updatedWorksheetNote.getCreatedTime());
+        assertTrue(CACHE.isCacheChanged());
     }
 
     @Test
@@ -176,6 +182,7 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(savedWorksheet, workset.getWorksheetsMap().get(3L));
         assertNotNull(savedWorksheet.getNotesList());
         assertTrue(savedWorksheet.getNotesList().isEmpty());
+        assertTrue(CACHE.isCacheChanged());
     }
 
     @Test
@@ -199,6 +206,7 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(savedWorkset, CACHE.getDocumentCache().find(newWorkset.getDocumentId()));
         assertNotNull(savedWorkset.getCreatedTime());
         assertNotNull(savedWorkset.getLastUpdatedTime());
+        assertTrue(CACHE.isCacheChanged());
     }
 
     @Test
@@ -216,5 +224,6 @@ public class WorksheetNoteDAOUnitTest extends EasyNoteUnitTestCase {
         Workset workset = (Workset) CACHE.getDocumentCache().find(savedWorksheetNote.getDocumentId());
         Worksheet worksheet = workset.getWorksheetsMap().get(savedWorksheetNote.getWorksheetId());
         assertTrue(worksheet.getNotesList().contains(savedWorksheetNote.getNoteId()));
+        assertTrue(CACHE.isCacheChanged());
     }
 }

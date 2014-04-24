@@ -34,6 +34,7 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertFalse(CACHE.getDocumentCache().findAll().isEmpty());
         assertNull(CACHE.getDocumentCache().find(deleteDocument.getDocumentId()));
         assertNull(CACHE.getNoteCache().find(2L));
+        assertTrue(CACHE.isCacheChanged());
     }
 
     @Test
@@ -45,6 +46,7 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertNull(CACHE.getNoteCache().find(deleteNote.getNoteId()));
         Article article = (Article) CACHE.getDocumentCache().find(deleteNote.getDocumentId());
         assertFalse(article.getNotesList().contains(deleteNote.getNoteId()));
+        assertTrue(CACHE.isCacheChanged());
     }
 
     @Test
@@ -79,6 +81,7 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(testArticle.getDocumentId(), updatedArticle.getDocumentId());
         assertEquals(testArticle.getCreatedTime(), updatedArticle.getCreatedTime());
         assertTrue(testArticle.getLastUpdatedTime().compareTo(updatedArticle.getLastUpdatedTime()) < 0);
+        assertTrue(CACHE.isCacheChanged());
     }
 
     @Test
@@ -99,6 +102,7 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertFalse(updatedArticleNote.getNoteText().equals(testArticleNote.getNoteText()));
         assertEquals(testArticleNote.getNoteId(), updatedArticleNote.getNoteId());
         assertEquals(testArticleNote.getCreatedTime(), updatedArticleNote.getCreatedTime());
+        assertTrue(CACHE.isCacheChanged());
     }
 
     @Test
@@ -114,6 +118,7 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertEquals(savedArticle, CACHE.getDocumentCache().find(newArticle.getDocumentId()));
         assertNotNull(savedArticle.getCreatedTime());
         assertNotNull(savedArticle.getLastUpdatedTime());
+        assertTrue(CACHE.isCacheChanged());
     }
 
     @Test
@@ -129,6 +134,7 @@ public class ArticleNoteDAOUnitTest extends EasyNoteUnitTestCase {
         assertNotNull(savedArticleNote.getCreatedTime());
         Article article = (Article) CACHE.getDocumentCache().find(savedArticleNote.getDocumentId());
         assertTrue(article.getNotesList().contains(savedArticleNote.getNoteId()));
+        assertTrue(CACHE.isCacheChanged());
     }
 
 }

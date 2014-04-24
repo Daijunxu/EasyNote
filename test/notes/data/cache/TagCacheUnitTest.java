@@ -8,7 +8,6 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -77,7 +76,6 @@ public class TagCacheUnitTest extends EasyNoteUnitTestCase {
 
         assertNull(tagCache.find(tag.getTagId()));
         assertNull(tagCache.find(tag.getTagText()));
-        assertTrue(tagCache.isCacheChanged());
     }
 
     @Test
@@ -90,7 +88,6 @@ public class TagCacheUnitTest extends EasyNoteUnitTestCase {
 
         assertEquals(tag.getTagId(), cachedTag.getTagId());
         assertEquals(tag.getTagText(), cachedTag.getTagText());
-        assertTrue(tagCache.isCacheChanged());
     }
 
     @Test
@@ -101,7 +98,6 @@ public class TagCacheUnitTest extends EasyNoteUnitTestCase {
         Tag cachedTag = tagCache.find(tag.getTagId());
 
         assertEquals(tag, cachedTag);
-        assertFalse(tagCache.isCacheChanged());
     }
 
     @Test
@@ -112,7 +108,6 @@ public class TagCacheUnitTest extends EasyNoteUnitTestCase {
         Tag cachedTag = tagCache.find(tag.getTagText());
 
         assertEquals(tag, cachedTag);
-        assertFalse(tagCache.isCacheChanged());
     }
 
     @Test
@@ -126,6 +121,5 @@ public class TagCacheUnitTest extends EasyNoteUnitTestCase {
             assertNotNull(testData.tagIdMap.get(tag.getTagId()));
             assertEquals(tag, testData.tagIdMap.get(tag.getTagId()));
         }
-        assertFalse(tagCache.isCacheChanged());
     }
 }

@@ -49,6 +49,7 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
         // Remove all notes in the worksheet.
         for (Long noteId : cachedWorksheet.getNotesList()) {
             CACHE.getNoteCache().remove(noteId);
+            CACHE.setNoteCacheChanged(true);
         }
 
         // Remove the worksheet.
@@ -57,6 +58,8 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
 
         // Update workset's last updated time.
         cachedWorkset.setLastUpdatedTime(new Date());
+
+        CACHE.setDocumentCacheChanged(true);
     }
 
     @Override
@@ -68,11 +71,14 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
         for (Worksheet worksheet : worksheetsMap.values()) {
             for (Long noteId : worksheet.getNotesList()) {
                 CACHE.getNoteCache().remove(noteId);
+                CACHE.setNoteCacheChanged(true);
             }
         }
 
         // Remove the document in the document cache.
         CACHE.getDocumentCache().remove(cachedWorkset.getDocumentId());
+
+        CACHE.setDocumentCacheChanged(true);
     }
 
     @Override
@@ -86,12 +92,15 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
 
         // Remove the note in the note cache.
         CACHE.getNoteCache().remove(noteId);
+        CACHE.setNoteCacheChanged(true);
 
         // Update worksheet's last updated time.
         worksheet.setLastUpdatedTime(new Date());
 
         // Update workset's last updated time.
         workset.setLastUpdatedTime(new Date());
+
+        CACHE.setDocumentCacheChanged(true);
     }
 
     /**
@@ -182,6 +191,8 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
                 cachedWorkset.setLastUpdatedTime(new Date());
             }
 
+            CACHE.setDocumentCacheChanged(true);
+
             return cachedWorksheet;
         } catch (Exception e) {
             e.printStackTrace();
@@ -196,6 +207,7 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
         Workset workset = (Workset) (CACHE.getDocumentCache().find(note.getDocumentId()));
 
         cachedNote = (WorksheetNote) CACHE.getNoteCache().update(note);
+        CACHE.setNoteCacheChanged(true);
 
         // Update worksheets' notes list.
         if (!oldWorksheetId.equals(((WorksheetNote) note).getWorksheetId())) {
@@ -216,6 +228,8 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
 
         // Update workset's last updated time.
         workset.setLastUpdatedTime(new Date());
+
+        CACHE.setDocumentCacheChanged(true);
 
         return cachedNote;
     }
@@ -254,6 +268,8 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
                 cachedWorkset.setLastUpdatedTime(new Date());
             }
 
+            CACHE.setDocumentCacheChanged(true);
+
             return worksheet;
         } catch (Exception e) {
             e.printStackTrace();
@@ -266,6 +282,7 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
         if (note instanceof WorksheetNote) {
             try {
                 WorksheetNote newNote = (WorksheetNote) CACHE.getNoteCache().insert(note);
+                CACHE.setNoteCacheChanged(true);
 
                 // Add the note ID to corresponding notes list in the worksheet.
                 Workset workset = (Workset) (CACHE.getDocumentCache().find(newNote.getDocumentId()));
@@ -277,6 +294,8 @@ public class WorksheetNoteDAO extends DocumentNoteDAO {
 
                 // Update workset's last updated time.
                 workset.setLastUpdatedTime(new Date());
+
+                CACHE.setDocumentCacheChanged(true);
 
                 return newNote;
             } catch (DuplicateRecordException e) {

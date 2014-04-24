@@ -134,7 +134,6 @@ public class NoteCache implements Cache<Note> {
                 maxNoteId = newNote.getNoteId();
             }
 
-            cacheChanged = true;
             return newNote;
         } else if (note instanceof ArticleNote) {
             ArticleNote newNote = new ArticleNote();
@@ -155,7 +154,6 @@ public class NoteCache implements Cache<Note> {
                 maxNoteId = newNote.getNoteId();
             }
 
-            cacheChanged = true;
             return newNote;
         } else if (note instanceof BookNote) {
             BookNote newNote = new BookNote();
@@ -177,7 +175,6 @@ public class NoteCache implements Cache<Note> {
                 maxNoteId = newNote.getNoteId();
             }
 
-            cacheChanged = true;
             return newNote;
         }
 
@@ -188,8 +185,6 @@ public class NoteCache implements Cache<Note> {
     public Note remove(Long id) {
         Note note = noteMap.get(id);
         noteMap.remove(id);
-
-        cacheChanged = true;
         return note;
     }
 
@@ -204,7 +199,6 @@ public class NoteCache implements Cache<Note> {
                 cachedNote.setNoteText(note.getNoteText());
                 cachedNote.setNoteStatus(((WorksheetNote) note).getNoteStatus());
 
-                cacheChanged = true;
                 return cachedNote;
             }
         } else if (note instanceof ArticleNote) {
@@ -214,7 +208,6 @@ public class NoteCache implements Cache<Note> {
                 cachedNote.setTagIds(note.getTagIds());
                 cachedNote.setNoteText(note.getNoteText());
 
-                cacheChanged = true;
                 return cachedNote;
             }
         } else if (note instanceof BookNote) {
@@ -225,7 +218,6 @@ public class NoteCache implements Cache<Note> {
                 cachedNote.setTagIds(note.getTagIds());
                 cachedNote.setNoteText(note.getNoteText());
 
-                cacheChanged = true;
                 return cachedNote;
             }
         }

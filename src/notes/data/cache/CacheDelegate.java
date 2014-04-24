@@ -80,6 +80,18 @@ public class CacheDelegate implements XMLSerializable<CacheDelegate> {
         tagCache.setCacheChanged(false);
     }
 
+    public void setDocumentCacheChanged(boolean isChanged) {
+        documentCache.setCacheChanged(isChanged);
+    }
+
+    public void setNoteCacheChanged(boolean isChanged) {
+        noteCache.setCacheChanged(isChanged);
+    }
+
+    public void setTagCacheChanged(boolean isChanged) {
+        tagCache.setCacheChanged(isChanged);
+    }
+
     /**
      * Reads all data into memory from XML file.
      */

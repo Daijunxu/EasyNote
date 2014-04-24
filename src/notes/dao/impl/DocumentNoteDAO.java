@@ -47,10 +47,12 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
         // Remove all occurrences of the tag in notes.
         for (Note note : CACHE.getNoteCache().findAll()) {
             note.getTagIds().remove(tagId);
+            CACHE.setNoteCacheChanged(true);
         }
 
         // Remove the tag from the tag cache.
         CACHE.getTagCache().remove(tagId);
+        CACHE.setTagCacheChanged(true);
     }
 
     @Override
@@ -199,6 +201,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
 
     @Override
     public Document updateDocument(Document document) throws DuplicateRecordException {
+        CACHE.setDocumentCacheChanged(true);
         return CACHE.getDocumentCache().update(document);
     }
 
@@ -209,11 +212,13 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
 
     @Override
     public Tag updateTag(Tag tag) {
+        CACHE.setTagCacheChanged(true);
         return CACHE.getTagCache().update(tag);
     }
 
     @Override
     public Document saveDocument(Document document) throws DuplicateRecordException {
+        CACHE.setDocumentCacheChanged(true);
         return CACHE.getDocumentCache().insert(document);
     }
 
@@ -224,6 +229,7 @@ public class DocumentNoteDAO implements NoteDAO<Note, Document> {
 
     @Override
     public Tag saveTag(Tag tag) {
+        CACHE.setTagCacheChanged(true);
         return CACHE.getTagCache().insert(tag);
     }
 

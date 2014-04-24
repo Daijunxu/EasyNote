@@ -37,10 +37,12 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
         // Remove all notes under the document.
         for (Long noteId : cachedArticle.getNotesList()) {
             CACHE.getNoteCache().remove(noteId);
+            CACHE.setNoteCacheChanged(true);
         }
 
         // Remove the document in the document CACHE.
         CACHE.getDocumentCache().remove(cachedArticle.getDocumentId());
+        CACHE.setDocumentCacheChanged(true);
     }
 
     @Override
@@ -53,9 +55,11 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
 
         // Remove the note in the note CACHE.
         CACHE.getNoteCache().remove(noteId);
+        CACHE.setNoteCacheChanged(true);
 
         // Update article's last updated time.
         article.setLastUpdatedTime(new Date());
+        CACHE.setDocumentCacheChanged(true);
     }
 
     /**
@@ -89,9 +93,11 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
         Article article = (Article) CACHE.getDocumentCache().find(note.getDocumentId());
 
         ArticleNote cachedNote = (ArticleNote) (CACHE.getNoteCache().update(note));
+        CACHE.setNoteCacheChanged(true);
 
         // Update article's last updated time.
         article.setLastUpdatedTime(new Date());
+        CACHE.setDocumentCacheChanged(true);
 
         return cachedNote;
     }
@@ -101,6 +107,7 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
         if (note instanceof ArticleNote) {
             try {
                 ArticleNote savedNote = (ArticleNote) CACHE.getNoteCache().insert(note);
+                CACHE.setNoteCacheChanged(true);
 
                 // Add the note ID to corresponding notes list in the article.
                 Article article = (Article) (CACHE.getDocumentCache().find(savedNote.getDocumentId()));
@@ -108,6 +115,8 @@ public class ArticleNoteDAO extends DocumentNoteDAO {
 
                 // Update article's last updated time.
                 article.setLastUpdatedTime(new Date());
+
+                CACHE.setDocumentCacheChanged(true);
 
                 return savedNote;
             } catch (DuplicateRecordException e) {

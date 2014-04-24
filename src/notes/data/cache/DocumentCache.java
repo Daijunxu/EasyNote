@@ -143,7 +143,6 @@ public class DocumentCache implements Cache<Document> {
                 maxDocumentId = newBook.getDocumentId();
             }
 
-            cacheChanged = true;
             return newBook;
         } else if (document instanceof Article) {
             Article newArticle = new Article();
@@ -175,7 +174,6 @@ public class DocumentCache implements Cache<Document> {
                 maxDocumentId = newArticle.getDocumentId();
             }
 
-            cacheChanged = true;
             return newArticle;
         } else if (document instanceof Workset) {
             Workset newWorkset = new Workset();
@@ -203,7 +201,6 @@ public class DocumentCache implements Cache<Document> {
                 maxDocumentId = newWorkset.getDocumentId();
             }
 
-            cacheChanged = true;
             return newWorkset;
         }
 
@@ -214,8 +211,6 @@ public class DocumentCache implements Cache<Document> {
     public Document remove(Long id) {
         Document document = documentMap.get(id);
         documentMap.remove(id);
-
-        cacheChanged = true;
         return document;
     }
 
@@ -242,7 +237,6 @@ public class DocumentCache implements Cache<Document> {
                     cachedBook.setLastUpdatedTime(((Book) document).getLastUpdatedTime());
                 }
 
-                cacheChanged = true;
                 return cachedBook;
             }
         } else if (document instanceof Article) {
@@ -258,7 +252,6 @@ public class DocumentCache implements Cache<Document> {
                     cachedArticle.setLastUpdatedTime(((Article) document).getLastUpdatedTime());
                 }
 
-                cacheChanged = true;
                 return cachedArticle;
             }
         } else if (document instanceof Workset) {
@@ -275,7 +268,6 @@ public class DocumentCache implements Cache<Document> {
                     cachedWorkset.setLastUpdatedTime(((Workset) document).getLastUpdatedTime());
                 }
 
-                cacheChanged = true;
                 return cachedWorkset;
             }
         }

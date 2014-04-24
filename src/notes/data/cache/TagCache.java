@@ -128,7 +128,6 @@ public class TagCache implements Cache<Tag> {
             maxTagId = newTag.getTagId();
         }
 
-        cacheChanged = true;
         return newTag;
     }
 
@@ -137,8 +136,6 @@ public class TagCache implements Cache<Tag> {
         Tag tag = tagIdMap.get(id);
         tagIdMap.remove(id);
         tagTextMap.remove(tag.getTagText());
-
-        cacheChanged = true;
         return tag;
     }
 
@@ -150,7 +147,6 @@ public class TagCache implements Cache<Tag> {
             updateTag.setTagText(tag.getTagText());
             tagTextMap.put(updateTag.getTagText(), updateTag);
 
-            cacheChanged = true;
             return updateTag;
         }
         return null;

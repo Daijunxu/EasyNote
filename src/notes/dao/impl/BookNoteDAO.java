@@ -48,6 +48,7 @@ public class BookNoteDAO extends DocumentNoteDAO {
         // Remove all notes in the chapter.
         for (Long noteId : cachedChapter.getNotesList()) {
             CACHE.getNoteCache().remove(noteId);
+            CACHE.setNoteCacheChanged(true);
         }
 
         // Remove the chapter.
@@ -55,6 +56,8 @@ public class BookNoteDAO extends DocumentNoteDAO {
 
         // Update book's last updated time.
         cachedBook.setLastUpdatedTime(new Date());
+
+        CACHE.setDocumentCacheChanged(true);
     }
 
     @Override
@@ -66,11 +69,13 @@ public class BookNoteDAO extends DocumentNoteDAO {
         for (Chapter chapter : chaptersMap.values()) {
             for (Long noteId : chapter.getNotesList()) {
                 CACHE.getNoteCache().remove(noteId);
+                CACHE.setNoteCacheChanged(true);
             }
         }
 
         // Remove the document in the document CACHE.
         CACHE.getDocumentCache().remove(cachedBook.getDocumentId());
+        CACHE.setDocumentCacheChanged(true);
     }
 
     @Override
@@ -84,9 +89,11 @@ public class BookNoteDAO extends DocumentNoteDAO {
 
         // Remove the note in the note CACHE.
         CACHE.getNoteCache().remove(noteId);
+        CACHE.setNoteCacheChanged(true);
 
         // Update book's last updated time.
         book.setLastUpdatedTime(new Date());
+        CACHE.setDocumentCacheChanged(true);
     }
 
     /**
@@ -167,6 +174,7 @@ public class BookNoteDAO extends DocumentNoteDAO {
 
             // Update book's last updated time.
             cachedBook.setLastUpdatedTime(new Date());
+            CACHE.setDocumentCacheChanged(true);
 
             return cachedChapter;
         } catch (Exception e) {
@@ -182,6 +190,7 @@ public class BookNoteDAO extends DocumentNoteDAO {
         Book book = (Book) (CACHE.getDocumentCache().find(note.getDocumentId()));
 
         cachedNote = (BookNote) CACHE.getNoteCache().update(note);
+        CACHE.setNoteCacheChanged(true);
 
         // Update chapters' notes list.
         if (!oldChapterId.equals(((BookNote) note).getChapterId())) {
@@ -193,6 +202,7 @@ public class BookNoteDAO extends DocumentNoteDAO {
 
         // Update book's last updated time.
         book.setLastUpdatedTime(new Date());
+        CACHE.setDocumentCacheChanged(true);
 
         return cachedNote;
     }
@@ -218,6 +228,7 @@ public class BookNoteDAO extends DocumentNoteDAO {
 
             // Update book's last updated time.
             cachedBook.setLastUpdatedTime(new Date());
+            CACHE.setDocumentCacheChanged(true);
 
             return chapter;
         } catch (Exception e) {
@@ -231,6 +242,7 @@ public class BookNoteDAO extends DocumentNoteDAO {
         if (note instanceof BookNote) {
             try {
                 BookNote newNote = (BookNote) CACHE.getNoteCache().insert(note);
+                CACHE.setNoteCacheChanged(true);
 
                 // Add the note ID to corresponding notes list in the chapter.
                 Book book = (Book) (CACHE.getDocumentCache().find(newNote.getDocumentId()));
@@ -239,6 +251,7 @@ public class BookNoteDAO extends DocumentNoteDAO {
 
                 // Update book's last updated time.
                 book.setLastUpdatedTime(new Date());
+                CACHE.setDocumentCacheChanged(true);
 
                 return newNote;
             } catch (DuplicateRecordException e) {
