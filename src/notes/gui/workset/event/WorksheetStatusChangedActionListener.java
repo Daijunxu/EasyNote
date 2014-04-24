@@ -1,8 +1,10 @@
 package notes.gui.workset.event;
 
 import notes.businesslogic.WorksetBusinessLogic;
+import notes.businessobjects.workset.Workset;
 import notes.businessobjects.workset.Worksheet;
 import notes.businessobjects.workset.WorksheetStatus;
+import notes.dao.impl.WorksheetNoteDAO;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 
@@ -24,6 +26,7 @@ public class WorksheetStatusChangedActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         WorksetBusinessLogic logic = WorksetBusinessLogic.get();
+        Workset workset = logic.getCurrentWorkset();
         Worksheet worksheet = logic.getCurrentWorksheet();
 
         if (WorksheetStatus.ACTIVE.equals(worksheet.getStatus())) {
@@ -32,7 +35,10 @@ public class WorksheetStatusChangedActionListener implements ActionListener {
             worksheet.setStatus(WorksheetStatus.ACTIVE);
         }
 
-        MainPanel.get().updateWorksetPanel(logic.getCurrentWorkset().getDocumentId(), logic.getCurrentWorksheet().getWorksheetId(), null);
+        // Save the updated worksheet.
+        WorksheetNoteDAO.get().updateWorksheet(worksheet, workset.getDocumentId(), worksheet.getWorksheetId());
+
+        MainPanel.get().updateWorksetPanel(workset.getDocumentId(), logic.getCurrentWorksheet().getWorksheetId(), null);
         SoundFactory.playUpdate();
     }
 }

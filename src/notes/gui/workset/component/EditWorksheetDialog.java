@@ -41,6 +41,7 @@ public class EditWorksheetDialog extends JDialog {
             updateWorksheet.setWorksheetTitle(WordUtils.capitalize(worksheetTitleField.getText().trim()));
             updateWorksheet.setNotesList(logic.getCurrentWorksheet().getNotesList());
             updateWorksheet.setLastUpdatedTime(new Date());
+            updateWorksheet.setStatus(logic.getCurrentWorksheet().getStatus());
 
             // Save the updated worksheet.
             Worksheet cachedWorksheet = dao.updateWorksheet(updateWorksheet, logic.getCurrentWorkset().getDocumentId(),

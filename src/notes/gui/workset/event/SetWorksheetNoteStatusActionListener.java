@@ -1,8 +1,9 @@
 package notes.gui.workset.event;
 
 import notes.businesslogic.WorksetBusinessLogic;
-import notes.businessobjects.workset.WorksheetNoteStatus;
 import notes.businessobjects.workset.WorksheetNote;
+import notes.businessobjects.workset.WorksheetNoteStatus;
+import notes.dao.impl.WorksheetNoteDAO;
 import notes.gui.main.component.MainPanel;
 import notes.utils.SoundFactory;
 
@@ -34,6 +35,9 @@ public class SetWorksheetNoteStatusActionListener implements ActionListener {
                 JMenuItem source = (JMenuItem) event.getSource();
                 WorksheetNoteStatus statusToSet = WorksheetNoteStatus.getNoteStatusFromDescription(source.getText());
                 currentWorksheetNote.setNoteStatus(statusToSet);
+
+                // Save the updated note.
+                WorksheetNoteDAO.get().updateNote(currentWorksheetNote);
 
                 // Update the note panel.
                 MainPanel.get().updateWorksheetNotePanel(WorksetBusinessLogic.get().getCurrentWorksheet(), null);
